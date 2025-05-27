@@ -67,6 +67,7 @@ public class Inicio extends JFrame {
 			public void run() {
 				try {
 //					Inicializadora.iniciar();
+					System.out.println(1111);
 					Inicio frame = new Inicio();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
