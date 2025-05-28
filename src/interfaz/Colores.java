@@ -3,30 +3,30 @@ package interfaz;
 import java.awt.Color;
 
 public class Colores {
-	private static final Color verde= new Color(0,196,106);
-	private static final Color verdeOscuro= new Color(1,46,46);
-	private static final Color azulBarra = new Color(13, 44, 64);
-	private static final Color azulMarino= new Color(9, 48, 74);
-	private static final Color blancuzo= new Color(206,207,216);
+	private static final Color negro= new Color(13,13,13);
+	private static final Color azulOscuro= new Color(3,29,64);
+	private static final Color azulCielo = new Color(102, 128, 141);
+	private static final Color azulVerdoso= new Color(63, 82, 89);
+	private static final Color blancuzo= new Color(218,218,218);
 	
 	
-	public static Color getAzulbarra() {
-		return azulBarra;
+	public static Color getNegro() {
+		return negro;
 	}
 
-	public static Color getVerde() {
-		return verde;
+	public static Color getAzulOScuro() {
+		return azulOscuro;
 	}
 
-	public static Color getAzulMarino() {
-		return azulMarino;
+	public static Color getAzulCielo() {
+		return azulCielo;
 	}
 
 	public static Color getBlancuzo() {
 		return blancuzo;
 	}
 
-	public static Color getVerdeoscuro() {
-		return verdeOscuro;
+	public static Color getAzulVerdoso() {
+		return azulVerdoso;
 	}
 }
