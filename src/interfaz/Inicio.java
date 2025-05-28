@@ -58,6 +58,7 @@ public class Inicio extends JFrame {
 	private JMenuItem mntmInformacinDeLos;
 	private JMenu mnVer;
 	private JMenuItem mntmPersonal;
+	private JMenuItem mntmReporte;
 
 	/**
 	 * Launch the application.
@@ -86,7 +87,7 @@ public class Inicio extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel(){
 			public void paintComponent(Graphics g){
-				Image img = java.awt.Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/images/fondo.png"));
+				Image img = java.awt.Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/fondo.png"));
 				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 			}
 		};
@@ -144,6 +145,7 @@ public class Inicio extends JFrame {
 			mnReportes.setIcon(new ImageIcon(Inicio.class.getResource("/images/menu.png")));
 			mnReportes.setForeground(Colores.getNegro());
 			mnReportes.setFont(new Font("Tahoma", Font.PLAIN, 27));
+			mnReportes.add(getMntmReporte());
 		}
 		return mnReportes;
 	}
@@ -239,5 +241,18 @@ public class Inicio extends JFrame {
 			mntmPersonal.setFont(new Font("Tahoma", Font.BOLD, 20));
 		}
 		return mntmPersonal;
+	}
+	private JMenuItem getMntmReporte() {
+		if (mntmReporte == null) {
+			mntmReporte = new JMenuItem("Chequeo de Registros");
+			mntmReporte.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					TablaReporte1 tabla = new TablaReporte1(Inicio.this);
+					tabla.setVisible(true);
+				}
+			});
+			mntmReporte.setFont(new Font("Tahoma", Font.BOLD, 20));
+		}
+		return mntmReporte;
 	}
 }

@@ -20,8 +20,21 @@ public class Registro {
         this.fecha = LocalDate.now();
 
     }
+    
 
-    public LocalTime getHoraEntrada() {
+    
+    public void setHoraSalida(LocalTime horaSalida) {
+		this.horaSalida = horaSalida;
+	}
+
+
+
+	public LocalTime getHoraSalida(){
+    	return horaSalida;
+    }
+
+
+	public LocalTime getHoraEntrada() {
 		return horaEntrada;
 	}
 

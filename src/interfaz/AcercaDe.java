@@ -6,9 +6,12 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
@@ -26,7 +29,7 @@ public class AcercaDe extends JDialog {
 
 	private final JPanel contentPanel = new JPanel(){
 		public void paintComponent(Graphics g){
-			Image img= Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/acercaDeFondo.png"));
+			Image img= Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/fondoDesenfocado.png"));
 			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		}
 	};
@@ -72,11 +75,16 @@ public class AcercaDe extends JDialog {
 	}
 	private JButton getBtnSalir() {
 		if (btnSalir == null) {
-			btnSalir = new JButton("X");
+			btnSalir = new JButton("");
 			btnSalir.setBounds(1057, 13, 58, 48);
-			btnSalir.setBackground(Colores.getBlancuzo());
+			Border bordeRedondo = BorderFactory.createLineBorder(Color.WHITE, 2, true);
+			btnSalir.setBorder(bordeRedondo);
+			btnSalir.setContentAreaFilled(false);
+			btnSalir.setOpaque(true);
+			btnSalir.setBackground(Color.LIGHT_GRAY);
 			btnSalir.setForeground(new Color(6, 43, 63));
-			btnSalir.setFont(new Font("Tahoma", Font.BOLD, 17));
+			btnSalir.setFont(new Font("Tahoma", Font.BOLD, 29));
+			btnSalir.setIcon(new ImageIcon(AcercaDe.class.getResource("/images/close.png")));
 			btnSalir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					dispose();
