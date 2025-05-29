@@ -109,7 +109,7 @@ public class IniciarSesion extends JDialog {
 		setBounds(100, 100, 352, 489);
 		fac = new Facultad();
 		setUndecorated(true);
-
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 240, 245));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -143,7 +143,7 @@ public class IniciarSesion extends JDialog {
 				crearRegistro();
 			}
 		});
-		btnIniciar.setBounds(124, 416, 97, 23);
+		btnIniciar.setBounds(106, 416, 139, 23);
 		contentPanel.add(btnIniciar);
 
 		JLabel lblLocal = new JLabel("Local");
@@ -259,6 +259,10 @@ public class IniciarSesion extends JDialog {
 		btnNewButton_1 = new JButton("New button");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				IniciarAdim inicio = new IniciarAdim(IniciarSesion.this);
+				inicio.setVisible(true);
+				
 				
 				
 			}
