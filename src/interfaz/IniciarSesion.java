@@ -11,6 +11,40 @@ import javax.swing.border.EmptyBorder;
 public class IniciarSesion extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+<<<<<<< HEAD
+=======
+	private JTextField nombreUser;
+	private JComboBox<TipoLocal> comboBoxLocal;
+	private JTextField carnet;
+	private JLabel lblDatosErroneos;
+	private Facultad fac ;
+	private JTextField responsable;
+	private boolean usuario = true;
+	JLabel lblContrasea;
+	JLabel lblUsuario;
+	JLabel lblResponsable;
+	JToggleButton tglbtnNewToggleButton;
+	JToggleButton tglbtnUsuario;
+	JButton btnNewButton;
+
+	/**
+	 * @wbp.nonvisual location=382,229
+	 */
+	private ButtonGroup buttonGroup ;
+	private JButton btnNewButton_1;
+	/**
+	 * @wbp.nonvisual location=57,89
+	 */
+	
+	/**
+	 * @wbp.nonvisual location=377,239
+	 */
+
+	/**
+	 * @wbp.nonvisual location=467,129
+	 */
+
+>>>>>>> origin/nicole
 
 	/**
 	 * Launch the application.
