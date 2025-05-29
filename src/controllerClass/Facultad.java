@@ -88,6 +88,7 @@ public class Facultad {
 		registros.add(new Registro(personal.get(0), locales.get(0)));
 		registros.add(new Registro(personal.get(1), locales.get(0)));
 		registros.add(new Registro(personal.get(2), locales.get(0)));
+		registros.add(new Registro(personal.get(2), locales.get(2)));
 		registros.add(new Registro(personal.get(3), locales.get(0)));
 		registros.add(new Registro(personal.get(4), locales.get(0)));
 		registros.add(new Registro(personal.get(5), locales.get(0)));
@@ -105,6 +106,8 @@ public class Facultad {
 
 		registros.get(0).setHoraEntrada(LocalTime.of(8,0));
 		registros.get(0).setHoraSalida(LocalTime.of(12, 0));
+		registros.get(0).setHoraEntrada(LocalTime.of(13, 0));
+		registros.get(0).setHoraSalida(LocalTime.of(14, 0));
 		registros.get(1).setHoraEntrada(LocalTime.of(8,0));
 		registros.get(1).setHoraSalida(LocalTime.of(13, 0));
 		registros.get(2).setHoraEntrada(LocalTime.of(8,0));
