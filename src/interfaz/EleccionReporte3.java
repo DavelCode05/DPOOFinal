@@ -45,6 +45,7 @@ import locales.Local;
 
 import com.toedter.calendar.demo.DateChooserPanel;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.SwingConstants;
 
 public class EleccionReporte3 extends JDialog {
 
@@ -58,6 +59,12 @@ public class EleccionReporte3 extends JDialog {
 	JComboBox<String> comboBox;
 	JRadioButton rdbtnDa;
 	JRadioButton rdbtnTabla;
+	JLabel errores;
+	JRadioButton rdbtnMes;
+	JRadioButton rdbtnSemana;
+	JLabel lblFormato;
+	JLabel lblFormaDeVisualizacin;
+	JLabel lblSeleccionarFecha;
 	/**
 	 * @wbp.nonvisual location=422,329
 	 */
@@ -85,7 +92,7 @@ public class EleccionReporte3 extends JDialog {
 	 */
 	public EleccionReporte3() {
 		fac = new Facultad();
-		setBounds(100, 100, 365, 434);
+		setBounds(100, 100, 365, 452);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(216, 191, 216));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -113,28 +120,28 @@ public class EleccionReporte3 extends JDialog {
 		comboBoxLocal.setBounds(10, 37, 162, 20);
 		panelloc.add(comboBoxLocal);
 
-		JLabel lblFormaDeVisualizacin = new JLabel("Forma de visualizaci\u00F3n:");
+		lblFormaDeVisualizacin = new JLabel("Forma de visualizaci\u00F3n:");
 		lblFormaDeVisualizacin.setFont(new Font("Verdana", Font.PLAIN, 12));
 		lblFormaDeVisualizacin.setBounds(96, 289, 147, 14);
 		contentPanel.add(lblFormaDeVisualizacin);
 
-		 rdbtnTabla = new JRadioButton("Tabla");
+		rdbtnTabla = new JRadioButton("Tabla");
 		rdbtnTabla.setBackground(new Color(216, 191, 216));
-//		rdbtnTabla.addItemListener(new ItemListener() {
-//			public void itemStateChanged(ItemEvent arg0) {
-//				if(arg0.getStateChange()==ItemEvent.SELECTED){
-//					String local = comboBoxLocal.getSelectedItem().toString();
-//					Local loc = fac.buscarLocal(local);
-//
-//
-//					int[] datos = fac.entradaALaFAcuPorHoras(LocalDate.now(), loc);
-//					EntradasTable t = new EntradasTable(datos);
-//
-//
-//
-//				}
-//			}
-//		});
+		//		rdbtnTabla.addItemListener(new ItemListener() {
+		//			public void itemStateChanged(ItemEvent arg0) {
+		//				if(arg0.getStateChange()==ItemEvent.SELECTED){
+		//					String local = comboBoxLocal.getSelectedItem().toString();
+		//					Local loc = fac.buscarLocal(local);
+		//
+		//
+		//					int[] datos = fac.entradaALaFAcuPorHoras(LocalDate.now(), loc);
+		//					EntradasTable t = new EntradasTable(datos);
+		//
+		//
+		//
+		//				}
+		//			}
+		//		});
 		rdbtnTabla.setBounds(77, 321, 93, 23);
 		contentPanel.add(rdbtnTabla);
 
@@ -147,7 +154,7 @@ public class EleccionReporte3 extends JDialog {
 		dateChooser.setBounds(49, 228, 121, 20);
 		contentPanel.add(dateChooser);
 
-		JLabel lblSeleccionarFecha = new JLabel("Seleccionar Fecha:");
+		lblSeleccionarFecha = new JLabel("Seleccionar Fecha:");
 		lblSeleccionarFecha.setFont(new Font("Verdana", Font.PLAIN, 12));
 		lblSeleccionarFecha.setBounds(107, 187, 121, 14);
 		contentPanel.add(lblSeleccionarFecha);
@@ -183,24 +190,24 @@ public class EleccionReporte3 extends JDialog {
 		label.setBounds(59, 251, 46, 14);
 		contentPanel.add(label);
 
-		JLabel lblFormato = new JLabel("Formato:");
+		lblFormato = new JLabel("Formato:");
 		lblFormato.setFont(new Font("Verdana", Font.PLAIN, 12));
 		lblFormato.setBounds(22, 143, 78, 14);
 		contentPanel.add(lblFormato);
 
-		 rdbtnDa = new JRadioButton("D\u00EDa");
+		rdbtnDa = new JRadioButton("D\u00EDa");
 		rdbtnDa.setBackground(new Color(216, 191, 216));
 		rdbtnDa.setFont(new Font("Verdana", Font.PLAIN, 12));
 		rdbtnDa.setBounds(96, 140, 47, 23);
 		contentPanel.add(rdbtnDa);
 
-		JRadioButton rdbtnSemana = new JRadioButton("Semana");
+		rdbtnSemana = new JRadioButton("Semana");
 		rdbtnSemana.setBackground(new Color(216, 191, 216));
 		rdbtnSemana.setFont(new Font("Verdana", Font.PLAIN, 12));
 		rdbtnSemana.setBounds(150, 140, 78, 23);
 		contentPanel.add(rdbtnSemana);
 
-		JRadioButton rdbtnMes = new JRadioButton("Mes");
+		rdbtnMes = new JRadioButton("Mes");
 		rdbtnMes.setBackground(new Color(216, 191, 216));
 		rdbtnMes.setFont(new Font("Verdana", Font.PLAIN, 12));
 		rdbtnMes.setBounds(230, 140, 109, 23);
@@ -213,13 +220,21 @@ public class EleccionReporte3 extends JDialog {
 		JButton btnMostrar = new JButton("Mostrar");
 		btnMostrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(rdbtnDa.isSelected())
+
 				representarReportePorDia();
 			}
 		});
 		btnMostrar.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnMostrar.setBounds(121, 361, 89, 23);
+		btnMostrar.setBounds(119, 379, 89, 23);
 		contentPanel.add(btnMostrar);
+
+		errores = new JLabel("Faltan elementos por seleccionar");
+		errores.setFont(new Font("Verdana", Font.PLAIN, 13));
+		errores.setVisible(false);
+		errores.setForeground(new Color(255, 0, 0));
+		errores.setHorizontalAlignment(SwingConstants.CENTER);
+		errores.setBounds(22, 354, 297, 14);
+		contentPanel.add(errores);
 
 
 
@@ -228,31 +243,80 @@ public class EleccionReporte3 extends JDialog {
 
 	public void representarReportePorDia(){
 		Local loc = null;
-		LocalDate fecha = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		int [] datos;
-		String []locales;
+		LocalDate fecha = null;
+		int [] datos = null;
+		String []locales = null;
+
+		if(!rdbtnDa.isSelected()&& !rdbtnMes.isSelected() && ! rdbtnSemana.isSelected()){
+			lblFormato.setForeground(Color.red);
+			errores.setVisible(true);
+		}
+		else{
+			lblFormato.setForeground(Color.black);
+			errores.setVisible(false);
+		}
+
 		if(comboBox.getSelectedItem().toString().equals("LOCAL")){
-			
+
 			loc = fac.buscarLocal(comboBoxLocal.getSelectedItem().toString());
-			fecha = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			datos = fac.entradaALaFAcuPorHoras(fecha, loc);
-			locales= null;
-			
+			if(dateChooser.getDate()!=null){
+				fecha = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+				datos = fac.entradaALaFAcuPorHoras(fecha, loc);
+				locales= null;
+				errores.setVisible(false);
+				lblSeleccionarFecha.setForeground(Color.black);
+			}
+			else {
+				lblSeleccionarFecha.setForeground(Color.red);
+				errores.setVisible(true);
+			}
+
+
 
 		}
 		else{
-			datos = fac.entradaALAFacuPorDia(fecha);
-			locales = fac.nombresLocales();
+
+			if(dateChooser.getDate()!=null){
+				fecha = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				lblSeleccionarFecha.setForeground(Color.black);
+				datos = fac.entradaALAFacuPorDia(fecha);
+				locales = fac.nombresLocales();
+			}
+			else {
+				lblSeleccionarFecha.setForeground(Color.red);
+				errores.setVisible(true);
+			}
 		}
-		
+
 		if(rdbtnGraficoDeBarras.isSelected()){
-			GraficoBarrasDialog g = new GraficoBarrasDialog(datos,EleccionReporte3.this, locales);
-			g.setVisible(true);
+			lblFormaDeVisualizacin.setForeground(Color.black);
+			errores.setVisible(false);
+			if(!errores.isVisible()){
+				GraficoBarrasDialog g = new GraficoBarrasDialog(datos,EleccionReporte3.this, locales);
+				g.setVisible(true);
+
+			}
 		}
 		else if(rdbtnTabla.isSelected()){
-			TablaReporte3 t = new TablaReporte3(fecha, loc, EleccionReporte3.this);
-			t.setVisible(true);
-			
+			errores.setVisible(false);
+			lblFormaDeVisualizacin.setForeground(Color.black);
+			if(!errores.isVisible()){
+				if(comboBox.getSelectedItem().toString().equals("LOCAL")){
+					TablaReporte3 t = new TablaReporte3(fecha, loc, EleccionReporte3.this);
+					t.setVisible(true);
+
+				}
+
+			}
 		}
+		else{
+			lblFormaDeVisualizacin.setForeground(Color.red);
+			errores.setVisible(true);
+
+		}
+
+
+
 	}
 }
