@@ -92,7 +92,9 @@ public class IniciarAdim extends JDialog {
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(iniciar()){
-					
+					dispose();
+					Inicio ini = new Inicio();
+					ini.setVisible(true);
 				}
 			}
 		});
@@ -102,10 +104,6 @@ public class IniciarAdim extends JDialog {
 		JButton btnAtras = new JButton("Atras");
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				dispose();
-				IniciarSesion inicio = new IniciarSesion();
-				inicio.setVisible(true);
-				
 				
 			}
 		});
