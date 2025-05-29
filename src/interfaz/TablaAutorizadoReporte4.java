@@ -38,7 +38,7 @@ public class TablaAutorizadoReporte4 extends JDialog {
 	 * Create the dialog.
 	 */
 	public TablaAutorizadoReporte4() {
-		fac= new Facultad();
+		fac= Facultad.getFacultad();
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

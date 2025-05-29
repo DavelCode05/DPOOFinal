@@ -1,5 +1,6 @@
 package util;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
@@ -18,8 +19,9 @@ public class TablaRegistrosReporte1 extends DefaultTableModel{
 	public void cargarInfo(ArrayList<Registro> registros)
 	{
 		for(int i=0; i < registros.size(); i++){
+			String hora= registros.get(i).getHoraEntrada().format(DateTimeFormatter.ofPattern("HH:mm"));
 
-			Object [] newR = new Object[]{registros.get(i).getPersona().getNombre(), registros.get(i).getLocal().getTipo(), registros.get(i).getHoraEntrada(),
+			Object [] newR = new Object[]{registros.get(i).getPersona().getNombre(), registros.get(i).getLocal().getTipo(), hora,
 					registros.get(i).getHoraSalida()
 			};
 			this.addRow(newR);

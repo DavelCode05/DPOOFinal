@@ -39,7 +39,7 @@ public class TablaReporte3 extends JDialog {
 
 	public TablaReporte3(LocalDate dia, Local l, JDialog padre) {
 		super(padre, "Entradas a la facultad", true);
-		fac=new Facultad();
+		fac= Facultad.getFacultad();
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
 		contentPanel.setBounds(0, 260, 434, 1);

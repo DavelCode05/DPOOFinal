@@ -29,6 +29,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import com.toedter.calendar.JDateChooser;
 
 public class TablaReporte1 extends JDialog {
 
@@ -47,6 +48,10 @@ public class TablaReporte1 extends JDialog {
 	private JLabel lblNewLabel_1;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
+	private JDateChooser dateChooser;
+	private JDateChooser dateChooser_1;
+	private JLabel lblNewLabel_2;
+	private JLabel lblNewLabel_3;
 	/**
 	 * Launch the application.
 	 */
@@ -66,7 +71,7 @@ public class TablaReporte1 extends JDialog {
 	public TablaReporte1(JFrame padre) {
 		super(padre, "Reporte 1", true);
 		setTitle("Chequeo de registros");
-		fac = new Facultad();
+		fac = Facultad.getFacultad();
 		setBounds(100, 100, 842, 628);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -81,6 +86,10 @@ public class TablaReporte1 extends JDialog {
 		contentPanel.add(getLblNewLabel_1());
 		contentPanel.add(getBtnNewButton());
 		contentPanel.add(getBtnNewButton_1());
+		contentPanel.add(getDateChooser());
+		contentPanel.add(getDateChooser_1());
+		contentPanel.add(getLblNewLabel_2());
+		contentPanel.add(getLblNewLabel_3());
 
 
 
@@ -199,5 +208,33 @@ public class TablaReporte1 extends JDialog {
 			});
 		}
 		return btnNewButton_1;
+	}
+	private JDateChooser getDateChooser() {
+		if (dateChooser == null) {
+			dateChooser = new JDateChooser();
+			dateChooser.setBounds(343, 75, 105, 22);
+		}
+		return dateChooser;
+	}
+	private JDateChooser getDateChooser_1() {
+		if (dateChooser_1 == null) {
+			dateChooser_1 = new JDateChooser();
+			dateChooser_1.setBounds(508, 75, 105, 22);
+		}
+		return dateChooser_1;
+	}
+	private JLabel getLblNewLabel_2() {
+		if (lblNewLabel_2 == null) {
+			lblNewLabel_2 = new JLabel("Desde");
+			lblNewLabel_2.setBounds(343, 49, 56, 16);
+		}
+		return lblNewLabel_2;
+	}
+	private JLabel getLblNewLabel_3() {
+		if (lblNewLabel_3 == null) {
+			lblNewLabel_3 = new JLabel("Hasta");
+			lblNewLabel_3.setBounds(508, 49, 56, 16);
+		}
+		return lblNewLabel_3;
 	}
 }

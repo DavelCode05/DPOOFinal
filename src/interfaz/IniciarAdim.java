@@ -105,7 +105,9 @@ public class IniciarAdim extends JDialog {
 		JButton btnAtras = new JButton("Atras");
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				dispose();
+				IniciarSesion ini = new IniciarSesion();
+				ini.setVisible(true);
 			}
 		});
 		btnAtras.setBounds(152, 280, 89, 23);
