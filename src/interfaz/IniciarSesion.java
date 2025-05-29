@@ -68,6 +68,7 @@ public class IniciarSesion extends JDialog {
 	JToggleButton tglbtnNewToggleButton;
 	JToggleButton tglbtnUsuario;
 	JButton btnNewButton;
+
 	/**
 	 * @wbp.nonvisual location=382,229
 	 */
