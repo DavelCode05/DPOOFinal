@@ -101,8 +101,7 @@ public class Facultad {
 		registros.add(new Registro(personal.get(5), locales.get(0)));
 		registros.add(new Registro(personal.get(5), locales.get(0)));
 		registros.add(new Registro(personal.get(5), locales.get(0)));
-		registros.add(new Registro(new Visitante("Pedro Luis", "000000000000", "Aula", "mmmm", personal.get(2)), locales.get(0)));
-		registros.add(new Registro(new Visitante("Juan Ramon", "000010101010", "Laboratorio", "mmmm", personal.get(2)), locales.get(0)));
+
 
 		registros.get(0).setHoraEntrada(LocalTime.of(8,0));
 		registros.get(0).setHoraSalida(LocalTime.of(12, 0));

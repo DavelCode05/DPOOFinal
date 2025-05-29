@@ -48,6 +48,9 @@ import java.awt.TextArea;
 
 import javax.swing.JRadioButton;
 import javafx.scene.control.ComboBox;
+import javax.swing.ButtonGroup;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class IniciarSesion extends JDialog {
 
@@ -62,6 +65,22 @@ public class IniciarSesion extends JDialog {
 	JLabel lblContrasea;
 	JLabel lblUsuario;
 	JLabel lblResponsable;
+	JToggleButton tglbtnNewToggleButton;
+	JToggleButton tglbtnUsuario;
+	JButton btnNewButton;
+	/**
+	 * @wbp.nonvisual location=382,229
+	 */
+	private ButtonGroup buttonGroup ;
+	private JButton btnNewButton_1;
+	/**
+	 * @wbp.nonvisual location=57,89
+	 */
+	
+	/**
+	 * @wbp.nonvisual location=377,239
+	 */
+
 	/**
 	 * @wbp.nonvisual location=467,129
 	 */
@@ -89,7 +108,8 @@ public class IniciarSesion extends JDialog {
 		setForeground(Color.BLACK);
 		setBounds(100, 100, 352, 489);
 		fac = new Facultad();
-
+		setUndecorated(true);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 240, 245));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -116,20 +136,15 @@ public class IniciarSesion extends JDialog {
 		lblDatosErroneos.setVisible(false);
 		contentPanel.add(lblDatosErroneos);
 
-		JButton btnIniciar = new JButton("Iniciar");
+		JButton btnIniciar = new JButton("Registrarse");
 		btnIniciar.setBackground(new Color(255, 228, 225));
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				crearRegistro();
 			}
 		});
-		btnIniciar.setBounds(67, 416, 89, 23);
+		btnIniciar.setBounds(106, 416, 139, 23);
 		contentPanel.add(btnIniciar);
-
-		JButton button = new JButton("Cancelar");
-		button.setBackground(new Color(255, 228, 225));
-		button.setBounds(187, 416, 89, 23);
-		contentPanel.add(button);
 
 		JLabel lblLocal = new JLabel("Local");
 		lblLocal.setFont(new Font("Verdana", Font.PLAIN, 14));
@@ -184,44 +199,78 @@ public class IniciarSesion extends JDialog {
 		nombreUser.setBounds(123, 13, 201, 20);
 		panelVisitante.add(nombreUser);
 		nombreUser.setColumns(10);
-
-
-		final JButton btnUsuarios = new JButton("Usuarios");
-
-
-		btnUsuarios.setBorder(new MatteBorder(1, 1, 0, 1, (Color) new Color(255, 182, 193)));
-		btnUsuarios.setBackground(new Color(255, 240, 245));
-		btnUsuarios.setBounds(0, 103, 89, 23);
-		contentPanel.add(btnUsuarios);
-
-		final JButton btnVisitante = new JButton("Visitante");
-		btnVisitante.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent arg0) {
-				btnVisitante.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.PINK));
-				btnUsuarios.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.PINK));
-				panelVisitante.setVisible(true);
-				usuario = false;
-
+		
+	 tglbtnUsuario = new JToggleButton("Usuario");
+		tglbtnUsuario.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				if(arg0.getStateChange()==ItemEvent.SELECTED){
+					panelVisitante.setVisible(false);
+					tglbtnUsuario.setBorder(BorderFactory.createMatteBorder(1,1,0,1,Color.PINK));
+					
+				}
+				else
+					tglbtnUsuario.setBorder(BorderFactory.createMatteBorder(0,1,1,1,Color.PINK));
 			}
 		});
-
-		btnVisitante.setBackground(new Color(255, 240, 245));
-		btnVisitante.setForeground(new Color(0, 0, 0));
-		btnVisitante.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.PINK));
-		btnVisitante.setBounds(89, 103, 89, 23);
-		contentPanel.add(btnVisitante);
-
-
-		btnUsuarios.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				panelVisitante.setVisible(false);
-				btnUsuarios.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.PINK));
-				btnVisitante.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.PINK));
-				usuario = true;
-
+		tglbtnUsuario.setBackground(new Color(255, 240, 245));
+		tglbtnUsuario.setSelected(true);
+		tglbtnUsuario.setBorder(BorderFactory.createMatteBorder(1,1,0,1,Color.PINK));
+		tglbtnUsuario.setBackground(null);
+		tglbtnUsuario.setFont(new Font("Verdana", Font.PLAIN, 12));
+		tglbtnUsuario.setBounds(10, 99, 121, 23);
+		contentPanel.add(tglbtnUsuario);
+		
+	 tglbtnNewToggleButton = new JToggleButton("Visitante");
+	 tglbtnNewToggleButton.setBackground(new Color(255, 240, 245));
+	 tglbtnNewToggleButton.setForeground(new Color(0,0,0));
+	 tglbtnNewToggleButton.setBorder(null);
+	 
+		tglbtnNewToggleButton.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				if(arg0.getStateChange()== ItemEvent.SELECTED){
+					panelVisitante.setVisible(true);
+					tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(1,1,0,1,Color.PINK));usuario = true;
+				}
+				else
+					tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(0,1,1,1,Color.PINK));
+				usuario  = false;
+					
 			}
 		});
+		tglbtnNewToggleButton.setFont(new Font("Verdana", Font.PLAIN, 12));
+		tglbtnNewToggleButton.setBounds(130, 99, 121, 23);
+		contentPanel.add(tglbtnNewToggleButton);
+		tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(0,1,1,1,Color.PINK));
+		
+		buttonGroup = new ButtonGroup();
+		buttonGroup.add(tglbtnUsuario);
+		buttonGroup.add(tglbtnNewToggleButton);
+		
+	 btnNewButton = new JButton("x");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		
+		btnNewButton.setBounds(290, 11, 54, 40);
+		contentPanel.add(btnNewButton);
+		
+		btnNewButton_1 = new JButton("New button");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				IniciarAdim inicio = new IniciarAdim(IniciarSesion.this);
+				inicio.setVisible(true);
+				
+				
+				
+			}
+		});
+		btnNewButton_1.setBounds(7, 4, 38, 23);
+		contentPanel.add(btnNewButton_1);
+		
+		
 
 	}
 
