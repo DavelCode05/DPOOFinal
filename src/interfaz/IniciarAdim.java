@@ -95,10 +95,7 @@ public class IniciarAdim extends JDialog {
 					dispose();
 					Inicio ini = new Inicio();
 					ini.setVisible(true);
-<<<<<<< HEAD
-=======
 					
->>>>>>> origin/nicole
 				}
 			}
 		});
