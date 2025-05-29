@@ -58,6 +58,7 @@ public class Inicio extends JFrame {
 	private JMenuItem mntmInformacinDeLos;
 	private JMenu mnVer;
 	private JMenuItem mntmPersonal;
+	private JMenuItem mntmReporte;
 
 	/**
 	 * Launch the application.
@@ -86,11 +87,11 @@ public class Inicio extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel(){
 			public void paintComponent(Graphics g){
-				Image img = java.awt.Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/images/Orqui2.png"));
+				Image img = java.awt.Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/fondo.png"));
 				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 			}
 		};
-		setBackground(Colores.getAzulMarino());
+		setBackground(Colores.getAzulCielo());
 		setBounds(100, 100, 1930, 1000);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setUndecorated(true);
@@ -104,10 +105,11 @@ public class Inicio extends JFrame {
 	private JMenuBar getMenuBar_1() {
 		if (menuBar == null) {
 			menuBar = new JMenuBar();
+			menuBar.setBorderPainted(false);
 			menuBar.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-			menuBar.setForeground(Colores.getAzulMarino());
+			menuBar.setForeground(Colores.getAzulCielo());
 			menuBar.setBounds(0, 0, 1923, 80);
-			menuBar.setBackground(Colores.getAzulMarino());
+			menuBar.setBackground(Colores.getAzulCielo());
 			menuBar.add(getMnSesion());
 			menuBar.add(getMnVer());
 			menuBar.add(getMnAccesos());
@@ -120,9 +122,9 @@ public class Inicio extends JFrame {
 	private JMenu getMnSesion() {
 		if (mnSesion == null) {
 			mnSesion = new JMenu("Sesi\u00F3n");
-			mnSesion.setIcon(new ImageIcon(Inicio.class.getResource("/images/User.png")));
-			mnSesion.setFont(new Font("Tahoma", Font.PLAIN, 24));
-			mnSesion.setForeground(Color.GREEN);
+			mnSesion.setIcon(new ImageIcon(Inicio.class.getResource("/images/user.png")));
+			mnSesion.setFont(new Font("Tahoma", Font.PLAIN, 27));
+			mnSesion.setForeground(Colores.getNegro());
 			mnSesion.add(getMntmCerrar());
 			mnSesion.add(getMntmSalir());
 		}
@@ -131,33 +133,37 @@ public class Inicio extends JFrame {
 	private JMenu getMnAccesos() {
 		if (mnAccesos == null) {
 			mnAccesos = new JMenu("Accesos");
-			mnAccesos.setForeground(Color.GREEN);
-			mnAccesos.setFont(new Font("Tahoma", Font.PLAIN, 24));
+			mnAccesos.setIcon(new ImageIcon(Inicio.class.getResource("/images/acceso.png")));
+			mnAccesos.setForeground(Colores.getNegro());
+			mnAccesos.setFont(new Font("Tahoma", Font.PLAIN, 27));
 		}
 		return mnAccesos;
 	}
 	private JMenu getMnReportes() {
 		if (mnReportes == null) {
 			mnReportes = new JMenu("Reportes");
-			mnReportes.setForeground(Color.GREEN);
-			mnReportes.setFont(new Font("Tahoma", Font.PLAIN, 24));
+			mnReportes.setIcon(new ImageIcon(Inicio.class.getResource("/images/menu.png")));
+			mnReportes.setForeground(Colores.getNegro());
+			mnReportes.setFont(new Font("Tahoma", Font.PLAIN, 27));
+			mnReportes.add(getMntmReporte());
 		}
 		return mnReportes;
 	}
 	private JMenu getMnGestion() {
 		if (mnGestion == null) {
 			mnGestion = new JMenu("Gestion");
-			mnGestion.setForeground(Color.GREEN);
-			mnGestion.setFont(new Font("Tahoma", Font.PLAIN, 24));
+			mnGestion.setIcon(new ImageIcon(Inicio.class.getResource("/images/gestion.png")));
+			mnGestion.setForeground(Colores.getNegro());
+			mnGestion.setFont(new Font("Tahoma", Font.PLAIN, 27));
 		}
 		return mnGestion;
 	}
 	private JMenu getMnInformacionAdicional() {
 		if (mnInformacionAdicional == null) {
 			mnInformacionAdicional = new JMenu("Acerca de");
-			mnInformacionAdicional.setIcon(new ImageIcon(Inicio.class.getResource("/images/Info.png")));
-			mnInformacionAdicional.setForeground(Color.GREEN);
-			mnInformacionAdicional.setFont(new Font("Tahoma", Font.PLAIN, 24));
+			mnInformacionAdicional.setIcon(new ImageIcon(Inicio.class.getResource("/images/about.png")));
+			mnInformacionAdicional.setForeground(Colores.getNegro());
+			mnInformacionAdicional.setFont(new Font("Tahoma", Font.PLAIN, 27));
 			mnInformacionAdicional.add(getMntmInformacinDeLos());
 			mnInformacionAdicional.add(getMntmNewMenuItem());
 		}
@@ -166,14 +172,14 @@ public class Inicio extends JFrame {
 	private JMenuItem getMntmCerrar() {
 		if (mntmCerrar == null) {
 			mntmCerrar = new JMenuItem("Cerrar sesi\u00F3n");
-			mntmCerrar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			mntmCerrar.setFont(new Font("Tahoma", Font.BOLD, 20));
 		}
 		return mntmCerrar;
 	}
 	private JMenuItem getMntmSalir() {
 		if (mntmSalir == null) {
 			mntmSalir = new JMenuItem("Salir");
-			mntmSalir.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			mntmSalir.setFont(new Font("Tahoma", Font.BOLD, 20));
 			mntmSalir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					dispose();
@@ -185,7 +191,7 @@ public class Inicio extends JFrame {
 	private JMenuItem getMntmNewMenuItem() {
 		if (mntmNewMenuItem == null) {
 			mntmNewMenuItem = new JMenuItem("Acerca de");
-			mntmNewMenuItem.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			mntmNewMenuItem.setFont(new Font("Tahoma", Font.BOLD, 20));
 			mntmNewMenuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					try {
@@ -203,16 +209,17 @@ public class Inicio extends JFrame {
 	private JMenuItem getMntmInformacinDeLos() {
 		if (mntmInformacinDeLos == null) {
 			mntmInformacinDeLos = new JMenuItem("Informaci\u00F3n de los desarrolladores");
-			mntmInformacinDeLos.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			mntmInformacinDeLos.setFont(new Font("Tahoma", Font.BOLD, 20));
 		}
 		return mntmInformacinDeLos;
 	}
 	private JMenu getMnVer() {
 		if (mnVer == null) {
 			mnVer = new JMenu("Ver");
-			mnVer.setForeground(Color.GREEN);
+			mnVer.setIcon(new ImageIcon(Inicio.class.getResource("/images/view.png")));
+			mnVer.setForeground(Colores.getNegro());
 			mnVer.setBackground(Color.WHITE);
-			mnVer.setFont(new Font("Tahoma", Font.PLAIN, 24));
+			mnVer.setFont(new Font("Tahoma", Font.PLAIN, 27));
 			mnVer.add(getMntmPersonal());
 		}
 		return mnVer;
@@ -231,8 +238,21 @@ public class Inicio extends JFrame {
 					}
 				}
 			});
-			mntmPersonal.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			mntmPersonal.setFont(new Font("Tahoma", Font.BOLD, 20));
 		}
 		return mntmPersonal;
+	}
+	private JMenuItem getMntmReporte() {
+		if (mntmReporte == null) {
+			mntmReporte = new JMenuItem("Chequeo de Registros");
+			mntmReporte.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					TablaReporte1 tabla = new TablaReporte1(Inicio.this);
+					tabla.setVisible(true);
+				}
+			});
+			mntmReporte.setFont(new Font("Tahoma", Font.BOLD, 20));
+		}
+		return mntmReporte;
 	}
 }

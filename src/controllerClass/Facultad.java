@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 
 
+
+
 import clasesAuxiliares.VisitantesAutorizadosPorX;
 import acceso.Registro;
 import enums.TipoLocal;
@@ -72,20 +74,21 @@ public class Facultad {
 		
 		
 		
-		locales.add(new Local("1234", TipoLocal.ESTUDIANTES, personal.get(2)));
-		locales.add(new Local("1233", TipoLocal.DECANO, personal.get(1) ));
-		locales.add(new Local("1333", TipoLocal.LABORATORIO, personal.get(5) ));
-		locales.add(new Local("3333", TipoLocal.ESPECIALISTAS, personal.get(3) ));
-		locales.add(new Local("1234", TipoLocal.AREA_ADMINISTRATIVA, personal.get(0) ));
-		locales.add(new Local("1234", TipoLocal.JEFE_DEPARTAMENTO, personal.get(4) ));
-		locales.add(new Local("1233", TipoLocal.VICEDECANO, personal.get(6) ));
-		locales.add(new Local("1233", TipoLocal.SERVIDORES, personal.get(7) ));
-		locales.add(new Local("1233", TipoLocal.AULA, personal.get(8) ));
-		locales.add(new Local("1233", TipoLocal.PROFESORES, personal.get(9) ));
+		locales.add(new Local("1234", TipoLocal.Estudiantes, personal.get(2)));
+		locales.add(new Local("1233", TipoLocal.Decano, personal.get(1) ));
+		locales.add(new Local("1333", TipoLocal.Laboratorio, personal.get(5) ));
+		locales.add(new Local("3333", TipoLocal.Especialistas, personal.get(3) ));
+		locales.add(new Local("1234", TipoLocal.Area_Administrativa, personal.get(0) ));
+		locales.add(new Local("1234", TipoLocal.Jefe_Departamento, personal.get(4) ));
+		locales.add(new Local("1233", TipoLocal.Vicedecano, personal.get(6) ));
+		locales.add(new Local("1233", TipoLocal.Servidores, personal.get(7) ));
+		locales.add(new Local("1233", TipoLocal.Aula, personal.get(8) ));
+		locales.add(new Local("1233", TipoLocal.Profesores, personal.get(9) ));
 
 		registros.add(new Registro(personal.get(0), locales.get(0)));
 		registros.add(new Registro(personal.get(1), locales.get(0)));
 		registros.add(new Registro(personal.get(2), locales.get(0)));
+		registros.add(new Registro(personal.get(2), locales.get(2)));
 		registros.add(new Registro(personal.get(3), locales.get(0)));
 		registros.add(new Registro(personal.get(4), locales.get(0)));
 		registros.add(new Registro(personal.get(5), locales.get(0)));
@@ -101,20 +104,37 @@ public class Facultad {
 
 
 		registros.get(0).setHoraEntrada(LocalTime.of(8,0));
+		registros.get(0).setHoraSalida(LocalTime.of(12, 0));
+		registros.get(0).setHoraEntrada(LocalTime.of(13, 0));
+		registros.get(0).setHoraSalida(LocalTime.of(14, 0));
 		registros.get(1).setHoraEntrada(LocalTime.of(8,0));
+		registros.get(1).setHoraSalida(LocalTime.of(13, 0));
 		registros.get(2).setHoraEntrada(LocalTime.of(8,0));
+		registros.get(2).setHoraSalida(LocalTime.of(12, 0));
 		registros.get(3).setHoraEntrada(LocalTime.of(12,0));
+		registros.get(3).setHoraSalida(LocalTime.of(14, 0));
 		registros.get(4).setHoraEntrada(LocalTime.of(12,0));
+		registros.get(4).setHoraSalida(LocalTime.of(13, 0));
 		registros.get(5).setHoraEntrada(LocalTime.of(16,0));
+		registros.get(5).setHoraSalida(LocalTime.of(16, 0));
 		registros.get(6).setHoraEntrada(LocalTime.of(9,0));
+		registros.get(6).setHoraSalida(LocalTime.of(12, 0));
 		registros.get(7).setHoraEntrada(LocalTime.of(10,0));
+		registros.get(7).setHoraSalida(LocalTime.of(14, 0));
 		registros.get(8).setHoraEntrada(LocalTime.of(10,0));
+		registros.get(8).setHoraSalida(LocalTime.of(15, 0));
 		registros.get(9).setHoraEntrada(LocalTime.of(10,0));
+		registros.get(9).setHoraSalida(LocalTime.of(11, 0));
 		registros.get(10).setHoraEntrada(LocalTime.of(13,0));
+		registros.get(10).setHoraSalida(LocalTime.of(15, 0));
 		registros.get(11).setHoraEntrada(LocalTime.of(14,0));
+		registros.get(11).setHoraSalida(LocalTime.of(15, 0));
 		registros.get(12).setHoraEntrada(LocalTime.of(15,0));
+		registros.get(12).setHoraSalida(LocalTime.of(16, 0));
 		registros.get(13).setHoraEntrada(LocalTime.of(8,0));
+		registros.get(13).setHoraSalida(LocalTime.of(12, 0));
 		registros.get(14).setHoraEntrada(LocalTime.of(11,0));
+		registros.get(14).setHoraSalida(LocalTime.of(14, 0));
 
 	}
 
@@ -202,27 +222,27 @@ public class Facultad {
 			permitido = true;
 		} else 
 			if(persona instanceof Profesor){
-				if(TipoLocal.AULA.name().equalsIgnoreCase(loc) || TipoLocal.ESTUDIANTES.name().equalsIgnoreCase(loc) || TipoLocal.PROFESORES.name().equalsIgnoreCase(loc) 
-						|| TipoLocal.LABORATORIO.name().equalsIgnoreCase(loc)){
+				if(TipoLocal.Aula.name().equalsIgnoreCase(loc) || TipoLocal.Estudiantes.name().equalsIgnoreCase(loc) || TipoLocal.Profesores.name().equalsIgnoreCase(loc) 
+						|| TipoLocal.Laboratorio.name().equalsIgnoreCase(loc)){
 					permitido = true;
 				}
-				else if(TipoLocal.DECANO.name().equalsIgnoreCase(loc) || TipoLocal.VICEDECANO.name().equalsIgnoreCase(loc)|| TipoLocal.ESPECIALISTAS.name().equalsIgnoreCase(loc)
-						|| TipoLocal.AREA_ADMINISTRATIVA.name().equalsIgnoreCase(loc) || TipoLocal.JEFE_DEPARTAMENTO.name().equalsIgnoreCase(loc) ){
+				else if(TipoLocal.Decano.name().equalsIgnoreCase(loc) || TipoLocal.Vicedecano.name().equalsIgnoreCase(loc)|| TipoLocal.Especialistas.name().equalsIgnoreCase(loc)
+						|| TipoLocal.Area_Administrativa.name().equalsIgnoreCase(loc) || TipoLocal.Jefe_Departamento.name().equalsIgnoreCase(loc) ){
 					permitido = cumpleRangoHorario(HORA_INICIO_RESTRINGIDO, HORA_FIN_RESTRINGIDO);
 				}
 			}
-			else if (persona instanceof Estudiante &&( TipoLocal.ESTUDIANTES.name().equalsIgnoreCase(loc) || TipoLocal.AULA.name().equalsIgnoreCase(loc)
-					|| TipoLocal.LABORATORIO.name().equalsIgnoreCase(loc) || TipoLocal.PROFESORES.name().equalsIgnoreCase(loc))){
+			else if (persona instanceof Estudiante &&( TipoLocal.Estudiantes.name().equalsIgnoreCase(loc) || TipoLocal.Aula.name().equalsIgnoreCase(loc)
+					|| TipoLocal.Laboratorio.name().equalsIgnoreCase(loc) || TipoLocal.Profesores.name().equalsIgnoreCase(loc))){
 				permitido = cumpleRangoHorario(HORA_INICIO_RESTRINGIDO, HORA_FIN_RESTRINGIDO);
 			}
 			else if(persona instanceof Especialista || persona instanceof Tecnico){
-				if(TipoLocal.SERVIDORES.name().equalsIgnoreCase(loc)|| TipoLocal.LABORATORIO.name().equalsIgnoreCase(loc) || TipoLocal.ESTUDIANTES.name().equalsIgnoreCase(loc)
-						|| TipoLocal.ESPECIALISTAS.name().equalsIgnoreCase(loc)){
+				if(TipoLocal.Servidores.name().equalsIgnoreCase(loc)|| TipoLocal.Laboratorio.name().equalsIgnoreCase(loc) || TipoLocal.Estudiantes.name().equalsIgnoreCase(loc)
+						|| TipoLocal.Especialistas.name().equalsIgnoreCase(loc)){
 					permitido = true;
 
 				}
-				else if(TipoLocal.DECANO.name().equalsIgnoreCase(loc)|| TipoLocal.VICEDECANO.name().equalsIgnoreCase(loc) || TipoLocal.PROFESORES.name().equalsIgnoreCase(loc)
-						|| TipoLocal.AREA_ADMINISTRATIVA.name().equalsIgnoreCase(loc) || TipoLocal.JEFE_DEPARTAMENTO.name().equalsIgnoreCase(loc)){
+				else if(TipoLocal.Decano.name().equalsIgnoreCase(loc)|| TipoLocal.Vicedecano.name().equalsIgnoreCase(loc) || TipoLocal.Profesores.name().equalsIgnoreCase(loc)
+						|| TipoLocal.Area_Administrativa.name().equalsIgnoreCase(loc) || TipoLocal.Jefe_Departamento.name().equalsIgnoreCase(loc)){
 					permitido = cumpleRangoHorario(HORA_INICIO_RESTRINGIDO, HORA_FIN_RESTRINGIDO);
 				}
 			}
@@ -341,6 +361,39 @@ public class Facultad {
 
 		return loc;
 	}
+	
+    public ArrayList<Registro> obtenerReporteVisitasPersonas(String cI, LocalDate fechaInicio, LocalDate fechaFin){
+    	ArrayList<Registro> reporte = new ArrayList<>();
+    	
+    	for(int i=0;i<registros.size();i++)
+    	{
+    		if(registros.get(i).getPersona().getNumeroIdentidad().equals(cI))
+    		{
+    			if(registros.get(i).getFecha().compareTo(fechaInicio)>=0 && registros.get(i).getFecha().compareTo(fechaFin)<=0)
+    			{
+    				reporte.add(registros.get(i));
+    			}
+    		}
+    	}
+    	
+    	return reporte;
+    }
+    
+    public Persona buscarPersonaCi(String cI){
+    	Persona p = null;
+    	boolean found = false;
+    	
+    	for(int i=0;i<personal.size() && !found ;i++)
+    	{
+    		if(personal.get(i).getNumeroIdentidad().equals(cI)){
+    			found = true;
+    			p = personal.get(i);
+    		}
+    	}
+    	
+    	return p;
+    	
+    }
 }
 
 

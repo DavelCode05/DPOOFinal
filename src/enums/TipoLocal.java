@@ -1,6 +1,6 @@
 package enums;
 
 public enum TipoLocal {
-	DECANO, VICEDECANO, JEFE_DEPARTAMENTO, SERVIDORES, AREA_ADMINISTRATIVA, PROFESORES,
-	ESPECIALISTAS, ESTUDIANTES, AULA, LABORATORIO
+	Decano, Vicedecano, Jefe_Departamento, Servidores, Area_Administrativa, Profesores,
+	Especialistas, Estudiantes, Aula, Laboratorio
 }
