@@ -92,6 +92,9 @@ public class IniciarAdim extends JDialog {
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(iniciar()){
+					dispose();
+					Inicio ini = new Inicio();
+					ini.setVisible(true);
 					
 				}
 			}
