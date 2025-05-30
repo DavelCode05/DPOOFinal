@@ -75,6 +75,7 @@ public class EleccionReporte3 extends JDialog {
 	 * @wbp.nonvisual location=432,279
 	 */
 	private final ButtonGroup buttonGroupFormas = new ButtonGroup();
+<<<<<<< HEAD
 
 //	/**
 //	 * Launch the application.
@@ -97,6 +98,28 @@ public class EleccionReporte3 extends JDialog {
 	public EleccionReporte3(JFrame padre) {
 		super(padre, "Acceso a la Facultad", true);
 		fac = new Facultad();
+=======
+	//
+	//	/**
+	//	 * Launch the application.
+	//	 */
+	//	public static void main(String[] args) {
+	//		try {
+	//			EleccionReporte3 dialog = new EleccionReporte3();
+	//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	//			dialog.setVisible(true);
+	//		} catch (Exception e) {
+	//			e.printStackTrace();
+	//		}
+	//	}
+	//
+	//	/**
+	//	 * Create the dialog.
+	//	 */
+	public EleccionReporte3(JFrame padre) {
+		super(padre, "", true);
+		fac = Facultad.getFacultad();
+>>>>>>> origin/dariel
 		setBounds(100, 100, 365, 452);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(216, 191, 216));
@@ -295,9 +318,15 @@ public class EleccionReporte3 extends JDialog {
 		}
 
 		if(rdbtnGraficoDeBarras.isSelected()){
+<<<<<<< HEAD
 			
 			if(!errores.isVisible()){
 				lblFormaDeVisualizacin.setForeground(Color.black);
+=======
+			lblFormaDeVisualizacin.setForeground(Color.black);
+			if(!errores.isVisible()){
+				
+>>>>>>> origin/dariel
 				errores.setVisible(false);
 				GraficoBarrasDialog g = new GraficoBarrasDialog(datos,EleccionReporte3.this, locales);
 				g.setVisible(true);
@@ -305,10 +334,17 @@ public class EleccionReporte3 extends JDialog {
 			}
 		}
 		else if(rdbtnTabla.isSelected()){
+<<<<<<< HEAD
 			
 			if(!errores.isVisible()){
 				errores.setVisible(false);
 				lblFormaDeVisualizacin.setForeground(Color.black);
+=======
+			lblFormaDeVisualizacin.setForeground(Color.black);
+			if(!errores.isVisible()){
+				errores.setVisible(false);
+				
+>>>>>>> origin/dariel
 				if(comboBox.getSelectedItem().toString().equals("LOCAL")){
 					TablaReporte3 t = new TablaReporte3(fecha, loc, EleccionReporte3.this);
 					t.setVisible(true);

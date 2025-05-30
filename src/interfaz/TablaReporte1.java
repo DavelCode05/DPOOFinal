@@ -29,6 +29,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import com.toedter.calendar.JDateChooser;
 
 public class TablaReporte1 extends JDialog {
 
@@ -47,6 +48,10 @@ public class TablaReporte1 extends JDialog {
 	private JLabel lblNewLabel_1;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
+	private JDateChooser dateChooser;
+	private JDateChooser dateChooser_1;
+	private JLabel lblNewLabel_2;
+	private JLabel lblNewLabel_3;
 	/**
 	 * Launch the application.
 	 */
@@ -66,8 +71,8 @@ public class TablaReporte1 extends JDialog {
 	public TablaReporte1(JFrame padre) {
 		super(padre, "Reporte 1", true);
 		setTitle("Chequeo de registros");
-		fac = new Facultad();
-		setBounds(100, 100, 842, 628);
+		fac = Facultad.getFacultad();
+		setBounds(100, 100, 1086, 760);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -81,6 +86,10 @@ public class TablaReporte1 extends JDialog {
 		contentPanel.add(getLblNewLabel_1());
 		contentPanel.add(getBtnNewButton());
 		contentPanel.add(getBtnNewButton_1());
+		contentPanel.add(getDateChooser());
+		contentPanel.add(getDateChooser_1());
+		contentPanel.add(getLblNewLabel_2());
+		contentPanel.add(getLblNewLabel_3());
 
 
 
@@ -88,8 +97,8 @@ public class TablaReporte1 extends JDialog {
 	private JTextField getTextField() {
 		if (textField == null) {
 			textField = new JTextField();
-			textField.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textField.setBounds(33, 75, 194, 32);
+			textField.setFont(new Font("Tahoma", Font.BOLD, 21));
+			textField.setBounds(33, 75, 249, 53);
 			textField.setBackground(Colores.getAzulCielo());
 			textField.setForeground(Color.WHITE);
 			textField.setBorder(new LineBorder(Colores.getBlancuzo()));
@@ -101,8 +110,8 @@ public class TablaReporte1 extends JDialog {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("Identidad de la Persona");
 			lblNewLabel.setForeground(Color.WHITE);
-			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 19));
-			lblNewLabel.setBounds(33, 46, 246, 16);
+			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 21));
+			lblNewLabel.setBounds(33, 46, 260, 26);
 		}
 		return lblNewLabel;
 	}
@@ -116,7 +125,7 @@ public class TablaReporte1 extends JDialog {
 			};
 			scrollPane.setBackground(Colores.getAzulCielo());
 			scrollPane.setBorder(null);
-			scrollPane.setBounds(33, 174, 775, 406);
+			scrollPane.setBounds(33, 202, 1018, 525);
 			scrollPane.setViewportView(getTable());
 		}
 		return scrollPane;
@@ -161,7 +170,7 @@ public class TablaReporte1 extends JDialog {
 			lblNewLabel_1.setBackground(Color.WHITE);
 			lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 19));
 			lblNewLabel_1.setForeground(new Color(255, 0, 51));
-			lblNewLabel_1.setBounds(33, 108, 352, 48);
+			lblNewLabel_1.setBounds(33, 136, 352, 48);
 			lblNewLabel_1.setVisible(false);;
 		}
 		return lblNewLabel_1;
@@ -176,18 +185,17 @@ public class TablaReporte1 extends JDialog {
 					entradaCarnet();
 				}
 			});
-			btnNewButton.setBounds(238, 75, 33, 32);
+			btnNewButton.setBounds(294, 85, 33, 32);
 		}
 		return btnNewButton;
 	}
 	private JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
 			btnNewButton_1 = new JButton("");
-			btnNewButton_1.setBounds(772, 22, 58, 48);
-			Border bordeRedondo = BorderFactory.createLineBorder(Color.WHITE, 2, true);
-			btnNewButton_1.setBorder(bordeRedondo);
+			btnNewButton_1.setBounds(1016, 13, 58, 48);
 			btnNewButton_1.setContentAreaFilled(false);
 			btnNewButton_1.setOpaque(true);
+			btnNewButton_1.setBorder(null);
 			btnNewButton_1.setBackground(Color.LIGHT_GRAY);
 			btnNewButton_1.setForeground(new Color(6, 43, 63));
 			btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 29));
@@ -199,5 +207,45 @@ public class TablaReporte1 extends JDialog {
 			});
 		}
 		return btnNewButton_1;
+	}
+	private JDateChooser getDateChooser() {
+		if (dateChooser == null) {
+			dateChooser = new JDateChooser("dd/MM/yyyy", "##/##/####",'_');
+			dateChooser.setForeground(Color.BLACK);
+//			JTextField dateField = (JTextField)dateChooser.getDateEditor().getUiComponent();
+//			dateField.setForeground(Color.WHITE);
+			dateChooser.setBounds(413, 75, 131, 53);
+//			dateField.setBackground(Colores.getAzulCielo());
+		}
+		return dateChooser;
+	}
+	private JDateChooser getDateChooser_1() {
+		if (dateChooser_1 == null) {
+			dateChooser_1 = new JDateChooser("dd/MM/yyyy", "##/##/####",'_');
+//			JTextField dateField1 = (JTextField)dateChooser_1.getDateEditor().getUiComponent();
+//			dateField1.setForeground(Color.WHITE);
+			dateChooser_1.setForeground(Color.BLACK);
+			dateChooser_1.setBounds(578, 75, 131, 53);
+//			dateField1.setBackground(Colores.getAzulCielo());
+		}
+		return dateChooser_1;
+	}
+	private JLabel getLblNewLabel_2() {
+		if (lblNewLabel_2 == null) {
+			lblNewLabel_2 = new JLabel("Desde");
+			lblNewLabel_2.setForeground(Color.WHITE);
+			lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 21));
+			lblNewLabel_2.setBounds(413, 51, 74, 16);
+		}
+		return lblNewLabel_2;
+	}
+	private JLabel getLblNewLabel_3() {
+		if (lblNewLabel_3 == null) {
+			lblNewLabel_3 = new JLabel("Hasta");
+			lblNewLabel_3.setForeground(Color.WHITE);
+			lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 21));
+			lblNewLabel_3.setBounds(578, 51, 74, 16);
+		}
+		return lblNewLabel_3;
 	}
 }

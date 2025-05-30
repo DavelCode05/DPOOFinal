@@ -77,7 +77,7 @@ public class AcercaDe extends JDialog {
 	private JButton getBtnSalir() {
 		if (btnSalir == null) {
 			btnSalir = new JButton("");
-			btnSalir.setBounds(1057, 13, 58, 48);
+			btnSalir.setBounds(1057, 13, 50, 50);
 			Border bordeRedondo = BorderFactory.createLineBorder(Color.WHITE, 2, true);
 			btnSalir.setBorder(bordeRedondo);
 			btnSalir.setContentAreaFilled(false);

@@ -41,7 +41,7 @@ public class Facultad {
 	public static final LocalTime HORA_FIN_VISITANTES = LocalTime.of(12,0);
 	public static final LocalTime HORA_INICIO_RESTRINGIDO = LocalTime.of(8,0); 
 	public static final LocalTime HORA_FIN_RESTRINGIDO = LocalTime.of(17,0);
-
+private static Facultad instancia = null;
 
 	//	private static Facultad f = Iniciadora.Inicio();
 	//
@@ -55,7 +55,7 @@ public class Facultad {
 	//		Facultad.f = f;
 	//	}
 
-	public Facultad() {
+	private Facultad() {
 		this.locales = new ArrayList <Local>(); 
 		this.personal = new ArrayList <Persona>();
 		this.registros = new ArrayList <Registro>();
@@ -89,7 +89,6 @@ public class Facultad {
 		registros.add(new Registro(personal.get(0), locales.get(0)));
 		registros.add(new Registro(personal.get(1), locales.get(0)));
 		registros.add(new Registro(personal.get(2), locales.get(0)));
-		registros.add(new Registro(personal.get(2), locales.get(2)));
 		registros.add(new Registro(personal.get(3), locales.get(0)));
 		registros.add(new Registro(personal.get(4), locales.get(0)));
 		registros.add(new Registro(personal.get(5), locales.get(0)));
@@ -102,13 +101,24 @@ public class Facultad {
 		registros.add(new Registro(personal.get(5), locales.get(0)));
 		registros.add(new Registro(personal.get(5), locales.get(0)));
 		registros.add(new Registro(personal.get(5), locales.get(0)));
+<<<<<<< HEAD
 		registros.add(new Registro(new Visitante("Juan", "00000","mmmm","mmmm", personal.get(2)), locales.get(0)));
 		registros.add(new Registro(new Visitante("Juanita", "00000","mmmm","mmmm", personal.get(2)), locales.get(0)));
+=======
+		registros.add(new Registro(personal.get(2), locales.get(2)));
+		registros.add(new Registro(personal.get(2), locales.get(3)));
+		registros.add(new Registro(personal.get(2), locales.get(1)));
+
+>>>>>>> origin/dariel
 
 		registros.get(0).setHoraEntrada(LocalTime.of(8,0));
 		registros.get(0).setHoraSalida(LocalTime.of(12, 0));
-		registros.get(0).setHoraEntrada(LocalTime.of(13, 0));
-		registros.get(0).setHoraSalida(LocalTime.of(14, 0));
+		registros.get(15).setHoraEntrada(LocalTime.of(13, 0));
+		registros.get(15).setHoraSalida(LocalTime.of(14, 0));
+		registros.get(16).setHoraEntrada(LocalTime.of(15, 0));
+		registros.get(16).setHoraSalida(LocalTime.of(16, 0));
+		registros.get(17).setHoraEntrada(LocalTime.of(16, 0));
+		registros.get(17).setHoraSalida(LocalTime.of(17, 0));
 		registros.get(1).setHoraEntrada(LocalTime.of(8,0));
 		registros.get(1).setHoraSalida(LocalTime.of(13, 0));
 		registros.get(2).setHoraEntrada(LocalTime.of(8,0));
@@ -202,7 +212,13 @@ public class Facultad {
 
 	}
 
-
+ public static Facultad getFacultad(){
+	;
+	 if(instancia== null){
+		 instancia = new Facultad();
+	 }
+	 return instancia;
+ }
 
 	public boolean agregarRegistro(Persona persona, Local local){
 

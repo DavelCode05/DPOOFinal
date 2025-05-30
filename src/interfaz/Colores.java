@@ -9,7 +9,12 @@ public class Colores {
 	private static final Color azulVerdoso = new Color(63, 82, 89);
 	private static final Color blancuzo = new Color(218,218,218);
 	private static final Color rojoError = new Color(204, 0, 0);
+	private static final Color colorLogin = new Color(200, 213, 219);
 	
+	public static Color getLogin()
+	{
+		return colorLogin;
+	}
 	public static Color getRojo(){
 		return rojoError;
 	}
