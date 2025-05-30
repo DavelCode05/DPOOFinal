@@ -14,6 +14,7 @@ import javax.swing.JRadioButton;
 import java.awt.Font;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
 import javax.swing.JRadioButtonMenuItem;
@@ -45,6 +46,7 @@ import locales.Local;
 
 import com.toedter.calendar.demo.DateChooserPanel;
 import com.toedter.calendar.JDateChooser;
+
 import javax.swing.SwingConstants;
 
 public class EleccionReporte3 extends JDialog {
@@ -74,23 +76,26 @@ public class EleccionReporte3 extends JDialog {
 	 */
 	private final ButtonGroup buttonGroupFormas = new ButtonGroup();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			EleccionReporte3 dialog = new EleccionReporte3();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
-	public EleccionReporte3() {
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		try {
+//			EleccionReporte3 dialog = new EleccionReporte3();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
+//	/**
+//	 * Create the dialog.
+//	 */
+	
+	
+	public EleccionReporte3(JFrame padre) {
+		super(padre, "Acceso a la Facultad", true);
 		fac = new Facultad();
 		setBounds(100, 100, 365, 452);
 		getContentPane().setLayout(new BorderLayout());
@@ -290,18 +295,20 @@ public class EleccionReporte3 extends JDialog {
 		}
 
 		if(rdbtnGraficoDeBarras.isSelected()){
-			lblFormaDeVisualizacin.setForeground(Color.black);
-			errores.setVisible(false);
+			
 			if(!errores.isVisible()){
+				lblFormaDeVisualizacin.setForeground(Color.black);
+				errores.setVisible(false);
 				GraficoBarrasDialog g = new GraficoBarrasDialog(datos,EleccionReporte3.this, locales);
 				g.setVisible(true);
 
 			}
 		}
 		else if(rdbtnTabla.isSelected()){
-			errores.setVisible(false);
-			lblFormaDeVisualizacin.setForeground(Color.black);
+			
 			if(!errores.isVisible()){
+				errores.setVisible(false);
+				lblFormaDeVisualizacin.setForeground(Color.black);
 				if(comboBox.getSelectedItem().toString().equals("LOCAL")){
 					TablaReporte3 t = new TablaReporte3(fecha, loc, EleccionReporte3.this);
 					t.setVisible(true);

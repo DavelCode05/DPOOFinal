@@ -55,6 +55,7 @@ public class AcercaDe extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setLocationRelativeTo(null);
 
 		contentPanel.add(getLblHola());
 		contentPanel.add(getBtnSalir());

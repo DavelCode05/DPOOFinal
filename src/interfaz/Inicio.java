@@ -36,6 +36,8 @@ import interfaz.VerPersonal;
 
 import com.sun.javafx.tk.Toolkit;
 
+import controllerClass.Facultad;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -59,31 +61,32 @@ public class Inicio extends JFrame {
 	private JMenu mnVer;
 	private JMenuItem mntmPersonal;
 	private JMenuItem mntmReporte;
+	private Facultad fac;
 
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-////					Inicializadora.iniciar();
-//					System.out.println(1111);
-//					Inicio frame = new Inicio();
-//					frame.setVisible(true);
-//					frame.setLocationRelativeTo(null);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	//	public static void main(String[] args) {
+	//		EventQueue.invokeLater(new Runnable() {
+	//			public void run() {
+	//				try {
+	////					Inicializadora.iniciar();
+	//					System.out.println(1111);
+	//					Inicio frame = new Inicio();
+	//					frame.setVisible(true);
+	//					frame.setLocationRelativeTo(null);
+	//				} catch (Exception e) {
+	//					e.printStackTrace();
+	//				}
+	//			}
+	//		});
+	//	}
 
 	/**
 	 * Create the frame.
 	 */
 	public Inicio() {
-
+		
 		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel(){
@@ -97,7 +100,7 @@ public class Inicio extends JFrame {
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setUndecorated(true);
 		setLocationRelativeTo(null);
-		
+
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -147,6 +150,17 @@ public class Inicio extends JFrame {
 			mnReportes.setForeground(Colores.getNegro());
 			mnReportes.setFont(new Font("Tahoma", Font.PLAIN, 27));
 			mnReportes.add(getMntmReporte());
+
+			JMenuItem mntmNewMenuItem_1 = new JMenuItem("Informe de Acceso a la Facultad");
+			mntmNewMenuItem_1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					EleccionReporte3 rep3 = new EleccionReporte3(Inicio.this);
+					rep3.setVisible(true);
+				}
+			});
+			mntmNewMenuItem_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+			mntmNewMenuItem_1.setForeground(Color.BLACK);
+			mnReportes.add(mntmNewMenuItem_1);
 		}
 		return mnReportes;
 	}
@@ -173,6 +187,13 @@ public class Inicio extends JFrame {
 	private JMenuItem getMntmCerrar() {
 		if (mntmCerrar == null) {
 			mntmCerrar = new JMenuItem("Cerrar sesi\u00F3n");
+			mntmCerrar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					dispose();
+					IniciarSesion ini = new IniciarSesion();
+					ini.setVisible(true);
+				}
+			});
 			mntmCerrar.setFont(new Font("Tahoma", Font.BOLD, 20));
 		}
 		return mntmCerrar;
