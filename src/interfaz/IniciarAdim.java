@@ -2,6 +2,9 @@ package interfaz;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,14 +22,24 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JPasswordField;
+import javax.swing.border.LineBorder;
+
 public class IniciarAdim extends JDialog {
 
-	private final JPanel contentPanel = new JPanel();
+	private final JPanel contentPanel = new JPanel(){
+		public void paintComponent(Graphics g){
+			Image img= Toolkit.getDefaultToolkit().getImage(IniciarAdim.class.getResource("/images/loginDesenfocado.jpg"));
+			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+		}
+	};
 	private final JTextField usuarioo = new JTextField();
-	private JTextField contra;
 	JLabel lblNewLabel;
 	JLabel lblAdmin;
 	JLabel lblNewLabel_1;
+	private JPasswordField passwordField;
+	private JLabel lblNewLabel_2;
+	private JLabel lblNewLabel_3;
 
 	/**
 	 * Launch the application.
@@ -46,49 +59,44 @@ public class IniciarAdim extends JDialog {
 	 */
 	public IniciarAdim(JDialog padre) {
 		super(padre, "Iniciar Sesion Administrador", true);
-		setBounds(100, 100, 308, 368);
+		setBounds(100, 100, 406, 489);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(new Color(255, 239, 213));
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBorder(null);
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		setUndecorated(true);
 		setLocationRelativeTo(null);
-		
-
-		contra = new JTextField();
-		contra.setBounds(129, 165, 140, 28);
-		contentPanel.add(contra);
-		contra.setColumns(10);
-		usuarioo.setBounds(129, 126, 140, 28);
+		usuarioo.setBorder(null);
+		usuarioo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		usuarioo.setBounds(66, 257, 260, 33);
 		contentPanel.add(usuarioo);
 		usuarioo.setColumns(10);
-
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBackground(new Color(255, 240, 245));
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\nicol\\Pictures\\inicio2.png"));
-		lblNewLabel.setBounds(95, 0, 97, 117);
-		contentPanel.add(lblNewLabel);
 		
-		lblAdmin = new JLabel("Usuario");
-		lblAdmin.setFont(new Font("Verdana", Font.PLAIN, 12));
-		lblAdmin.setBounds(22, 126, 55, 14);
+		lblAdmin = new JLabel("Nombre de usuario");
+		lblAdmin.setForeground(Color.DARK_GRAY);
+		lblAdmin.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblAdmin.setBounds(66, 222, 169, 22);
 		contentPanel.add(lblAdmin);
 
 		lblNewLabel = new JLabel("Contrase\u00F1a");
-		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 12));
-		lblNewLabel.setBounds(22, 171, 97, 14);
+		lblNewLabel.setForeground(Color.DARK_GRAY);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNewLabel.setBounds(66, 303, 97, 22);
 		contentPanel.add(lblNewLabel);
 
 		lblNewLabel_1 = new JLabel("Datos de inicio incorrectos");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setForeground(Color.RED);
-		lblNewLabel_1.setFont(new Font("Verdana", Font.PLAIN, 12));
-		lblNewLabel_1.setBounds(22, 241, 260, 14);
+		lblNewLabel_1.setForeground(new Color(255, 0, 0));
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(66, 393, 260, 14);
 		contentPanel.add(lblNewLabel_1);
 		lblNewLabel_1.setVisible(false);
 
 		JButton btnIniciar = new JButton("Iniciar");
+		btnIniciar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnIniciar.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		btnIniciar.setBackground(Colores.getLogin());
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(iniciar()){
@@ -99,10 +107,13 @@ public class IniciarAdim extends JDialog {
 				}
 			}
 		});
-		btnIniciar.setBounds(30, 280, 89, 23);
+		btnIniciar.setBounds(66, 420, 107, 33);
 		contentPanel.add(btnIniciar);
 
 		JButton btnAtras = new JButton("Atras");
+		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnAtras.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		btnAtras.setBackground(Colores.getLogin());
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
@@ -110,13 +121,20 @@ public class IniciarAdim extends JDialog {
 				ini.setVisible(true);
 			}
 		});
-		btnAtras.setBounds(152, 280, 89, 23);
+		btnAtras.setBounds(219, 420, 107, 33);
 		contentPanel.add(btnAtras);
+		contentPanel.add(getPasswordField());
+		contentPanel.add(getLblNewLabel_2());
+		
+		lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setIcon(new ImageIcon(IniciarAdim.class.getResource("/images/password.png")));
+		lblNewLabel_3.setBounds(153, 86, 96, 96);
+		contentPanel.add(lblNewLabel_3);
 	}
 
 	public boolean iniciar(){
 		String usuario=usuarioo.getText();		
-		String contrasena=contra.getText();
+		String contrasena=passwordField.getText();
 		boolean corr = true;
 
 		if(usuario =="" || contrasena == "" || !usuario.equals("Admin") || !contrasena.equals("1234")){
@@ -130,5 +148,24 @@ public class IniciarAdim extends JDialog {
 		}
 
 		return corr;
+	}
+	private JPasswordField getPasswordField() {
+		if (passwordField == null) {
+			passwordField = new JPasswordField();
+			passwordField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			passwordField.setBorder(null);
+			passwordField.setBounds(66, 334, 260, 33);
+		}
+		return passwordField;
+	}
+	private JLabel getLblNewLabel_2() {
+		if (lblNewLabel_2 == null) {
+			lblNewLabel_2 = new JLabel("Inicio de Sesi\u00F3n");
+			lblNewLabel_2.setForeground(Color.DARK_GRAY);
+			lblNewLabel_2.setBackground(Color.WHITE);
+			lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 40));
+			lblNewLabel_2.setBounds(38, 13, 330, 75);
+		}
+		return lblNewLabel_2;
 	}
 }

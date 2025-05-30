@@ -104,16 +104,16 @@ public class IniciarSesion extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			IniciarSesion dialog = new IniciarSesion();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setLocationRelativeTo(null);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			IniciarSesion dialog = new IniciarSesion();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setLocationRelativeTo(null);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Create the dialog.
@@ -145,7 +145,7 @@ public class IniciarSesion extends JDialog {
 
 		JLabel lblLocal = new JLabel("Local");
 		lblLocal.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblLocal.setBounds(401, 130, 105, 34);
+		lblLocal.setBounds(397, 130, 42, 34);
 		contentPanel.add(lblLocal);
 
 		comboBoxLocal = new JComboBox<>();
@@ -154,7 +154,7 @@ public class IniciarSesion extends JDialog {
 		comboBoxLocal.setModel(new DefaultComboBoxModel<>(TipoLocal.values()));
 		comboBoxLocal.setBorder(null);
 
-		comboBoxLocal.setBounds(451, 130, 201, 34);
+		comboBoxLocal.setBounds(449, 130, 272, 34);
 		contentPanel.add(comboBoxLocal);
 		
 		
@@ -189,7 +189,7 @@ public class IniciarSesion extends JDialog {
 		carnet.setBorder(null);
 		carnet.setBackground(Color.WHITE);
 		carnet.setColumns(10);
-		carnet.setBounds(401, 177, 251, 34);
+		carnet.setBounds(397, 177, 324, 34);
 		contentPanel.add(carnet);
 
 		final JPanel panelVisitante = new JPanel();
@@ -227,7 +227,7 @@ public class IniciarSesion extends JDialog {
 		responsable.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		responsable.setBorder(null);
 		responsable.setBackground(Color.WHITE);
-		responsable.setBounds(12, 60, 251, 34);
+		responsable.setBounds(6, 60, 324, 34);
 		panelVisitante.add(responsable);
 		responsable.setColumns(10);
 
@@ -270,7 +270,7 @@ public class IniciarSesion extends JDialog {
 		nombreUser.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		nombreUser.setBorder(null);
 		nombreUser.setBackground(Color.WHITE);
-		nombreUser.setBounds(12, 13, 251, 34);
+		nombreUser.setBounds(6, 13, 324, 34);
 		panelVisitante.add(nombreUser);
 		nombreUser.setColumns(10);
 		
@@ -290,7 +290,7 @@ public class IniciarSesion extends JDialog {
 		tglbtnUsuario.setBorder(BorderFactory.createMatteBorder(1,1,0,1,Colores.getLogin()));
 		tglbtnUsuario.setBackground(Color.WHITE);
 		tglbtnUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		tglbtnUsuario.setBounds(391, 85, 131, 32);
+		tglbtnUsuario.setBounds(397, 85, 163, 32);
 		contentPanel.add(tglbtnUsuario);
 		
 	 tglbtnNewToggleButton = new JToggleButton("Visitante");
@@ -311,7 +311,7 @@ public class IniciarSesion extends JDialog {
 			}
 		});
 		tglbtnNewToggleButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		tglbtnNewToggleButton.setBounds(521, 85, 131, 32);
+		tglbtnNewToggleButton.setBounds(558, 85, 163, 32);
 		contentPanel.add(tglbtnNewToggleButton);
 		tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(0,1,1,1,Colores.getLogin()));
 		
@@ -463,7 +463,7 @@ public class IniciarSesion extends JDialog {
 			lblDeTuMano.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			lblDeTuMano.setBounds(12, 261, 263, 16);
 			panel.add(lblDeTuMano);
-			btnNewButton_1.setIcon(new ImageIcon(AcercaDe.class.getResource("/images/admin.png")));
+			btnNewButton_1.setIcon(new ImageIcon(AcercaDe.class.getResource("/images/adminMove.gif")));
 			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					dispose();
