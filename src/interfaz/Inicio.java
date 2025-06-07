@@ -36,6 +36,8 @@ import interfaz.VerPersonal;
 
 import com.sun.javafx.tk.Toolkit;
 
+import controllerClass.Facultad;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -59,7 +61,9 @@ public class Inicio extends JFrame {
 	private JMenu mnVer;
 	private JMenuItem mntmPersonal;
 	private JMenuItem mntmReporte;
-	private JMenuItem mntmInformeDeAcceso;
+
+	private Facultad fac;
+
 
 	/**
 	 * Launch the application.
@@ -84,7 +88,7 @@ public class Inicio extends JFrame {
 	 * Create the frame.
 	 */
 	public Inicio() {
-
+		
 		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel(){
@@ -148,7 +152,21 @@ public class Inicio extends JFrame {
 			mnReportes.setForeground(Colores.getNegro());
 			mnReportes.setFont(new Font("Tahoma", Font.PLAIN, 27));
 			mnReportes.add(getMntmReporte());
-			mnReportes.add(getMntmInformeDeAcceso());
+
+
+			JMenuItem mntmNewMenuItem_1 = new JMenuItem("Informe de Acceso a la Facultad");
+			mntmNewMenuItem_1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					EleccionReporte3 rep3 = new EleccionReporte3(Inicio.this);
+					rep3.setVisible(true);
+				}
+			});
+			mntmNewMenuItem_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+			mntmNewMenuItem_1.setForeground(Color.BLACK);
+			mnReportes.add(mntmNewMenuItem_1);
+
+			
+
 		}
 		return mnReportes;
 	}
@@ -265,17 +283,6 @@ public class Inicio extends JFrame {
 		}
 		return mntmReporte;
 	}
-	private JMenuItem getMntmInformeDeAcceso() {
-		if (mntmInformeDeAcceso == null) {
-			mntmInformeDeAcceso = new JMenuItem("Informe de Accesos a la Facultad");
-			mntmInformeDeAcceso.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					EleccionReporte3 rep3 = new EleccionReporte3(Inicio.this);
-					rep3.setVisible(true);
-				}
-			});
-			mntmInformeDeAcceso.setFont(new Font("Tahoma", Font.BOLD, 20));
-		}
-		return mntmInformeDeAcceso;
-	}
+	
+
 }

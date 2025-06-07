@@ -13,6 +13,11 @@ import javax.swing.JTable;
 import controllerClass.Facultad;
 import util.VisitantesAutorizadosTable;
 import clasesAuxiliares.VisitantesAutorizadosPorX;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TablaAutorizadoReporte4 extends JDialog {
 
@@ -20,6 +25,7 @@ public class TablaAutorizadoReporte4 extends JDialog {
 	private JTable table;
 	private VisitantesAutorizadosTable tablemodel;
 	Facultad fac;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -38,7 +44,10 @@ public class TablaAutorizadoReporte4 extends JDialog {
 	 * Create the dialog.
 	 */
 	public TablaAutorizadoReporte4() {
+
+
 		fac= Facultad.getFacultad();
+
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -51,7 +60,27 @@ public class TablaAutorizadoReporte4 extends JDialog {
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		tablemodel= new VisitantesAutorizadosTable(fac.personasAutorizada("06040468470"));
+		tablemodel= new VisitantesAutorizadosTable();
 		table.setModel(tablemodel);
+		
+		JLabel lblResponsable = new JLabel("Responsable:");
+		lblResponsable.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblResponsable.setBounds(10, 24, 87, 14);
+		contentPanel.add(lblResponsable);
+		
+		textField = new JTextField();
+		textField.setBounds(100, 22, 86, 20);
+		contentPanel.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				tablemodel.llenarTabla(fac.personasAutorizada(textField.getText()));
+			}
+		});
+		btnBuscar.setBounds(219, 21, 89, 23);
+		contentPanel.add(btnBuscar);
 	}
 }

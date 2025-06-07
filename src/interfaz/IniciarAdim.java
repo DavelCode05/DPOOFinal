@@ -19,6 +19,8 @@ import java.awt.Color;
 
 import javax.swing.SwingConstants;
 
+import controllerClass.Facultad;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -37,9 +39,13 @@ public class IniciarAdim extends JDialog {
 	JLabel lblNewLabel;
 	JLabel lblAdmin;
 	JLabel lblNewLabel_1;
+
+	private Facultad fac;
+
 	private JPasswordField passwordField;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
+
 
 	/**
 	 * Launch the application.
@@ -58,6 +64,7 @@ public class IniciarAdim extends JDialog {
 	 * Create the dialog.
 	 */
 	public IniciarAdim(JDialog padre) {
+		
 		super(padre, "Iniciar Sesion Administrador", true);
 		setBounds(100, 100, 406, 489);
 		getContentPane().setLayout(new BorderLayout());
@@ -107,7 +114,11 @@ public class IniciarAdim extends JDialog {
 				}
 			}
 		});
+
+		
+
 		btnIniciar.setBounds(66, 420, 107, 33);
+
 		contentPanel.add(btnIniciar);
 
 		JButton btnAtras = new JButton("Atras");
@@ -117,8 +128,13 @@ public class IniciarAdim extends JDialog {
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
+
+				IniciarSesion inicio = new IniciarSesion();
+				inicio.setVisible(true);	
+
 				IniciarSesion ini = new IniciarSesion();
 				ini.setVisible(true);
+
 			}
 		});
 		btnAtras.setBounds(219, 420, 107, 33);

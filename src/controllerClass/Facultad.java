@@ -36,6 +36,7 @@ public class Facultad {
 	private ArrayList<Persona> personal;
 	private ArrayList<Registro> registros;
 
+
 	public static final LocalTime HORA_INICIO_VISITANTES = LocalTime.of(8,0);
 	public static final LocalTime HORA_FIN_VISITANTES = LocalTime.of(12,0);
 	public static final LocalTime HORA_INICIO_RESTRINGIDO = LocalTime.of(8,0); 
@@ -100,9 +101,14 @@ private static Facultad instancia = null;
 		registros.add(new Registro(personal.get(5), locales.get(0)));
 		registros.add(new Registro(personal.get(5), locales.get(0)));
 		registros.add(new Registro(personal.get(5), locales.get(0)));
+
+	//	registros.add(new Registro(new Visitante("Juan", "00000","mmmm","mmmm", personal.get(2)), locales.get(0)));
+	//	registros.add(new Registro(new Visitante("Juanita", "00000","mmmm","mmmm", personal.get(2)), locales.get(0)));
+
 		registros.add(new Registro(personal.get(2), locales.get(2)));
 		registros.add(new Registro(personal.get(2), locales.get(3)));
 		registros.add(new Registro(personal.get(2), locales.get(1)));
+
 
 
 		registros.get(0).setHoraEntrada(LocalTime.of(8,0));
@@ -147,7 +153,9 @@ private static Facultad instancia = null;
 	public ArrayList<Local> getLocales() {
 		return locales;
 	}  
+	
 
+	
 	public void addLocal(String ident, TipoLocal tipo, Persona responsable){
 		locales.add(new Local(ident, tipo, responsable));
 	}
@@ -199,7 +207,6 @@ private static Facultad instancia = null;
 	}
 
  public static Facultad getFacultad(){
-	;
 	 if(instancia== null){
 		 instancia = new Facultad();
 	 }
@@ -348,15 +355,16 @@ private static Facultad instancia = null;
 
 
 	public VisitantesAutorizadosPorX personasAutorizada(String carnet){
-		VisitantesAutorizadosPorX aux = new VisitantesAutorizadosPorX();
+		VisitantesAutorizadosPorX aux = new VisitantesAutorizadosPorX(buscarEnPersonal(carnet));
 
-		aux.setAutirizador(buscarEnPersonal(carnet));
+	
 		for(Registro r : registros){
-			if(r.getPersona() instanceof Visitante){
+			if(r.getPersona() instanceof Visitante ){
+				Persona p = r .getPersona();
+				if(((Visitante) p).getAutorizadoPor().getNumeroIdentidad().equals(carnet))
 				aux.agregar(r);
 			}
 		}
-
 		return aux;
 	}
 

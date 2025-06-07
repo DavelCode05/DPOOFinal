@@ -4,10 +4,15 @@ import javax.swing.table.DefaultTableModel;
 
 public class EntradasTable extends DefaultTableModel {
 	
-	public EntradasTable( int [] array){
+	public EntradasTable( ){
 		String [] columnas =  {"Horario   ", "Cantidad de entradas    "," Porcentaje    "};
 		this.setColumnIdentifiers(columnas);
 		
+		
+	}
+	
+	
+	public void llenarTabla(int [] array){
 		int total = 0;
 		for(int i=0; i<array.length; i++){
 		total= total+array[i];

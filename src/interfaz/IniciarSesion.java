@@ -91,7 +91,7 @@ public class IniciarSesion extends JDialog {
 	/**
 	 * @wbp.nonvisual location=57,89
 	 */
-	
+
 	/**
 	 * @wbp.nonvisual location=377,239
 	 */
@@ -104,16 +104,16 @@ public class IniciarSesion extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		try {
-//			IniciarSesion dialog = new IniciarSesion();
-//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			dialog.setLocationRelativeTo(null);
-//			dialog.setVisible(true);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+	//	public static void main(String[] args) {
+	//		try {
+	//			IniciarSesion dialog = new IniciarSesion();
+	//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	//			dialog.setLocationRelativeTo(null);
+	//			dialog.setVisible(true);
+	//		} catch (Exception e) {
+	//			e.printStackTrace();
+	//		}
+	//	}
 
 	/**
 	 * Create the dialog.
@@ -156,34 +156,34 @@ public class IniciarSesion extends JDialog {
 
 		comboBoxLocal.setBounds(449, 130, 272, 34);
 		contentPanel.add(comboBoxLocal);
-		
-		
+
+
 		carnet = new JTextField();
 		carnet.setHorizontalAlignment(SwingConstants.CENTER);
 		carnet.setText("Carnet de Identidad");
 		carnet.setForeground(Color.GRAY);
-		
+
 		carnet.addFocusListener(new FocusListener() {
-			
+
 			@Override
 			public void focusLost(FocusEvent arg0) {
 				if(carnet.getText().isEmpty()){
 					carnet.setText("Carnet de Identidad");
 					carnet.setForeground(Color.GRAY);
 				}
-				
+
 			}
-			
+
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				if(carnet.getText().equals("Carnet de Identidad")){
 					carnet.setText("");
 					carnet.setForeground(Color.BLACK);
 				}
-				
+
 			}
 		});
-					
+
 		carnet.setForeground(Color.GRAY);
 		carnet.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		carnet.setBorder(null);
@@ -203,25 +203,25 @@ public class IniciarSesion extends JDialog {
 		responsable.setHorizontalAlignment(SwingConstants.CENTER);
 		responsable.setText("Responsable");
 		responsable.setForeground(Color.GRAY);
-		
+
 		responsable.addFocusListener(new FocusListener() {
-			
+
 			@Override
 			public void focusLost(FocusEvent arg0) {
 				if(responsable.getText().isEmpty()){
 					responsable.setText("Responsable");
 					responsable.setForeground(Color.GRAY);
 				}
-				
+
 			}
-			
+
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				if(responsable.getText().equals("Responsable")){
 					responsable.setText("");
 					responsable.setForeground(Color.BLACK);
 				}
-				
+
 			}
 		});
 		responsable.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -246,25 +246,25 @@ public class IniciarSesion extends JDialog {
 		nombreUser.setHorizontalAlignment(SwingConstants.CENTER);
 		nombreUser.setText("Nombre");
 		nombreUser.setForeground(Color.GRAY);
-		
+
 		nombreUser.addFocusListener(new FocusListener() {
-			
+
 			@Override
 			public void focusLost(FocusEvent arg0) {
 				if(nombreUser.getText().isEmpty()){
 					nombreUser.setText("Nombre");
 					nombreUser.setForeground(Color.GRAY);
 				}
-				
+
 			}
-			
+
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				if(nombreUser.getText().equals("Nombre")){
 					nombreUser.setText("");
 					nombreUser.setForeground(Color.BLACK);
 				}
-				
+
 			}
 		});
 		nombreUser.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -273,18 +273,20 @@ public class IniciarSesion extends JDialog {
 		nombreUser.setBounds(6, 13, 324, 34);
 		panelVisitante.add(nombreUser);
 		nombreUser.setColumns(10);
-		
-	 tglbtnUsuario = new JToggleButton("Personal");
-	 tglbtnUsuario.setSelected(true);
+
+		tglbtnUsuario = new JToggleButton("Personal");
+		tglbtnUsuario.setSelected(true);
 		tglbtnUsuario.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED){
 					panelVisitante.setVisible(false);
 					tglbtnUsuario.setBorder(BorderFactory.createMatteBorder(1,1,0,1,Colores.getLogin()));
-					
+
 				}
-				else
+				else{
 					tglbtnUsuario.setBorder(BorderFactory.createMatteBorder(0,1,1,1,Colores.getLogin()));
+					usuario = true;
+				}
 			}
 		});
 		tglbtnUsuario.setBorder(BorderFactory.createMatteBorder(1,1,0,1,Colores.getLogin()));
@@ -292,34 +294,35 @@ public class IniciarSesion extends JDialog {
 		tglbtnUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tglbtnUsuario.setBounds(397, 85, 163, 32);
 		contentPanel.add(tglbtnUsuario);
-		
-	 tglbtnNewToggleButton = new JToggleButton("Visitante");
-	 tglbtnNewToggleButton.setBackground(Color.WHITE);
-	 tglbtnNewToggleButton.setForeground(new Color(0,0,0));
-	 tglbtnNewToggleButton.setBorder(null);
-	 
+
+		tglbtnNewToggleButton = new JToggleButton("Visitante");
+		tglbtnNewToggleButton.setBackground(Color.WHITE);
+		tglbtnNewToggleButton.setForeground(new Color(0,0,0));
+		tglbtnNewToggleButton.setBorder(null);
+
 		tglbtnNewToggleButton.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()== ItemEvent.SELECTED){
 					panelVisitante.setVisible(true);
 					tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(1,1,0,1,Colores.getLogin()));usuario = true;
 				}
-				else
+				else{
 					tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(0,1,1,1,Colores.getLogin()));
-				usuario  = false;
-					
+					usuario  = false;
+				}
+
 			}
 		});
 		tglbtnNewToggleButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tglbtnNewToggleButton.setBounds(558, 85, 163, 32);
 		contentPanel.add(tglbtnNewToggleButton);
 		tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(0,1,1,1,Colores.getLogin()));
-		
+
 		buttonGroup = new ButtonGroup();
 		buttonGroup.add(tglbtnUsuario);
 		buttonGroup.add(tglbtnNewToggleButton);
-		
-	 btnNewButton = new JButton("");
+
+		btnNewButton = new JButton("");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
@@ -331,16 +334,16 @@ public class IniciarSesion extends JDialog {
 		btnNewButton.setBackground(Colores.getBlancuzo());
 		contentPanel.add(btnNewButton);
 		contentPanel.add(getPanel());
-		
-				lblDatosErroneos = new JLabel();
-				lblDatosErroneos.setBounds(391, 406, 336, 23);
-				contentPanel.add(lblDatosErroneos);
-				lblDatosErroneos.setHorizontalAlignment(SwingConstants.CENTER);
-				lblDatosErroneos.setFont(new Font("Verdana", Font.PLAIN, 12));
-				lblDatosErroneos.setForeground(Color.RED);
-				lblDatosErroneos.setVisible(false);
-		
-		
+
+		lblDatosErroneos = new JLabel();
+		lblDatosErroneos.setBounds(391, 406, 336, 23);
+		contentPanel.add(lblDatosErroneos);
+		lblDatosErroneos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDatosErroneos.setFont(new Font("Verdana", Font.PLAIN, 12));
+		lblDatosErroneos.setForeground(Color.RED);
+		lblDatosErroneos.setVisible(false);
+
+
 
 	}
 
@@ -360,7 +363,7 @@ public class IniciarSesion extends JDialog {
 			try{
 				aAcceder.setNombre(nom);
 				permiso = true;
-//				lblUsuario.setForeground(Color.BLACK);
+				//				lblUsuario.setForeground(Color.BLACK);
 				lblDatosErroneos.setVisible(false);
 				permiso = true;
 			}
@@ -373,7 +376,7 @@ public class IniciarSesion extends JDialog {
 
 			try{
 				aAcceder.setNumeroIdentidad(CI);
-//				lblContrasea.setForeground(Color.BLACK);
+				//				lblContrasea.setForeground(Color.BLACK);
 			}
 			catch(IllegalArgumentException e){
 				carnet.setForeground(Color.RED);
@@ -385,7 +388,7 @@ public class IniciarSesion extends JDialog {
 			try{
 				res = fac.buscarEnPersonal(respon);
 				((Visitante)aAcceder).setAutorizadoPor(res);
-//				lblResponsable.setForeground(Color.BLACK);
+				//				lblResponsable.setForeground(Color.BLACK);
 			}
 			catch(IllegalArgumentException e){
 				responsable.setForeground(Color.RED);
@@ -403,7 +406,7 @@ public class IniciarSesion extends JDialog {
 				aAcceder = fac.buscarEnPersonal(CI);
 				permiso = true;
 				lblDatosErroneos.setVisible(false);
-//				lblContrasea.setForeground(Color.BLACK);
+				//				lblContrasea.setForeground(Color.BLACK);
 			}
 			catch(IllegalArgumentException e){
 				lblDatosErroneos.setText(e.getMessage());
@@ -437,28 +440,28 @@ public class IniciarSesion extends JDialog {
 			};
 			panel.setBounds(0, 0, 379, 489);
 			panel.setLayout(null);
-			
+
 			btnNewButton_1 = new JButton("");
 			btnNewButton_1.setBackground(Colores.getLogin());
 			btnNewButton_1.setBorder(null);
 			btnNewButton_1.setBounds(12, 13, 50, 50);
 			panel.add(btnNewButton_1);
-			
+
 			lblNewLabel = new JLabel("Bienvenido");
 			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 50));
 			lblNewLabel.setBounds(45, 152, 291, 46);
 			panel.add(lblNewLabel);
-			
+
 			lblNewLabel_1 = new JLabel("Registra, controla y gestiona las entradas a los ");
 			lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			lblNewLabel_1.setBounds(22, 220, 345, 16);
 			panel.add(lblNewLabel_1);
-			
+
 			lblNewLabel_2 = new JLabel("locales de la Facultad con facilidad. !Seguridad y ");
 			lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			lblNewLabel_2.setBounds(12, 240, 355, 16);
 			panel.add(lblNewLabel_2);
-			
+
 			lblDeTuMano = new JLabel("organización al alcance de tu mano!");
 			lblDeTuMano.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			lblDeTuMano.setBounds(12, 261, 263, 16);
@@ -469,7 +472,7 @@ public class IniciarSesion extends JDialog {
 					dispose();
 					IniciarAdim inicio = new IniciarAdim(IniciarSesion.this);
 					inicio.setVisible(true);
-					
+
 				}
 			});
 		}

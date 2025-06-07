@@ -9,6 +9,12 @@ public class VisitantesAutorizadosPorX {
    private Persona autirizador;
    private ArrayList<Registro> perAutorizadas;
    
+   public VisitantesAutorizadosPorX(Persona auto){
+	   setAutirizador(auto);
+	   perAutorizadas = new ArrayList<>();
+	   
+   }
+   
    
 public Persona getAutirizador() {
 	return autirizador;
