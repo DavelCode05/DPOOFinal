@@ -35,7 +35,7 @@ public class Facultad {
 	private ArrayList<Local> locales;
 	private ArrayList<Persona> personal;
 	private ArrayList<Registro> registros;
-	static private Facultad instancia = null;
+
 
 	public static final LocalTime HORA_INICIO_VISITANTES = LocalTime.of(8,0);
 	public static final LocalTime HORA_FIN_VISITANTES = LocalTime.of(12,0);
@@ -101,15 +101,15 @@ private static Facultad instancia = null;
 		registros.add(new Registro(personal.get(5), locales.get(0)));
 		registros.add(new Registro(personal.get(5), locales.get(0)));
 		registros.add(new Registro(personal.get(5), locales.get(0)));
-<<<<<<< HEAD
-		registros.add(new Registro(new Visitante("Juan", "00000","mmmm","mmmm", personal.get(2)), locales.get(0)));
-		registros.add(new Registro(new Visitante("Juanita", "00000","mmmm","mmmm", personal.get(2)), locales.get(0)));
-=======
+
+	//	registros.add(new Registro(new Visitante("Juan", "00000","mmmm","mmmm", personal.get(2)), locales.get(0)));
+	//	registros.add(new Registro(new Visitante("Juanita", "00000","mmmm","mmmm", personal.get(2)), locales.get(0)));
+
 		registros.add(new Registro(personal.get(2), locales.get(2)));
 		registros.add(new Registro(personal.get(2), locales.get(3)));
 		registros.add(new Registro(personal.get(2), locales.get(1)));
 
->>>>>>> origin/dariel
+
 
 		registros.get(0).setHoraEntrada(LocalTime.of(8,0));
 		registros.get(0).setHoraSalida(LocalTime.of(12, 0));
@@ -154,12 +154,6 @@ private static Facultad instancia = null;
 		return locales;
 	}  
 	
-	public static Facultad getFacultad(){
-		if(instancia == null){
-			instancia = new Facultad();
-		}
-		return instancia ;
-	}
 
 	
 	public void addLocal(String ident, TipoLocal tipo, Persona responsable){
@@ -213,7 +207,6 @@ private static Facultad instancia = null;
 	}
 
  public static Facultad getFacultad(){
-	;
 	 if(instancia== null){
 		 instancia = new Facultad();
 	 }

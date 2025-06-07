@@ -15,9 +15,11 @@ public abstract class Persona {
 	public Persona(){
 		
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}
+	
 	public void setNombre(String nombre) {
 		if (nombre != null && !nombre.replaceAll(" ", "").equals("")) {
 			this.nombre = nombre;
@@ -25,6 +27,11 @@ public abstract class Persona {
 			throw new IllegalArgumentException("No pueden haber campos vacios");	
 	}
 
+	
+	@Override
+	public String toString(){
+		return nombre;
+	}
 
 	public String getNumeroIdentidad() {
 		return numeroIdentidad;

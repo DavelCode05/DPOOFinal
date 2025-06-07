@@ -39,13 +39,13 @@ public class IniciarAdim extends JDialog {
 	JLabel lblNewLabel;
 	JLabel lblAdmin;
 	JLabel lblNewLabel_1;
-<<<<<<< HEAD
+
 	private Facultad fac;
-=======
+
 	private JPasswordField passwordField;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
->>>>>>> origin/dariel
+
 
 	/**
 	 * Launch the application.
@@ -114,12 +114,11 @@ public class IniciarAdim extends JDialog {
 				}
 			}
 		});
-<<<<<<< HEAD
+
 		
-		btnIniciar.setBounds(30, 280, 89, 23);
-=======
+
 		btnIniciar.setBounds(66, 420, 107, 33);
->>>>>>> origin/dariel
+
 		contentPanel.add(btnIniciar);
 
 		JButton btnAtras = new JButton("Atras");
@@ -129,13 +128,13 @@ public class IniciarAdim extends JDialog {
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-<<<<<<< HEAD
+
 				IniciarSesion inicio = new IniciarSesion();
 				inicio.setVisible(true);	
-=======
+
 				IniciarSesion ini = new IniciarSesion();
 				ini.setVisible(true);
->>>>>>> origin/dariel
+
 			}
 		});
 		btnAtras.setBounds(219, 420, 107, 33);

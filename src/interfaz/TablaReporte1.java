@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -15,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.TableModel;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
@@ -29,7 +32,14 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+
 import com.toedter.calendar.JDateChooser;
+
+import enums.TipoLocal;
+
+import javax.swing.JComboBox;
+
+import personas.Persona;
 
 public class TablaReporte1 extends JDialog {
 
@@ -48,28 +58,29 @@ public class TablaReporte1 extends JDialog {
 	private JLabel lblNewLabel_1;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
-	private JDateChooser dateChooser;
-	private JDateChooser dateChooser_1;
+	private JDateChooser dateinicio;
+	private JDateChooser datefinal;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
+	JComboBox<Persona> comboBox;
 	/**
 	 * Launch the application.
 	 */
-	//	public static void main(String[] args) {
-	//		try {
-	//			TablaReporte1 dialog = new TablaReporte1();
-	//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	//			dialog.setVisible(true);
-	//		} catch (Exception e) {
-	//			e.printStackTrace();
-	//		}
-	//	}
+	public static void main(String[] args) {
+		try {
+			TablaReporte1 dialog = new TablaReporte1();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public TablaReporte1(JFrame padre) {
-		super(padre, "Reporte 1", true);
+	public TablaReporte1(/*JFrame padre*/) {
+		//	super(padre, "Reporte 1", true);
 		setTitle("Chequeo de registros");
 		fac = Facultad.getFacultad();
 		setBounds(100, 100, 1086, 760);
@@ -86,12 +97,23 @@ public class TablaReporte1 extends JDialog {
 		contentPanel.add(getLblNewLabel_1());
 		contentPanel.add(getBtnNewButton());
 		contentPanel.add(getBtnNewButton_1());
-		contentPanel.add(getDateChooser());
-		contentPanel.add(getDateChooser_1());
+		contentPanel.add(getDateinicio());
+		contentPanel.add(getDatefinal());
 		contentPanel.add(getLblNewLabel_2());
 		contentPanel.add(getLblNewLabel_3());
 
+		comboBox = new JComboBox<>();
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				entradaCarnet();
+			}
+		});
 
+		comboBox.setBounds(782, 83, 194, 32);
+		contentPanel.add(comboBox);
+		comboBox.setModel(new DefaultComboBoxModel<>(fac.getPersonal().toArray(new Persona[0])));
+		
+		entradaCarnet();
 
 	}
 	private JTextField getTextField() {
@@ -146,24 +168,7 @@ public class TablaReporte1 extends JDialog {
 		return table;
 	}
 
-	public void entradaCarnet(){
-		String carnet = textField.getText();
-		boolean correcto = true;
 
-		try{
-			fac.buscarEnPersonal(carnet);
-		}
-		catch(IllegalArgumentException e){
-			lblNewLabel_1.setText(e.getMessage());
-			lblNewLabel_1.setVisible(true);
-			correcto = false;
-		}
-
-		if(correcto){
-			tablaModel.cargarInfo(fac.obtenerReporteVisitasPersonas(carnet, LocalDate.now(), LocalDate.now()));
-		}
-
-	}
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
 			lblNewLabel_1 = new JLabel("");
@@ -208,27 +213,29 @@ public class TablaReporte1 extends JDialog {
 		}
 		return btnNewButton_1;
 	}
-	private JDateChooser getDateChooser() {
-		if (dateChooser == null) {
-			dateChooser = new JDateChooser("dd/MM/yyyy", "##/##/####",'_');
-			dateChooser.setForeground(Color.BLACK);
-//			JTextField dateField = (JTextField)dateChooser.getDateEditor().getUiComponent();
-//			dateField.setForeground(Color.WHITE);
-			dateChooser.setBounds(413, 75, 131, 53);
-//			dateField.setBackground(Colores.getAzulCielo());
+	private JDateChooser getDateinicio() {
+		if (dateinicio == null) {
+			dateinicio = new JDateChooser("yyyy/MM/dd", "##/##/####",'_');
+			dateinicio.setForeground(Color.BLACK);
+			dateinicio.setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			//			JTextField dateField = (JTextField)dateChooser.getDateEditor().getUiComponent();
+			//			dateField.setForeground(Color.WHITE);
+			dateinicio.setBounds(413, 75, 131, 53);
+			//			dateField.setBackground(Colores.getAzulCielo());
 		}
-		return dateChooser;
+		return dateinicio;
 	}
-	private JDateChooser getDateChooser_1() {
-		if (dateChooser_1 == null) {
-			dateChooser_1 = new JDateChooser("dd/MM/yyyy", "##/##/####",'_');
-//			JTextField dateField1 = (JTextField)dateChooser_1.getDateEditor().getUiComponent();
-//			dateField1.setForeground(Color.WHITE);
-			dateChooser_1.setForeground(Color.BLACK);
-			dateChooser_1.setBounds(578, 75, 131, 53);
-//			dateField1.setBackground(Colores.getAzulCielo());
+	private JDateChooser getDatefinal() {
+		if (datefinal == null) {
+			datefinal = new JDateChooser("yyyy/MM/dd", "##/##/####",'_');
+			datefinal.setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			//			JTextField dateField1 = (JTextField)dateChooser_1.getDateEditor().getUiComponent();
+			//			dateField1.setForeground(Color.WHITE);
+			datefinal.setForeground(Color.BLACK);
+			datefinal.setBounds(578, 75, 131, 53);
+			//			dateField1.setBackground(Colores.getAzulCielo());
 		}
-		return dateChooser_1;
+		return datefinal;
 	}
 	private JLabel getLblNewLabel_2() {
 		if (lblNewLabel_2 == null) {
@@ -247,5 +254,27 @@ public class TablaReporte1 extends JDialog {
 			lblNewLabel_3.setBounds(578, 51, 74, 16);
 		}
 		return lblNewLabel_3;
+	}
+	
+	public void entradaCarnet(){
+		//		String carnet = textField.getText();
+		//		boolean correcto = true;
+		String p = ((Persona) comboBox.getSelectedItem()).getNumeroIdentidad();
+		LocalDate inicio = dateinicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate finalll = datefinal.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		//		try{
+		//			fac.buscarEnPersonal(carnet);
+		//		}
+		//		catch(IllegalArgumentException e){
+		//			lblNewLabel_1.setText(e.getMessage());
+		//			lblNewLabel_1.setVisible(true);
+		//			correcto = false;
+		//		}
+
+		//		if(correcto){
+		tablaModel.setRowCount(0);
+		tablaModel.cargarInfo(fac.obtenerReporteVisitasPersonas(p, inicio,finalll));
+		//	}
+
 	}
 }

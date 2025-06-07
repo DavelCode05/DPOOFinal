@@ -61,11 +61,9 @@ public class Inicio extends JFrame {
 	private JMenu mnVer;
 	private JMenuItem mntmPersonal;
 	private JMenuItem mntmReporte;
-<<<<<<< HEAD
+
 	private Facultad fac;
-=======
-	private JMenuItem mntmInformeDeAcceso;
->>>>>>> origin/dariel
+
 
 	/**
 	 * Launch the application.
@@ -154,7 +152,7 @@ public class Inicio extends JFrame {
 			mnReportes.setForeground(Colores.getNegro());
 			mnReportes.setFont(new Font("Tahoma", Font.PLAIN, 27));
 			mnReportes.add(getMntmReporte());
-<<<<<<< HEAD
+
 
 			JMenuItem mntmNewMenuItem_1 = new JMenuItem("Informe de Acceso a la Facultad");
 			mntmNewMenuItem_1.addActionListener(new ActionListener() {
@@ -166,9 +164,9 @@ public class Inicio extends JFrame {
 			mntmNewMenuItem_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 			mntmNewMenuItem_1.setForeground(Color.BLACK);
 			mnReportes.add(mntmNewMenuItem_1);
-=======
-			mnReportes.add(getMntmInformeDeAcceso());
->>>>>>> origin/dariel
+
+			
+
 		}
 		return mnReportes;
 	}
@@ -285,17 +283,6 @@ public class Inicio extends JFrame {
 		}
 		return mntmReporte;
 	}
-	private JMenuItem getMntmInformeDeAcceso() {
-		if (mntmInformeDeAcceso == null) {
-			mntmInformeDeAcceso = new JMenuItem("Informe de Accesos a la Facultad");
-			mntmInformeDeAcceso.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					EleccionReporte3 rep3 = new EleccionReporte3(Inicio.this);
-					rep3.setVisible(true);
-				}
-			});
-			mntmInformeDeAcceso.setFont(new Font("Tahoma", Font.BOLD, 20));
-		}
-		return mntmInformeDeAcceso;
-	}
+	
+
 }

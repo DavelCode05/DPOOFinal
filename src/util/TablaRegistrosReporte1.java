@@ -10,7 +10,7 @@ import acceso.Registro;
 public class TablaRegistrosReporte1 extends DefaultTableModel{
 
 	public TablaRegistrosReporte1(){
-		String [] columnas =  {"Nombre   ", "Local    "," Hora de Entrada    ", "Hora de salida    "};
+		String [] columnas =  {"Fecha   ", "Local    "," Hora de Entrada    ", "Hora de salida    "};
 		this.setColumnIdentifiers(columnas);
 
 
@@ -21,7 +21,7 @@ public class TablaRegistrosReporte1 extends DefaultTableModel{
 		for(int i=0; i < registros.size(); i++){
 			String hora= registros.get(i).getHoraEntrada().format(DateTimeFormatter.ofPattern("HH:mm"));
 
-			Object [] newR = new Object[]{registros.get(i).getPersona().getNombre(), registros.get(i).getLocal().getTipo(), hora,
+			Object [] newR = new Object[]{registros.get(i).getFecha() , registros.get(i).getLocal().getTipo(), hora,
 					registros.get(i).getHoraSalida()
 			};
 			this.addRow(newR);
