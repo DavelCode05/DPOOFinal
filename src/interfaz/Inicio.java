@@ -52,7 +52,6 @@ public class Inicio extends JFrame {
 	private JMenu mnSesion;
 	private JMenu mnAccesos;
 	private JMenu mnReportes;
-	private JMenu mnGestion;
 	private JMenu mnInformacionAdicional;
 	private JMenuItem mntmCerrar;
 	private JMenuItem mntmSalir;
@@ -120,7 +119,6 @@ public class Inicio extends JFrame {
 			menuBar.add(getMnVer());
 			menuBar.add(getMnAccesos());
 			menuBar.add(getMnReportes());
-			menuBar.add(getMnGestion());
 			menuBar.add(getMnInformacionAdicional());
 		}
 		return menuBar;
@@ -169,15 +167,6 @@ public class Inicio extends JFrame {
 
 		}
 		return mnReportes;
-	}
-	private JMenu getMnGestion() {
-		if (mnGestion == null) {
-			mnGestion = new JMenu("Gestion");
-			mnGestion.setIcon(new ImageIcon(Inicio.class.getResource("/images/gestion.png")));
-			mnGestion.setForeground(Colores.getNegro());
-			mnGestion.setFont(new Font("Tahoma", Font.PLAIN, 27));
-		}
-		return mnGestion;
 	}
 	private JMenu getMnInformacionAdicional() {
 		if (mnInformacionAdicional == null) {
@@ -243,8 +232,8 @@ public class Inicio extends JFrame {
 	}
 	private JMenu getMnVer() {
 		if (mnVer == null) {
-			mnVer = new JMenu("Ver");
-			mnVer.setIcon(new ImageIcon(Inicio.class.getResource("/images/view.png")));
+			mnVer = new JMenu("Gesti\u00F3n");
+			mnVer.setIcon(new ImageIcon(Inicio.class.getResource("/images/gestion.png")));
 			mnVer.setForeground(Colores.getNegro());
 			mnVer.setBackground(Color.WHITE);
 			mnVer.setFont(new Font("Tahoma", Font.PLAIN, 27));

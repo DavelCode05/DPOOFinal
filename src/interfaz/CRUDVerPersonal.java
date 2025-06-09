@@ -16,10 +16,12 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
 import util.JTextFieldCarnet;
+import util.JTextFieldGrupo;
 import util.JTextFieldString;
 import enums.Plaza;
 import enums.TipoContrato;
 import enums.TipoLocal;
+import javax.swing.ImageIcon;
 
 public class CRUDVerPersonal extends JDialog {
 
@@ -33,7 +35,6 @@ public class CRUDVerPersonal extends JDialog {
 	private JButton btnEditar;
 	private JButton btnEliminar;
 	private JButton btnGuardarCambios;
-	private JButton btnNewButton;
 	private JButton btnCancelar;
 	private CardLayout card;
 	private JPanel panelGeneral;
@@ -51,6 +52,27 @@ public class CRUDVerPersonal extends JDialog {
 	private JComboBox comboBox_3;
 	private JTextFieldString textFieldString;
 	private JTextFieldString textFieldString_1;
+	private JPanel panelProfesor;
+	private JLabel label;
+	private JTextFieldString textFieldString_2;
+	private JLabel label_1;
+	private JTextFieldString textFieldString_3;
+	private JLabel label_2;
+	private JTextFieldString textFieldString_4;
+	private JLabel label_3;
+	private JComboBox comboBox_4;
+	private JPanel panelEspecialista;
+	private JTextFieldString textFieldString_5;
+	private JLabel lblProyecto;
+	private JPanel panelEstudiante;
+	private JComboBox comboBox_5;
+	private JLabel lblAo;
+	private JLabel lblGrupo;
+	private JTextFieldGrupo textField_3;
+	private JPanel panelTecnico;
+	private JTextFieldString textFieldString_6;
+	private JLabel lblPlaza_1;
+	private JButton btnNewButton;
 
 	/**
 	 * Launch the application.
@@ -83,11 +105,11 @@ public class CRUDVerPersonal extends JDialog {
 			contentPanel.add(getBtnEditar());
 			contentPanel.add(getBtnEliminar());
 			contentPanel.add(getBtnGuardarCambios());
-			contentPanel.add(getBtnNewButton());
 			contentPanel.add(getBtnCancelar());
 			
 		}
 		contentPanel.add(getPanelGeneral());
+		contentPanel.add(getBtnNewButton());
 	}
 	private JLabel getLblNombreYApellidos() {
 		if (lblNombreYApellidos == null) {
@@ -137,8 +159,9 @@ public class CRUDVerPersonal extends JDialog {
 	}
 	private JButton getBtnEditar() {
 		if (btnEditar == null) {
-			btnEditar = new JButton("icono Editar");
-			btnEditar.setBounds(328, 13, 108, 25);
+			btnEditar = new JButton("");
+			btnEditar.setIcon(new ImageIcon(CRUDVerPersonal.class.getResource("/images/editar.png")));
+			btnEditar.setBounds(366, 13, 46, 50);
 		}
 		return btnEditar;
 	}
@@ -156,13 +179,6 @@ public class CRUDVerPersonal extends JDialog {
 		}
 		return btnGuardarCambios;
 	}
-	private JButton getBtnNewButton() {
-		if (btnNewButton == null) {
-			btnNewButton = new JButton("Icono salir");
-			btnNewButton.setBounds(12, 13, 97, 25);
-		}
-		return btnNewButton;
-	}
 	private JButton getBtnCancelar() {
 		if (btnCancelar == null) {
 			btnCancelar = new JButton("Cancelar");
@@ -177,6 +193,10 @@ public class CRUDVerPersonal extends JDialog {
 			panelGeneral.setLayout(card);
 			panelGeneral.add(getPanelAdmin(), "Administrativo");
 			panelGeneral.add(getPanelDirectivo(), "Directivo");
+			panelGeneral.add(getPanelProfesor(), "name_1073537146870000");
+			panelGeneral.add(getPanelEspecialista(), "name_1073625905954900");
+			panelGeneral.add(getPanelEstudiante(), "name_1073718218310799");
+			panelGeneral.add(getPanelTecnico(), "name_1074015448487600");
 		}
 		return panelGeneral;
 	}
@@ -293,5 +313,172 @@ public class CRUDVerPersonal extends JDialog {
 			textFieldString_1.setBounds(12, 209, 116, 22);
 		}
 		return textFieldString_1;
+	}
+	private JPanel getPanelProfesor() {
+		if (panelProfesor == null) {
+			panelProfesor = new JPanel();
+			panelProfesor.setLayout(null);
+			panelProfesor.add(getLabel());
+			panelProfesor.add(getTextFieldString_2());
+			panelProfesor.add(getLabel_1());
+			panelProfesor.add(getTextFieldString_3());
+			panelProfesor.add(getLabel_2());
+			panelProfesor.add(getTextFieldString_4());
+			panelProfesor.add(getLabel_3());
+			panelProfesor.add(getComboBox_4());
+		}
+		return panelProfesor;
+	}
+	private JLabel getLabel() {
+		if (label == null) {
+			label = new JLabel("Departamento");
+			label.setBounds(28, 32, 116, 16);
+		}
+		return label;
+	}
+	private JTextFieldString getTextFieldString_2() {
+		if (textFieldString_2 == null) {
+			textFieldString_2 = new JTextFieldString();
+			textFieldString_2.setColumns(10);
+			textFieldString_2.setBounds(28, 61, 116, 22);
+		}
+		return textFieldString_2;
+	}
+	private JLabel getLabel_1() {
+		if (label_1 == null) {
+			label_1 = new JLabel("Categoria Docente");
+			label_1.setBounds(28, 108, 116, 16);
+		}
+		return label_1;
+	}
+	private JTextFieldString getTextFieldString_3() {
+		if (textFieldString_3 == null) {
+			textFieldString_3 = new JTextFieldString();
+			textFieldString_3.setBounds(28, 137, 116, 22);
+		}
+		return textFieldString_3;
+	}
+	private JLabel getLabel_2() {
+		if (label_2 == null) {
+			label_2 = new JLabel("Categoria Cientifica");
+			label_2.setBounds(28, 187, 116, 16);
+		}
+		return label_2;
+	}
+	private JTextFieldString getTextFieldString_4() {
+		if (textFieldString_4 == null) {
+			textFieldString_4 = new JTextFieldString();
+			textFieldString_4.setBounds(28, 216, 116, 22);
+		}
+		return textFieldString_4;
+	}
+	private JLabel getLabel_3() {
+		if (label_3 == null) {
+			label_3 = new JLabel("Tipo de contrato");
+			label_3.setBounds(209, 32, 116, 16);
+		}
+		return label_3;
+	}
+	private JComboBox getComboBox_4() {
+		if (comboBox_4 == null) {
+			comboBox_4 = new JComboBox();
+			comboBox_4.setBounds(209, 61, 158, 22);
+		}
+		return comboBox_4;
+	}
+	private JPanel getPanelEspecialista() {
+		if (panelEspecialista == null) {
+			panelEspecialista = new JPanel();
+			panelEspecialista.setLayout(null);
+			panelEspecialista.add(getTextFieldString_5());
+			panelEspecialista.add(getLblProyecto());
+		}
+		return panelEspecialista;
+	}
+	private JTextFieldString getTextFieldString_5() {
+		if (textFieldString_5 == null) {
+			textFieldString_5 = new JTextFieldString();
+			textFieldString_5.setBounds(12, 64, 121, 22);
+		}
+		return textFieldString_5;
+	}
+	private JLabel getLblProyecto() {
+		if (lblProyecto == null) {
+			lblProyecto = new JLabel("Proyecto");
+			lblProyecto.setBounds(12, 35, 56, 16);
+		}
+		return lblProyecto;
+	}
+	private JPanel getPanelEstudiante() {
+		if (panelEstudiante == null) {
+			panelEstudiante = new JPanel();
+			panelEstudiante.setLayout(null);
+			panelEstudiante.add(getComboBox_5());
+			panelEstudiante.add(getLblAo());
+			panelEstudiante.add(getLblGrupo());
+			panelEstudiante.add(getTextField_3());
+		}
+		return panelEstudiante;
+	}
+	private JComboBox getComboBox_5() {
+		if (comboBox_5 == null) {
+			comboBox_5 = new JComboBox();
+			comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4"}));
+			comboBox_5.setBounds(12, 60, 43, 22);
+		}
+		return comboBox_5;
+	}
+	private JLabel getLblAo() {
+		if (lblAo == null) {
+			lblAo = new JLabel("A\u00F1o");
+			lblAo.setBounds(12, 31, 56, 16);
+		}
+		return lblAo;
+	}
+	private JLabel getLblGrupo() {
+		if (lblGrupo == null) {
+			lblGrupo = new JLabel("Grupo");
+			lblGrupo.setBounds(12, 100, 56, 16);
+		}
+		return lblGrupo;
+	}
+	private JTextField getTextField_3() {
+		if (textField_3 == null) {
+			textField_3 = new JTextFieldGrupo();
+			textField_3.setBounds(12, 129, 56, 22);
+			textField_3.setColumns(10);
+		}
+		return textField_3;
+	}
+	private JPanel getPanelTecnico() {
+		if (panelTecnico == null) {
+			panelTecnico = new JPanel();
+			panelTecnico.setLayout(null);
+			panelTecnico.add(getTextFieldString_6());
+			panelTecnico.add(getLblPlaza_1());
+		}
+		return panelTecnico;
+	}
+	private JTextFieldString getTextFieldString_6() {
+		if (textFieldString_6 == null) {
+			textFieldString_6 = new JTextFieldString();
+			textFieldString_6.setBounds(26, 45, 84, 22);
+		}
+		return textFieldString_6;
+	}
+	private JLabel getLblPlaza_1() {
+		if (lblPlaza_1 == null) {
+			lblPlaza_1 = new JLabel("Plaza");
+			lblPlaza_1.setBounds(26, 16, 56, 16);
+		}
+		return lblPlaza_1;
+	}
+	private JButton getBtnNewButton() {
+		if (btnNewButton == null) {
+			btnNewButton = new JButton("");
+			btnNewButton.setIcon(new ImageIcon(CRUDVerPersonal.class.getResource("/images/exitIzquierda.png")));
+			btnNewButton.setBounds(12, 20, 19, 18);
+		}
+		return btnNewButton;
 	}
 }
