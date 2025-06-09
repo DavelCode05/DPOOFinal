@@ -62,4 +62,6 @@ public abstract class Persona {
 		return esIgual;
 	}
 	
+	
+	
 }

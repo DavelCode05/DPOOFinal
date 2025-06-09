@@ -23,7 +23,7 @@ public class Directivo extends Profesor{
 	public AreaDirectivo getArea() {
 		return area;
 	}
-
+	
 	
 	
 //	public void setCargo(CargoDirectivo cargo) { // se le da a elegir en lista desplegable

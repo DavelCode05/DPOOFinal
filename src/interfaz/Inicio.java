@@ -182,6 +182,7 @@ public class Inicio extends JFrame {
 	private JMenuItem getMntmCerrar() {
 		if (mntmCerrar == null) {
 			mntmCerrar = new JMenuItem("Cerrar sesi\u00F3n");
+			mntmCerrar.setForeground(Color.BLACK);
 			mntmCerrar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					dispose();
@@ -196,6 +197,7 @@ public class Inicio extends JFrame {
 	private JMenuItem getMntmSalir() {
 		if (mntmSalir == null) {
 			mntmSalir = new JMenuItem("Salir");
+			mntmSalir.setForeground(Color.BLACK);
 			mntmSalir.setFont(new Font("Tahoma", Font.BOLD, 20));
 			mntmSalir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -208,6 +210,7 @@ public class Inicio extends JFrame {
 	private JMenuItem getMntmNewMenuItem() {
 		if (mntmNewMenuItem == null) {
 			mntmNewMenuItem = new JMenuItem("Acerca de");
+			mntmNewMenuItem.setForeground(Color.BLACK);
 			mntmNewMenuItem.setFont(new Font("Tahoma", Font.BOLD, 20));
 			mntmNewMenuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -262,6 +265,7 @@ public class Inicio extends JFrame {
 	private JMenuItem getMntmReporte() {
 		if (mntmReporte == null) {
 			mntmReporte = new JMenuItem("Chequeo de Registros");
+			mntmReporte.setForeground(Color.BLACK);
 			mntmReporte.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					TablaReporte1 tabla = new TablaReporte1(Inicio.this);
