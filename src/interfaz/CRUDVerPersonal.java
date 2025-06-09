@@ -21,7 +21,15 @@ import util.JTextFieldString;
 import enums.Plaza;
 import enums.TipoContrato;
 import enums.TipoLocal;
+
 import javax.swing.ImageIcon;
+
+import personas.Administrativo;
+import personas.Directivo;
+import personas.Especialista;
+import personas.Estudiante;
+import personas.Persona;
+import personas.Tecnico;
 
 public class CRUDVerPersonal extends JDialog {
 
@@ -73,25 +81,28 @@ public class CRUDVerPersonal extends JDialog {
 	private JTextFieldString textFieldString_6;
 	private JLabel lblPlaza_1;
 	private JButton btnNewButton;
+	private Persona per;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			CRUDVerPersonal dialog = new CRUDVerPersonal();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
-	public CRUDVerPersonal() {
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		try {
+//			CRUDVerPersonal dialog = new CRUDVerPersonal();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
+//	/**
+//	 * Create the dialog.
+//	 */
+	public CRUDVerPersonal( JDialog p, Persona persona) {
+		super(p,"",true);
 		setBounds(100, 100, 575, 576);
+		per = persona;
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -110,6 +121,8 @@ public class CRUDVerPersonal extends JDialog {
 		}
 		contentPanel.add(getPanelGeneral());
 		contentPanel.add(getBtnNewButton());
+		
+		panelVisible(per);
 	}
 	private JLabel getLblNombreYApellidos() {
 		if (lblNombreYApellidos == null) {
@@ -193,10 +206,10 @@ public class CRUDVerPersonal extends JDialog {
 			panelGeneral.setLayout(card);
 			panelGeneral.add(getPanelAdmin(), "Administrativo");
 			panelGeneral.add(getPanelDirectivo(), "Directivo");
-			panelGeneral.add(getPanelProfesor(), "name_1073537146870000");
-			panelGeneral.add(getPanelEspecialista(), "name_1073625905954900");
-			panelGeneral.add(getPanelEstudiante(), "name_1073718218310799");
-			panelGeneral.add(getPanelTecnico(), "name_1074015448487600");
+			panelGeneral.add(getPanelProfesor(), "Profesor");
+			panelGeneral.add(getPanelEspecialista(), "Especialista");
+			panelGeneral.add(getPanelEstudiante(), "Estudiante");
+			panelGeneral.add(getPanelTecnico(), "Tecnico");
 		}
 		return panelGeneral;
 	}
@@ -211,6 +224,7 @@ public class CRUDVerPersonal extends JDialog {
 	}
 	private JPanel getPanelDirectivo() {
 		if (panelDirectivo == null) {
+			
 			panelDirectivo = new JPanel();
 			panelDirectivo.setLayout(null);
 			panelDirectivo.add(getLblDepartamento());
@@ -480,5 +494,26 @@ public class CRUDVerPersonal extends JDialog {
 			btnNewButton.setBounds(12, 20, 19, 18);
 		}
 		return btnNewButton;
+	}
+	
+	
+	public void panelVisible (Persona per){
+		
+		if(per instanceof Administrativo){
+			card.show(panelGeneral, "Administrativo");
+		}
+		else if(per instanceof Directivo){
+			card.show(panelGeneral, "Directivo");
+		}
+		else if(per instanceof Estudiante){
+			card.show(panelGeneral, "Estudiante");
+		}
+		else if(per instanceof Especialista){
+			card.show(panelGeneral, "Especialista");
+		}
+		else if(per instanceof Tecnico){
+			card.show(panelGeneral, "Tecnico");
+		}
+		
 	}
 }

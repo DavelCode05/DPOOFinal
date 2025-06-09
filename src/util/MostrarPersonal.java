@@ -28,5 +28,10 @@ public class MostrarPersonal extends DefaultTableModel{
 			this.addRow(newR);
 		}
 	}
+	
+	@Override
+	public boolean isCellEditable(int row, int column){
+		return false;
+	}
 
 }

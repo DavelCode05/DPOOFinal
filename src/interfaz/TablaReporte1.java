@@ -63,7 +63,7 @@ public class TablaReporte1 extends JDialog {
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
 	JComboBox<Persona> comboBox;
-<<<<<<< HEAD
+
 	/**
 	 * Launch the application.
 	 */
@@ -77,32 +77,10 @@ public class TablaReporte1 extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+
 	public TablaReporte1(/*JFrame padre*/) {
-//		super(padre, "Reporte 1", true);
-=======
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		try {
-//			TablaReporte1 dialog = new TablaReporte1();
-//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			dialog.setVisible(true);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	/**
-//	 * Create the dialog.
-//	 * @param inicio 
-//	 */
-	public TablaReporte1(JFrame padre) {
-			super(padre, "Reporte 1", true);
->>>>>>> origin/nicole
+//			super(padre, "Reporte 1", true);
+
 		setTitle("Chequeo de registros");
 		fac = Facultad.getFacultad();
 		setBounds(100, 100, 1086, 760);
