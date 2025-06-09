@@ -23,5 +23,7 @@ public class Administrativo extends Persona{
         }
         this.plaza = plaza;
     }
+    
+  
 
 }

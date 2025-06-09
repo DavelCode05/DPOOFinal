@@ -115,24 +115,25 @@ public class EleccionReporte3 extends JDialog {
 	
 
 	
-		/**
-		 * Launch the application.
-		 */
-		public static void main(String[] args) {
-			try {
-				EleccionReporte3 dialog = new EleccionReporte3();
-				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	
-		/**
-		 * Create the dialog.
-		 */
-	public EleccionReporte3(/*JFrame padre*/) {
-	//	super(padre, "", true);
+//		/**
+//		 * Launch the application.
+//		 */
+//		public static void main(String[] args) {
+//			try {
+//				EleccionReporte3 dialog = new EleccionReporte3();
+//				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//				dialog.setVisible(true);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	
+//		/**
+//		 * Create the dialog.
+//		 * @param inicio 
+//		 */
+	public EleccionReporte3(JFrame padre) {
+		super(padre, "", true);
 		fac = Facultad.getFacultad();
 
 		setBounds(100, 100, 889, 452);
@@ -248,6 +249,7 @@ public class EleccionReporte3 extends JDialog {
 		contentPanel.add(label);
 
 		lblFormato = new JLabel("Formato:");
+		lblFormato.setForeground(Color.WHITE);
 		lblFormato.setFont(new Font("Verdana", Font.PLAIN, 12));
 		lblFormato.setBounds(22, 143, 78, 14);
 		contentPanel.add(lblFormato);
@@ -308,6 +310,7 @@ public class EleccionReporte3 extends JDialog {
 		tableModelHora = new EntradasTable();
 	    tableModelLocal = new LocalesRep3TableModel();
 	    table.setModel(tableModelLocal);
+	 
 		
 		panelGrafico2 = new JPanel();
 		panelNuevo.add(panelGrafico2, "name_1117880551873901");
@@ -317,11 +320,13 @@ public class EleccionReporte3 extends JDialog {
 				if(comboBox.getSelectedItem().toString().equals("LOCAL")){
 					panelloc.setVisible(true);
 					table.setModel(tableModelHora);
+				
 					
 				}
 				else{
 					table.setModel(tableModelLocal);
 					panelloc.setVisible(false);
+//					table.getColumn("Acciones").setCellRenderer(new ButtonRenderer());
 				}
 					
 					

@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -27,6 +28,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import javax.swing.border.LineBorder;
 
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
+
 public class IniciarAdim extends JDialog {
 
 	private final JPanel contentPanel = new JPanel(){
@@ -41,7 +46,7 @@ public class IniciarAdim extends JDialog {
 	JLabel lblNewLabel_1;
 
 	private Facultad fac;
-
+	JButton button;
 	private JPasswordField passwordField;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
@@ -100,11 +105,25 @@ public class IniciarAdim extends JDialog {
 		contentPanel.add(lblNewLabel_1);
 		lblNewLabel_1.setVisible(false);
 
-		JButton btnIniciar = new JButton("Iniciar");
-		btnIniciar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnIniciar.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		btnIniciar.setBackground(Colores.getLogin());
-		btnIniciar.addActionListener(new ActionListener() {
+		button = new JButton("Iniciar");
+		button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+              
+                button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+               
+            	button.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+            }
+        });
+	
+		button.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		button.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		button.setBackground(Colores.getLogin());
+		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(iniciar()){
 					dispose();
@@ -117,9 +136,9 @@ public class IniciarAdim extends JDialog {
 
 		
 
-		btnIniciar.setBounds(66, 420, 107, 33);
+		button.setBounds(66, 420, 107, 33);
 
-		contentPanel.add(btnIniciar);
+		contentPanel.add(button);
 
 		JButton btnAtras = new JButton("Atras");
 		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 20));

@@ -21,7 +21,7 @@ public class LocalesRep3TableModel extends DefaultTableModel{
 		}
 
 		for(int i=0; i<array.length; i++){
-
+           
 			Object [] newR = new Object[]{locales[i], array[i], total!=0?array[i]*100/total:0+"%"
 			};
 			this.addRow(newR);
