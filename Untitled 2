@@ -1,7 +1,7 @@
  cositas a no olvidar
 
-Validar que hora de entrada no sea menor que hora de salida 
-validar carnet 
+Validar que hora de entrada no sea menor que hora de salida y fecha
+validar carnet                                                             Listo
 validaciones d los responsables en los visitantes
 validaciones  de fechas en null
 validacion del motivo de visita no vacio

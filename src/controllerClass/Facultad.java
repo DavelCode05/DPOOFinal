@@ -61,16 +61,16 @@ private static Facultad instancia = null;
 		this.registros = new ArrayList <Registro>();
 
 
-		personal.add(new Administrativo("Dariel Velazco", "06040468472", Plaza.SECRETARIA));
-		personal.add(new Directivo("Lorena Perez", "06040468471", "Recursos Humanos", "mmm","Doctor", TipoContrato.DETERMINADO, CargoDirectivo.DECANO, AreaDirectivo.DECANATO));
+		personal.add(new Administrativo("Dariel Velazco", "06040468472", Plaza.Secretaria));
+		personal.add(new Directivo("Lorena Perez", "06040468471", "Recursos Humanos", "mmm","Doctor", TipoContrato.Determinado, CargoDirectivo.DECANO, AreaDirectivo.DECANATO));
 		personal.add(new Estudiante("Nicole Rios", "06040468470",1, 13 ));
 		personal.add(new Especialista("Josefina Rodriguez", "06040468473","GGGGG" ));
-		personal.add(new Profesor("ALberto Fernandez", "06040468474", " DPOO", "mmm", "Master", TipoContrato.DETERMINADO));
+		personal.add(new Profesor("ALberto Fernandez", "06040468474", " DPOO", "mmm", "Master", TipoContrato.Determinado));
 		personal.add(new Tecnico("Erick Valdez", "06040468475","jjj"));
-		personal.add(new Directivo("Patricia Toro", "06040468476", "Recursos Humanos", "mmm","Doctor", TipoContrato.DETERMINADO, CargoDirectivo.VICEDECANO, AreaDirectivo.VICEDECANATO));
+		personal.add(new Directivo("Patricia Toro", "06040468476", "Recursos Humanos", "mmm","Doctor", TipoContrato.Determinado, CargoDirectivo.VICEDECANO, AreaDirectivo.VICEDECANATO));
 		personal.add(new Tecnico("Antonio Falcon", "06040468477","ddd"));
 		personal.add(new Estudiante("Alvaro Tamayo", "06040468478",1, 12 ));
-		personal.add(new Profesor("Jacinto Reina", "06040468479", " Matematica", "mmm", "Doctor", TipoContrato.DETERMINADO));
+		personal.add(new Profesor("Jacinto Reina", "06040468479", " Matematica", "mmm", "Doctor", TipoContrato.Determinado));
 		
 		
 		

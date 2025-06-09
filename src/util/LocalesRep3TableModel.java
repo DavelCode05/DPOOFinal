@@ -6,7 +6,7 @@ public class LocalesRep3TableModel extends DefaultTableModel{
 
 
 	public LocalesRep3TableModel( ){
-		String [] columnas =  {"Fecha   ", "Cantidad de entradas    "," Porcentaje    "};
+		String [] columnas =  {"Local   ", "Cantidad de entradas    "," Porcentaje    "};
 		this.setColumnIdentifiers(columnas);
 
 
