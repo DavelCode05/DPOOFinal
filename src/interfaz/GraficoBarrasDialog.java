@@ -42,7 +42,7 @@ public class GraficoBarrasDialog extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		setSize(463, 350);
+		setSize(646, 433);
 		dibujarGrafico(g);
 	}
 

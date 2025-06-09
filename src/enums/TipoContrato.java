@@ -1,5 +1,5 @@
 package enums;
 
 public enum TipoContrato {
-	DETERMINADO, INDETERMINADO
+	Determinado, Indeterminado
 }

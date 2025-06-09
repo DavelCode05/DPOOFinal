@@ -41,6 +41,8 @@ import javax.swing.JComboBox;
 
 import personas.Persona;
 
+import java.awt.Component;
+
 public class TablaReporte1 extends JDialog {
 
 	private final JPanel contentPanel = new JPanel(){
@@ -49,20 +51,38 @@ public class TablaReporte1 extends JDialog {
 			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		}
 	};
-	private JTextField textField;
 	private JLabel lblNewLabel;
 	private JScrollPane scrollPane;
 	private JTable table;
 	private TablaRegistrosReporte1 tablaModel;
 	private Facultad fac;
 	private JLabel lblNewLabel_1;
-	private JButton btnNewButton;
 	private JButton btnNewButton_1;
 	private JDateChooser dateinicio;
 	private JDateChooser datefinal;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
 	JComboBox<Persona> comboBox;
+<<<<<<< HEAD
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			TablaReporte1 dialog = new TablaReporte1();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public TablaReporte1(/*JFrame padre*/) {
+//		super(padre, "Reporte 1", true);
+=======
 //	/**
 //	 * Launch the application.
 //	 */
@@ -82,6 +102,7 @@ public class TablaReporte1 extends JDialog {
 //	 */
 	public TablaReporte1(JFrame padre) {
 			super(padre, "Reporte 1", true);
+>>>>>>> origin/nicole
 		setTitle("Chequeo de registros");
 		fac = Facultad.getFacultad();
 		setBounds(100, 100, 1086, 760);
@@ -92,11 +113,9 @@ public class TablaReporte1 extends JDialog {
 		this.setUndecorated(true);
 		setLocationRelativeTo(null);
 		contentPanel.setLayout(null);
-		contentPanel.add(getTextField());
 		contentPanel.add(getLblNewLabel());
 		contentPanel.add(getScrollPane());
 		contentPanel.add(getLblNewLabel_1());
-		contentPanel.add(getBtnNewButton());
 		contentPanel.add(getBtnNewButton_1());
 		contentPanel.add(getDateinicio());
 		contentPanel.add(getDatefinal());
@@ -104,34 +123,24 @@ public class TablaReporte1 extends JDialog {
 		contentPanel.add(getLblNewLabel_3());
 
 		comboBox = new JComboBox<>();
+		comboBox.setToolTipText("");
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				entradaCarnet();
 			}
 		});
 
-		comboBox.setBounds(782, 83, 194, 32);
+		comboBox.setBounds(33, 75, 209, 53);
 		contentPanel.add(comboBox);
 		comboBox.setModel(new DefaultComboBoxModel<>(fac.getPersonal().toArray(new Persona[0])));
 		
 		entradaCarnet();
 
 	}
-	private JTextField getTextField() {
-		if (textField == null) {
-			textField = new JTextField();
-			textField.setFont(new Font("Tahoma", Font.BOLD, 21));
-			textField.setBounds(33, 75, 249, 53);
-			textField.setBackground(Colores.getAzulCielo());
-			textField.setForeground(Color.WHITE);
-			textField.setBorder(new LineBorder(Colores.getBlancuzo()));
-			textField.setColumns(10);
-		}
-		return textField;
-	}
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("Identidad de la Persona");
+			lblNewLabel = new JLabel("Nombre y apellidos:");
 			lblNewLabel.setForeground(Color.WHITE);
 			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 21));
 			lblNewLabel.setBounds(33, 46, 260, 26);
@@ -147,7 +156,8 @@ public class TablaReporte1 extends JDialog {
 				}
 			};
 			scrollPane.setBackground(Colores.getAzulCielo());
-			scrollPane.setBorder(null);
+			scrollPane.getViewport().setBackground(Colores.getLogin());
+			scrollPane.setBorder(new LineBorder(Color.WHITE));
 			scrollPane.setBounds(33, 202, 1018, 525);
 			scrollPane.setViewportView(getTable());
 		}
@@ -165,7 +175,11 @@ public class TablaReporte1 extends JDialog {
 		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 17));
 		table.setForeground(Color.WHITE);
 		table.setBackground(Colores.getAzulCielo());
+		table.setGridColor(Colores.getLogin());
+		table.getTableHeader().setBackground(Colores.getLogin());
 		table.setBorder(null);
+		table.setCellSelectionEnabled(true);
+		table.setRowSelectionAllowed(true);
 		return table;
 	}
 
@@ -180,20 +194,6 @@ public class TablaReporte1 extends JDialog {
 			lblNewLabel_1.setVisible(false);;
 		}
 		return lblNewLabel_1;
-	}
-	private JButton getBtnNewButton() {
-		if (btnNewButton == null) {
-			btnNewButton = new JButton("");
-			btnNewButton.setBorder(null);
-			btnNewButton.setIcon(new ImageIcon(TablaReporte1.class.getResource("/images/aceptar.png")));
-			btnNewButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					entradaCarnet();
-				}
-			});
-			btnNewButton.setBounds(294, 85, 33, 32);
-		}
-		return btnNewButton;
 	}
 	private JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
@@ -216,7 +216,9 @@ public class TablaReporte1 extends JDialog {
 	}
 	private JDateChooser getDateinicio() {
 		if (dateinicio == null) {
-			dateinicio = new JDateChooser("yyyy/MM/dd", "##/##/####",'_');
+			dateinicio = new JDateChooser("dd/MM/yyyy", "##/##/####",'_');
+			dateinicio.setFont(new Font("Tahoma", Font.BOLD, 16));
+			dateinicio.setDateFormatString("dd/MM/yyyy");
 			dateinicio.setForeground(Color.BLACK);
 			dateinicio.setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
 			//			JTextField dateField = (JTextField)dateChooser.getDateEditor().getUiComponent();
@@ -228,7 +230,8 @@ public class TablaReporte1 extends JDialog {
 	}
 	private JDateChooser getDatefinal() {
 		if (datefinal == null) {
-			datefinal = new JDateChooser("yyyy/MM/dd", "##/##/####",'_');
+			datefinal = new JDateChooser("dd/MM/yyyy", "##/##/####",'_');
+			datefinal.setFont(new Font("Tahoma", Font.BOLD, 16));
 			datefinal.setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
 			//			JTextField dateField1 = (JTextField)dateChooser_1.getDateEditor().getUiComponent();
 			//			dateField1.setForeground(Color.WHITE);

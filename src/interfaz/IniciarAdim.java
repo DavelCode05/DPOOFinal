@@ -81,7 +81,7 @@ public class IniciarAdim extends JDialog {
 		setLocationRelativeTo(null);
 		usuarioo.setBorder(null);
 		usuarioo.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		usuarioo.setBounds(66, 257, 260, 33);
+		usuarioo.setBounds(66, 257, 245, 33);
 		contentPanel.add(usuarioo);
 		usuarioo.setColumns(10);
 		
@@ -189,7 +189,7 @@ public class IniciarAdim extends JDialog {
 			passwordField = new JPasswordField();
 			passwordField.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			passwordField.setBorder(null);
-			passwordField.setBounds(66, 334, 260, 33);
+			passwordField.setBounds(66, 334, 245, 33);
 		}
 		return passwordField;
 	}

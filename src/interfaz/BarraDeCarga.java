@@ -88,7 +88,7 @@ public class BarraDeCarga extends JDialog {
 		if (panel == null) {
 			panel = new JPanel(){
 				public void paintComponent(Graphics g){
-					Image img= Toolkit.getDefaultToolkit().getImage(BarraDeCarga.class.getResource("/images/universidad.png"));
+					Image img= Toolkit.getDefaultToolkit().getImage(BarraDeCarga.class.getResource("/images/logoLogin.png"));
 					g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 				}
 			};

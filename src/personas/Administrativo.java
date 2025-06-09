@@ -18,7 +18,7 @@ public class Administrativo extends Persona{
         if(plaza == null){
             throw new IllegalArgumentException("Plaza no puede estar vacia");
         }
-        if (plaza != Plaza.ASESOR && plaza != Plaza.SECRETARIA) {
+        if (plaza != Plaza.Asesor && plaza != Plaza.Secretaria) {
             throw new IllegalArgumentException("La plaza debe ser Asesor o Secretaria para Administrativo");
         }
         this.plaza = plaza;
