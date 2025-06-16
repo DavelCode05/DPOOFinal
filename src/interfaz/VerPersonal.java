@@ -95,9 +95,18 @@ public class VerPersonal extends JDialog {
 		tablepers.setRowHeight(29);
 		tablepers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		JButton btnNewButton_2 = new JButton("New button");
-		btnNewButton_2.setBounds(140, 27, 89, 23);
-		contentPanel.add(btnNewButton_2);
+		JButton btnagregar = new JButton("AgregarPersonas");
+		btnagregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CRUDVerPersonal pp= new CRUDVerPersonal(VerPersonal.this, null, row);
+				pp.setVisible(true);
+				tablemodel.setRowCount(0);
+				tablemodel.cargarInfo(fac.getPersonal());
+				
+			}
+		});
+		btnagregar.setBounds(140, 27, 163, 23);
+		contentPanel.add(btnagregar);
 	
 		
 		
@@ -112,14 +121,7 @@ public class VerPersonal extends JDialog {
 					tablepers.setRowSelectionInterval(row,row);
 					tablepers.setAutoscrolls(true);
 					
-					tablepers.addMouseListener(new MouseAdapter() {
-						@Override
-						public void mouseClicked(java.awt.event.MouseEvent arg0) {
-							CRUDVerPersonal pp= new CRUDVerPersonal(VerPersonal.this, fac.getPersonal().get(row));
-							pp.setVisible(true);
-						}
-							
-					});
+					
 					
 				}
 				else{
@@ -135,6 +137,18 @@ public class VerPersonal extends JDialog {
 			
 			
 		});
+		
+		tablepers.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent arg0) {
+				CRUDVerPersonal pp= new CRUDVerPersonal(VerPersonal.this, fac.getPersonal().get(row), row);
+				pp.setVisible(true);
+				tablemodel.setRowCount(0);
+				tablemodel.cargarInfo(fac.getPersonal());
+			}
+				
+		});
+		
 		tablemodel.cargarInfo(fac.getPersonal());
 		
 	

@@ -4,6 +4,10 @@ public class Estudiante extends Persona{
     private int anio;
     private int grupo;
     
+    public Estudiante(){
+    	
+    }
+    
     public Estudiante(String nombre,  String numeroIdentidad, int anio, int grupo) {
         super(nombre,  numeroIdentidad);
         setAnio(anio);

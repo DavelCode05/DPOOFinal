@@ -68,9 +68,9 @@ public class IniciarAdim extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public IniciarAdim(/*JDialog padre*/) {
+	public IniciarAdim(JDialog padre) {
 		
-//		super(padre, "Iniciar Sesion Administrador", true);
+		super(padre, "Iniciar Sesion Administrador", true);
 		setBounds(100, 100, 406, 489);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);

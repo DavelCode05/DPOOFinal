@@ -1,11 +1,17 @@
 package interfaz;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+
+import enums.AreaDirectivo;
+import enums.CargoDirectivo;
+
+import java.awt.Color;
+
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -24,85 +30,97 @@ import enums.TipoLocal;
 
 import javax.swing.ImageIcon;
 
+import controllerClass.Facultad;
 import personas.Administrativo;
 import personas.Directivo;
 import personas.Especialista;
 import personas.Estudiante;
 import personas.Persona;
+import personas.Profesor;
 import personas.Tecnico;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CRUDVerPersonal extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JLabel lblNombreYApellidos;
-	private JTextFieldString textField;
-	private JLabel lblNewLabel;
-	private JTextFieldCarnet textField_1;
-	private JComboBox comboBox;
-	private JLabel lblPlaza;
+	private JTextFieldString nombre;
+	private JLabel lblcarnet;
+	private JTextFieldCarnet carnet;
+	private JComboBox<Plaza> plazaAdmin;
+	private JLabel lblPlazaAdmin;
 	private JButton btnEditar;
 	private JButton btnEliminar;
 	private JButton btnGuardarCambios;
 	private JButton btnCancelar;
 	private CardLayout card;
+	JComboBox<String> eleccionCrear;
 	private JPanel panelGeneral;
 	private JPanel panelAdmin;
 	private JPanel panelDirectivo;
 	private JLabel lblDepartamento;
-	private JTextFieldString textField_2;
+	private JTextFieldString DepaDirect;
 	private JLabel lblCategoriaDocente;
 	private JLabel lblCategoriaCientifica;
 	private JLabel lblTipoDeContrato;
-	private JComboBox comboBox_1;
+	private JComboBox<TipoContrato> contratodirect;
 	private JLabel lblCargoAdministrativo;
-	private JComboBox comboBox_2;
+	private JComboBox<CargoDirectivo> cargoDirect;
 	private JLabel lblreaDeTrabajo;
-	private JComboBox comboBox_3;
-	private JTextFieldString textFieldString;
-	private JTextFieldString textFieldString_1;
+	private JComboBox<AreaDirectivo> areaDirect;
+	private JTextFieldString catDocDirec;
+	private JTextFieldString catCientdirec;
 	private JPanel panelProfesor;
-	private JLabel label;
-	private JTextFieldString textFieldString_2;
-	private JLabel label_1;
-	private JTextFieldString textFieldString_3;
-	private JLabel label_2;
-	private JTextFieldString textFieldString_4;
-	private JLabel label_3;
-	private JComboBox comboBox_4;
+	private JLabel depap;
+	private JTextFieldString DepaProfesor;
+	private JLabel catDocP;
+	private JTextFieldString catDocProfesor;
+	private JLabel catCP;
+	private JTextFieldString catCientProfesor;
+	private JLabel tipocontratop;
+	private JComboBox<TipoContrato> contratoProfesor;
 	private JPanel panelEspecialista;
-	private JTextFieldString textFieldString_5;
+	private JTextFieldString TFproyectoEsp;
 	private JLabel lblProyecto;
 	private JPanel panelEstudiante;
-	private JComboBox comboBox_5;
+	private JComboBox<String> AnnoEst;
 	private JLabel lblAo;
 	private JLabel lblGrupo;
-	private JTextFieldGrupo textField_3;
+	private JTextFieldGrupo grupoEst;
 	private JPanel panelTecnico;
-	private JTextFieldString textFieldString_6;
+	private JTextFieldString palazatec;
 	private JLabel lblPlaza_1;
 	private JButton btnNewButton;
 	private Persona per;
+	Facultad fac;
+	int row;
+	JLabel errores;
 
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		try {
-//			CRUDVerPersonal dialog = new CRUDVerPersonal();
-//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			dialog.setVisible(true);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	/**
-//	 * Create the dialog.
-//	 */
-	public CRUDVerPersonal( JDialog p, Persona persona) {
+	//	/**
+	//	 * Launch the application.
+	//	 */
+	//	public static void main(String[] args) {
+	//		try {
+	//			CRUDVerPersonal dialog = new CRUDVerPersonal();
+	//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	//			dialog.setVisible(true);
+	//		} catch (Exception e) {
+	//			e.printStackTrace();
+	//		}
+	//	}
+	//
+	//	/**
+	//	 * Create the dialog.
+	//	 */
+	
+	public CRUDVerPersonal( JDialog p, Persona persona, int row) {
 		super(p,"",true);
 		setBounds(100, 100, 575, 576);
 		per = persona;
+		this.row= row;
+		fac = Facultad.getFacultad();
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -110,20 +128,42 @@ public class CRUDVerPersonal extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			contentPanel.add(getLblNombreYApellidos());
-			contentPanel.add(getTextField());
-			contentPanel.add(getLblNewLabel());
-			contentPanel.add(getTextField_1());
+			contentPanel.add(getNombre());
+			contentPanel.add(getLblcarnet());
+			contentPanel.add(getCarnet());
 			contentPanel.add(getBtnEditar());
 			contentPanel.add(getBtnEliminar());
 			contentPanel.add(getBtnGuardarCambios());
 			contentPanel.add(getBtnCancelar());
-			
+
 		}
 		contentPanel.add(getPanelGeneral());
 		contentPanel.add(getBtnNewButton());
+
+		errores = new JLabel("New label");
+		errores.setForeground(Color.RED);
+		errores.setBounds(12, 471, 211, 22);
+		contentPanel.add(errores);
 		
+		 eleccionCrear = new JComboBox<String>();
+		 eleccionCrear.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent arg0) {
+		 	 panelVisible(per);	
+		 	}
+		 });
+		eleccionCrear.setModel(new DefaultComboBoxModel<String>(new String[] {"Administrativo", "Directivo", "Profesor", "Especialista", "Estudiante", "Tecnico"}));
+		
+		eleccionCrear.setBounds(79, 13, 97, 20);
+		contentPanel.add(eleccionCrear);
+		eleccionCrear.setVisible(false);
+		if(per==null){
+			eleccionCrear.setVisible(true);
+		}
+		errores.setVisible(false);
+	
 		panelVisible(per);
 	}
+	
 	private JLabel getLblNombreYApellidos() {
 		if (lblNombreYApellidos == null) {
 			lblNombreYApellidos = new JLabel("Nombre");
@@ -131,48 +171,99 @@ public class CRUDVerPersonal extends JDialog {
 		}
 		return lblNombreYApellidos;
 	}
-	private JTextField getTextField() {
-		if (textField == null) {
-			textField = new JTextFieldString();
-			textField.setBounds(41, 65, 116, 22);
-			textField.setColumns(10);
+
+	private JTextField getNombre() {
+		if (nombre == null) {
+			nombre = new JTextFieldString();
+			nombre.setBounds(41, 65, 116, 22);
+			nombre.setColumns(10);
+			if(per!=null){
+				nombre.setText(per.getNombre());
+				nombre.setEditable(false);
+			}
 		}
-		return textField;
+		return nombre;
 	}
-	private JLabel getLblNewLabel() {
-		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("Carnet de Identidad");
-			lblNewLabel.setBounds(216, 44, 113, 16);
+
+	private JLabel getLblcarnet() {
+		if (lblcarnet == null) {
+			lblcarnet = new JLabel("Carnet de Identidad");
+			lblcarnet.setBounds(216, 44, 113, 16);
 		}
-		return lblNewLabel;
+		return lblcarnet;
 	}
-	private JTextField getTextField_1() {
-		if (textField_1 == null) {
-			textField_1 = new JTextFieldCarnet();
-			textField_1.setColumns(10);
-			textField_1.setBounds(213, 65, 116, 22);
+
+	private JTextField getCarnet() {
+		if (carnet == null) {
+			carnet = new JTextFieldCarnet();
+			carnet.setColumns(10);
+			carnet.setBounds(213, 65, 116, 22);
+			if(per != null){
+				carnet.setText(per.getNumeroIdentidad());
+				carnet.setEditable(false);
+			}
 		}
-		return textField_1;
+		return carnet;
 	}
-	private JComboBox getComboBox() {
-		if (comboBox == null) {
-			comboBox = new JComboBox();
-			comboBox.setBounds(25, 48, 107, 22);
-			comboBox.setModel(new DefaultComboBoxModel<>(Plaza.values()));
-			
+
+	private JComboBox<Plaza> getPlazaAdmin() {
+		if (plazaAdmin == null) {
+			plazaAdmin = new JComboBox<Plaza>();
+			plazaAdmin.setBounds(25, 48, 107, 22);
+			plazaAdmin.setModel(new DefaultComboBoxModel<>(Plaza.values()));
+			if(per!=null && per instanceof Administrativo){
+				plazaAdmin.setSelectedItem(((Administrativo)per).getPlaza().toString());
+				plazaAdmin.setEnabled(false);
+			}
+
 		}
-		return comboBox;
+		return plazaAdmin;
 	}
-	private JLabel getLblPlaza() {
-		if (lblPlaza == null) {
-			lblPlaza = new JLabel("Plaza");
-			lblPlaza.setBounds(25, 27, 56, 16);
+	private JLabel getLblPlazaAdmin() {
+		if (lblPlazaAdmin == null) {
+			lblPlazaAdmin = new JLabel("Plaza");
+			lblPlazaAdmin.setBounds(25, 27, 56, 16);
 		}
-		return lblPlaza;
+		return lblPlazaAdmin;
 	}
 	private JButton getBtnEditar() {
 		if (btnEditar == null) {
 			btnEditar = new JButton("");
+			if(per== null)
+				btnEditar.setEnabled(false);
+			btnEditar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					btnGuardarCambios.setVisible(true);
+					btnCancelar.setVisible(true);
+					btnEliminar.setEnabled(false);
+					nombre.setEditable(true);
+					AnnoEst.setEnabled(true);
+					carnet.setEditable(true);
+					grupoEst.setEditable(true);
+					
+					cargoDirect.setEnabled(true);
+					catDocDirec.setEditable(true);
+					catCientdirec.setEditable(true);
+					areaDirect.setEnabled(true);
+					DepaDirect.setEditable(true);
+					contratodirect.setEnabled(true);
+					
+			        catDocProfesor.setEditable(true);
+			        catCientProfesor.setEditable(true);
+			        contratoProfesor.setEnabled(true);
+			        DepaProfesor.setEditable(true);
+			        
+			        plazaAdmin.setEnabled(true);
+			        
+			        palazatec.setEditable(true);
+			        
+			        TFproyectoEsp.setEditable(true);
+			        btnEliminar.setEnabled(false);
+			        btnEditar.setEnabled(false);
+			        
+			 	
+				}
+			});
 			btnEditar.setIcon(new ImageIcon(CRUDVerPersonal.class.getResource("/images/editar.png")));
 			btnEditar.setBounds(366, 13, 46, 50);
 		}
@@ -181,6 +272,18 @@ public class CRUDVerPersonal extends JDialog {
 	private JButton getBtnEliminar() {
 		if (btnEliminar == null) {
 			btnEliminar = new JButton("Icono Borrar");
+			if(per==null)
+				btnEliminar.setEnabled(false);
+				btnEliminar.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						int confirm = JOptionPane.showConfirmDialog(null, "¿Eliminar esta persona?", "Confirmar", JOptionPane.YES_NO_OPTION);
+						if (confirm == JOptionPane.YES_OPTION) {
+							fac.getPersonal().remove(row);
+							
+						}
+					}
+				});
 			btnEliminar.setBounds(438, 13, 109, 25);
 		}
 		return btnEliminar;
@@ -188,6 +291,40 @@ public class CRUDVerPersonal extends JDialog {
 	private JButton getBtnGuardarCambios() {
 		if (btnGuardarCambios == null) {
 			btnGuardarCambios = new JButton("Guardar cambios");
+			if(per!=null)
+			btnGuardarCambios.setVisible(false);
+			
+			btnGuardarCambios.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					crearPersona();
+					nombre.setEditable(false);
+					AnnoEst.setEnabled(false);
+					carnet.setEditable(false);
+					grupoEst.setEditable(false);
+					
+					cargoDirect.setEnabled(false);
+					catDocDirec.setEditable(false);
+					catCientdirec.setEditable(false);
+					areaDirect.setEnabled(false);
+					DepaDirect.setEditable(false);
+					contratodirect.setEnabled(false);
+					
+			        catDocProfesor.setEditable(false);
+			        catCientProfesor.setEditable(false);
+			        contratoProfesor.setEnabled(false);
+			        DepaProfesor.setEditable(false);
+			        
+			        plazaAdmin.setEnabled(false);
+			        
+			        palazatec.setEditable(false);
+			        
+			        TFproyectoEsp.setEditable(false);
+			        btnGuardarCambios.setVisible(false);
+			        btnCancelar.setVisible(false);
+			        btnEliminar.setEnabled(true);
+			        btnEditar.setEnabled(true);
+				}
+			});
 			btnGuardarCambios.setBounds(289, 466, 150, 25);
 		}
 		return btnGuardarCambios;
@@ -195,6 +332,38 @@ public class CRUDVerPersonal extends JDialog {
 	private JButton getBtnCancelar() {
 		if (btnCancelar == null) {
 			btnCancelar = new JButton("Cancelar");
+			if (per != null)
+				btnCancelar.setVisible(false);
+			btnCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					nombre.setEditable(false);
+					AnnoEst.setEnabled(false);
+					carnet.setEditable(false);
+					grupoEst.setEditable(false);
+					
+					cargoDirect.setEnabled(false);
+					catDocDirec.setEditable(false);
+					catCientdirec.setEditable(false);
+					areaDirect.setEnabled(false);
+					DepaDirect.setEditable(false);
+					contratodirect.setEnabled(false);
+					
+			        catDocProfesor.setEditable(false);
+			        catCientProfesor.setEditable(false);
+			        contratoProfesor.setEnabled(false);
+			        DepaProfesor.setEditable(false);
+			        
+			        plazaAdmin.setEnabled(false);
+			        
+			        palazatec.setEditable(false);
+			        
+			        TFproyectoEsp.setEditable(false);
+			        btnGuardarCambios.setVisible(false);
+			        btnCancelar.setVisible(false);
+			        btnEliminar.setEnabled(true);
+			        btnEditar.setEnabled(true);
+				}
+			});
 			btnCancelar.setBounds(438, 466, 97, 25);
 		}
 		return btnCancelar;
@@ -217,28 +386,28 @@ public class CRUDVerPersonal extends JDialog {
 		if (panelAdmin == null) {
 			panelAdmin = new JPanel();
 			panelAdmin.setLayout(null);
-			panelAdmin.add(getLblPlaza());
-			panelAdmin.add(getComboBox());
+			panelAdmin.add(getLblPlazaAdmin());
+			panelAdmin.add(getPlazaAdmin());
 		}
 		return panelAdmin;
 	}
 	private JPanel getPanelDirectivo() {
 		if (panelDirectivo == null) {
-			
+
 			panelDirectivo = new JPanel();
 			panelDirectivo.setLayout(null);
 			panelDirectivo.add(getLblDepartamento());
-			panelDirectivo.add(getTextField_2());
+			panelDirectivo.add(getDepaDirect());
 			panelDirectivo.add(getLblCategoriaDocente());
 			panelDirectivo.add(getLblCategoriaCientifica());
 			panelDirectivo.add(getLblTipoDeContrato());
-			panelDirectivo.add(getComboBox_1());
+			panelDirectivo.add(getContratodirect());
 			panelDirectivo.add(getLblCargoAdministrativo());
-			panelDirectivo.add(getComboBox_2());
+			panelDirectivo.add(getCargoDirect());
 			panelDirectivo.add(getLblreaDeTrabajo());
-			panelDirectivo.add(getComboBox_3());
-			panelDirectivo.add(getTextFieldString());
-			panelDirectivo.add(getTextFieldString_1());
+			panelDirectivo.add(getAreaDirect());
+			panelDirectivo.add(getCatDocDirec());
+			panelDirectivo.add(getCatCientdirec());
 		}
 		return panelDirectivo;
 	}
@@ -249,13 +418,17 @@ public class CRUDVerPersonal extends JDialog {
 		}
 		return lblDepartamento;
 	}
-	private JTextField getTextField_2() {
-		if (textField_2 == null) {
-			textField_2 = new JTextFieldString();
-			textField_2.setBounds(12, 54, 116, 22);
-			textField_2.setColumns(10);
+	private JTextField getDepaDirect() {
+		if (DepaDirect == null) {
+			DepaDirect = new JTextFieldString();
+			DepaDirect.setBounds(12, 54, 116, 22);
+			DepaDirect.setColumns(10);
+			if(per!=null && per instanceof Directivo){
+				DepaDirect.setText(((Directivo)per).getDepartamento());
+				DepaDirect.setEditable(false);
+			}
 		}
-		return textField_2;
+		return DepaDirect;
 	}
 	private JLabel getLblCategoriaDocente() {
 		if (lblCategoriaDocente == null) {
@@ -278,13 +451,18 @@ public class CRUDVerPersonal extends JDialog {
 		}
 		return lblTipoDeContrato;
 	}
-	private JComboBox getComboBox_1() {
-		if (comboBox_1 == null) {
-			comboBox_1 = new JComboBox();
-			comboBox_1.setBounds(193, 54, 158, 22);
-			comboBox_1.setModel(new DefaultComboBoxModel<>(TipoContrato.values()));
+	private JComboBox<TipoContrato> getContratodirect() {
+		if (contratodirect == null) {
+			contratodirect = new JComboBox<TipoContrato>();
+			contratodirect.setBounds(193, 54, 158, 22);
+			contratodirect.setModel(new DefaultComboBoxModel<>(TipoContrato.values()));
+			
+			if(per!=null && per instanceof Directivo){
+				contratodirect.setSelectedItem(((Directivo)per).getTipoContrato().toString());
+				contratodirect.setEnabled(false);
+			}
 		}
-		return comboBox_1;
+		return contratodirect;
 	}
 	private JLabel getLblCargoAdministrativo() {
 		if (lblCargoAdministrativo == null) {
@@ -293,12 +471,18 @@ public class CRUDVerPersonal extends JDialog {
 		}
 		return lblCargoAdministrativo;
 	}
-	private JComboBox getComboBox_2() {
-		if (comboBox_2 == null) {
-			comboBox_2 = new JComboBox();
-			comboBox_2.setBounds(193, 130, 158, 22);
+	private JComboBox<CargoDirectivo> getCargoDirect() {
+		if (cargoDirect == null) {
+			cargoDirect = new JComboBox<CargoDirectivo>();
+			cargoDirect.setBounds(193, 130, 158, 22);
+			cargoDirect.setModel(new DefaultComboBoxModel<>(CargoDirectivo.values()));
+			
+			if(per!=null && per instanceof Directivo){
+				cargoDirect.setSelectedItem(((Directivo)per).getCargo().toString());
+			    cargoDirect.setEnabled(false);
+			}
 		}
-		return comboBox_2;
+		return cargoDirect;
 	}
 	private JLabel getLblreaDeTrabajo() {
 		if (lblreaDeTrabajo == null) {
@@ -307,114 +491,149 @@ public class CRUDVerPersonal extends JDialog {
 		}
 		return lblreaDeTrabajo;
 	}
-	private JComboBox getComboBox_3() {
-		if (comboBox_3 == null) {
-			comboBox_3 = new JComboBox();
-			comboBox_3.setBounds(193, 209, 158, 22);
+	private JComboBox<AreaDirectivo> getAreaDirect() {
+		if (areaDirect == null) {
+			areaDirect = new JComboBox<AreaDirectivo>();
+			areaDirect.setModel(new DefaultComboBoxModel<>(AreaDirectivo.values()));
+			areaDirect.setBounds(193, 209, 158, 22);
+			if(per!=null && per instanceof Directivo){
+				areaDirect.setSelectedItem(((Directivo)per).getArea().toString());
+				areaDirect.setEnabled(false);
+			}
 		}
-		return comboBox_3;
+		return areaDirect;
 	}
-	private JTextFieldString getTextFieldString() {
-		if (textFieldString == null) {
-			textFieldString = new JTextFieldString();
-			textFieldString.setBounds(12, 130, 116, 22);
+	private JTextFieldString getCatDocDirec() {
+		if (catDocDirec == null) {
+			catDocDirec = new JTextFieldString();
+			catDocDirec.setBounds(12, 130, 116, 22);
+			if(per!=null && per instanceof Directivo){
+				catDocDirec.setText(((Directivo)per).getCatDoc());
+				catDocDirec.setEditable(false);
+			}
 		}
-		return textFieldString;
+		return catDocDirec;
 	}
-	private JTextFieldString getTextFieldString_1() {
-		if (textFieldString_1 == null) {
-			textFieldString_1 = new JTextFieldString();
-			textFieldString_1.setBounds(12, 209, 116, 22);
+	private JTextFieldString getCatCientdirec() {
+		if (catCientdirec == null) {
+			catCientdirec = new JTextFieldString();
+			catCientdirec.setBounds(12, 209, 116, 22);
+			if(per!=null && per instanceof Directivo){
+				catCientdirec.setText(((Directivo)per).getCatCient());
+				catCientdirec.setEditable(false);
+			}
 		}
-		return textFieldString_1;
+		return catCientdirec;
 	}
 	private JPanel getPanelProfesor() {
 		if (panelProfesor == null) {
 			panelProfesor = new JPanel();
 			panelProfesor.setLayout(null);
-			panelProfesor.add(getLabel());
-			panelProfesor.add(getTextFieldString_2());
-			panelProfesor.add(getLabel_1());
-			panelProfesor.add(getTextFieldString_3());
-			panelProfesor.add(getLabel_2());
-			panelProfesor.add(getTextFieldString_4());
-			panelProfesor.add(getLabel_3());
-			panelProfesor.add(getComboBox_4());
+			panelProfesor.add(getDepap());
+			panelProfesor.add(getDepaProfesor());
+			panelProfesor.add(getCatDocP());
+			panelProfesor.add(getCatDocProfesor());
+			panelProfesor.add(getCatCP());
+			panelProfesor.add(getCatCientProfesor());
+			panelProfesor.add(getTipocontratop());
+			panelProfesor.add(getContratoProfesor());
 		}
 		return panelProfesor;
 	}
-	private JLabel getLabel() {
-		if (label == null) {
-			label = new JLabel("Departamento");
-			label.setBounds(28, 32, 116, 16);
+	private JLabel getDepap() {
+		if (depap == null) {
+			depap = new JLabel("Departamento");
+			depap.setBounds(28, 32, 116, 16);
 		}
-		return label;
+		return depap;
 	}
-	private JTextFieldString getTextFieldString_2() {
-		if (textFieldString_2 == null) {
-			textFieldString_2 = new JTextFieldString();
-			textFieldString_2.setColumns(10);
-			textFieldString_2.setBounds(28, 61, 116, 22);
+	private JTextFieldString getDepaProfesor() {
+		if (DepaProfesor == null) {
+			DepaProfesor = new JTextFieldString();
+			DepaProfesor.setColumns(10);
+			DepaProfesor.setBounds(28, 61, 116, 22);
+			if(per!=null && per instanceof Profesor){
+				DepaProfesor.setText(((Profesor)per).getDepartamento());
+				DepaProfesor.setEditable(false);
+			}
 		}
-		return textFieldString_2;
+		return DepaProfesor;
 	}
-	private JLabel getLabel_1() {
-		if (label_1 == null) {
-			label_1 = new JLabel("Categoria Docente");
-			label_1.setBounds(28, 108, 116, 16);
+	private JLabel getCatDocP() {
+		if (catDocP == null) {
+			catDocP = new JLabel("Categoria Docente");
+			catDocP.setBounds(28, 108, 116, 16);
 		}
-		return label_1;
+		return catDocP;
 	}
-	private JTextFieldString getTextFieldString_3() {
-		if (textFieldString_3 == null) {
-			textFieldString_3 = new JTextFieldString();
-			textFieldString_3.setBounds(28, 137, 116, 22);
+	private JTextFieldString getCatDocProfesor() {
+		if (catDocProfesor == null) {
+			catDocProfesor = new JTextFieldString();
+			catDocProfesor.setBounds(28, 137, 116, 22);
+			if(per!=null && per instanceof Profesor){
+				catDocProfesor.setText(((Profesor)per).getCatDoc());
+				catDocProfesor.setEditable(false);
+			}
 		}
-		return textFieldString_3;
+		return catDocProfesor;
 	}
-	private JLabel getLabel_2() {
-		if (label_2 == null) {
-			label_2 = new JLabel("Categoria Cientifica");
-			label_2.setBounds(28, 187, 116, 16);
+	private JLabel getCatCP() {
+		if (catCP == null) {
+			catCP = new JLabel("Categoria Cientifica");
+			catCP.setBounds(28, 187, 116, 16);
 		}
-		return label_2;
+		return catCP;
 	}
-	private JTextFieldString getTextFieldString_4() {
-		if (textFieldString_4 == null) {
-			textFieldString_4 = new JTextFieldString();
-			textFieldString_4.setBounds(28, 216, 116, 22);
+	private JTextFieldString getCatCientProfesor() {
+		if (catCientProfesor == null) {
+			catCientProfesor = new JTextFieldString();
+			catCientProfesor.setBounds(28, 216, 116, 22);
+			if(per!=null && per instanceof Profesor){
+				catCientProfesor.setText(((Profesor)per).getCatCient());
+				catCientProfesor.setEditable(false);
+			}
 		}
-		return textFieldString_4;
+		return catCientProfesor;
 	}
-	private JLabel getLabel_3() {
-		if (label_3 == null) {
-			label_3 = new JLabel("Tipo de contrato");
-			label_3.setBounds(209, 32, 116, 16);
+	private JLabel getTipocontratop() {
+		if (tipocontratop == null) {
+			tipocontratop = new JLabel("Tipo de contrato");
+			tipocontratop.setBounds(209, 32, 116, 16);
 		}
-		return label_3;
+		return tipocontratop;
 	}
-	private JComboBox getComboBox_4() {
-		if (comboBox_4 == null) {
-			comboBox_4 = new JComboBox();
-			comboBox_4.setBounds(209, 61, 158, 22);
+	private JComboBox<TipoContrato> getContratoProfesor() {
+		if (contratoProfesor == null) {
+			contratoProfesor = new JComboBox<TipoContrato>();
+			contratoProfesor.setModel(new DefaultComboBoxModel<>(TipoContrato.values()));
+			contratoProfesor.setBounds(209, 61, 158, 22);
+			if(per!=null && per instanceof Profesor){
+				contratoProfesor.setSelectedItem(((Profesor)per).getTipoContrato().toString());
+				contratoProfesor.setEnabled(false);
+			}
 		}
-		return comboBox_4;
+		return contratoProfesor;
 	}
 	private JPanel getPanelEspecialista() {
 		if (panelEspecialista == null) {
 			panelEspecialista = new JPanel();
 			panelEspecialista.setLayout(null);
-			panelEspecialista.add(getTextFieldString_5());
+			panelEspecialista.add(getTFproyectoEsp());
 			panelEspecialista.add(getLblProyecto());
 		}
 		return panelEspecialista;
 	}
-	private JTextFieldString getTextFieldString_5() {
-		if (textFieldString_5 == null) {
-			textFieldString_5 = new JTextFieldString();
-			textFieldString_5.setBounds(12, 64, 121, 22);
+	private JTextFieldString getTFproyectoEsp() {
+		if (TFproyectoEsp == null) {
+			TFproyectoEsp = new JTextFieldString();
+			TFproyectoEsp.setBounds(12, 64, 121, 22);
+			
+			if(per!=null && per instanceof Especialista){
+				TFproyectoEsp.setText(((Especialista)per).getProyecto());
+				TFproyectoEsp.setEditable(false);
+			}
 		}
-		return textFieldString_5;
+		return TFproyectoEsp;
 	}
 	private JLabel getLblProyecto() {
 		if (lblProyecto == null) {
@@ -427,20 +646,24 @@ public class CRUDVerPersonal extends JDialog {
 		if (panelEstudiante == null) {
 			panelEstudiante = new JPanel();
 			panelEstudiante.setLayout(null);
-			panelEstudiante.add(getComboBox_5());
+			panelEstudiante.add(getAnnoEst());
 			panelEstudiante.add(getLblAo());
 			panelEstudiante.add(getLblGrupo());
-			panelEstudiante.add(getTextField_3());
+			panelEstudiante.add(getGrupoEst());
 		}
 		return panelEstudiante;
 	}
-	private JComboBox getComboBox_5() {
-		if (comboBox_5 == null) {
-			comboBox_5 = new JComboBox();
-			comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4"}));
-			comboBox_5.setBounds(12, 60, 43, 22);
+	private JComboBox<String> getAnnoEst() {
+		if (AnnoEst == null) {
+			AnnoEst = new JComboBox<String>();
+			AnnoEst.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3", "4"}));
+			AnnoEst.setBounds(12, 60, 43, 22);
+			if(per!=null && per instanceof Estudiante){
+				AnnoEst.setSelectedItem(((Estudiante)per).getAnio());
+				AnnoEst.setEnabled(false);
+			}
 		}
-		return comboBox_5;
+		return AnnoEst;
 	}
 	private JLabel getLblAo() {
 		if (lblAo == null) {
@@ -456,29 +679,38 @@ public class CRUDVerPersonal extends JDialog {
 		}
 		return lblGrupo;
 	}
-	private JTextField getTextField_3() {
-		if (textField_3 == null) {
-			textField_3 = new JTextFieldGrupo();
-			textField_3.setBounds(12, 129, 56, 22);
-			textField_3.setColumns(10);
+	private JTextField getGrupoEst() {
+		if (grupoEst == null) {
+			grupoEst = new JTextFieldGrupo();
+			grupoEst.setBounds(12, 129, 56, 22);
+			grupoEst.setColumns(10);
+			if(per!= null && per instanceof Estudiante){
+				grupoEst.setText(String.valueOf(((Estudiante)per).getGrupo()));
+				grupoEst.setEditable(false);
+			}
 		}
-		return textField_3;
+		return grupoEst;
 	}
 	private JPanel getPanelTecnico() {
 		if (panelTecnico == null) {
 			panelTecnico = new JPanel();
 			panelTecnico.setLayout(null);
-			panelTecnico.add(getTextFieldString_6());
+			panelTecnico.add(getPalazatec());
 			panelTecnico.add(getLblPlaza_1());
 		}
 		return panelTecnico;
 	}
-	private JTextFieldString getTextFieldString_6() {
-		if (textFieldString_6 == null) {
-			textFieldString_6 = new JTextFieldString();
-			textFieldString_6.setBounds(26, 45, 84, 22);
+	private JTextFieldString getPalazatec() {
+		if (palazatec == null) {
+			palazatec = new JTextFieldString();
+			palazatec.setBounds(26, 45, 84, 22);
+			
+			if(per!=null &&per instanceof Tecnico){
+				palazatec.setText(((Tecnico)per).getPlaza());
+				palazatec.setEditable(false);
+			}
 		}
-		return textFieldString_6;
+		return palazatec;
 	}
 	private JLabel getLblPlaza_1() {
 		if (lblPlaza_1 == null) {
@@ -490,30 +722,468 @@ public class CRUDVerPersonal extends JDialog {
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					dispose();
+				}
+			});
 			btnNewButton.setIcon(new ImageIcon(CRUDVerPersonal.class.getResource("/images/exitIzquierda.png")));
 			btnNewButton.setBounds(12, 20, 19, 18);
 		}
 		return btnNewButton;
 	}
-	
-	
+
+
 	public void panelVisible (Persona per){
-		
-		if(per instanceof Administrativo){
+
+		if(per instanceof Administrativo || per == null && eleccionCrear.getSelectedItem().equals("Administrativo") ){
 			card.show(panelGeneral, "Administrativo");
 		}
-		else if(per instanceof Directivo){
+		else if(per instanceof Directivo || per == null && eleccionCrear.getSelectedItem().equals("Directivo")){
 			card.show(panelGeneral, "Directivo");
 		}
-		else if(per instanceof Estudiante){
+		else if(per instanceof Estudiante || per == null && eleccionCrear.getSelectedItem().equals("Estudiante")){
 			card.show(panelGeneral, "Estudiante");
 		}
-		else if(per instanceof Especialista){
+		else if(per instanceof Especialista || per == null && eleccionCrear.getSelectedItem().equals("Especialista")){
 			card.show(panelGeneral, "Especialista");
 		}
-		else if(per instanceof Tecnico){
+		else if(per instanceof Tecnico || per == null && eleccionCrear.getSelectedItem().equals("Tecnico")){
 			card.show(panelGeneral, "Tecnico");
 		}
+		else if(per instanceof Profesor || per == null && eleccionCrear.getSelectedItem().equals("Profesor")){
+			card.show(panelGeneral,"Profesor");
+		}
+
+	}
+	
+	public void crearPersona(){
+		if(per instanceof Administrativo || per == null && eleccionCrear.getSelectedItem().equals("Administrativo")){
+			crearAdministrativo();
+		}
+		else if(per instanceof Directivo || per == null && eleccionCrear.getSelectedItem().equals("Directivo")){
+			crearDirectivo();
+		}
+		else if(per instanceof Estudiante || per == null && eleccionCrear.getSelectedItem().equals("Estudiante")){
+			crearEstudiante();
+		}
+		else if(per instanceof Especialista || per == null && eleccionCrear.getSelectedItem().equals("Especialista")){
+			crearEspecialista();
+		}
+		else if(per instanceof Tecnico || per == null && eleccionCrear.getSelectedItem().equals("Tecnico")){
+			crearTecnico();
+		}
+		else if(per instanceof Profesor || per == null && eleccionCrear.getSelectedItem().equals("Profesor")){
+			crearProfesor();}
 		
+		
+	}
+
+	public void crearEstudiante(){
+		String nom = nombre.getText();
+		String carn = carnet.getText();
+		String anno = AnnoEst.getSelectedItem().toString();
+		String grup= grupoEst.getText();
+		Estudiante est = new Estudiante();
+		boolean bien = false;;
+		Persona existente =  fac.buscarPersonaCi(carn);
+
+		if(verificarExistenciNombreyCarnet(carn, existente,est, nom)){
+			bien= true;
+			
+
+			try{
+				est.setAnio(Integer.parseInt(anno));
+			}
+			catch (IllegalArgumentException e){
+				errores.setText("Datos no validos");
+				errores.setVisible(true);
+				lblAo.setForeground(Color.RED);
+				bien = false;	
+			}
+	
+			try{
+				est.setGrupo(Integer.parseInt(grup));
+			}
+			catch (IllegalArgumentException e){
+				errores.setText("Datos no validos");
+				errores.setVisible(true);
+				lblGrupo.setForeground(Color.RED);
+				bien = false;	
+			}
+
+
+		}
+	
+
+		if(bien && per ==null){
+			fac.addEstudiante(est.getNombre(), est.getNumeroIdentidad(), est.getAnio(), est.getGrupo());
+		}
+
+		else if (bien && per!=null){
+			existente.setNombre(est.getNombre());
+			existente.setNumeroIdentidad(est.getNumeroIdentidad());
+			((Estudiante)existente).setAnio(est.getAnio());
+			((Estudiante)existente).setGrupo(est.getGrupo());
+		}	
+
+	}
+	public void crearEspecialista(){
+		String nom = nombre.getText();
+		String carn = carnet.getText();
+		String proyecto = TFproyectoEsp.getText();
+		Especialista est = new Especialista();
+		
+		boolean bien = false;;
+		Persona existente =  fac.buscarPersonaCi(carn);
+
+		
+		if(verificarExistenciNombreyCarnet(carn, existente,est, nom)){
+			bien= true;		
+			try{
+				errores.setVisible(false);
+				est.setProyecto(proyecto);
+			}
+			catch (IllegalArgumentException e){
+				errores.setText("Datos no validos");
+				errores.setVisible(true);
+				lblProyecto.setForeground(Color.RED);
+				bien = false;	
+			}
+		}
+		
+		if(bien && per ==null){
+			fac.addEspecialista(est.getNombre(), est.getNumeroIdentidad(), est.getProyecto());
+		}
+
+		else if (bien && per!=null){
+			existente.setNombre(est.getNombre());
+			existente.setNumeroIdentidad(est.getNumeroIdentidad());
+			((Especialista)existente).setProyecto(est.getProyecto());
+			
+		}
+
+	}
+	
+	
+	public void crearAdministrativo(){
+		String nom = nombre.getText();
+		String carn = carnet.getText();
+		Administrativo est = new Administrativo();
+		
+		boolean bien = false;;
+		Persona existente =  fac.buscarPersonaCi(carn);
+		Plaza plaza = (Plaza) plazaAdmin.getSelectedItem();
+
+		
+		if(verificarExistenciNombreyCarnet(carn, existente,est,nom)){
+			bien= true;
+			try{
+				est.setPlaza(plaza);
+			}
+			catch (IllegalArgumentException e){
+				errores.setText("Datos no validos");
+				errores.setVisible(true);
+				lblPlazaAdmin.setForeground(Color.RED);
+				bien = false;	
+				
+			}
+		}
+		
+		
+		if(bien && per ==null){
+			fac.addAdministrativo(est.getNombre(), est.getNumeroIdentidad(), est.getPlaza());;// cambiar estoooo
+		}
+
+		else if (bien && per!=null){
+			existente.setNombre(est.getNombre());
+			existente.setNumeroIdentidad(est.getNumeroIdentidad());
+			((Administrativo)existente).setPlaza(est.getPlaza());
+			
+		}
+		
+	}
+	
+	public void crearTecnico(){
+		String nom = nombre.getText();
+		String carn = carnet.getText();
+		Tecnico est = new Tecnico();
+		boolean bien = false;;
+		Persona existente =  fac.buscarPersonaCi(carn);
+		String plaza = palazatec.getText();
+
+		
+		if(verificarExistenciNombreyCarnet(carn, existente,est,nom)){
+			bien= true;
+			try{
+				est.setPlaza(plaza);
+			}
+			catch (IllegalArgumentException e){
+				errores.setText("Datos no validos");
+				errores.setVisible(true);
+				lblPlaza_1.setForeground(Color.RED);
+				bien = false;	
+				
+			}
+		}
+		
+		if(bien && per ==null){
+			fac.addTecnico(est.getNombre(), est.getNumeroIdentidad(), est.getPlaza());
+		}
+
+		else if (bien && per!=null){
+			existente.setNombre(est.getNombre());
+			existente.setNumeroIdentidad(est.getNumeroIdentidad());
+			((Tecnico)existente).setPlaza(est.getPlaza());
+			
+		}
+		
+	}
+	
+	public void crearProfesor(){
+		String nom = nombre.getText();
+		String carn = carnet.getText();
+		Profesor est = new Profesor();
+		boolean bien = false;;
+		Persona existente =  fac.buscarPersonaCi(carn);
+		String depa = DepaProfesor.getText();
+		String catD = catDocProfesor.getText();
+		String catcien = catCientProfesor.getText();
+		TipoContrato contr = (TipoContrato) contratoProfesor.getSelectedItem();
+		
+		
+
+		
+		if(verificarExistenciNombreyCarnet(carn, existente,est,nom)){
+			bien= true;
+			try {
+				est.setCatCient(catcien);
+				errores.setVisible(false);
+				catCP.setForeground(Color.BLACK);
+				
+			}
+			catch (IllegalArgumentException e){
+				errores.setText("Datos no validos");
+				errores.setVisible(true);
+				catCP.setForeground(Color.RED);
+				bien = false;	
+			}
+			
+			try{
+				est.setCatDoc(catD);
+				catDocP.setForeground(Color.BLACK);
+				
+			}
+			catch (IllegalArgumentException e){
+				errores.setText("Datos no validos");
+				errores.setVisible(true);
+				catDocP.setForeground(Color.RED);
+				bien = false;	
+			}
+			
+			try{
+				est.setTipoContrato(contr);
+				tipocontratop.setForeground(Color.BLACK);
+				
+			}
+			catch (IllegalArgumentException e){
+				errores.setText("Datos no validos");
+				errores.setVisible(true);
+				tipocontratop.setForeground(Color.RED);
+				bien = false;	
+			}
+			
+			try{
+			 est.setDepartamento(depa);
+			
+			depap.setForeground(Color.BLACK);
+				
+			}
+			catch (IllegalArgumentException e){
+				errores.setText("Datos no validos");
+				errores.setVisible(true);
+				depap.setForeground(Color.RED);
+				bien = false;	
+			}
+		}
+		
+		if(bien && per ==null){
+			fac.addProfesor(est.getNombre(), est.getNumeroIdentidad(),  est.getDepartamento(), est.getCatDoc(), est.getCatCient(), est.getTipoContrato());
+		}
+
+		else if (bien && per!=null){
+			existente.setNombre(est.getNombre());
+			existente.setNumeroIdentidad(est.getNumeroIdentidad());
+			((Profesor)existente).setCatCient(est.getCatCient());
+			((Profesor)existente).setCatDoc(est.getCatDoc());
+			((Profesor)existente).setDepartamento(est.getDepartamento());
+			((Profesor)existente).setTipoContrato(est.getTipoContrato());
+			
+		}
+		
+	}
+	
+	public void crearDirectivo(){
+		String nom = nombre.getText();
+		String carn = carnet.getText();
+		Directivo est = new Directivo();
+		boolean bien = false;;
+		Persona existente =  fac.buscarPersonaCi(carn);
+		String depa = DepaDirect.getText();
+		String catD = catCientdirec.getText();
+		String catcien = catCientdirec.getText();
+		TipoContrato contr = (TipoContrato) contratodirect.getSelectedItem();
+		AreaDirectivo area = (AreaDirectivo) areaDirect.getSelectedItem();
+		CargoDirectivo cargo = (CargoDirectivo) cargoDirect.getSelectedItem();
+		
+		
+		
+
+		
+		if(verificarExistenciNombreyCarnet(carn, existente,est,nom)){
+			bien= true;
+			try {
+				est.setCatCient(catcien);
+				errores.setVisible(false);
+				lblCategoriaCientifica.setForeground(Color.BLACK);
+				
+			}
+			catch (IllegalArgumentException e){
+				errores.setText("Datos no validos");
+				errores.setVisible(true);
+				lblCategoriaCientifica.setForeground(Color.RED);
+				bien = false;	
+			}
+			
+			try{
+				est.setCatDoc(catD);
+				lblCategoriaDocente.setForeground(Color.BLACK);
+				
+			}
+			catch (IllegalArgumentException e){
+				errores.setText("Datos no validos");
+				errores.setVisible(true);
+				lblCategoriaDocente.setForeground(Color.RED);
+				bien = false;	
+			}
+			
+			try{
+				est.setTipoContrato(contr);
+				lblTipoDeContrato.setForeground(Color.BLACK);
+				
+			}
+			catch (IllegalArgumentException e){
+				errores.setText("Datos no validos");
+				errores.setVisible(true);
+				lblTipoDeContrato.setForeground(Color.RED);
+				bien = false;	
+			}
+			
+			try{
+			 est.setDepartamento(depa);
+			
+			lblDepartamento.setForeground(Color.BLACK);
+				
+			}
+			catch (IllegalArgumentException e){
+				errores.setText("Datos no validos");
+				errores.setVisible(true);
+				lblDepartamento.setForeground(Color.RED);
+				bien = false;	
+			}
+			
+			try{
+				est.setArea(area);
+
+				lblreaDeTrabajo.setForeground(Color.BLACK);
+					
+				}
+				catch (IllegalArgumentException e){
+					errores.setText("Datos no validos");
+					errores.setVisible(true);
+					lblreaDeTrabajo.setForeground(Color.RED);
+					bien = false;	
+				}
+			
+			try{
+				est.setCargo(cargo);
+				lblCargoAdministrativo.setForeground(Color.BLACK);
+					
+				}
+				catch (IllegalArgumentException e){
+					errores.setText("Datos no validos");
+					errores.setVisible(true);
+					lblCargoAdministrativo.setForeground(Color.RED);
+					bien = false;	
+				}
+		}
+		
+		if(bien && per ==null){
+			fac.addDirectivo(est.getNombre(), est.getNumeroIdentidad(),  est.getDepartamento(), est.getCatDoc(), est.getCatCient(), est.getTipoContrato(), est.getCargo(), est.getArea());
+		}
+
+		else if (bien && per!=null){
+			existente.setNombre(est.getNombre());
+			existente.setNumeroIdentidad(est.getNumeroIdentidad());
+			((Directivo)existente).setCatCient(est.getCatCient());
+			((Directivo)existente).setCatDoc(est.getCatDoc());
+			((Directivo)existente).setDepartamento(est.getDepartamento());
+			((Directivo)existente).setTipoContrato(est.getTipoContrato());
+			((Directivo)existente).setArea(est.getArea());
+			((Directivo)existente).setCargo(est.getCargo());
+		}
+	}
+	
+
+	
+	
+
+
+	public boolean verificarExistenciNombreyCarnet(String carn, Persona existente, Persona est, String nom){
+
+		boolean bien = true;
+
+		if(per==null && existente!= null){
+			bien = false;
+			errores.setText("La persona ya existe");
+			lblcarnet.setForeground(Color.RED);
+			errores.setVisible(true);
+
+		}
+		else if(per != null &&existente!= null && !per.getNumeroIdentidad().equals(carn)){
+			bien = false;
+			errores.setText("Existe un usuario registrado con ese carnet");
+			errores.setVisible(true);
+			lblcarnet.setForeground(Color.RED);
+
+		}
+		else
+		{
+			lblcarnet.setForeground(Color.BLACK);
+			try{
+				est.setNumeroIdentidad(carn);
+				errores.setVisible(false);
+				lblcarnet.setForeground(Color.BLACK);
+			}
+			catch (IllegalArgumentException e){
+				errores.setText("Datos no validos");
+				errores.setVisible(true);
+				lblcarnet.setForeground(Color.RED);
+				bien = false;	
+			}
+
+			try {
+				est.setNombre(nom);
+				lblNombreYApellidos.setForeground(Color.BLACK);
+			}
+			catch (IllegalArgumentException e){
+				errores.setText("Datos no validos");
+				errores.setVisible(true);
+				lblNombreYApellidos.setForeground(Color.RED);
+				bien = false;	
+			}
+		}
+
+		return bien;
 	}
 }
