@@ -109,9 +109,14 @@ public class EleccionReporte3 extends JDialog {
 	private JLabel lblFormato;
 
 
+<<<<<<< HEAD
 	/**
 	 * Launch the application.
 	 */
+=======
+
+
+>>>>>>> origin/nicole
 //	public static void main(String[] args) {
 //		try {
 //			EleccionReporte3 dialog = new EleccionReporte3();
@@ -121,6 +126,7 @@ public class EleccionReporte3 extends JDialog {
 //			e.printStackTrace();
 //		}
 //	}
+<<<<<<< HEAD
 
 	/**
 	 * Create the dialog.
@@ -128,6 +134,24 @@ public class EleccionReporte3 extends JDialog {
 
 	public EleccionReporte3(JFrame padre) {
 		super(padre, "", true);
+=======
+	
+	
+
+	
+//		/**
+//		 * Launch the application.
+//		 */
+	
+//	
+//		/**
+//		 * Create the dialog.
+//		 * @param inicio 
+//		 */
+	public EleccionReporte3(JFrame padre) {
+		super(padre, "", true);
+
+>>>>>>> origin/nicole
 		fac = Facultad.getFacultad();
 
 		setBounds(100, 100, 1086, 566);
@@ -249,6 +273,10 @@ public class EleccionReporte3 extends JDialog {
 		lblMostrarPor.setBounds(37, 104, 151, 27);
 		contentPanel.add(lblMostrarPor);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/nicole
 		JLabel label = new JLabel("");
 		label.setBounds(59, 251, 46, 14);
 		contentPanel.add(label);
@@ -259,6 +287,10 @@ public class EleccionReporte3 extends JDialog {
 		lblFormato.setBounds(22, 143, 78, 14);
 		contentPanel.add(lblFormato);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/nicole
 		rdbtnDa = new JRadioButton("D\u00EDa");
 		rdbtnDa.setForeground(Color.BLACK);
 		rdbtnDa.addActionListener(new ActionListener() {
@@ -327,6 +359,10 @@ public class EleccionReporte3 extends JDialog {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		tableModelHora = new EntradasTable();
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/nicole
 		tableModelLocal = new LocalesRep3TableModel();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setModel(tableModelLocal);
@@ -356,6 +392,12 @@ public class EleccionReporte3 extends JDialog {
 				if(comboBox.getSelectedItem().toString().equals("Local")){
 					panelloc.setVisible(true);
 					table.setModel(tableModelHora);
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> origin/nicole
 				}
 				else{
 					table.setModel(tableModelLocal);

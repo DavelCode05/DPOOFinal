@@ -1,10 +1,14 @@
 package util;
 
-import javax.swing.JTextField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JTextField;
+
 public class JTextFieldCarnet extends JTextField{
+	
+private int limite = 11;
+	
 	public JTextFieldCarnet() {
 		addKeyListener(new KeyAdapter() {
 			@Override
@@ -17,7 +21,7 @@ public class JTextFieldCarnet extends JTextField{
 			}
 		});
 	}
-	private int limite = 11;
+
 
 	public int getLimite() {
 		return limite;
@@ -28,5 +32,5 @@ public class JTextFieldCarnet extends JTextField{
 			this.limite = limite;
 	}
 	
-	
+
 }

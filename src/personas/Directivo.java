@@ -17,6 +17,15 @@ public class Directivo extends Profesor{
 	this.area = area;
 	this.cargo=cargo;
 	}
+	public void setCargo(CargoDirectivo cargo) {
+		this.cargo = cargo;
+	}
+	public void setArea(AreaDirectivo area) {
+		this.area = area;
+	}
+	public Directivo() {
+		// TODO Auto-generated constructor stub
+	}
 	public CargoDirectivo getCargo() {
 		return cargo;
 	}

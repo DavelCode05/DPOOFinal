@@ -10,7 +10,11 @@ public class Tecnico extends Persona{
         setPlaza(plaza);
     }
 
-    public String getPlaza() {
+    public Tecnico() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getPlaza() {
         return plaza;
     }
 

@@ -1,6 +1,7 @@
 package interfaz;
 
 import java.awt.BorderLayout;
+import util.JTextFieldCarnet;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -22,8 +23,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.time.LocalDate;
-import java.time.LocalTime;
+//import java.time.LocalDate;
+//import java.time.LocalTime;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -38,30 +39,30 @@ import controllerClass.Facultad;
 
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-import javax.swing.JScrollBar;
-import javax.swing.JTextPane;
-import javax.swing.JFormattedTextField;
+//import javax.swing.JTextArea;
+//import javax.swing.JScrollBar;
+//import javax.swing.JTextPane;
+//import javax.swing.JFormattedTextField;
 import javax.swing.JToggleButton;
 
-import java.awt.ScrollPane;
-
-import javax.swing.JScrollPane;
-import javax.swing.border.TitledBorder;
-import javax.swing.UIManager;
-import javax.swing.border.MatteBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+//import java.awt.ScrollPane;
+//
+//import javax.swing.JScrollPane;
+//import javax.swing.border.TitledBorder;
+//import javax.swing.UIManager;
+//import javax.swing.border.MatteBorder;
+//import javax.swing.event.DocumentEvent;
+//import javax.swing.event.DocumentListener;
 
 import java.awt.TextArea;
 
-import javax.swing.JRadioButton;
-
-import javafx.scene.control.ComboBox;
+//import javax.swing.JRadioButton;
+//
+//import javafx.scene.control.ComboBox;
 
 import javax.swing.ButtonGroup;
 
-import com.sun.xml.internal.ws.org.objectweb.asm.Label;
+//import com.sun.xml.internal.ws.org.objectweb.asm.Label;
 
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
@@ -80,9 +81,7 @@ public class IniciarSesion extends JDialog {
 	JToggleButton tglbtnUsuario;
 	JButton btnNewButton;
 
-	/**
-	 * @wbp.nonvisual location=382,229
-	 */
+	
 	private ButtonGroup buttonGroup ;
 	private JButton btnNewButton_1;
 	private JPanel panel;
@@ -90,22 +89,17 @@ public class IniciarSesion extends JDialog {
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JLabel lblDeTuMano;
-	/**
-	 * @wbp.nonvisual location=57,89
-	 */
-
-	/**
-	 * @wbp.nonvisual location=377,239
-	 */
-
-	/**
-	 * @wbp.nonvisual location=467,129
-	 */
 
 
+<<<<<<< HEAD
 	/**
 	 * Launch the application.
 	 */
+=======
+//	/**
+//	 * Launch the application.
+//	 */
+>>>>>>> origin/nicole
 //		public static void main(String[] args) {
 //			try {
 //				IniciarSesion dialog = new IniciarSesion();
@@ -116,10 +110,19 @@ public class IniciarSesion extends JDialog {
 //				e.printStackTrace();
 //			}
 //		}
+<<<<<<< HEAD
 
 	/**
 	 * Create the dialog.
 	 */
+=======
+//
+//	/**
+//	 * Create the dialog.
+//	 */
+		
+		
+>>>>>>> origin/nicole
 	public IniciarSesion( ) {
 		setTitle("Registro de Entrada");
 		setForeground(Color.BLACK);

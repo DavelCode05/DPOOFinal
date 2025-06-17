@@ -8,7 +8,11 @@ public class Especialista extends Persona{
         setProyecto(proyecto);
     }
 
-    public String getProyecto() {
+    public Especialista() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getProyecto() {
         return proyecto;
     }
 

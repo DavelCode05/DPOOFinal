@@ -46,7 +46,7 @@ public class IniciarAdim extends JDialog {
 	JLabel lblNewLabel_1;
 
 	private Facultad fac;
-	JButton button;
+	private JButton button;
 	private JPasswordField passwordField;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;

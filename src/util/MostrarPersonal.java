@@ -11,7 +11,7 @@ import acceso.Registro;
 public class MostrarPersonal extends DefaultTableModel{
 	
 	public MostrarPersonal(){
-		String [] columnas =  {"Nombre  ", "Carnet de Identidad    "," Rol  ", "Acciones"};
+		String [] columnas =  {"Nombre  ", "Carnet de Identidad    "," Rol  "};
 		this.setColumnIdentifiers(columnas);
 
 
@@ -27,6 +27,11 @@ public class MostrarPersonal extends DefaultTableModel{
 			};
 			this.addRow(newR);
 		}
+	}
+	
+	@Override
+	public boolean isCellEditable(int row, int column){
+		return false;
 	}
 
 }

@@ -19,7 +19,11 @@ public class Profesor extends Persona{
         setTipoContrato(tipoContrato);
     }
 
-    public String getDepartamento() {
+    public Profesor() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getDepartamento() {
         return departamento;
     }
     public void setDepartamento(String departamento) {

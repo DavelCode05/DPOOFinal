@@ -40,7 +40,7 @@ public class BarraDeCarga extends JDialog {
 			dialog.setVisible(true);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			
-			IniciarSesion inicio = new IniciarSesion();
+			 IniciarSesion inicio = new IniciarSesion();
 			
 			try {
 				for(int i = 0; i < 100; i++){
@@ -60,6 +60,8 @@ public class BarraDeCarga extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
+	
+	
 	public BarraDeCarga() {
 		setBounds(100, 100, 739, 489);
 		getContentPane().setLayout(new BorderLayout());

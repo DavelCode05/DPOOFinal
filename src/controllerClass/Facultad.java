@@ -157,6 +157,8 @@ private static Facultad instancia = null;
 
 	
 	public void addLocal(String ident, TipoLocal tipo, Persona responsable){
+		
+
 		locales.add(new Local(ident, tipo, responsable));
 	}
 
@@ -414,6 +416,35 @@ private static Facultad instancia = null;
     	return p;
     	
     }
+    
+    
+    
+    public void addAdministrativo(String nombre, String carnet, Plaza plaza){
+    	personal.add(new Administrativo(nombre, carnet, plaza));
+    }
+    
+    public void addEstudiante(String nombre , String carnet, int anno, int grupo){
+    	personal.add(new Estudiante(nombre, carnet, anno, grupo));
+    }
+    
+    public void addProfesor(String nombre, String carnet, String depa, String catDoc, String catCient, TipoContrato contrato){
+    	personal.add(new Profesor(nombre, carnet, depa, catDoc, catCient, contrato));
+    }
+    
+    public void addDirectivo(String nombre, String carnet, String depa, String catDoc, String catCient, TipoContrato contrato, CargoDirectivo cargo, AreaDirectivo area){
+    	personal.add(new Directivo(nombre, carnet, depa, catDoc, catCient, contrato, cargo, area));
+    }
+    
+    public void addTecnico(String nombre, String carnet, String plaza){
+    	personal.add(new Tecnico(nombre, carnet, plaza));
+    }
+    
+   public void addEspecialista(String nombre, String carnet, String proyecto){
+	   personal.add(new Especialista(nombre, carnet, proyecto));
+   }
+   
+   
+    
 }
 
 

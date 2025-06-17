@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
@@ -29,6 +30,7 @@ import javax.swing.JTable;
 
 
 
+
 import com.sun.glass.events.MouseEvent;
 
 import util.ButtonRendererEditor;
@@ -36,6 +38,7 @@ import util.MostrarPersonal;
 import controllerClass.Facultad;
 
 import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseAdapter;
 
 public class VerPersonal extends JDialog {
 
@@ -45,10 +48,11 @@ public class VerPersonal extends JDialog {
 	private JTable tablepers;
 	private Facultad fac;
 	private MostrarPersonal tablemodel;
-	private JButton btnNewButton_2;
+	int row;
 
 	/**
 	 * Launch the application.
+<<<<<<< HEAD
 	 */
 	public static void main(String[] args) {
 		try {
@@ -64,14 +68,29 @@ public class VerPersonal extends JDialog {
 	 */
 	public VerPersonal(/*Inicio p*/) {
 //		super(p,true);
+=======
+//	 */
+//	public static void main(String[] args) {
+//		try {
+//			VerPersonal dialog = new VerPersonal();
+//			//dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+//	
+//
+////	/**
+////	 * Create the dialog.
+////	 */
+	public VerPersonal(JFrame p) {
+		super(p,true);
+>>>>>>> origin/nicole
 		setBounds(430, 150, 800, 500);
 		fac = Facultad.getFacultad();
-		contentPanel = new JPanel(){
-//			public void paintComponent(Graphics g){
-//				Image img = Toolkit.getDefaultToolkit().getImage(VerPersonal.class.getResource("/images/"));
-//				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-//			}
-		};
+		contentPanel = new JPanel();
+//		
 		setUndecorated(true);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -85,16 +104,29 @@ public class VerPersonal extends JDialog {
 		
 		tablepers = new JTable();
 		
-		
 		tablemodel = new MostrarPersonal();
+		
+		
 		scrollPane.setViewportView(tablepers);
 		tablepers.setModel(tablemodel);
 		tablepers.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		tablepers.setRowHeight(29);
 		tablepers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		tablepers.getColumn("Acciones").setCellRenderer(new ButtonRendererEditor(tablepers, fac.getPersonal()));
-		tablepers.getColumn("Acciones").setCellEditor(new ButtonRendererEditor(tablepers, fac.getPersonal()));
+		JButton btnagregar = new JButton("AgregarPersonas");
+		btnagregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CRUDVerPersonal pp= new CRUDVerPersonal(VerPersonal.this, null, row);
+				pp.setVisible(true);
+				tablemodel.setRowCount(0);
+				tablemodel.cargarInfo(fac.getPersonal());
+				
+			}
+		});
+		btnagregar.setBounds(140, 27, 163, 23);
+		contentPanel.add(btnagregar);
+	
+		
 		
 
 		
@@ -102,10 +134,13 @@ public class VerPersonal extends JDialog {
 			
 			@Override
 			public void mouseMoved(java.awt.event.MouseEvent arg0) {
-				int row = tablepers.rowAtPoint(arg0.getPoint());
+				 row = tablepers.rowAtPoint(arg0.getPoint());
 				if(row!=-1){
 					tablepers.setRowSelectionInterval(row,row);
 					tablepers.setAutoscrolls(true);
+					
+					
+					
 				}
 				else{
 					tablepers.clearSelection();
@@ -121,16 +156,31 @@ public class VerPersonal extends JDialog {
 			
 		});
 		
+<<<<<<< HEAD
 		btnNewButton_2 = new JButton("New button");
 		btnNewButton_2.setBounds(32, 36, 39, 23);
 		contentPanel.add(btnNewButton_2);
+=======
+		tablepers.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent arg0) {
+				CRUDVerPersonal pp= new CRUDVerPersonal(VerPersonal.this, fac.getPersonal().get(row), row);
+				pp.setVisible(true);
+				tablemodel.setRowCount(0);
+				tablemodel.cargarInfo(fac.getPersonal());
+			}
+				
+		});
+		
+>>>>>>> origin/nicole
 		tablemodel.cargarInfo(fac.getPersonal());
 		
 	
-        
-//		tablepers.setDefaultRenderer(Object.class, new ButtonRendererEditor(tablepers, fac.getPersonal()));
-//        tablepers.setDefaultEditor(Object.class, new ButtonRendererEditor(tablepers, fac.getPersonal()));
+
 	}
+
+
+
 
 
 
