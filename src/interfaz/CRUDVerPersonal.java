@@ -193,10 +193,10 @@ public class CRUDVerPersonal extends JDialog {
 			panelGeneral.setLayout(card);
 			panelGeneral.add(getPanelAdmin(), "Administrativo");
 			panelGeneral.add(getPanelDirectivo(), "Directivo");
-			panelGeneral.add(getPanelProfesor(), "name_1073537146870000");
-			panelGeneral.add(getPanelEspecialista(), "name_1073625905954900");
-			panelGeneral.add(getPanelEstudiante(), "name_1073718218310799");
-			panelGeneral.add(getPanelTecnico(), "name_1074015448487600");
+			panelGeneral.add(getPanelProfesor(), "Profesor");
+			panelGeneral.add(getPanelEspecialista(), "Especialista");
+			panelGeneral.add(getPanelEstudiante(), "Estudiante");
+			panelGeneral.add(getPanelTecnico(), "Tecnico");
 		}
 		return panelGeneral;
 	}

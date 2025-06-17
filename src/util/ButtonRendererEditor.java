@@ -1,5 +1,7 @@
 package util;
 
+import interfaz.IniciarAdim;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.table.*;
@@ -26,8 +28,10 @@ public class ButtonRendererEditor extends DefaultCellEditor implements TableCell
 		this.listaPersonas = listaPersonas;
 
 		panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		btnEditar = new JButton("Editar");
+		btnEditar = new JButton();
+		btnEditar.setBackground(Color.WHITE);
 		btnEditar.setPreferredSize(new Dimension( 39, 23));
+		btnEditar.setIcon(new ImageIcon(ButtonRendererEditor.class.getResource("/images/info.png")));
 		
 
 		// Acción para editar

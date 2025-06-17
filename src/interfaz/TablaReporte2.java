@@ -27,6 +27,7 @@ import javax.swing.JTable;
 
 import controllerClass.Facultad;
 import util.TablaRegistrosReporte1;
+import util.TablaRegistrosReporte2;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -35,6 +36,7 @@ import java.awt.Font;
 
 import com.toedter.calendar.JDateChooser;
 
+import enums.TipoContrato;
 import enums.TipoLocal;
 
 import javax.swing.JComboBox;
@@ -43,7 +45,7 @@ import personas.Persona;
 
 import java.awt.Component;
 
-public class TablaReporte1 extends JDialog {
+public class TablaReporte2 extends JDialog {
 
 	private final JPanel contentPanel = new JPanel(){
 		public void paintComponent(Graphics g){
@@ -54,7 +56,7 @@ public class TablaReporte1 extends JDialog {
 	private JLabel lblNewLabel;
 	private JScrollPane scrollPane;
 	private JTable table;
-	private TablaRegistrosReporte1 tablaModel;
+	private TablaRegistrosReporte2 tablaModel2;
 	private Facultad fac;
 	private JLabel lblNewLabel_1;
 	private JButton btnNewButton_1;
@@ -62,13 +64,13 @@ public class TablaReporte1 extends JDialog {
 	private JDateChooser datefinal;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
-	JComboBox<Persona> comboBox;
+	JComboBox comboBox;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			TablaReporte1 dialog = new TablaReporte1();
+			TablaReporte2 dialog = new TablaReporte2();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -80,8 +82,8 @@ public class TablaReporte1 extends JDialog {
 	 * Create the dialog.
 	 */
 
-	public TablaReporte1(/*JFrame padre*/) {
-//		super(padre, "Reporte 1", true);
+	public TablaReporte2(/*JFrame padre*/) {
+//		super(padre, "Reporte 2", true);
 		setTitle("Chequeo de registros");
 		fac = Facultad.getFacultad();
 		setBounds(100, 100, 1086, 760);
@@ -106,20 +108,20 @@ public class TablaReporte1 extends JDialog {
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				entradaCarnet();
+//				entradaCarnet();
 			}
 		});
 
 		comboBox.setBounds(33, 75, 209, 53);
 		contentPanel.add(comboBox);
-		comboBox.setModel(new DefaultComboBoxModel<>(fac.getPersonal().toArray(new Persona[0])));
+		comboBox.setModel(new DefaultComboBoxModel<>(TipoLocal.values()));
 		
-		entradaCarnet();
+//		entradaCarnet();
 
 	}
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("Nombre y apellidos:");
+			lblNewLabel = new JLabel("Local:");
 			lblNewLabel.setForeground(Color.WHITE);
 			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 21));
 			lblNewLabel.setBounds(33, 46, 260, 26);
@@ -130,7 +132,7 @@ public class TablaReporte1 extends JDialog {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane(){
 				public void paintComponent(Graphics g){
-					Image img = Toolkit.getDefaultToolkit().getImage(TablaReporte1.class.getResource("/images/fondosTablas.png"));
+					Image img = Toolkit.getDefaultToolkit().getImage(TablaReporte2.class.getResource("/images/fondosTablas.png"));
 					g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 				}
 			};
@@ -149,8 +151,8 @@ public class TablaReporte1 extends JDialog {
 			table.setRowHeight(29);
 
 		}
-		tablaModel = new TablaRegistrosReporte1();
-		table.setModel(tablaModel);
+		tablaModel2 = new TablaRegistrosReporte2();
+		table.setModel(tablaModel2);
 		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 17));
 		table.setForeground(Color.WHITE);
 		table.setBackground(Colores.getAzulCielo());
@@ -184,7 +186,7 @@ public class TablaReporte1 extends JDialog {
 			btnNewButton_1.setBackground(Color.LIGHT_GRAY);
 			btnNewButton_1.setForeground(new Color(6, 43, 63));
 			btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 29));
-			btnNewButton_1.setIcon(new ImageIcon(TablaReporte1.class.getResource("/images/close.png")));
+			btnNewButton_1.setIcon(new ImageIcon(TablaReporte2.class.getResource("/images/close.png")));
 			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					dispose();
@@ -239,25 +241,25 @@ public class TablaReporte1 extends JDialog {
 		return lblNewLabel_3;
 	}
 	
-	public void entradaCarnet(){
-		//		String carnet = textField.getText();
-		//		boolean correcto = true;
-		String p = ((Persona) comboBox.getSelectedItem()).getNumeroIdentidad();
-		LocalDate inicio = dateinicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		LocalDate finalll = datefinal.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		//		try{
-		//			fac.buscarEnPersonal(carnet);
-		//		}
-		//		catch(IllegalArgumentException e){
-		//			lblNewLabel_1.setText(e.getMessage());
-		//			lblNewLabel_1.setVisible(true);
-		//			correcto = false;
-		//		}
-
-		//		if(correcto){
-		tablaModel.setRowCount(0);
-		tablaModel.cargarInfo(fac.obtenerReporteVisitasPersonas(p, inicio,finalll));
-		//	}
-
-	}
+//	public void entradaCarnet(){
+//		//		String carnet = textField.getText();
+//		//		boolean correcto = true;
+//		String p = ((Local) comboBox.getSelectedItem().;
+//		LocalDate inicio = dateinicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//		LocalDate finalll = datefinal.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//		//		try{
+//		//			fac.buscarEnPersonal(carnet);
+//		//		}
+//		//		catch(IllegalArgumentException e){
+//		//			lblNewLabel_1.setText(e.getMessage());
+//		//			lblNewLabel_1.setVisible(true);
+//		//			correcto = false;
+//		//		}
+//
+//		//		if(correcto){
+//		tablaModel2.setRowCount(0);
+//		tablaModel2.cargarInfo(fac.obtenerReporteVisitasPersonas(p, inicio,finalll));
+//		//	}
+//
+//	}
 }

@@ -50,20 +50,20 @@ public class VerPersonal extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		try {
-//			VerPersonal dialog = new VerPersonal();
-//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			dialog.setVisible(true);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-//	/**
-//	 * Create the dialog.
-//	 */
-	public VerPersonal(Inicio p) {
-		super(p,true);
+	public static void main(String[] args) {
+		try {
+			VerPersonal dialog = new VerPersonal();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * Create the dialog.
+	 */
+	public VerPersonal(/*Inicio p*/) {
+//		super(p,true);
 		setBounds(430, 150, 800, 500);
 		fac = Facultad.getFacultad();
 		contentPanel = new JPanel(){
@@ -122,7 +122,7 @@ public class VerPersonal extends JDialog {
 		});
 		
 		btnNewButton_2 = new JButton("New button");
-		btnNewButton_2.setBounds(126, 27, 39, 23);
+		btnNewButton_2.setBounds(32, 36, 39, 23);
 		contentPanel.add(btnNewButton_2);
 		tablemodel.cargarInfo(fac.getPersonal());
 		
