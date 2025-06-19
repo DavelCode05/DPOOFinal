@@ -41,6 +41,7 @@ import personas.Tecnico;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class CRUDVerPersonal extends JDialog {
 
@@ -99,33 +100,39 @@ public class CRUDVerPersonal extends JDialog {
 	JLabel errores;
 	JDialog pp;
 
-	//	/**
-	//	 * Launch the application.
-	//	 */
-	//	public static void main(String[] args) {
-	//		try {
-	//			CRUDVerPersonal dialog = new CRUDVerPersonal();
-	//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	//			dialog.setVisible(true);
-	//		} catch (Exception e) {
-	//			e.printStackTrace();
-	//		}
-	//	}
-	//
-	//	/**
-	//	 * Create the dialog.
-	//	 */
+		/**
+		 * Launch the application.
+		 */
+//		public static void main(String[] args) {
+//			try {
+//				CRUDVerPersonal dialog = new CRUDVerPersonal();
+//				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//				dialog.setVisible(true);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
 	
-	public CRUDVerPersonal( JDialog p, Persona persona, int row) {
+		/**
+		 * Create the dialog.
+		 */
+	
+	public CRUDVerPersonal(JDialog p, Persona persona, int row) {
 		super(p,"",true);
+<<<<<<< HEAD
 		pp = p;
 		setBounds(100, 100, 575, 576);
+=======
+		setBounds(100, 100, 575, 631);
+>>>>>>> origin/dariel
 		per = persona;
 		this.row= row;
 		fac = Facultad.getFacultad();
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setBackground(Colores.getAzulCielo());
+		this.setUndecorated(true);
 		card = new CardLayout(0,0);
 		contentPanel.setLayout(null);
 		{
@@ -143,11 +150,13 @@ public class CRUDVerPersonal extends JDialog {
 		contentPanel.add(getBtnNewButton());
 
 		errores = new JLabel("New label");
+		errores.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		errores.setForeground(Color.RED);
-		errores.setBounds(12, 471, 211, 22);
+		errores.setBounds(28, 530, 211, 22);
 		contentPanel.add(errores);
 		
 		 eleccionCrear = new JComboBox<String>();
+		 eleccionCrear.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		 eleccionCrear.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent arg0) {
 		 	 panelVisible(per);	
@@ -155,7 +164,7 @@ public class CRUDVerPersonal extends JDialog {
 		 });
 		eleccionCrear.setModel(new DefaultComboBoxModel<String>(new String[] {"Administrativo", "Directivo", "Profesor", "Especialista", "Estudiante", "Tecnico"}));
 		
-		eleccionCrear.setBounds(79, 13, 97, 20);
+		eleccionCrear.setBounds(136, 20, 195, 41);
 		contentPanel.add(eleccionCrear);
 		eleccionCrear.setVisible(false);
 		if(per==null){
@@ -169,7 +178,9 @@ public class CRUDVerPersonal extends JDialog {
 	private JLabel getLblNombreYApellidos() {
 		if (lblNombreYApellidos == null) {
 			lblNombreYApellidos = new JLabel("Nombre");
-			lblNombreYApellidos.setBounds(46, 44, 77, 16);
+			lblNombreYApellidos.setForeground(Color.WHITE);
+			lblNombreYApellidos.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblNombreYApellidos.setBounds(49, 112, 77, 30);
 		}
 		return lblNombreYApellidos;
 	}
@@ -177,7 +188,8 @@ public class CRUDVerPersonal extends JDialog {
 	private JTextField getNombre() {
 		if (nombre == null) {
 			nombre = new JTextFieldString();
-			nombre.setBounds(41, 65, 116, 22);
+			nombre.setFont(new Font("Tahoma", Font.PLAIN, 17));
+			nombre.setBounds(49, 147, 180, 30);
 			nombre.setColumns(10);
 			if(per!=null){
 				nombre.setText(per.getNombre());
@@ -190,7 +202,9 @@ public class CRUDVerPersonal extends JDialog {
 	private JLabel getLblcarnet() {
 		if (lblcarnet == null) {
 			lblcarnet = new JLabel("Carnet de Identidad");
-			lblcarnet.setBounds(216, 44, 113, 16);
+			lblcarnet.setForeground(Color.WHITE);
+			lblcarnet.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblcarnet.setBounds(299, 112, 195, 30);
 		}
 		return lblcarnet;
 	}
@@ -198,8 +212,9 @@ public class CRUDVerPersonal extends JDialog {
 	private JTextField getCarnet() {
 		if (carnet == null) {
 			carnet = new JTextFieldCarnet();
+			carnet.setFont(new Font("Tahoma", Font.PLAIN, 17));
 			carnet.setColumns(10);
-			carnet.setBounds(213, 65, 116, 22);
+			carnet.setBounds(299, 147, 195, 30);
 			if(per != null){
 				carnet.setText(per.getNumeroIdentidad());
 				carnet.setEditable(false);
@@ -211,7 +226,8 @@ public class CRUDVerPersonal extends JDialog {
 	private JComboBox<Plaza> getPlazaAdmin() {
 		if (plazaAdmin == null) {
 			plazaAdmin = new JComboBox<Plaza>();
-			plazaAdmin.setBounds(25, 48, 107, 22);
+			plazaAdmin.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			plazaAdmin.setBounds(22, 63, 180, 30);
 			plazaAdmin.setModel(new DefaultComboBoxModel<>(Plaza.values()));
 			if(per!=null && per instanceof Administrativo){
 				plazaAdmin.setSelectedItem(((Administrativo)per).getPlaza().toString());
@@ -224,13 +240,16 @@ public class CRUDVerPersonal extends JDialog {
 	private JLabel getLblPlazaAdmin() {
 		if (lblPlazaAdmin == null) {
 			lblPlazaAdmin = new JLabel("Plaza");
-			lblPlazaAdmin.setBounds(25, 27, 56, 16);
+			lblPlazaAdmin.setForeground(Color.WHITE);
+			lblPlazaAdmin.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblPlazaAdmin.setBounds(22, 30, 88, 22);
 		}
 		return lblPlazaAdmin;
 	}
 	private JButton getBtnEditar() {
 		if (btnEditar == null) {
 			btnEditar = new JButton("");
+			btnEditar.setBackground(Color.LIGHT_GRAY);
 			if(per== null)
 				btnEditar.setEnabled(false);
 			btnEditar.addActionListener(new ActionListener() {
@@ -267,14 +286,16 @@ public class CRUDVerPersonal extends JDialog {
 			 	
 				}
 			});
-			btnEditar.setIcon(new ImageIcon(CRUDVerPersonal.class.getResource("/images/editar.png")));
-			btnEditar.setBounds(366, 13, 46, 50);
+			btnEditar.setIcon(new ImageIcon(CRUDVerPersonal.class.getResource("/images/icons8-edit-user-48.png")));
+			btnEditar.setBounds(12, 20, 50, 50);
 		}
 		return btnEditar;
 	}
 	private JButton getBtnEliminar() {
 		if (btnEliminar == null) {
-			btnEliminar = new JButton("Icono Borrar");
+			btnEliminar = new JButton("");
+			btnEliminar.setBackground(Color.LIGHT_GRAY);
+			btnEliminar.setIcon(new ImageIcon(CRUDVerPersonal.class.getResource("/images/icons8-delete-50.png")));
 			if(per==null)
 				btnEliminar.setEnabled(false);
 				btnEliminar.addActionListener(new ActionListener() {
@@ -287,13 +308,15 @@ public class CRUDVerPersonal extends JDialog {
 						}
 					}
 				});
-			btnEliminar.setBounds(438, 13, 109, 25);
+			btnEliminar.setBounds(74, 20, 50, 50);
 		}
 		return btnEliminar;
 	}
 	private JButton getBtnGuardarCambios() {
 		if (btnGuardarCambios == null) {
 			btnGuardarCambios = new JButton("Guardar cambios");
+			btnGuardarCambios.setBackground(Color.LIGHT_GRAY);
+			btnGuardarCambios.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			if(per!=null)
 			btnGuardarCambios.setVisible(false);
 			
@@ -328,13 +351,15 @@ public class CRUDVerPersonal extends JDialog {
 			        btnEditar.setEnabled(true);
 				}
 			});
-			btnGuardarCambios.setBounds(289, 466, 150, 25);
+			btnGuardarCambios.setBounds(221, 565, 184, 33);
 		}
 		return btnGuardarCambios;
 	}
 	private JButton getBtnCancelar() {
 		if (btnCancelar == null) {
 			btnCancelar = new JButton("Cancelar");
+			btnCancelar.setBackground(Color.LIGHT_GRAY);
+			btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			if (per != null)
 				btnCancelar.setVisible(false);
 			btnCancelar.addActionListener(new ActionListener() {
@@ -367,14 +392,15 @@ public class CRUDVerPersonal extends JDialog {
 			        btnEditar.setEnabled(true);
 				}
 			});
-			btnCancelar.setBounds(438, 466, 97, 25);
+			btnCancelar.setBounds(403, 565, 160, 33);
 		}
 		return btnCancelar;
 	}
 	private JPanel getPanelGeneral() {
 		if (panelGeneral == null) {
 			panelGeneral = new JPanel();
-			panelGeneral.setBounds(27, 110, 475, 319);
+			panelGeneral.setBackground(Colores.getAzulCielo());
+			panelGeneral.setBounds(28, 187, 507, 330);
 			panelGeneral.setLayout(card);
 			panelGeneral.add(getPanelAdmin(), "Administrativo");
 			panelGeneral.add(getPanelDirectivo(), "Directivo");
@@ -389,6 +415,7 @@ public class CRUDVerPersonal extends JDialog {
 		if (panelAdmin == null) {
 			panelAdmin = new JPanel();
 			panelAdmin.setLayout(null);
+			panelAdmin.setBackground(Colores.getAzulCielo());
 			panelAdmin.add(getLblPlazaAdmin());
 			panelAdmin.add(getPlazaAdmin());
 		}
@@ -397,7 +424,9 @@ public class CRUDVerPersonal extends JDialog {
 	private JPanel getPanelDirectivo() {
 		if (panelDirectivo == null) {
 
+			
 			panelDirectivo = new JPanel();
+			panelDirectivo.setBackground(Colores.getAzulCielo());
 			panelDirectivo.setLayout(null);
 			panelDirectivo.add(getLblDepartamento());
 			panelDirectivo.add(getDepaDirect());
@@ -417,14 +446,17 @@ public class CRUDVerPersonal extends JDialog {
 	private JLabel getLblDepartamento() {
 		if (lblDepartamento == null) {
 			lblDepartamento = new JLabel("Departamento");
-			lblDepartamento.setBounds(12, 25, 116, 16);
+			lblDepartamento.setForeground(Color.WHITE);
+			lblDepartamento.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblDepartamento.setBounds(22, 30, 195, 30);
 		}
 		return lblDepartamento;
 	}
 	private JTextField getDepaDirect() {
 		if (DepaDirect == null) {
 			DepaDirect = new JTextFieldString();
-			DepaDirect.setBounds(12, 54, 116, 22);
+			DepaDirect.setFont(new Font("Tahoma", Font.PLAIN, 17));
+			DepaDirect.setBounds(22, 63, 180, 30);
 			DepaDirect.setColumns(10);
 			if(per!=null && per instanceof Directivo){
 				DepaDirect.setText(((Directivo)per).getDepartamento());
@@ -436,28 +468,35 @@ public class CRUDVerPersonal extends JDialog {
 	private JLabel getLblCategoriaDocente() {
 		if (lblCategoriaDocente == null) {
 			lblCategoriaDocente = new JLabel("Categoria Docente");
-			lblCategoriaDocente.setBounds(12, 101, 116, 16);
+			lblCategoriaDocente.setForeground(Color.WHITE);
+			lblCategoriaDocente.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblCategoriaDocente.setBounds(22, 128, 195, 30);
 		}
 		return lblCategoriaDocente;
 	}
 	private JLabel getLblCategoriaCientifica() {
 		if (lblCategoriaCientifica == null) {
 			lblCategoriaCientifica = new JLabel("Categoria Cientifica");
-			lblCategoriaCientifica.setBounds(12, 180, 116, 16);
+			lblCategoriaCientifica.setForeground(Color.WHITE);
+			lblCategoriaCientifica.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblCategoriaCientifica.setBounds(22, 221, 195, 30);
 		}
 		return lblCategoriaCientifica;
 	}
 	private JLabel getLblTipoDeContrato() {
 		if (lblTipoDeContrato == null) {
 			lblTipoDeContrato = new JLabel("Tipo de contrato");
-			lblTipoDeContrato.setBounds(193, 25, 116, 16);
+			lblTipoDeContrato.setForeground(Color.WHITE);
+			lblTipoDeContrato.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblTipoDeContrato.setBounds(268, 30, 195, 30);
 		}
 		return lblTipoDeContrato;
 	}
 	private JComboBox<TipoContrato> getContratodirect() {
 		if (contratodirect == null) {
 			contratodirect = new JComboBox<TipoContrato>();
-			contratodirect.setBounds(193, 54, 158, 22);
+			contratodirect.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			contratodirect.setBounds(268, 63, 195, 30);
 			contratodirect.setModel(new DefaultComboBoxModel<>(TipoContrato.values()));
 			
 			if(per!=null && per instanceof Directivo){
@@ -470,14 +509,17 @@ public class CRUDVerPersonal extends JDialog {
 	private JLabel getLblCargoAdministrativo() {
 		if (lblCargoAdministrativo == null) {
 			lblCargoAdministrativo = new JLabel("Cargo de Direcci\u00F3n");
-			lblCargoAdministrativo.setBounds(193, 101, 116, 16);
+			lblCargoAdministrativo.setForeground(Color.WHITE);
+			lblCargoAdministrativo.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblCargoAdministrativo.setBounds(268, 128, 195, 30);
 		}
 		return lblCargoAdministrativo;
 	}
 	private JComboBox<CargoDirectivo> getCargoDirect() {
 		if (cargoDirect == null) {
 			cargoDirect = new JComboBox<CargoDirectivo>();
-			cargoDirect.setBounds(193, 130, 158, 22);
+			cargoDirect.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			cargoDirect.setBounds(268, 165, 195, 30);
 			cargoDirect.setModel(new DefaultComboBoxModel<>(CargoDirectivo.values()));
 			
 			if(per!=null && per instanceof Directivo){
@@ -490,15 +532,18 @@ public class CRUDVerPersonal extends JDialog {
 	private JLabel getLblreaDeTrabajo() {
 		if (lblreaDeTrabajo == null) {
 			lblreaDeTrabajo = new JLabel("\u00C1rea de trabajo");
-			lblreaDeTrabajo.setBounds(193, 180, 116, 16);
+			lblreaDeTrabajo.setForeground(Color.WHITE);
+			lblreaDeTrabajo.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblreaDeTrabajo.setBounds(268, 221, 195, 30);
 		}
 		return lblreaDeTrabajo;
 	}
 	private JComboBox<AreaDirectivo> getAreaDirect() {
 		if (areaDirect == null) {
 			areaDirect = new JComboBox<AreaDirectivo>();
+			areaDirect.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			areaDirect.setModel(new DefaultComboBoxModel<>(AreaDirectivo.values()));
-			areaDirect.setBounds(193, 209, 158, 22);
+			areaDirect.setBounds(268, 258, 195, 30);
 			if(per!=null && per instanceof Directivo){
 				areaDirect.setSelectedItem(((Directivo)per).getArea().toString());
 				areaDirect.setEnabled(false);
@@ -509,7 +554,8 @@ public class CRUDVerPersonal extends JDialog {
 	private JTextFieldString getCatDocDirec() {
 		if (catDocDirec == null) {
 			catDocDirec = new JTextFieldString();
-			catDocDirec.setBounds(12, 130, 116, 22);
+			catDocDirec.setFont(new Font("Tahoma", Font.PLAIN, 17));
+			catDocDirec.setBounds(22, 165, 180, 30);
 			if(per!=null && per instanceof Directivo){
 				catDocDirec.setText(((Directivo)per).getCatDoc());
 				catDocDirec.setEditable(false);
@@ -520,7 +566,8 @@ public class CRUDVerPersonal extends JDialog {
 	private JTextFieldString getCatCientdirec() {
 		if (catCientdirec == null) {
 			catCientdirec = new JTextFieldString();
-			catCientdirec.setBounds(12, 209, 116, 22);
+			catCientdirec.setFont(new Font("Tahoma", Font.PLAIN, 17));
+			catCientdirec.setBounds(22, 258, 180, 30);
 			if(per!=null && per instanceof Directivo){
 				catCientdirec.setText(((Directivo)per).getCatCient());
 				catCientdirec.setEditable(false);
@@ -531,6 +578,7 @@ public class CRUDVerPersonal extends JDialog {
 	private JPanel getPanelProfesor() {
 		if (panelProfesor == null) {
 			panelProfesor = new JPanel();
+			panelProfesor.setBackground(Colores.getAzulCielo());
 			panelProfesor.setLayout(null);
 			panelProfesor.add(getDepap());
 			panelProfesor.add(getDepaProfesor());
@@ -546,15 +594,18 @@ public class CRUDVerPersonal extends JDialog {
 	private JLabel getDepap() {
 		if (depap == null) {
 			depap = new JLabel("Departamento");
-			depap.setBounds(28, 32, 116, 16);
+			depap.setForeground(Color.WHITE);
+			depap.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			depap.setBounds(22, 30, 195, 30);
 		}
 		return depap;
 	}
 	private JTextFieldString getDepaProfesor() {
 		if (DepaProfesor == null) {
 			DepaProfesor = new JTextFieldString();
+			DepaProfesor.setFont(new Font("Tahoma", Font.PLAIN, 17));
 			DepaProfesor.setColumns(10);
-			DepaProfesor.setBounds(28, 61, 116, 22);
+			DepaProfesor.setBounds(22, 63, 180, 30);
 			if(per!=null && per instanceof Profesor){
 				DepaProfesor.setText(((Profesor)per).getDepartamento());
 				DepaProfesor.setEditable(false);
@@ -565,14 +616,17 @@ public class CRUDVerPersonal extends JDialog {
 	private JLabel getCatDocP() {
 		if (catDocP == null) {
 			catDocP = new JLabel("Categoria Docente");
-			catDocP.setBounds(28, 108, 116, 16);
+			catDocP.setForeground(Color.WHITE);
+			catDocP.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			catDocP.setBounds(22, 128, 195, 30);
 		}
 		return catDocP;
 	}
 	private JTextFieldString getCatDocProfesor() {
 		if (catDocProfesor == null) {
 			catDocProfesor = new JTextFieldString();
-			catDocProfesor.setBounds(28, 137, 116, 22);
+			catDocProfesor.setFont(new Font("Tahoma", Font.PLAIN, 17));
+			catDocProfesor.setBounds(22, 165, 180, 30);
 			if(per!=null && per instanceof Profesor){
 				catDocProfesor.setText(((Profesor)per).getCatDoc());
 				catDocProfesor.setEditable(false);
@@ -583,14 +637,17 @@ public class CRUDVerPersonal extends JDialog {
 	private JLabel getCatCP() {
 		if (catCP == null) {
 			catCP = new JLabel("Categoria Cientifica");
-			catCP.setBounds(28, 187, 116, 16);
+			catCP.setForeground(Color.WHITE);
+			catCP.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			catCP.setBounds(22, 221, 195, 30);
 		}
 		return catCP;
 	}
 	private JTextFieldString getCatCientProfesor() {
 		if (catCientProfesor == null) {
 			catCientProfesor = new JTextFieldString();
-			catCientProfesor.setBounds(28, 216, 116, 22);
+			catCientProfesor.setFont(new Font("Tahoma", Font.PLAIN, 17));
+			catCientProfesor.setBounds(22, 258, 180, 30);
 			if(per!=null && per instanceof Profesor){
 				catCientProfesor.setText(((Profesor)per).getCatCient());
 				catCientProfesor.setEditable(false);
@@ -601,15 +658,18 @@ public class CRUDVerPersonal extends JDialog {
 	private JLabel getTipocontratop() {
 		if (tipocontratop == null) {
 			tipocontratop = new JLabel("Tipo de contrato");
-			tipocontratop.setBounds(209, 32, 116, 16);
+			tipocontratop.setForeground(Color.WHITE);
+			tipocontratop.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			tipocontratop.setBounds(270, 30, 195, 30);
 		}
 		return tipocontratop;
 	}
 	private JComboBox<TipoContrato> getContratoProfesor() {
 		if (contratoProfesor == null) {
 			contratoProfesor = new JComboBox<TipoContrato>();
+			contratoProfesor.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			contratoProfesor.setModel(new DefaultComboBoxModel<>(TipoContrato.values()));
-			contratoProfesor.setBounds(209, 61, 158, 22);
+			contratoProfesor.setBounds(270, 63, 195, 30);
 			if(per!=null && per instanceof Profesor){
 				contratoProfesor.setSelectedItem(((Profesor)per).getTipoContrato().toString());
 				contratoProfesor.setEnabled(false);
@@ -620,6 +680,7 @@ public class CRUDVerPersonal extends JDialog {
 	private JPanel getPanelEspecialista() {
 		if (panelEspecialista == null) {
 			panelEspecialista = new JPanel();
+			panelEspecialista.setBackground(Colores.getAzulCielo());
 			panelEspecialista.setLayout(null);
 			panelEspecialista.add(getTFproyectoEsp());
 			panelEspecialista.add(getLblProyecto());
@@ -629,7 +690,8 @@ public class CRUDVerPersonal extends JDialog {
 	private JTextFieldString getTFproyectoEsp() {
 		if (TFproyectoEsp == null) {
 			TFproyectoEsp = new JTextFieldString();
-			TFproyectoEsp.setBounds(12, 64, 121, 22);
+			TFproyectoEsp.setFont(new Font("Tahoma", Font.PLAIN, 17));
+			TFproyectoEsp.setBounds(22, 63, 180, 30);
 			
 			if(per!=null && per instanceof Especialista){
 				TFproyectoEsp.setText(((Especialista)per).getProyecto());
@@ -641,13 +703,16 @@ public class CRUDVerPersonal extends JDialog {
 	private JLabel getLblProyecto() {
 		if (lblProyecto == null) {
 			lblProyecto = new JLabel("Proyecto");
-			lblProyecto.setBounds(12, 35, 56, 16);
+			lblProyecto.setForeground(Color.WHITE);
+			lblProyecto.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblProyecto.setBounds(22, 30, 195, 30);
 		}
 		return lblProyecto;
 	}
 	private JPanel getPanelEstudiante() {
 		if (panelEstudiante == null) {
 			panelEstudiante = new JPanel();
+			panelEstudiante.setBackground(Colores.getAzulCielo());
 			panelEstudiante.setLayout(null);
 			panelEstudiante.add(getAnnoEst());
 			panelEstudiante.add(getLblAo());
@@ -659,11 +724,13 @@ public class CRUDVerPersonal extends JDialog {
 	private JComboBox<String> getAnnoEst() {
 		if (AnnoEst == null) {
 			AnnoEst = new JComboBox<String>();
+			AnnoEst.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			AnnoEst.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3", "4"}));
-			AnnoEst.setBounds(12, 60, 43, 22);
+			AnnoEst.setBounds(22, 63, 62, 30);
 			if(per!=null && per instanceof Estudiante){
 				AnnoEst.setSelectedItem(((Estudiante)per).getAnio());
 				AnnoEst.setEnabled(false);
+				AnnoEst.setForeground(Color.LIGHT_GRAY);;
 			}
 		}
 		return AnnoEst;
@@ -671,21 +738,26 @@ public class CRUDVerPersonal extends JDialog {
 	private JLabel getLblAo() {
 		if (lblAo == null) {
 			lblAo = new JLabel("A\u00F1o");
-			lblAo.setBounds(12, 31, 56, 16);
+			lblAo.setForeground(Color.WHITE);
+			lblAo.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblAo.setBounds(22, 30, 77, 30);
 		}
 		return lblAo;
 	}
 	private JLabel getLblGrupo() {
 		if (lblGrupo == null) {
 			lblGrupo = new JLabel("Grupo");
-			lblGrupo.setBounds(12, 100, 56, 16);
+			lblGrupo.setForeground(Color.WHITE);
+			lblGrupo.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblGrupo.setBounds(273, 30, 77, 30);
 		}
 		return lblGrupo;
 	}
 	private JTextField getGrupoEst() {
 		if (grupoEst == null) {
 			grupoEst = new JTextFieldGrupo();
-			grupoEst.setBounds(12, 129, 56, 22);
+			grupoEst.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			grupoEst.setBounds(273, 63, 62, 30);
 			grupoEst.setColumns(10);
 			if(per!= null && per instanceof Estudiante){
 				grupoEst.setText(String.valueOf(((Estudiante)per).getGrupo()));
@@ -697,6 +769,7 @@ public class CRUDVerPersonal extends JDialog {
 	private JPanel getPanelTecnico() {
 		if (panelTecnico == null) {
 			panelTecnico = new JPanel();
+			panelTecnico.setBackground(Colores.getAzulCielo());
 			panelTecnico.setLayout(null);
 			panelTecnico.add(getPalazatec());
 			panelTecnico.add(getLblPlaza_1());
@@ -706,7 +779,7 @@ public class CRUDVerPersonal extends JDialog {
 	private JTextFieldString getPalazatec() {
 		if (palazatec == null) {
 			palazatec = new JTextFieldString();
-			palazatec.setBounds(26, 45, 84, 22);
+			palazatec.setBounds(22, 63, 180, 30);
 			
 			if(per!=null &&per instanceof Tecnico){
 				palazatec.setText(((Tecnico)per).getPlaza());
@@ -718,20 +791,23 @@ public class CRUDVerPersonal extends JDialog {
 	private JLabel getLblPlaza_1() {
 		if (lblPlaza_1 == null) {
 			lblPlaza_1 = new JLabel("Plaza");
-			lblPlaza_1.setBounds(26, 16, 56, 16);
+			lblPlaza_1.setForeground(Color.WHITE);
+			lblPlaza_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblPlaza_1.setBounds(22, 30, 56, 16);
 		}
 		return lblPlaza_1;
 	}
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("");
+			btnNewButton.setBackground(Color.LIGHT_GRAY);
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					dispose();
 				}
 			});
-			btnNewButton.setIcon(new ImageIcon(CRUDVerPersonal.class.getResource("/images/exitIzquierda.png")));
-			btnNewButton.setBounds(12, 20, 19, 18);
+			btnNewButton.setIcon(new ImageIcon(CRUDVerPersonal.class.getResource("/images/close.png")));
+			btnNewButton.setBounds(501, 20, 50, 50);
 		}
 		return btnNewButton;
 	}

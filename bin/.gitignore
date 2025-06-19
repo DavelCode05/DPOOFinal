@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /acceso
 /clasesAuxiliares
 /controllerClass
@@ -8,3 +9,11 @@
 /locales
 /personas
 /util
+=======
+/interfaz
+/images
+/controllerClass
+/enums
+/util
+/locales
+>>>>>>> origin/dariel

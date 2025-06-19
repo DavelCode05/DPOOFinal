@@ -19,6 +19,7 @@ public class MostrarPersonal extends DefaultTableModel{
 	}
 	public void cargarInfo(ArrayList<Persona> personas)
 	{
+		this.setRowCount(0);
 		for(int i=0; i < personas.size(); i++){
 			
 
