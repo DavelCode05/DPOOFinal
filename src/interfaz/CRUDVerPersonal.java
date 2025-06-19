@@ -97,6 +97,7 @@ public class CRUDVerPersonal extends JDialog {
 	Facultad fac;
 	int row;
 	JLabel errores;
+	JDialog pp;
 
 	//	/**
 	//	 * Launch the application.
@@ -117,6 +118,7 @@ public class CRUDVerPersonal extends JDialog {
 	
 	public CRUDVerPersonal( JDialog p, Persona persona, int row) {
 		super(p,"",true);
+		pp = p;
 		setBounds(100, 100, 575, 576);
 		per = persona;
 		this.row= row;
@@ -260,6 +262,7 @@ public class CRUDVerPersonal extends JDialog {
 			        TFproyectoEsp.setEditable(true);
 			        btnEliminar.setEnabled(false);
 			        btnEditar.setEnabled(false);
+			        
 			        
 			 	
 				}
