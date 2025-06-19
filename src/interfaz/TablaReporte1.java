@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 import controllerClass.Facultad;
 import util.TablaRegistrosReporte1;
@@ -31,6 +32,7 @@ import util.TablaRegistrosReporte1;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.Font;
 
 import com.toedter.calendar.JDateChooser;
@@ -63,7 +65,7 @@ public class TablaReporte1 extends JDialog {
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
 	JComboBox<Persona> comboBox;
-<<<<<<< HEAD
+
 	/**
 	 * Launch the application.
 	 */
@@ -81,28 +83,9 @@ public class TablaReporte1 extends JDialog {
 	 * Create the dialog.
 	 */
 
+
 	public TablaReporte1(/*JFrame padre*/) {
-//		super(padre, "Reporte 1", true);
-=======
-
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		try {
-//			TablaReporte1 dialog = new TablaReporte1();
-//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			dialog.setVisible(true);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-
-
-	public TablaReporte1(JFrame padre) {
-			super(padre, "Reporte 1", true);
-
->>>>>>> origin/nicole
+		//		super(padre, "Reporte 1", true);
 		setTitle("Chequeo de registros");
 		fac = Facultad.getFacultad();
 		setBounds(100, 100, 1086, 760);
@@ -134,7 +117,7 @@ public class TablaReporte1 extends JDialog {
 		comboBox.setBounds(33, 75, 209, 53);
 		contentPanel.add(comboBox);
 		comboBox.setModel(new DefaultComboBoxModel<>(fac.getPersonal().toArray(new Persona[0])));
-		
+
 		entradaCarnet();
 
 	}
@@ -155,21 +138,20 @@ public class TablaReporte1 extends JDialog {
 					g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 				}
 			};
+			scrollPane.setEnabled(false);
 			scrollPane.setBackground(Colores.getAzulCielo());
 			scrollPane.getViewport().setBackground(Colores.getLogin());
-			scrollPane.setBorder(new LineBorder(Color.WHITE));
+			scrollPane.setBorder(new LineBorder(Color.LIGHT_GRAY));
 			scrollPane.setBounds(33, 202, 1018, 525);
 			scrollPane.setViewportView(getTable());
 		}
 		return scrollPane;
 	}
 	private JTable getTable() {
-		if (table == null) {
-			table = new JTable();
-			table.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			table.setRowHeight(29);
+		table = new JTable();
+		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		table.setRowHeight(29);
 
-		}
 		tablaModel = new TablaRegistrosReporte1();
 		table.setModel(tablaModel);
 		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -178,8 +160,35 @@ public class TablaReporte1 extends JDialog {
 		table.setGridColor(Colores.getLogin());
 		table.getTableHeader().setBackground(Colores.getLogin());
 		table.setBorder(null);
-		table.setCellSelectionEnabled(true);
-		table.setRowSelectionAllowed(true);
+		table.setEnabled(false);
+//		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		table.addMouseMotionListener(new MouseMotionListener() {
+
+			@Override
+			public void mouseMoved(java.awt.event.MouseEvent arg0) {
+				int row = table.rowAtPoint(arg0.getPoint());
+				if(row!=-1){
+					table.setRowSelectionInterval(row,row);
+					table.setAutoscrolls(true);
+
+
+
+				}
+				else{
+					table.clearSelection();
+				}				
+			}
+
+			@Override
+			public void mouseDragged(java.awt.event.MouseEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+
+		});
+
 		return table;
 	}
 
@@ -259,7 +268,7 @@ public class TablaReporte1 extends JDialog {
 		}
 		return lblNewLabel_3;
 	}
-	
+
 	public void entradaCarnet(){
 		//		String carnet = textField.getText();
 		//		boolean correcto = true;

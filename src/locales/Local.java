@@ -15,8 +15,8 @@ public class Local {
 	public Local(String codigo, TipoLocal tipo, Persona responsable) {
 		setCodigo(codigo);
 		setTipo(tipo);
-//		setResponsable(responsable);
-		this.responsable = responsable;
+		setResponsable(responsable);
+//		this.responsable = responsable;
 	}
 
 	public String getCodigo() {
@@ -45,17 +45,16 @@ public class Local {
 			throw new IllegalArgumentException("El nombre del tipo de local no puede ser nulo.");
 	}
 
-//	public void setResponsable(Persona responsable) {
-//		if(responsable == null)
-//			throw new IllegalArgumentException("Responsable no puede ser nulo");
-//		boolean esResponsable = responsable instanceof Directivo || responsable instanceof Profesor || responsable instanceof Administrativo ||
-//				responsable instanceof Especialista;
-//		if(!esResponsable)// duda de si uso un exception
-//
-//			throw new IllegalArgumentException("El responsable debe ser Directivo, Profesor, Administrativo o Especialista");
-//		else 
-//			this.responsable = responsable;
-//	}
+	public void setResponsable(Persona responsable) {
+		if(responsable == null)
+			throw new IllegalArgumentException("Responsable no puede ser nulo");
+		boolean esResponsable = responsable instanceof Directivo || responsable instanceof Profesor || responsable instanceof Administrativo ||
+				responsable instanceof Especialista;
+		if(!esResponsable)
+			throw new IllegalArgumentException("El responsable no puede ser un estudiante o un tecnico");
+		else 
+			this.responsable = responsable;
+	}
 
 
 }

@@ -76,29 +76,6 @@ public class ButtonRendererEditor extends DefaultCellEditor implements TableCell
 			
 		});
 		
-//      btnEditar.addMouseMotionListener(new MouseMotionListener() {
-//			
-//			@Override
-//			public void mouseMoved(java.awt.event.MouseEvent arg0) {
-//				int row=tablen.rowAtPoint(arg0.getPoint());
-//				if(row!=-1){
-//					btnEditar.setEnabled(true);
-//			
-//					
-//				}
-////				else{
-////					tablepers.clearSelection();
-////				}				
-//			}
-//
-//			@Override
-//			public void mouseDragged(java.awt.event.MouseEvent arg0) {
-//				// TODO Auto-generated method stub
-//				
-//			}
-//			
-//			
-//		});
 		
 		panel.add(btnEditar);
 		

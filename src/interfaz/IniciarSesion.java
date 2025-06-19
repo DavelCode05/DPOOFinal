@@ -91,38 +91,26 @@ public class IniciarSesion extends JDialog {
 	private JLabel lblDeTuMano;
 
 
-<<<<<<< HEAD
 	/**
 	 * Launch the application.
 	 */
-=======
 //	/**
 //	 * Launch the application.
 //	 */
->>>>>>> origin/nicole
-//		public static void main(String[] args) {
-//			try {
-//				IniciarSesion dialog = new IniciarSesion();
-//				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//				dialog.setLocationRelativeTo(null);
-//				dialog.setVisible(true);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-<<<<<<< HEAD
-
+		public static void main(String[] args) {
+			try {
+				IniciarSesion dialog = new IniciarSesion();
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setLocationRelativeTo(null);
+				dialog.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	/**
 	 * Create the dialog.
 	 */
-=======
-//
-//	/**
-//	 * Create the dialog.
-//	 */
-		
-		
->>>>>>> origin/nicole
+
 	public IniciarSesion( ) {
 		setTitle("Registro de Entrada");
 		setForeground(Color.BLACK);

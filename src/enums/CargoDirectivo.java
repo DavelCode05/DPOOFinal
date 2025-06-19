@@ -1,5 +1,5 @@
 package enums;
 
 public enum CargoDirectivo {
-	DECANO, VICEDECANO, JEFE_DEPARTAMENTO, SECRETARIA_DOCENTE
+	Decano, Vicedecano, Jefe_Departamento, Secretaria_Docente
 }

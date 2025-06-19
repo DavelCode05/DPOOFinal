@@ -62,6 +62,7 @@ public class Inicio extends JFrame {
 	private JMenuItem mntmReporte;
 
 	private Facultad fac;
+	private JMenuItem mntmVerLocales;
 
 
 	/**
@@ -241,6 +242,7 @@ public class Inicio extends JFrame {
 			mnVer.setBackground(Color.WHITE);
 			mnVer.setFont(new Font("Tahoma", Font.PLAIN, 27));
 			mnVer.add(getMntmPersonal());
+			mnVer.add(getMntmVerLocales());
 		}
 		return mnVer;
 	}
@@ -276,6 +278,11 @@ public class Inicio extends JFrame {
 		}
 		return mntmReporte;
 	}
-	
-
+	private JMenuItem getMntmVerLocales() {
+		if (mntmVerLocales == null) {
+			mntmVerLocales = new JMenuItem("Ver Locales");
+			mntmVerLocales.setFont(new Font("Tahoma", Font.BOLD, 20));
+		}
+		return mntmVerLocales;
+	}
 }
