@@ -41,7 +41,7 @@ public class Facultad {
 	public static final LocalTime HORA_FIN_VISITANTES = LocalTime.of(12,0);
 	public static final LocalTime HORA_INICIO_RESTRINGIDO = LocalTime.of(8,0); 
 	public static final LocalTime HORA_FIN_RESTRINGIDO = LocalTime.of(17,0);
-private static Facultad instancia = null;
+	private static Facultad instancia = null;
 
 	//	private static Facultad f = Iniciadora.Inicio();
 	//
@@ -61,11 +61,77 @@ private static Facultad instancia = null;
 		this.registros = new ArrayList <Registro>();
 
 
-		personal.add(new Administrativo("Aniel Vazquez", "06040468472", Plaza.Secretaria));
-		personal.add(new Directivo("Lorena Perez", "06040468471", "Recursos Humanos", "Profesor","Doctor", TipoContrato.Determinado, CargoDirectivo.Decano, AreaDirectivo.Decanato));
+
+
+
+		/*
+		 Estudiantes
+		personal.add(new Estudiante("Aleksander Castañeda Morales", "03110367040",1, 12 )); //0
+		personal.add(new Estudiante("Dariel Velazco Falcón", "05060167362",1, 12 )); //1
+		personal.add(new Estudiante("Brian Monteagudo Pérez", "05072967281",1, 12 )); //2
+		personal.add(new Estudiante("Alexandro Valdés Piñeda", "05091568088",1, 12 )); //3
+		personal.add(new Estudiante("Gloria Santos Rosado", "06030867876",1, 12 )); //4
+		personal.add(new Estudiante("Javier David Coroas Cintra", "01061267208",1, 12 )); //5
+		personal.add(new Estudiante("Aylin Vázquez Álvarez", "06061368091",1, 12 ));//6
+		personal.add(new Estudiante("Daniel Prats Parra", "05120467309",1, 12 ));//7
+		personal.add(new Estudiante("Frank Ballmajo Dueñas", "05083168646",1, 12 ));//8
+		personal.add(new Estudiante("Lemuel Sagarra Pérez", "05111066748",1, 12 ));//9
+		personal.add(new Estudiante("Nicole Rios", "06040468470",1, 13 )); //10
+		personal.add(new Estudiante("Alvaro Tamayo Portela", "05040766544",1, 12 )); //11
+		personal.add(new Estudiante("Mariana Torres Díaz", "05220367041", 1, 13 ));         // 12
+		personal.add(new Estudiante("Carlos Pérez Sánchez", "04210367042", 2, 22 ));        // 13
+		personal.add(new Estudiante("Lucía Romero Pérez", "04220367043", 2, 22 ));          // 14
+		personal.add(new Estudiante("José Ángel Ramírez", "03210367044", 3, 31 ));          // 15
+		personal.add(new Estudiante("Andrea Gómez Fuentes", "03220367045", 3, 31 ));        // 16
+		personal.add(new Estudiante("Luis Alberto Benítez", "02210367046", 4, 42 ));        // 17
+		personal.add(new Estudiante("Diana Cabrera León", "02220367047", 4, 41 ));          // 18
+		personal.add(new Estudiante("Matías Herrera Peña", "05210367048", 1, 13 ));         // 19
+		personal.add(new Estudiante("Isabela Suárez Correa", "04220367049", 2, 21 ));       // 20
+		personal.add(new Estudiante("Fernando Ortega Vives", "03210367050", 3, 32 ));       // 21
+		personal.add(new Estudiante("Camila Núñez Torres", "02220367051", 4, 41 ));         // 22
+		
+		Directivo
+		personal.add(new Directivo("Raisa Socorro", "06040468476", "CEIS", "Titular","Doctor", TipoContrato.Determinado, CargoDirectivo.Decano, AreaDirectivo.Decanato)); //23
+		personal.add(new Directivo("Mariana Suárez Pérez", "85071245678", "Matemática", "Auxiliar","Máster", TipoContrato.Indeterminado, CargoDirectivo.Jefe_Departamento, AreaDirectivo.Departamento)); //24
+		personal.add(new Directivo("Ernesto Valdés Romero", "74091812345", "Informática", "Titular","Doctor", TipoContrato.Determinado, CargoDirectivo.Vicedecano, AreaDirectivo.Vicedecanato)); //25
+		personal.add(new Directivo("Laura Méndez Rodríguez", "92010498765", "Filosofía", "Instructor","Aspirante", TipoContrato.Determinado, CargoDirectivo.Secretaria_Docente, AreaDirectivo.Secretaria)); //26
+		
+		Profesor
+		personal.add(new Profesor("Lorenzo Castillo Álvarez", "75100234912", "Matemática", "Titular", "Máster", TipoContrato.Indeterminado)); //27
+		personal.add(new Profesor("Yanelis Rodríguez Pérez", "80211234715", "", "MC", "Doctor en Ciencias", TipoContrato.Determinado)); //28
+		personal.add(new Profesor("Carlos Alberto Ruiz", "77090234919", "Informática", "Auxiliar", "Doctor en Ciencias", TipoContrato.Indeterminado)); //29
+		personal.add(new Profesor("Dailyn Suárez Gómez", "81110234923", "Base de datos", "Instructor", "Máster", TipoContrato.Determinado)); //30
+		personal.add(new Profesor("Luis Enrique Fernández", "79080234924", "Informática", "Titular", "Máster", TipoContrato.Indeterminado)); //31
+		personal.add(new Profesor("Martha Velázquez León", "76070234926", "Informática", "Auxiliar", "Ninguna", TipoContrato.Determinado)); //32
+
+		Administrativo
+		personal.add(new Administrativo("Raúl Martínez Castro", "69011234567", Plaza.Asesor));       //33
+		personal.add(new Administrativo("Vivian González Díaz", "72021234568", Plaza.Secretaria));   //34
+		personal.add(new Administrativo("Ernesto López Pérez", "75031234569", Plaza.Asesor));        //35
+		personal.add(new Administrativo("Claudia Reyes Valdés", "81041234570", Plaza.Secretaria));   //36
+		personal.add(new Administrativo("Tomás Herrera Curbelo", "70051234571", Plaza.Asesor));      //37
+		personal.add(new Administrativo("Yamila Cabrera Sotolongo", "79061234572", Plaza.Secretaria)); //38
+
+		Especialista
+		personal.add(new Especialista("Reynaldo Pacheco Morales", "80110234980", "Desarrollo de Software Educativo")); //39
+		personal.add(new Especialista("Yusleidis Ávila Sánchez", "85020234981", "Inteligencia Artificial Aplicada")); //40
+		personal.add(new Especialista("Orlando Domínguez Figueroa", "78030234982", "Automatización de Procesos"));  //41
+		personal.add(new Especialista("Maribel Lora Gómez", "83040234983", "Ciberseguridad y Redes")); //42
+		personal.add(new Especialista("Leonardo Díaz Cordero", "76050234984", "Interfaz Hombre-Máquina"));  //43
+		personal.add(new Especialista("Rosa Amelia Valiente", "79060234985", "Gestión de Proyectos Tecnológicos")); //44
+
+		Tecnico
+		personal.add(new Tecnico("Eliécer Gómez Hernández", "82011234890", "Electricidad")); //45
+		personal.add(new Tecnico("Sandra Díaz Quesada", "86021234891", "Redes")); //46
+		personal.add(new Tecnico("Marcos Álvarez Suárez", "79031234892", "Mantenimiento")); //47
+		personal.add(new Tecnico("Liset Pérez Ferrer", "81041234893", "Soporte Técnico")); //48
+		
+		 */
+		personal.add(new Administrativo("Aniel Vazquez", "05061368789", Plaza.Secretaria));
+		personal.add(new Directivo("Lorena Perez", "95040468971", "Recursos Humanos", "Profesor","Doctor", TipoContrato.Determinado, CargoDirectivo.Decano, AreaDirectivo.Decanato));
 		personal.add(new Estudiante("Nicole Rios", "06040468470",1, 13 ));
-		personal.add(new Especialista("Josefina Rodriguez", "06040468473","GGGGG" ));
-		personal.add(new Profesor("ALberto Fernandez", "06040468474", " DPOO", "mmm", "Máster", TipoContrato.Determinado));
+		personal.add(new Especialista("Josefina Rodriguez", "00042067847","GGGGG" ));
+		personal.add(new Profesor("ALberto Fernandez", "87061669042", " DPOO", "mmm", "Máster", TipoContrato.Determinado));
 		personal.add(new Tecnico("Erick Valdez", "06040468475","jjj"));
 		personal.add(new Directivo("Patricia Toro", "06040468476", "Recursos Humanos", "mmm","Doctor", TipoContrato.Determinado, CargoDirectivo.Vicedecano, AreaDirectivo.Vicedecanato));
 		personal.add(new Tecnico("Antonio Falcon", "06040468477","ddd"));
@@ -105,19 +171,19 @@ private static Facultad instancia = null;
 		personal.add(new Directivo("Mariana Suárez Pérez", "85071245678", "Matemática", "Auxiliar","Máster", TipoContrato.Indeterminado, CargoDirectivo.Jefe_Departamento, AreaDirectivo.Departamento)); //38
 		personal.add(new Directivo("Ernesto Valdés Romero", "74091812345", "Informática", "Titular","Doctor", TipoContrato.Determinado, CargoDirectivo.Vicedecano, AreaDirectivo.Vicedecanato)); //39
 		personal.add(new Directivo("Laura Méndez Rodríguez", "92010498765", "Filosofía", "Instructor","Aspirante", TipoContrato.Determinado, CargoDirectivo.Secretaria_Docente, AreaDirectivo.Secretaria)); //40
-		
-		
-		
-		locales.add(new Local("1234", TipoLocal.Estudiantes, personal.get(1)));
-		locales.add(new Local("1233", TipoLocal.Decano, personal.get(1) ));
-		locales.add(new Local("1333", TipoLocal.Laboratorio, personal.get(4) ));
-		locales.add(new Local("3333", TipoLocal.Especialistas, personal.get(3) ));
-		locales.add(new Local("1234", TipoLocal.Area_Administrativa, personal.get(0) ));
-		locales.add(new Local("1234", TipoLocal.Jefe_Departamento, personal.get(4) ));
-		locales.add(new Local("1233", TipoLocal.Vicedecano, personal.get(6) ));
-		locales.add(new Local("1233", TipoLocal.Servidores, personal.get(4) ));
-		locales.add(new Local("1233", TipoLocal.Aula, personal.get(9) ));
-		locales.add(new Local("1233", TipoLocal.Profesores, personal.get(9) ));
+
+
+
+		locales.add(new Local("INF-EST4", TipoLocal.Estudiantes, personal.get(1)));
+		locales.add(new Local("INF-DEC", TipoLocal.Decano, personal.get(1) ));
+		locales.add(new Local("INF-LAB3", TipoLocal.Laboratorio, personal.get(4) ));
+		locales.add(new Local("INF-ESP08", TipoLocal.Especialistas, personal.get(3) ));
+		locales.add(new Local("INF-ADMIN76", TipoLocal.Area_Administrativa, personal.get(0) ));
+		locales.add(new Local("INF-JEFD3", TipoLocal.Jefe_Departamento, personal.get(4) ));
+		locales.add(new Local("INF-VICD09", TipoLocal.Vicedecano, personal.get(6) ));
+		locales.add(new Local("INF-SERVIDORES98", TipoLocal.Servidores, personal.get(4) ));
+		locales.add(new Local("INF-AULA2", TipoLocal.Aula, personal.get(9) ));
+		locales.add(new Local("INF-TEACH25", TipoLocal.Profesores, personal.get(9) ));
 
 		registros.add(new Registro(personal.get(0), locales.get(0)));
 		registros.add(new Registro(personal.get(1), locales.get(0)));
@@ -135,8 +201,8 @@ private static Facultad instancia = null;
 		registros.add(new Registro(personal.get(5), locales.get(0)));
 		registros.add(new Registro(personal.get(5), locales.get(0)));
 
-	//	registros.add(new Registro(new Visitante("Juan", "00000","mmmm","mmmm", personal.get(2)), locales.get(0)));
-	//	registros.add(new Registro(new Visitante("Juanita", "00000","mmmm","mmmm", personal.get(2)), locales.get(0)));
+		//	registros.add(new Registro(new Visitante("Juan", "00000","mmmm","mmmm", personal.get(2)), locales.get(0)));
+		//	registros.add(new Registro(new Visitante("Juanita", "00000","mmmm","mmmm", personal.get(2)), locales.get(0)));
 
 		registros.add(new Registro(personal.get(2), locales.get(2)));
 		registros.add(new Registro(personal.get(2), locales.get(3)));
@@ -186,9 +252,9 @@ private static Facultad instancia = null;
 	public ArrayList<Local> getLocales() {
 		return locales;
 	}  
-	
 
-	
+
+
 	public void addLocal(String ident, TipoLocal tipo, Persona responsable){
 		locales.add(new Local(ident, tipo, responsable));
 	}
@@ -239,12 +305,12 @@ private static Facultad instancia = null;
 
 	}
 
- public static Facultad getFacultad(){
-	 if(instancia== null){
-		 instancia = new Facultad();
-	 }
-	 return instancia;
- }
+	public static Facultad getFacultad(){
+		if(instancia== null){
+			instancia = new Facultad();
+		}
+		return instancia;
+	}
 
 	public boolean agregarRegistro(Persona persona, Local local){
 
@@ -390,12 +456,12 @@ private static Facultad instancia = null;
 	public VisitantesAutorizadosPorX personasAutorizada(String carnet){
 		VisitantesAutorizadosPorX aux = new VisitantesAutorizadosPorX(buscarEnPersonal(carnet));
 
-	
+
 		for(Registro r : registros){
 			if(r.getPersona() instanceof Visitante ){
 				Persona p = r .getPersona();
 				if(((Visitante) p).getAutorizadoPor().getNumeroIdentidad().equals(carnet))
-				aux.agregar(r);
+					aux.agregar(r);
 			}
 		}
 		return aux;
@@ -414,68 +480,68 @@ private static Facultad instancia = null;
 
 		return loc;
 	}
-	
-    public ArrayList<Registro> obtenerReporteVisitasPersonas(String cI, LocalDate fechaInicio, LocalDate fechaFin){
-    	ArrayList<Registro> reporte = new ArrayList<>();
-    	
-    	for(int i=0;i<registros.size();i++)
-    	{
-    		if(registros.get(i).getPersona().getNumeroIdentidad().equals(cI))
-    		{
-    			if(registros.get(i).getFecha().compareTo(fechaInicio)>=0 && registros.get(i).getFecha().compareTo(fechaFin)<=0)
-    			{
-    				reporte.add(registros.get(i));
-    			}
-    		}
-    	}
-    	
-    	return reporte;
-    }
-    
-    public Persona buscarPersonaCi(String cI){
-    	Persona p = null;
-    	boolean found = false;
-    	
-    	for(int i=0;i<personal.size() && !found ;i++)
-    	{
-    		if(personal.get(i).getNumeroIdentidad().equals(cI)){
-    			found = true;
-    			p = personal.get(i);
-    		}
-    	}
-    	
-    	return p;
-    	
-    }
-    
-    
-    
-    public void addAdministrativo(String nombre, String carnet, Plaza plaza){
-    	personal.add(new Administrativo(nombre, carnet, plaza));
-    }
-    
-    public void addEstudiante(String nombre , String carnet, int anno, int grupo){
-    	personal.add(new Estudiante(nombre, carnet, anno, grupo));
-    }
-    
-    public void addProfesor(String nombre, String carnet, String depa, String catDoc, String catCient, TipoContrato contrato){
-    	personal.add(new Profesor(nombre, carnet, depa, catDoc, catCient, contrato));
-    }
-    
-    public void addDirectivo(String nombre, String carnet, String depa, String catDoc, String catCient, TipoContrato contrato, CargoDirectivo cargo, AreaDirectivo area){
-    	personal.add(new Directivo(nombre, carnet, depa, catDoc, catCient, contrato, cargo, area));
-    }
-    
-    public void addTecnico(String nombre, String carnet, String plaza){
-    	personal.add(new Tecnico(nombre, carnet, plaza));
-    }
-    
-   public void addEspecialista(String nombre, String carnet, String proyecto){
-	   personal.add(new Especialista(nombre, carnet, proyecto));
-   }
-   
-   
-    
+
+	public ArrayList<Registro> obtenerReporteVisitasPersonas(String cI, LocalDate fechaInicio, LocalDate fechaFin){
+		ArrayList<Registro> reporte = new ArrayList<>();
+
+		for(int i=0;i<registros.size();i++)
+		{
+			if(registros.get(i).getPersona().getNumeroIdentidad().equals(cI))
+			{
+				if(registros.get(i).getFecha().compareTo(fechaInicio)>=0 && registros.get(i).getFecha().compareTo(fechaFin)<=0)
+				{
+					reporte.add(registros.get(i));
+				}
+			}
+		}
+
+		return reporte;
+	}
+
+	public Persona buscarPersonaCi(String cI){
+		Persona p = null;
+		boolean found = false;
+
+		for(int i=0;i<personal.size() && !found ;i++)
+		{
+			if(personal.get(i).getNumeroIdentidad().equals(cI)){
+				found = true;
+				p = personal.get(i);
+			}
+		}
+
+		return p;
+
+	}
+
+
+
+	public void addAdministrativo(String nombre, String carnet, Plaza plaza){
+		personal.add(new Administrativo(nombre, carnet, plaza));
+	}
+
+	public void addEstudiante(String nombre , String carnet, int anno, int grupo){
+		personal.add(new Estudiante(nombre, carnet, anno, grupo));
+	}
+
+	public void addProfesor(String nombre, String carnet, String depa, String catDoc, String catCient, TipoContrato contrato){
+		personal.add(new Profesor(nombre, carnet, depa, catDoc, catCient, contrato));
+	}
+
+	public void addDirectivo(String nombre, String carnet, String depa, String catDoc, String catCient, TipoContrato contrato, CargoDirectivo cargo, AreaDirectivo area){
+		personal.add(new Directivo(nombre, carnet, depa, catDoc, catCient, contrato, cargo, area));
+	}
+
+	public void addTecnico(String nombre, String carnet, String plaza){
+		personal.add(new Tecnico(nombre, carnet, plaza));
+	}
+
+	public void addEspecialista(String nombre, String carnet, String proyecto){
+		personal.add(new Especialista(nombre, carnet, proyecto));
+	}
+
+
+
 }
 
 
