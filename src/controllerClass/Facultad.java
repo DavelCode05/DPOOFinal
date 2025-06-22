@@ -138,12 +138,12 @@ public class Facultad {
 		personal.add(new Estudiante("Alvaro Tamayo Portela", "05040766544",1, 12 ));
 		personal.add(new Profesor("Jacinto Reina", "06040468479", " Matematica", "mmm", "Doctor", TipoContrato.Determinado));
 		//Estudiantes
-		personal.add(new Estudiante("Aleksander Castañeda Morales", "03110367040",1, 12 )); //10
+		personal.add(new Estudiante("Aleksander Castañeda", "03110367040",1, 12 )); //10
 		personal.add(new Estudiante("Dariel Velazco Falcón", "05060167362",1, 12 )); //11
 		personal.add(new Estudiante("Brian Monteagudo Pérez", "05072967281",1, 12 )); //12
 		personal.add(new Estudiante("Alexandro Valdés Piñeda", "05091568088",1, 12 )); //13
 		personal.add(new Estudiante("Gloria Santos Rosado", "06030867876",1, 12 )); //14
-		personal.add(new Estudiante("Javier David Coroas Cintra", "01061267208",1, 12 )); //15
+		personal.add(new Estudiante("Javier David Coroas", "01061267208",1, 12 )); //15
 		personal.add(new Estudiante("Aylin Vázquez Álvarez", "06061368091",1, 12 ));//16
 		personal.add(new Estudiante("Daniel Prats Parra", "05120467309",1, 12 ));//17
 		personal.add(new Estudiante("Frank Ballmajo Dueñas", "05083168646",1, 12 ));//18
@@ -496,6 +496,24 @@ public class Facultad {
 		}
 
 		return reporte;
+	}
+	
+	public ArrayList<Registro> obtenerInfoLocales(TipoLocal local, LocalDate fechaInicio, LocalDate fechaFin){
+		ArrayList<Registro> reporteLocal = new ArrayList<>();
+
+		for(int i=0;i<registros.size();i++)
+		{
+			if(registros.get(i).getLocal().getTipo().equals(local))
+			{
+				if(registros.get(i).getFecha().compareTo(fechaInicio)>=0 && registros.get(i).getFecha().compareTo(fechaFin)<=0)
+				{
+					reporteLocal.add(registros.get(i));
+					
+				}
+			}
+		}
+
+		return reporteLocal;
 	}
 
 	public Persona buscarPersonaCi(String cI){
