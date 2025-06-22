@@ -19,6 +19,10 @@ public class Local {
 //		this.responsable = responsable;
 	}
 
+	public Local() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getCodigo() {
 		return codigo;
 	}
@@ -54,6 +58,10 @@ public class Local {
 			throw new IllegalArgumentException("El responsable no puede ser un estudiante o un tecnico");
 		else 
 			this.responsable = responsable;
+	}
+	
+	public String toString(){
+		return tipo.toString();
 	}
 
 

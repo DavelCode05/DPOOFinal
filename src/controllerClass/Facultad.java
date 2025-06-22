@@ -14,6 +14,9 @@ import java.util.ArrayList;
 
 
 
+
+import javax.swing.JComboBox;
+
 import clasesAuxiliares.VisitantesAutorizadosPorX;
 import acceso.Registro;
 import enums.TipoLocal;
@@ -173,13 +176,13 @@ private static Facultad instancia = null;
 		registros.get(10).setHoraEntrada(LocalTime.of(13,0));
 		registros.get(10).setHoraSalida(LocalTime.of(15, 0));
 		registros.get(11).setHoraEntrada(LocalTime.of(14,0));
-		registros.get(11).setHoraSalida(LocalTime.of(15, 0));
+//		registros.get(11).setHoraSalida(LocalTime.of(15, 0));
 		registros.get(12).setHoraEntrada(LocalTime.of(15,0));
-		registros.get(12).setHoraSalida(LocalTime.of(16, 0));
+//		registros.get(12).setHoraSalida(LocalTime.of(16, 0));
 		registros.get(13).setHoraEntrada(LocalTime.of(8,0));
-		registros.get(13).setHoraSalida(LocalTime.of(12, 0));
+//		registros.get(13).setHoraSalida(LocalTime.of(12, 0));
 		registros.get(14).setHoraEntrada(LocalTime.of(11,0));
-		registros.get(14).setHoraSalida(LocalTime.of(14, 0));
+//		registros.get(14).setHoraSalida(LocalTime.of(14, 0));
 
 	}
 
@@ -328,11 +331,26 @@ private static Facultad instancia = null;
 		Local  l  = null;
 		int index =0;
 		while(index < locales.size()&& l == null){
-			if(locales.get(index).getTipo().name().equals(loc))
+			if(locales.get(index).getCodigo().equals(loc))
 				l= locales.get(index);
 			index++;
 		}
 		return l;
+	}
+	
+	public Local buscarLocalporTipo(String loc){
+		Local  l  = null;
+		int index =0;
+		while(index < locales.size()&& l == null){
+			if(locales.get(index).getTipo().equals(loc))
+				l= locales.get(index);
+			index++;
+		}
+		return l;
+	}
+	
+	public void addLocal(String codigo, Persona resp, TipoLocal tip){
+		locales.add(new Local(codigo, tip, resp));
 	}
 
 
@@ -366,6 +384,7 @@ private static Facultad instancia = null;
 
 		return datos;
 	}
+	
 
 	//	public int [] entradaPorSemana(LocalDate inicio, LocalDate fin, Local l){
 	//		int []entrada = new int[];
@@ -387,14 +406,14 @@ private static Facultad instancia = null;
 
 
 
-	public VisitantesAutorizadosPorX personasAutorizada(String carnet){
-		VisitantesAutorizadosPorX aux = new VisitantesAutorizadosPorX(buscarEnPersonal(carnet));
+	public VisitantesAutorizadosPorX personasAutorizada(Persona pp ){
+		VisitantesAutorizadosPorX aux = new VisitantesAutorizadosPorX(pp);
 
 	
 		for(Registro r : registros){
 			if(r.getPersona() instanceof Visitante ){
 				Persona p = r .getPersona();
-				if(((Visitante) p).getAutorizadoPor().getNumeroIdentidad().equals(carnet))
+				if(((Visitante) p).getAutorizadoPor().getNumeroIdentidad().equals(pp.getNumeroIdentidad()))
 				aux.agregar(r);
 			}
 		}
@@ -446,6 +465,19 @@ private static Facultad instancia = null;
     	
     	return p;
     	
+    }
+    
+    public ArrayList<Persona> obtenerResponsables(){
+    	ArrayList<Persona> res = new ArrayList<>();
+    	for(Persona responsable: personal){
+    		if(!res.contains(responsable) ||  responsable instanceof Directivo || responsable instanceof Profesor || responsable instanceof Administrativo ||
+    				responsable instanceof Especialista){
+    			res.add(responsable);
+    		}
+    		
+    	}
+    	
+    	return res;
     }
     
     

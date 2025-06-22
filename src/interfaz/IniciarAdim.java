@@ -144,18 +144,15 @@ public class IniciarAdim extends JDialog {
 		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnAtras.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		btnAtras.setBackground(Colores.getLogin());
+		
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-
 				IniciarSesion inicio = new IniciarSesion();
 				inicio.setVisible(true);	
-
-				IniciarSesion ini = new IniciarSesion();
-				ini.setVisible(true);
-
 			}
 		});
+		
 		btnAtras.setBounds(219, 420, 107, 33);
 		contentPanel.add(btnAtras);
 		contentPanel.add(getPasswordField());
@@ -168,22 +165,23 @@ public class IniciarAdim extends JDialog {
 	}
 
 	public boolean iniciar(){
-		String usuario=usuarioo.getText();		
-		String contrasena=passwordField.getText();
+		String usuario = usuarioo.getText();		
+		String contrasena = passwordField.getText();
 		boolean corr = true;
 
-		if(usuario =="" || contrasena == "" || !usuario.equals("Admin") || !contrasena.equals("1234")){
+		if(usuario == "" || contrasena == "" || !usuario.equals("Admin") || !contrasena.equals("1234")){			
 			lblNewLabel_1.setVisible(true);
-			corr = false;
-
+			corr = false;	
 		}
 		else{
+			
 			lblNewLabel_1.setVisible(false);
 			corr = true;
+			
 		}
-
 		return corr;
 	}
+	
 	private JPasswordField getPasswordField() {
 		if (passwordField == null) {
 			passwordField = new JPasswordField();

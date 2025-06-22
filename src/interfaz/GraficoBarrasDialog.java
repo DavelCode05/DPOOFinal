@@ -33,9 +33,6 @@ public class GraficoBarrasDialog extends JPanel {
 		//	setSize(700, 500);
 
 
-		
-	
-
 	//	add(panel);
 	}
 

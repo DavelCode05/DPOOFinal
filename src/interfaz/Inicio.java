@@ -163,6 +163,17 @@ public class Inicio extends JFrame {
 			mntmNewMenuItem_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 			mntmNewMenuItem_1.setForeground(Color.BLACK);
 			mnReportes.add(mntmNewMenuItem_1);
+			
+			JMenuItem mntmDatosDeVisitantes = new JMenuItem("Datos de Visitantes Autorizados");
+			mntmDatosDeVisitantes.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					 TablaAutorizadoReporte4 tab = new TablaAutorizadoReporte4(Inicio.this);
+					 tab.setVisible(true);
+					
+					
+				}
+			});
+			mnReportes.add(mntmDatosDeVisitantes);
 
 			
 

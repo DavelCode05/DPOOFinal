@@ -44,6 +44,12 @@ import javax.swing.JComboBox;
 import personas.Persona;
 
 import java.awt.Component;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.HierarchyListener;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
 
 public class TablaReporte1 extends JDialog {
 
@@ -58,7 +64,7 @@ public class TablaReporte1 extends JDialog {
 	private JTable table;
 	private TablaRegistrosReporte1 tablaModel;
 	private Facultad fac;
-	private JLabel lblNewLabel_1;
+	private JLabel errores;
 	private JButton btnNewButton_1;
 	private JDateChooser dateinicio;
 	private JDateChooser datefinal;
@@ -98,7 +104,7 @@ public class TablaReporte1 extends JDialog {
 		contentPanel.setLayout(null);
 		contentPanel.add(getLblNewLabel());
 		contentPanel.add(getScrollPane());
-		contentPanel.add(getLblNewLabel_1());
+		contentPanel.add(getErrores());
 		contentPanel.add(getBtnNewButton_1());
 		contentPanel.add(getDateinicio());
 		contentPanel.add(getDatefinal());
@@ -193,16 +199,16 @@ public class TablaReporte1 extends JDialog {
 	}
 
 
-	private JLabel getLblNewLabel_1() {
-		if (lblNewLabel_1 == null) {
-			lblNewLabel_1 = new JLabel("");
-			lblNewLabel_1.setBackground(Color.WHITE);
-			lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 19));
-			lblNewLabel_1.setForeground(new Color(255, 0, 51));
-			lblNewLabel_1.setBounds(33, 136, 352, 48);
-			lblNewLabel_1.setVisible(false);;
+	private JLabel getErrores() {
+		if (errores == null) {
+			errores = new JLabel("");
+			errores.setBackground(Color.WHITE);
+			errores.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			errores.setForeground(new Color(255, 0, 51));
+			errores.setBounds(33, 136, 352, 48);
+			errores.setVisible(false);;
 		}
-		return lblNewLabel_1;
+		return errores;
 	}
 	private JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
@@ -226,6 +232,11 @@ public class TablaReporte1 extends JDialog {
 	private JDateChooser getDateinicio() {
 		if (dateinicio == null) {
 			dateinicio = new JDateChooser("dd/MM/yyyy", "##/##/####",'_');
+			dateinicio.getCalendarButton().addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					entradaCarnet();
+				}
+			});
 			dateinicio.setFont(new Font("Tahoma", Font.BOLD, 16));
 			dateinicio.setDateFormatString("dd/MM/yyyy");
 			dateinicio.setForeground(Color.BLACK);
@@ -240,6 +251,15 @@ public class TablaReporte1 extends JDialog {
 	private JDateChooser getDatefinal() {
 		if (datefinal == null) {
 			datefinal = new JDateChooser("dd/MM/yyyy", "##/##/####",'_');
+			datefinal.addInputMethodListener(new InputMethodListener() {
+				public void caretPositionChanged(InputMethodEvent arg0) {
+				}
+				public void inputMethodTextChanged(InputMethodEvent arg0) {
+					entradaCarnet();
+				}
+			});
+			
+			
 			datefinal.setFont(new Font("Tahoma", Font.BOLD, 16));
 			datefinal.setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
 			//			JTextField dateField1 = (JTextField)dateChooser_1.getDateEditor().getUiComponent();
@@ -275,19 +295,18 @@ public class TablaReporte1 extends JDialog {
 		String p = ((Persona) comboBox.getSelectedItem()).getNumeroIdentidad();
 		LocalDate inicio = dateinicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate finalll = datefinal.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		//		try{
-		//			fac.buscarEnPersonal(carnet);
-		//		}
-		//		catch(IllegalArgumentException e){
-		//			lblNewLabel_1.setText(e.getMessage());
-		//			lblNewLabel_1.setVisible(true);
-		//			correcto = false;
-		//		}
-
-		//		if(correcto){
+		if(inicio.isBefore(finalll) || inicio.isEqual(finalll)){
+	    errores.setVisible(false);
 		tablaModel.setRowCount(0);
 		tablaModel.cargarInfo(fac.obtenerReporteVisitasPersonas(p, inicio,finalll));
-		//	}
+		}
+		else {
+			errores.setText("Rango de fecha incorrecto: La fecha de inicio no puede ser después de la fecha final ");
+			errores.setForeground(Color.RED);
+			errores.setVisible(true);
+			
+		}
+		
 
 	}
 }

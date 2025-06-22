@@ -27,8 +27,6 @@ import interfaz.VerPersonal;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JScrollPane;
@@ -61,10 +59,7 @@ import javax.swing.JTable;
 
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/dariel
 import com.sun.glass.events.MouseEvent;
 
 import util.ButtonRendererEditor;
@@ -80,24 +75,14 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseAdapter;
 
 import javax.swing.border.MatteBorder;
-<<<<<<< HEAD
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import java.awt.CardLayout;
-=======
-
-import java.awt.CardLayout;
-import java.util.ArrayList;
->>>>>>> origin/dariel
 
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
-<<<<<<< HEAD
-=======
-import locales.Local;
->>>>>>> origin/dariel
 import personas.Administrativo;
 import personas.Directivo;
 import personas.Especialista;
@@ -107,11 +92,8 @@ import personas.Profesor;
 import personas.Tecnico;
 import util.JTextFieldString;
 import util.JTextFieldCarnet;
-<<<<<<< HEAD
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-=======
->>>>>>> origin/dariel
 
 public class VerPersonal extends JDialog {
 
@@ -125,13 +107,8 @@ public class VerPersonal extends JDialog {
 	private JPanel panelGeneral;
 	private JPanel panelAdmin;
 	private JLabel lblPlazaAdmin;
-<<<<<<< HEAD
 	private JComboBox<Plaza> plazaAdmin;
 //	private Persona per;
-=======
-	private JComboBox plazaAdmin;
-	private Persona per;
->>>>>>> origin/dariel
 	private JLabel lblNombreYApellidos;
 	private JTextFieldString nombre;
 	private JLabel lblCarnet;
@@ -173,20 +150,10 @@ public class VerPersonal extends JDialog {
 	private JButton btnEliminar;
 	private JButton btnGuardarCambios;
 	private JButton btnCancelar;
-<<<<<<< HEAD
 	private JComboBox<String> eleccionCrear;
 	private JLabel errores;
 	private CardLayout card;
 	boolean editando ;
-=======
-	private JComboBox eleccionCrear;
-	private JLabel errores;
-	private CardLayout card;
-	private JComboBox filtro;
-	private JComboBox comboBox;
-	private JLabel lblFiltrarPor;
-
->>>>>>> origin/dariel
 
 
 //	/**
@@ -202,7 +169,6 @@ public class VerPersonal extends JDialog {
 		}
 	}
 	/**
-<<<<<<< HEAD
 	 * Create the dialog.
 	 */
 //	public VerPersonal(/*Inicio p*/) {
@@ -225,42 +191,6 @@ public class VerPersonal extends JDialog {
 	public VerPersonal(/*JFrame p*/) {
 //		super(p,true);
 		setBounds(100, 100, 1234, 609);
-=======
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			VerPersonal dialog = new VerPersonal();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	/**
-	 * Create the dialog.
-	 */
-	//	public VerPersonal(/*Inicio p*/) {
-	//		super(p,true);
-	//	 */
-	//	public static void main(String[] args) {
-	//		try {
-	//			VerPersonal dialog = new VerPersonal();
-	//			//dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	//			dialog.setVisible(true);
-	//		} catch (Exception e) {
-	//			e.printStackTrace();
-	//		}
-	//	}
-	//	
-	//
-	////	/**
-	////	 * Create the dialog.
-	////	 */
-	public VerPersonal(/*JFrame p*/) {
-		//		super(p,true);
-		setBounds(100, 100, 1234, 760);
->>>>>>> origin/dariel
 		fac = Facultad.getFacultad();
 		contentPanel = new JPanel(){
 			public void paintComponent(Graphics g){
@@ -268,11 +198,7 @@ public class VerPersonal extends JDialog {
 				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 			}
 		};
-<<<<<<< HEAD
 		editando = false;
-=======
-		//		
->>>>>>> origin/dariel
 		setUndecorated(true);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -281,32 +207,20 @@ public class VerPersonal extends JDialog {
 		contentPanel.add(getBtnNewButton_1());
 		this.setUndecorated(true);
 		card = new CardLayout(0,0);
-<<<<<<< HEAD
 		
 //		setLocationRelativeTo(null);
 		
-=======
-		//		setLocationRelativeTo(null);
-
->>>>>>> origin/dariel
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBackground(Colores.getAzulCielo());
 		scrollPane.getViewport().setBackground(Colores.getLogin());
 		scrollPane.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
 		scrollPane.setBounds(32, 103, 591, 631);
 		contentPanel.add(scrollPane);
-
+		
 		tablepers = new JTable();
-<<<<<<< HEAD
 		
-		
-		
-=======
-
->>>>>>> origin/dariel
 		tablemodel = new MostrarPersonal();
-
-
+		
 		scrollPane.setViewportView(tablepers);
 		tablepers.setModel(tablemodel);
 		tablepers.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -318,19 +232,16 @@ public class VerPersonal extends JDialog {
 		tablepers.setGridColor(Colores.getLogin());
 		tablepers.getTableHeader().setBackground(Colores.getLogin());
 		tablepers.setBorder(null);
-<<<<<<< HEAD
+		
+		
 		
 		
 				
-=======
-
->>>>>>> origin/dariel
 		JButton btnagregar = new JButton("");
 		btnagregar.setBackground(Color.LIGHT_GRAY);
 		btnagregar.setIcon(new ImageIcon(VerPersonal.class.getResource("/images/icons8-add-user-male-50.png")));
 		btnagregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-<<<<<<< HEAD
 				editando = true;
 				btnGuardarCambios.setVisible(true);
 				btnCancelar.setVisible(true);
@@ -381,86 +292,27 @@ public class VerPersonal extends JDialog {
 				tablemodel.setRowCount(0);
 				
 				tablemodel.cargarInfo(fac.getPersonal());	
-=======
-				CRUDVerPersonal pp= new CRUDVerPersonal(VerPersonal.this, null, row);
-				pp.setVisible(true);
-				tablemodel.setRowCount(0);
-				tablemodel.cargarInfo(fac.getPersonal());
-
->>>>>>> origin/dariel
 			}
 		});
 		btnagregar.setBounds(12, 13, 58, 59);
 		contentPanel.add(btnagregar);
-<<<<<<< HEAD
 		contentPanel.add(getPanel());
 	
 		
-=======
-
-		comboBox = new JComboBox();
-		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Estudiante", "Directivo", "Administrativo", "Especialista", "T\u00E9cnico", "Profesor"}));
-		comboBox.addItemListener(new ItemListener() {
-				public void itemStateChanged(ItemEvent e) {
-			        if (e.getStateChange() == ItemEvent.SELECTED) {
-			            String rolSeleccionado = (String) e.getItem();
-			            ArrayList<Persona> todas = fac.getPersonal();
-			            ArrayList<Persona> filtradas = new ArrayList<>();
-
-			            if (rolSeleccionado.equals("Todos")) {
-			                filtradas = todas;
-			            } else {
-			                for (Persona p : todas) {
-			                    if (p.getClass().getSimpleName().equals(rolSeleccionado)) {
-			                        filtradas.add(p);
-			                    }
-			                }
-			            }
-
-			            tablemodel.cargarInfo(filtradas);
-			        }
-			    }
-		});
-		comboBox.setBounds(199, 36, 197, 36);
-		contentPanel.add(comboBox);
-		
-		lblFiltrarPor = new JLabel("Mostrar:");
-		lblFiltrarPor.setForeground(Color.WHITE);
-		lblFiltrarPor.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		lblFiltrarPor.setBounds(100, 34, 87, 41);
-		contentPanel.add(lblFiltrarPor);
-		//		contentPanel.add(getPanel());
-
-
-
-
-
->>>>>>> origin/dariel
 		tablepers.addMouseMotionListener(new MouseMotionListener() {
-
+			
 			@Override
 			public void mouseMoved(java.awt.event.MouseEvent arg0) {
-<<<<<<< HEAD
 				if(!editando){
 				 row = tablepers.rowAtPoint(arg0.getPoint());
 				if(row!=-1 ){
 					tablepers.setRowSelectionInterval(row,row);
 					tablepers.setAutoscrolls(true);
-					panelVisible(fac.getPersonal().get(row));
+					//panelVisible(fac.getPersonal().get(row));
 				}
 				
 					
 									
-=======
-				row = tablepers.rowAtPoint(arg0.getPoint());
-				if(row!=-1){
-					tablepers.setRowSelectionInterval(row,row);
-					tablepers.setAutoscrolls(true);
-
-
-
->>>>>>> origin/dariel
 				}
 				else{
 					tablepers.clearSelection();
@@ -470,13 +322,12 @@ public class VerPersonal extends JDialog {
 			@Override
 			public void mouseDragged(java.awt.event.MouseEvent arg0) {
 				// TODO Auto-generated method stub
-
+				
 			}
-
-
+			
+			
 		});
 
-<<<<<<< HEAD
 		
 		tablepers.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			
@@ -484,6 +335,9 @@ public class VerPersonal extends JDialog {
 			public void valueChanged(ListSelectionEvent arg0) {
 				int indice = tablepers.getSelectedRow();
 				if(indice>-1){
+					tablepers.setRowSelectionInterval(row,row);
+					tablepers.setAutoscrolls(true);
+					
 					panelVisible(fac.getPersonal().get(indice));
 					
 				}
@@ -494,39 +348,20 @@ public class VerPersonal extends JDialog {
 		
 		
 		
-	
-		
-//		btnNewButton_2 = new JButton("New button");
-//		btnNewButton_2.setBounds(32, 36, 39, 23);
-//		contentPanel.add(btnNewButton_2);
 		
 		tablepers.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent arg0) {
-//				CRUDVerPersonal pp= new CRUDVerPersonal(VerPersonal.this, fac.getPersonal().get(row), row);
-//				pp.setVisible(true);
-				if(!editando){
-				panelVisible(fac.getPersonal().get(row));
-				//llenarCrud(row);
-=======
-		//		btnNewButton_2 = new JButton("New button");
-		//		btnNewButton_2.setBounds(32, 36, 39, 23);
-		//		contentPanel.add(btnNewButton_2);
 
-		tablepers.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(java.awt.event.MouseEvent arg0) {
-				CRUDVerPersonal pp= new CRUDVerPersonal(VerPersonal.this, fac.getPersonal().get(row), row);
-				pp.setVisible(true);
-				//				panelVisible(fac.getPersonal().get(row));
->>>>>>> origin/dariel
+				if(!editando){
+			 panelVisible(fac.getPersonal().get(row));
+				
 				tablemodel.setRowCount(0);
 				tablemodel.cargarInfo(fac.getPersonal());
 				}
 			}
-
+				
 		});
-<<<<<<< HEAD
 		
 
 		tablemodel.cargarInfo(fac.getPersonal());
@@ -534,18 +369,6 @@ public class VerPersonal extends JDialog {
 	}
 
 
-=======
-
-
-		tablemodel.cargarInfo(fac.getPersonal());
-
-
-
-	}
-
-
-
->>>>>>> origin/dariel
 	private JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
 			btnNewButton_1 = new JButton("");
@@ -565,7 +388,6 @@ public class VerPersonal extends JDialog {
 		}
 		return btnNewButton_1;
 	}
-<<<<<<< HEAD
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
@@ -1073,7 +895,7 @@ public class VerPersonal extends JDialog {
 					if(!eleccionCrear.isVisible())
 					 listo = crearPersona(fac.getPersonal().get(row));
 					else
-					listo = crearPersona(null);
+					 listo = crearPersona(null);
 						
 					if(listo){
 				    editando = false;
@@ -1689,10 +1511,4 @@ public class VerPersonal extends JDialog {
 	}
 }
 	
-=======
-
-
-}
-
->>>>>>> origin/dariel
 
