@@ -1,6 +1,7 @@
 package interfaz;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -15,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.table.TableModel;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -25,8 +27,10 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 
 import controllerClass.Facultad;
+import util.ScrollMinimalista;
 import util.TablaRegistrosReporte1;
 
 import java.awt.Color;
@@ -110,17 +114,19 @@ public class TablaReporte1 extends JDialog {
 		contentPanel.add(getDatefinal());
 		contentPanel.add(getLblNewLabel_2());
 		contentPanel.add(getLblNewLabel_3());
+	
+
 
 		comboBox = new JComboBox<>();
 		comboBox.setToolTipText("");
-		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		comboBox.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				entradaCarnet();
 			}
 		});
 
-		comboBox.setBounds(33, 75, 209, 53);
+		comboBox.setBounds(33, 75, 247, 53);
 		contentPanel.add(comboBox);
 		comboBox.setModel(new DefaultComboBoxModel<>(fac.getPersonal().toArray(new Persona[0])));
 
@@ -131,7 +137,7 @@ public class TablaReporte1 extends JDialog {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("Nombre y apellidos:");
 			lblNewLabel.setForeground(Color.WHITE);
-			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 21));
+			lblNewLabel.setFont(new Font("Modern No. 20", Font.BOLD, 25));
 			lblNewLabel.setBounds(33, 46, 260, 26);
 		}
 		return lblNewLabel;
@@ -146,26 +152,33 @@ public class TablaReporte1 extends JDialog {
 			};
 			scrollPane.setEnabled(false);
 			scrollPane.setBackground(Colores.getAzulCielo());
-			scrollPane.getViewport().setBackground(Colores.getLogin());
-			scrollPane.setBorder(new LineBorder(Color.LIGHT_GRAY));
 			scrollPane.setBounds(33, 202, 1018, 525);
 			scrollPane.setViewportView(getTable());
+			
+			scrollPane.setBackground(Color.WHITE);
+			scrollPane.getViewport().setBackground(Colores.getBlancuzo());
+			scrollPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+			scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
 		}
 		return scrollPane;
 	}
 	private JTable getTable() {
 		table = new JTable();
-		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		table.setRowHeight(29);
 
 		tablaModel = new TablaRegistrosReporte1();
 		table.setModel(tablaModel);
-		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 17));
-		table.setForeground(Color.WHITE);
-		table.setBackground(Colores.getAzulCielo());
-		table.setGridColor(Colores.getLogin());
-		table.getTableHeader().setBackground(Colores.getLogin());
+		
+		table.setShowHorizontalLines(false);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		table.setRowHeight(29);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.getTableHeader().setFont(new Font("Modern No. 20", Font.BOLD, 19));
+		table.setForeground(Color.BLACK);
+		table.setBackground(Colores.getBlancuzo());
+		table.setGridColor(Color.lightGray);
+		table.getTableHeader().setBackground(Color.white);
 		table.setBorder(null);
+		
 		table.setEnabled(false);
 //		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -274,7 +287,7 @@ public class TablaReporte1 extends JDialog {
 		if (lblNewLabel_2 == null) {
 			lblNewLabel_2 = new JLabel("Desde");
 			lblNewLabel_2.setForeground(Color.WHITE);
-			lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 21));
+			lblNewLabel_2.setFont(new Font("Modern No. 20", Font.BOLD, 25));
 			lblNewLabel_2.setBounds(413, 51, 74, 16);
 		}
 		return lblNewLabel_2;
@@ -283,7 +296,7 @@ public class TablaReporte1 extends JDialog {
 		if (lblNewLabel_3 == null) {
 			lblNewLabel_3 = new JLabel("Hasta");
 			lblNewLabel_3.setForeground(Color.WHITE);
-			lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 21));
+			lblNewLabel_3.setFont(new Font("Modern No. 20", Font.BOLD, 25));
 			lblNewLabel_3.setBounds(578, 51, 74, 16);
 		}
 		return lblNewLabel_3;

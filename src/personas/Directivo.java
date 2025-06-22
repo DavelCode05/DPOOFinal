@@ -33,21 +33,5 @@ public class Directivo extends Profesor{
 		return area;
 	}
 	
-	
-	
-//	public void setCargo(CargoDirectivo cargo) { // se le da a elegir en lista desplegable
-//		//Se valida??
-//		this.cargo = cargo;
-//	}
-//	public AreaDirectivo getArea() {
-//		return area;
-//	}
-//	public void setArea(String area) {  // no se valida , se da a elegir 
-//		if (area != null && !area.replaceAll(" ", "").equals("")) {
-//			this.area = area;
-//		}else
-//			throw new IllegalArgumentException("El nombre del area no puede estar vacio.");
-//	}
-
 
 }

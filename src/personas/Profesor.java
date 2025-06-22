@@ -37,23 +37,34 @@ public class Profesor extends Persona{
     public String getCatDoc() {
         return catDoc;
     }
-    public void setCatDoc(String catDoc) { // es un string 
-        //Duda de si se valida o no
-        this.catDoc = catDoc;
+    public void setCatDoc(String catDoc) { 
+    	if (catDoc != null && !catDoc.replaceAll(" ", "").equals("")) {
+    		 this.catDoc = catDoc;
+		}else
+			throw new IllegalArgumentException("El nombre no puede estar vacio.");
+       
     }
 
     public String getCatCient() {
         return catCient;
     }
     public void setCatCient(String catCient) {
-        this.catCient = catCient;
+    	if (catCient != null && !catCient.replaceAll(" ", "").equals("")) {
+   		 this.catCient = catCient;
+		}else
+			throw new IllegalArgumentException("El nombre no puede estar vacio.");
+        
     }
 
     public TipoContrato getTipoContrato() {
         return tipoContrato;
     }
     public void setTipoContrato(TipoContrato tipoContrato) {
-        this.tipoContrato = tipoContrato;
+    	if (tipoContrato != null) {
+   		 this.tipoContrato = tipoContrato;
+		}else
+			throw new IllegalArgumentException("El campo no puede estar vacio.");
+        
     }
     
 }

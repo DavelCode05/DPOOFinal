@@ -1,7 +1,9 @@
 package interfaz;
 
 import java.awt.BorderLayout;
+
 import util.JTextFieldCarnet;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -10,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 
 import java.awt.Font;
@@ -25,6 +28,9 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 //import java.time.LocalDate;
 //import java.time.LocalTime;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -54,15 +60,18 @@ import javax.swing.JToggleButton;
 //import javax.swing.event.DocumentEvent;
 //import javax.swing.event.DocumentListener;
 
+
 import java.awt.TextArea;
 
 //import javax.swing.JRadioButton;
 //
 //import javafx.scene.control.ComboBox;
 
+
 import javax.swing.ButtonGroup;
 
 //import com.sun.xml.internal.ws.org.objectweb.asm.Label;
+
 
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
@@ -90,6 +99,7 @@ public class IniciarSesion extends JDialog {
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JLabel lblDeTuMano;
+	private JButton btnIniciar;
 
 
 	/**
@@ -126,8 +136,21 @@ public class IniciarSesion extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JButton btnIniciar = new JButton("Registrarse");
-		btnIniciar.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		btnIniciar = new JButton("Registrarse");
+		btnIniciar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+              
+                btnIniciar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+               
+            	btnIniciar.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+            }
+        });
+		btnIniciar.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 		btnIniciar.setBorder(null);
 		btnIniciar.setBackground(Color.WHITE);
 		btnIniciar.addActionListener(new ActionListener() {
@@ -139,14 +162,19 @@ public class IniciarSesion extends JDialog {
 		contentPanel.add(btnIniciar);
 
 		JLabel lblLocal = new JLabel("Local:");
-		lblLocal.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblLocal.setFont(new Font("Tahoma", Font.PLAIN, 23));
 		lblLocal.setBounds(548, 141, 65, 34);
 		contentPanel.add(lblLocal);
 
 		comboBoxLocal = new JComboBox<>();
 		comboBoxLocal.setBackground(Color.WHITE);
+<<<<<<< HEAD
 		comboBoxLocal.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBoxLocal.setModel(new DefaultComboBoxModel<>(fac.getLocales().toArray(new Local[0])));
+=======
+		comboBoxLocal.setFont(new Font("Modern No. 20", Font.PLAIN, 26));
+		comboBoxLocal.setModel(new DefaultComboBoxModel<>(TipoLocal.values()));
+>>>>>>> origin/dariel
 		comboBoxLocal.setBorder(null);
 
 		comboBoxLocal.setBounds(613, 141, 260, 34);
@@ -180,7 +208,7 @@ public class IniciarSesion extends JDialog {
 		});
 
 		carnet.setForeground(Color.GRAY);
-		carnet.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		carnet.setFont(new Font("Modern No. 20", Font.PLAIN, 23));
 		carnet.setBorder(null);
 		carnet.setBackground(Color.WHITE);
 		carnet.setColumns(10);
@@ -219,7 +247,7 @@ public class IniciarSesion extends JDialog {
 
 			}
 		});
-		responsable.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		responsable.setFont(new Font("Modern No. 20", Font.PLAIN, 23));
 		responsable.setBorder(null);
 		responsable.setBackground(Color.WHITE);
 		responsable.setBounds(0, 53, 325, 40);
@@ -232,9 +260,9 @@ public class IniciarSesion extends JDialog {
 		textAreaMot.setBounds(123, 111, 201, 77);	
 		panelVisitante.add(textAreaMot);
 
-		JLabel lblMotivoVisita = new JLabel("Motivo Visita");
-		lblMotivoVisita.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblMotivoVisita.setBounds(0, 117, 118, 25);
+		JLabel lblMotivoVisita = new JLabel("Motivo visita:");
+		lblMotivoVisita.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		lblMotivoVisita.setBounds(0, 113, 118, 25);
 		panelVisitante.add(lblMotivoVisita);
 
 		nombreUser = new JTextFieldString();
@@ -261,8 +289,12 @@ public class IniciarSesion extends JDialog {
 
 			}
 		});
+<<<<<<< HEAD
 		
 		nombreUser.setFont(new Font("Tahoma", Font.PLAIN, 20));
+=======
+		nombreUser.setFont(new Font("Modern No. 20", Font.PLAIN, 23));
+>>>>>>> origin/dariel
 		nombreUser.setBorder(null);
 		nombreUser.setBackground(Color.WHITE);
 		nombreUser.setBounds(0, 0, 325, 40);
@@ -307,7 +339,7 @@ public class IniciarSesion extends JDialog {
 		
 		tglbtnUsuario.setBorder(BorderFactory.createMatteBorder(1,1,0,1,Colores.getLogin()));
 		tglbtnUsuario.setBackground(Color.WHITE);
-		tglbtnUsuario.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		tglbtnUsuario.setFont(new Font("Modern No. 20", Font.PLAIN, 27));
 		tglbtnUsuario.setBounds(516, 75, 190, 43);
 		contentPanel.add(tglbtnUsuario);
 
@@ -334,6 +366,7 @@ public class IniciarSesion extends JDialog {
 		tglbtnNewToggleButton.setForeground(new Color(0,0,0));
 		tglbtnNewToggleButton.setBorder(null);
 
+<<<<<<< HEAD
 		
 //		tglbtnNewToggleButton.addItemListener(new ItemListener() {
 //			public void itemStateChanged(ItemEvent arg0) {
@@ -351,6 +384,22 @@ public class IniciarSesion extends JDialog {
 //		});
 		
 		tglbtnNewToggleButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
+=======
+		tglbtnNewToggleButton.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				if(arg0.getStateChange()== ItemEvent.SELECTED){
+					panelVisitante.setVisible(true);
+					tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(1,1,0,1,Colores.getLogin()));usuario = true;
+				}
+				else{
+					tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(0,1,1,1,Colores.getLogin()));
+					usuario  = false;
+				}
+
+			}
+		});
+		tglbtnNewToggleButton.setFont(new Font("Modern No. 20", Font.PLAIN, 27));
+>>>>>>> origin/dariel
 		tglbtnNewToggleButton.setBounds(701, 76, 190, 43);
 		contentPanel.add(tglbtnNewToggleButton);
 		tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(0,1,1,1,Colores.getLogin()));
@@ -494,7 +543,7 @@ public class IniciarSesion extends JDialog {
 
 			lblNewLabel = new JLabel("Bienvenido");
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 56));
+			lblNewLabel.setFont(new Font("Modern No. 20", Font.BOLD, 56));
 			lblNewLabel.setBounds(45, 123, 395, 75);
 			panel.add(lblNewLabel);
 
