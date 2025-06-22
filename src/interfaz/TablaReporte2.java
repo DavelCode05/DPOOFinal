@@ -38,6 +38,7 @@ import util.TablaRegistrosReporte2;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
 import java.awt.Font;
 
@@ -93,8 +94,8 @@ public class TablaReporte2 extends JDialog {
 
 
 	public TablaReporte2(/*JFrame padre*/) {
-		//		super(padre, "Reporte 1", true);
-		setTitle("Chequeo de registros");
+//		super(padre, "Reporte 2", true);
+		setTitle("Chequeo de Registros Locales");
 		fac = Facultad.getFacultad();
 		setBounds(100, 100, 1086, 760);
 		getContentPane().setLayout(new BorderLayout());
@@ -224,13 +225,36 @@ public class TablaReporte2 extends JDialog {
 	private JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
 			btnNewButton_1 = new JButton("");
-			btnNewButton_1.setBounds(1016, 13, 58, 48);
+			UIManager.put("ToolTip.background", Color.WHITE);
+			UIManager.put("ToolTip.foreground", Color.BLACK);
+			UIManager.put("ToolTip.font", new Font("Segoe UI", Font.PLAIN, 16));
+			
+			btnNewButton_1.setToolTipText("Cerrar");
+			
+			btnNewButton_1.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(java.awt.event.MouseEvent arg0) {
+					btnNewButton_1.setBackground(new Color(220, 53, 69));
+					btnNewButton_1.setForeground(Color.WHITE);
+					btnNewButton_1.setText("");
+				}
+				@Override
+				public void mouseExited(java.awt.event.MouseEvent arg0) {
+					btnNewButton_1.setBackground(new Color(240, 240, 240));
+					btnNewButton_1.setForeground(Color.BLACK);
+					btnNewButton_1.setText("");
+				}
+			});
 			btnNewButton_1.setContentAreaFilled(false);
+			btnNewButton_1.setBounds(1039, 0, 47, 46);
 			btnNewButton_1.setOpaque(true);
 			btnNewButton_1.setBorder(null);
-			btnNewButton_1.setBackground(Color.LIGHT_GRAY);
-			btnNewButton_1.setForeground(new Color(6, 43, 63));
-			btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 29));
+			btnNewButton_1.setBackground(new Color(240, 240, 240));
+			btnNewButton_1.setForeground(Color.BLACK);
+			btnNewButton_1.setFocusPainted(false);
+			btnNewButton_1.setFont(new Font("Segoe UI", Font.PLAIN, 28));
+			btnNewButton_1.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+			
 			btnNewButton_1.setIcon(new ImageIcon(TablaReporte1.class.getResource("/images/close.png")));
 			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {

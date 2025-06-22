@@ -1,9 +1,8 @@
 package personas;
 
-import enums.Plaza;
 
 public class Tecnico extends Persona{
-	private String plaza; // la plaza debe ser String 
+	private String plaza; 
 
 	public Tecnico(String nombre, String numeroIdentidad, String plaza) {
 		super(nombre,  numeroIdentidad);
@@ -19,10 +18,11 @@ public class Tecnico extends Persona{
 	}
 
 	public void setPlaza(String plaza) {
-		if(plaza == null){
-			throw new IllegalArgumentException("Plaza no puede estar vacia");
+		String plaza2 = plaza;
+		if(plaza2 != null && !plaza2.replaceAll(" ", "").equals("")){
+			this.plaza = plaza2;
 		}else
-			this.plaza = plaza;
+			throw new IllegalArgumentException("Plaza no puede estar vacia");
 	}
 
 

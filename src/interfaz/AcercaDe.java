@@ -39,6 +39,9 @@ public class AcercaDe extends JDialog {
 	private JLabel lblEquipoDeTrabajo;
 	private JLabel lblNd;
 	private JLabel lblNewLabel_1;
+	private JLabel lblcontrolDeAccesos;
+	private JLabel lblLaSeguridadEn;
+	private JLabel lblEficienteYConfiable;
 
 	/**
 	 * Launch the application.
@@ -63,12 +66,15 @@ public class AcercaDe extends JDialog {
 		contentPanel.add(getLblEquipoDeTrabajo());
 		contentPanel.add(getLblNd());
 		contentPanel.add(getLblNewLabel_1());
+		contentPanel.add(getLblcontrolDeAccesos());
+		contentPanel.add(getLblLaSeguridadEn());
+		contentPanel.add(getLblEficienteYConfiable());
 	}
 	private JLabel getLblHola() {
 		if (lblHola == null) {
 			lblHola = new JLabel("Control de Accesos");
 			lblHola.setForeground(Colores.getBlancuzo());
-			lblHola.setBounds(342, 326, 506, 123);
+			lblHola.setBounds(341, 288, 506, 123);
 			lblHola.setHorizontalAlignment(SwingConstants.CENTER);
 			lblHola.setFont(new Font("Tahoma", Font.BOLD, 50));
 		}
@@ -96,9 +102,9 @@ public class AcercaDe extends JDialog {
 	}
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("Version 1.0");
+			lblNewLabel = new JLabel("Version 1.0 - Junio 2025");
 			lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			lblNewLabel.setBounds(546, 566, 171, 65);
+			lblNewLabel.setBounds(490, 513, 197, 50);
 			lblNewLabel.setForeground(Color.WHITE);
 		}
 		return lblNewLabel;
@@ -116,18 +122,45 @@ public class AcercaDe extends JDialog {
 		if (lblNd == null) {
 			lblNd = new JLabel("VelRios Tech Team");
 			lblNd.setForeground(Color.WHITE);
-			lblNd.setBounds(505, 863, 198, 21);
-			lblNd.setFont(new Font("Tahoma", Font.BOLD, 18));
+			lblNd.setBounds(484, 850, 241, 34);
+			lblNd.setFont(new Font("Modern No. 20", Font.BOLD, 26));
 		}
 		return lblNd;
 	}
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
-			lblNewLabel_1 = new JLabel("Facultad de Ingenieria Informatica");
+			lblNewLabel_1 = new JLabel("Facultad de Ingenier\u00EDa Inform\u00E1tica");
 			lblNewLabel_1.setForeground(Color.WHITE);
 			lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 48));
-			lblNewLabel_1.setBounds(173, 482, 870, 85);
+			lblNewLabel_1.setBounds(172, 444, 870, 85);
 		}
 		return lblNewLabel_1;
+	}
+	private JLabel getLblcontrolDeAccesos() {
+		if (lblcontrolDeAccesos == null) {
+			lblcontrolDeAccesos = new JLabel("\"Control de Accesos es un sistema dise\u00F1ado para gestionar y optimizar");
+			lblcontrolDeAccesos.setForeground(Color.WHITE);
+			lblcontrolDeAccesos.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
+			lblcontrolDeAccesos.setBounds(486, 654, 634, 25);
+		}
+		return lblcontrolDeAccesos;
+	}
+	private JLabel getLblLaSeguridadEn() {
+		if (lblLaSeguridadEn == null) {
+			lblLaSeguridadEn = new JLabel("la seguridad en la Facultad de Inform\u00E1tica, garantizando un registro");
+			lblLaSeguridadEn.setForeground(Color.WHITE);
+			lblLaSeguridadEn.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
+			lblLaSeguridadEn.setBounds(486, 692, 624, 25);
+		}
+		return lblLaSeguridadEn;
+	}
+	private JLabel getLblEficienteYConfiable() {
+		if (lblEficienteYConfiable == null) {
+			lblEficienteYConfiable = new JLabel("eficiente y confiable de entradas y salidas mediante tecnolog\u00EDa innovadora\"");
+			lblEficienteYConfiable.setForeground(Color.WHITE);
+			lblEficienteYConfiable.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
+			lblEficienteYConfiable.setBounds(486, 730, 662, 25);
+		}
+		return lblEficienteYConfiable;
 	}
 }

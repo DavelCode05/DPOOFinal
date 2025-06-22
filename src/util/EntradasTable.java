@@ -20,9 +20,17 @@ public class EntradasTable extends DefaultTableModel {
 		}
 		
 		for(int i=0; i<array.length; i++){
-			
-			Object [] newR = new Object[]{i+8+":00-"+ (i+8+1)+":00", array[i], total!=0?array[i]*100/total:0+"%"
-			};
+			String rango = (i + 8) + ":00-" + (i + 9) + ":00";
+	        int cantidad = array[i];
+	        String porcentaje;
+
+	        if (total != 0) {
+	            double valor = (double) array[i] * 100 / total;
+	            porcentaje = String.format("%.1f%%", valor); // 1 decimal, ejemplo: 12.5%
+	        } else {
+	            porcentaje = "0.0%";
+	        }
+			Object [] newR = new Object[]{rango, cantidad, porcentaje};
 			this.addRow(newR);
 		}
 	}

@@ -7,3 +7,8 @@ validaciones  de fechas en null
 validacion del motivo de visita no vacio
 
 
+cambios en todos los crear persona en ver personal xq como estaba el if primero, si los datos del carnet
+y nombre no eran correctos no verifica mas nada hasta que lo sean, y tiene que verificarlos todos
+
+
+Carnet no se xq no muestra su mensaje de error

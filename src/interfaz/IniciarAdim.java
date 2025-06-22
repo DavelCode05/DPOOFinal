@@ -58,22 +58,22 @@ public class IniciarAdim extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			IniciarAdim dialog = new IniciarAdim();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			IniciarAdim dialog = new IniciarAdim();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public IniciarAdim(/*JDialog padre*/) {
+	public IniciarAdim(JDialog padre) {
 		
-//		super(padre, "Iniciar Sesion Administrador", true);
+		super(padre, "Iniciar Sesion Administrador", true);
 		setBounds(100, 100, 406, 489);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);
