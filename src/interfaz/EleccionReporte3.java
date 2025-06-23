@@ -19,6 +19,7 @@ import javax.swing.JRadioButton;
 
 import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -40,11 +41,13 @@ import java.awt.Label;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.ButtonGroup;
 
 import util.EntradasTable;
 import util.LocalesRep3TableModel;
+import util.ScrollMinimalista;
 import controllerClass.Facultad;
 
 import java.awt.event.ItemEvent;
@@ -179,7 +182,7 @@ public class EleccionReporte3 extends JDialog {
 
 
 		rdbtnTabla.setSelected(true);
-		rdbtnTabla.setBackground(Colores.getLogin());
+		rdbtnTabla.setBackground(Colores.getBlancuzo());
 		//		rdbtnTabla.addItemListener(new ItemListener() {
 		//			public void itemStateChanged(ItemEvent arg0) {
 		//				if(arg0.getStateChange()==ItemEvent.SELECTED){
@@ -229,7 +232,7 @@ public class EleccionReporte3 extends JDialog {
 				representarReportePorDia();
 			}
 		});
-		rdbtnGraficoDeBarras.setBackground(Colores.getLogin());
+		rdbtnGraficoDeBarras.setBackground(Colores.getBlancuzo());
 
 
 		rdbtnGraficoDeBarras.setBounds(175, 387, 211, 36);
@@ -271,21 +274,21 @@ public class EleccionReporte3 extends JDialog {
 			}
 		});
 		rdbtnDa.setSelected(true);
-		rdbtnDa.setBackground(Colores.getLogin());
+		rdbtnDa.setBackground(Colores.getBlancuzo());
 		rdbtnDa.setFont(new Font("Tahoma", Font.BOLD, 15));
 		rdbtnDa.setBounds(134, 207, 63, 28);
 		contentPanel.add(rdbtnDa);
 
 		rdbtnSemana = new JRadioButton("Semana");
 		rdbtnSemana.setForeground(Color.BLACK);
-		rdbtnSemana.setBackground(Colores.getLogin());
+		rdbtnSemana.setBackground(Colores.getBlancuzo());
 		rdbtnSemana.setFont(new Font("Tahoma", Font.BOLD, 15));
 		rdbtnSemana.setBounds(201, 207, 93, 28);
 		contentPanel.add(rdbtnSemana);
 
 		rdbtnMes = new JRadioButton("Mes");
 		rdbtnMes.setForeground(Color.BLACK);
-		rdbtnMes.setBackground(Colores.getLogin());
+		rdbtnMes.setBackground(Colores.getBlancuzo());
 		rdbtnMes.setFont(new Font("Tahoma", Font.BOLD, 15));
 		rdbtnMes.setBounds(298, 207, 83, 28);
 		contentPanel.add(rdbtnMes);
@@ -319,9 +322,11 @@ public class EleccionReporte3 extends JDialog {
 			}
 		};
 		
+		scrollPane.setBackground(Color.WHITE);
+		scrollPane.getViewport().setBackground(Colores.getBlancuzo());
+		scrollPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+		scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
 		scrollPane.setEnabled(false);
-		scrollPane.setBackground(Colores.getAzulCielo());
-		scrollPane.getViewport().setBackground(Colores.getLogin());
 		scrollPane.setBorder(new LineBorder(Color.WHITE));
 		scrollPane.setAutoscrolls(true);
 		scrollPane.setBounds(0, 0, 646, 433);
@@ -334,20 +339,47 @@ public class EleccionReporte3 extends JDialog {
 		tableModelLocal = new LocalesRep3TableModel();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setModel(tableModelLocal);
+		table.setShowHorizontalLines(false);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		table.setBackground(Colores.getAzulCielo());
 		table.setRowHeight(29);
-		table.setGridColor(Colores.getLogin());
-		table.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 18));;
-		table.getTableHeader().setBackground(Colores.getLogin());
-		table.setForeground(Color.WHITE);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.getTableHeader().setFont(new Font("Modern No. 20", Font.BOLD, 19));
+		table.setForeground(Color.BLACK);
+		table.setBackground(Colores.getBlancuzo());
+		table.setGridColor(Color.LIGHT_GRAY);
+		table.getTableHeader().setBackground(Color.white);
+		table.setBorder(null);
+		table.setEnabled(false);
 //		table.setCellSelectionEnabled(true);
 //		table.setRowSelectionAllowed(true);
 
 	    tableModelLocal = new LocalesRep3TableModel();
 	    table.setModel(tableModelLocal);
 	 
+	    table.addMouseMotionListener(new MouseMotionListener() {
 
+			@Override
+			public void mouseMoved(java.awt.event.MouseEvent arg0) {
+				int row = table.rowAtPoint(arg0.getPoint());
+				if(row!=-1){
+					table.setRowSelectionInterval(row,row);
+					table.setAutoscrolls(true);
+
+				}
+				else{
+					table.clearSelection();
+				}				
+			}
+
+			@Override
+			public void mouseDragged(java.awt.event.MouseEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+
+		});
+	    
 		
 
 		panelGrafico2 = new JPanel();
@@ -387,7 +419,6 @@ public class EleccionReporte3 extends JDialog {
 				
 			}
 		});
-
 
 		representarReportePorDia();
 

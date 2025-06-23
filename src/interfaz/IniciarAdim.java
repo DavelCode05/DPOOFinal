@@ -67,11 +67,21 @@ public class IniciarAdim extends JDialog {
 //			e.printStackTrace();
 //		}
 //	}
+<<<<<<< HEAD
 //
 
 	public IniciarAdim(JDialog padre) {
 		
 	super(padre, "Iniciar Sesion Administrador", true);
+=======
+
+	/**
+	 * Create the dialog.
+	 */
+	public IniciarAdim(JDialog padre) {
+		
+		super(padre, "Iniciar Sesion Administrador", true);
+>>>>>>> origin/dariel
 		setBounds(100, 100, 406, 489);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);

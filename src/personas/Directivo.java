@@ -8,7 +8,7 @@ import enums.TipoContrato;
 
 public class Directivo extends Profesor{
 	private CargoDirectivo cargo;
-	private AreaDirectivo area; // el area es un enum
+	private AreaDirectivo area;
 
 	public Directivo(String nombre, String numeroIdentidad, String departamento,
 			String catDoc, String catCient, TipoContrato tipoContrato, CargoDirectivo cargo,

@@ -63,26 +63,27 @@ public class Inicio extends JFrame {
 
 	private Facultad fac;
 	private JMenuItem mntmVerLocales;
+	private JMenuItem mntmChequeoDeRegistros;
 
 
 	/**
 	 * Launch the application.
 	 */
-		public static void main(String[] args) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-	//					Inicializadora.iniciar();
-						System.out.println(1111);
-						Inicio frame = new Inicio();
-						frame.setVisible(true);
-						frame.setLocationRelativeTo(null);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
-		}
+//		public static void main(String[] args) {
+//			EventQueue.invokeLater(new Runnable() {
+//				public void run() {
+//					try {
+//	//					Inicializadora.iniciar();
+//						System.out.println(1111);
+//						Inicio frame = new Inicio();
+//						frame.setVisible(true);
+//						frame.setLocationRelativeTo(null);
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
+//				}
+//			});
+//		}
 
 	/**
 	 * Create the frame.
@@ -172,6 +173,7 @@ public class Inicio extends JFrame {
 			mntmNewMenuItem_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 			mntmNewMenuItem_1.setForeground(Color.BLACK);
 			mnReportes.add(mntmNewMenuItem_1);
+<<<<<<< HEAD
 			
 			JMenuItem mntmDatosDeVisitantes = new JMenuItem("Datos de Visitantes Autorizados");
 			mntmDatosDeVisitantes.addActionListener(new ActionListener() {
@@ -183,6 +185,9 @@ public class Inicio extends JFrame {
 				}
 			});
 			mnReportes.add(mntmDatosDeVisitantes);
+=======
+			mnReportes.add(getMntmChequeoDeRegistros());
+>>>>>>> origin/dariel
 
 			
 
@@ -286,7 +291,7 @@ public class Inicio extends JFrame {
 	}
 	private JMenuItem getMntmReporte() {
 		if (mntmReporte == null) {
-			mntmReporte = new JMenuItem("Chequeo de Registros");
+			mntmReporte = new JMenuItem("Chequeo de Registros Personal");
 			mntmReporte.setForeground(Color.BLACK);
 			mntmReporte.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -302,14 +307,38 @@ public class Inicio extends JFrame {
 		if (mntmVerLocales == null) {
 			mntmVerLocales = new JMenuItem("Ver Locales");
 			mntmVerLocales.addActionListener(new ActionListener() {
+<<<<<<< HEAD
 				public void actionPerformed(ActionEvent arg0) {
 					VerLocales l = new VerLocales(Inicio.this);
 					l.setVisible(true);
 					
+=======
+				public void actionPerformed(ActionEvent e) {
+					try {
+						VerLocales dialog = new VerLocales(Inicio.this);
+						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialog.setVisible(true);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+>>>>>>> origin/dariel
 				}
 			});
 			mntmVerLocales.setFont(new Font("Tahoma", Font.BOLD, 20));
 		}
 		return mntmVerLocales;
+	}
+	private JMenuItem getMntmChequeoDeRegistros() {
+		if (mntmChequeoDeRegistros == null) {
+			mntmChequeoDeRegistros = new JMenuItem("Chequeo de Registros Locales");
+			mntmChequeoDeRegistros.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+						TablaReporte2 tabla2 = new TablaReporte2(Inicio.this);
+						tabla2.setVisible(true);
+				}
+			});
+			mntmChequeoDeRegistros.setFont(new Font("Tahoma", Font.BOLD, 20));
+		}
+		return mntmChequeoDeRegistros;
 	}
 }

@@ -13,12 +13,17 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+<<<<<<< HEAD
 import javax.swing.JOptionPane;
+=======
+>>>>>>> origin/dariel
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -56,6 +61,7 @@ public class VerLocales extends JDialog {
 	private JTable tableloc;
 	private int row;
 	private MostrarLocales tablemodel;
+<<<<<<< HEAD
 	private JButton btnNewButton;
 	private JTextField codigo;
 	private JComboBox<TipoLocal> tipoLoc;
@@ -70,6 +76,9 @@ public class VerLocales extends JDialog {
 	private JLabel lblCodigo;
 	private JLabel lblResponsable;
 	private JButton btnAgregar;
+=======
+	private JButton btnNewButton_1;
+>>>>>>> origin/dariel
 
 	/**
 //	 * Launch the application.
@@ -108,6 +117,7 @@ public class VerLocales extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		contentPanel.add(getBtnNewButton());
+<<<<<<< HEAD
 
 		JPanel panel = new JPanel();
 		panel.setBounds(646, 153, 531, 431);
@@ -148,6 +158,39 @@ public class VerLocales extends JDialog {
 					row = tableloc.rowAtPoint(arg0.getPoint());
 
 					if( row!=-1){
+=======
+	}
+	private JScrollPane getScrollPane() {
+		if (scrollPane == null) {
+			scrollPane = new JScrollPane();
+			scrollPane.setBackground(Color.WHITE);
+			scrollPane.getViewport().setBackground(Colores.getLogin());
+			scrollPane.setBorder(new EmptyBorder(2, 2, 2, 2));
+			scrollPane.setBounds(33, 153, 591, 460);
+			
+			tableloc = new JTable();
+			
+			tablemodel = new MostrarLocales();
+			
+			scrollPane.setViewportView(tableloc);
+			tableloc.setModel(tablemodel);
+			tableloc.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			tableloc.setRowHeight(29);
+			tableloc.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			tableloc.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 17));
+			tableloc.setForeground(Color.WHITE);
+			tableloc.setBackground(Colores.getAzulCielo());
+			tableloc.setGridColor(Colores.getLogin());
+			tableloc.getTableHeader().setBackground(Colores.getLogin());
+			tableloc.setBorder(null);
+			
+			tableloc.addMouseMotionListener(new MouseMotionListener() {
+				
+				@Override
+				public void mouseMoved(java.awt.event.MouseEvent arg0) {
+					 row = tableloc.rowAtPoint(arg0.getPoint());
+					if(row!=-1){
+>>>>>>> origin/dariel
 						tableloc.setRowSelectionInterval(row,row);
 						tableloc.setAutoscrolls(true);
 						mostrar(fac.getLocales().get(row));	
@@ -448,16 +491,52 @@ public class VerLocales extends JDialog {
 
 /////////////////////////////// BOTON SALIR  ////////////////////////////////////////////////////////////
 	private JButton getBtnNewButton() {
+<<<<<<< HEAD
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("salir");
 			btnNewButton.addActionListener(new ActionListener() {
+=======
+		if (btnNewButton_1 == null) {
+			btnNewButton_1 = new JButton("");
+			UIManager.put("ToolTip.background", Color.WHITE);
+			UIManager.put("ToolTip.foreground", Color.BLACK);
+			UIManager.put("ToolTip.font", new Font("Segoe UI", Font.PLAIN, 16));
+			
+			btnNewButton_1.setToolTipText("Cerrar");
+			
+			btnNewButton_1.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(java.awt.event.MouseEvent arg0) {
+					btnNewButton_1.setBackground(new Color(220, 53, 69));
+					btnNewButton_1.setForeground(Color.WHITE);
+					btnNewButton_1.setText("");
+				}
+				@Override
+				public void mouseExited(java.awt.event.MouseEvent arg0) {
+					btnNewButton_1.setBackground(new Color(240, 240, 240));
+					btnNewButton_1.setForeground(Color.BLACK);
+					btnNewButton_1.setText("");
+				}
+			});
+			btnNewButton_1.setContentAreaFilled(false);
+			btnNewButton_1.setBounds(1187, 0, 47, 46);
+			btnNewButton_1.setOpaque(true);
+			btnNewButton_1.setBorder(null);
+			btnNewButton_1.setBackground(new Color(240, 240, 240));
+			btnNewButton_1.setForeground(Color.BLACK);
+			btnNewButton_1.setFocusPainted(false);
+			btnNewButton_1.setFont(new Font("Segoe UI", Font.PLAIN, 28));
+			btnNewButton_1.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+			
+			btnNewButton_1.setIcon(new ImageIcon(TablaReporte1.class.getResource("/images/close.png")));
+			btnNewButton_1.addActionListener(new ActionListener() {
+>>>>>>> origin/dariel
 				public void actionPerformed(ActionEvent arg0) {
 					dispose();
 				}
 			});
-			btnNewButton.setBounds(60, 13, 97, 25);
 		}
-		return btnNewButton;
+		return btnNewButton_1;
 	}
 	
 /////////////////////////////// MOSTRAR INFORMACION  ////////////////////////////////////////////////////////////

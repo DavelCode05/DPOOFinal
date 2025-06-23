@@ -1,12 +1,10 @@
 package personas;
 
-import enums.CategoriaCientifica;
-import enums.CategoriaDocente;
 import enums.TipoContrato;
 
 public class Profesor extends Persona{
     private String departamento;
-    private String catDoc; // no es enum es string 
+    private String catDoc; 
     private String catCient;
     private TipoContrato tipoContrato;
 

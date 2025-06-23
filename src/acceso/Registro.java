@@ -69,6 +69,13 @@ public class Registro {
         else
             throw new IllegalArgumentException("Local no puede ser nulo");
     }
+    
+    public void setFecha(LocalDate fecha) {
+//      if(fecha == null)
+//          throw new IllegalArgumentException("La fecha no puede ser null"); //Hacer mas validaciones
+//      else
+          this.fecha = fecha;
+  }
 }
 
 //    public void setHoraEntrada(String horaEntrada) {
@@ -79,12 +86,7 @@ public class Registro {
 //    }
 
 
-//    public void setFecha(LocalDate fecha) { // la fecha se obtiene actual , por la de la computadora
-//        if(fecha == null)
-//            throw new IllegalArgumentException("La fecha no puede ser null"); //Hacer mas validaciones
-//        else
-//            this.fecha = fecha;
-//    }
+ 
 //
 //    
 //}

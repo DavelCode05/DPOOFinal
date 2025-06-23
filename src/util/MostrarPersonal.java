@@ -11,7 +11,7 @@ import acceso.Registro;
 public class MostrarPersonal extends DefaultTableModel{
 	
 	public MostrarPersonal(){
-		String [] columnas =  {"Nombre  ", "Carnet de Identidad    "," Rol  "};
+		String [] columnas =  {"Nombre  "," Rol  "};
 		this.setColumnIdentifiers(columnas);
 
 
@@ -23,7 +23,7 @@ public class MostrarPersonal extends DefaultTableModel{
 		for(int i=0; i < personas.size(); i++){
 			
 
-			Object [] newR = new Object[]{personas.get(i).getNombre() , personas.get(i).getNumeroIdentidad(), personas.get(i).getClass().getSimpleName()
+			Object [] newR = new Object[]{personas.get(i).getNombre(), personas.get(i).getClass().getSimpleName()
 					
 			};
 			this.addRow(newR);

@@ -9,5 +9,10 @@
 /controllerClass
 /personas
 /util
+<<<<<<< HEAD
 /locales
 /inicio
+=======
+/enums
+/acceso
+>>>>>>> origin/dariel

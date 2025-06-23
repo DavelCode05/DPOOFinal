@@ -1,22 +1,24 @@
 package personas;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Objects;
 
 import util.ValidarCarnet;
 
+=======
+>>>>>>> origin/dariel
 public abstract class Persona {
 	protected String nombre;
 	protected String numeroIdentidad;
 
 	public Persona(String nombre, String numeroIdentidad) {
 		setNombre(nombre);
-
 		setNumeroIdentidad(numeroIdentidad);
 	}
 	
 	public Persona(){
-		
+	
 	}
 	
 	public String getNombre() {
@@ -30,11 +32,6 @@ public abstract class Persona {
 			throw new IllegalArgumentException("No pueden haber campos vacios");	
 	}
 
-	
-	@Override
-	public String toString(){
-		return nombre;
-	}
 
 	public String getNumeroIdentidad() {
 		
@@ -42,7 +39,6 @@ public abstract class Persona {
 		return numeroIdentidad;
 	}
 	public void setNumeroIdentidad(String numeroIdentidad) {
-		
 		if (numeroIdentidad != null && !numeroIdentidad.replaceAll(" ", "").equals("")) {
 			this.numeroIdentidad = numeroIdentidad;
 		}else 
@@ -63,22 +59,9 @@ public abstract class Persona {
 	}
 	
 	@Override
-	//Verificar si dos personas tienen el mismo numero de identidad
-	//Esto lo meto aqui ?????
-	
-//	 pero y esto para que ?? no creo que haga falta esa validacion para nada
-	public boolean equals(Object obj){
-		boolean esIgual = false;
-		if(this == obj){ //ver si es el mismo objeto en memoria
-			esIgual = true;
-		} else if (obj instanceof Persona) {
-			Persona otra = (Persona) obj;
-			esIgual = Objects.equals(numeroIdentidad, otra.numeroIdentidad);
-		}
-
-		return esIgual;
+	public String toString(){
+		return nombre;
 	}
-	
 	
 	
 }

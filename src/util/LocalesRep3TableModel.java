@@ -6,7 +6,7 @@ public class LocalesRep3TableModel extends DefaultTableModel{
 
 
 	public LocalesRep3TableModel( ){
-		String [] columnas =  {"Local   ", "Cantidad de entradas    "," Porcentaje    "};
+		String [] columnas =  {"Local   ", "Cantidad de entradas    ","Porcentaje    "};
 		this.setColumnIdentifiers(columnas);
 
 
@@ -21,9 +21,18 @@ public class LocalesRep3TableModel extends DefaultTableModel{
 		}
 
 		for(int i=0; i<array.length; i++){
-           
-			Object [] newR = new Object[]{locales[i], array[i], total!=0?array[i]*100/total:0+"%"
-			};
+			 String local = locales[i];
+		        int cantidad = array[i];
+		        String porcentaje;
+
+		        if (total != 0) {
+		            double valor = (double) cantidad * 100 / total;
+		            porcentaje = String.format("%.1f%%", valor); // 1 decimal
+		        } else {
+		            porcentaje = "0.0%";
+		        }
+
+		        Object[] newR = new Object[]{local, cantidad, porcentaje};
 			this.addRow(newR);
 		}
 	}
