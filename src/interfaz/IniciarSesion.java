@@ -168,13 +168,11 @@ public class IniciarSesion extends JDialog {
 
 		comboBoxLocal = new JComboBox<>();
 		comboBoxLocal.setBackground(Color.WHITE);
-<<<<<<< HEAD
+
 		comboBoxLocal.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBoxLocal.setModel(new DefaultComboBoxModel<>(fac.getLocales().toArray(new Local[0])));
-=======
-		comboBoxLocal.setFont(new Font("Modern No. 20", Font.PLAIN, 26));
-		comboBoxLocal.setModel(new DefaultComboBoxModel<>(TipoLocal.values()));
->>>>>>> origin/dariel
+
+
 		comboBoxLocal.setBorder(null);
 
 		comboBoxLocal.setBounds(613, 141, 260, 34);
@@ -257,7 +255,7 @@ public class IniciarSesion extends JDialog {
 	    textAreaMot = new TextArea();
 		textAreaMot.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textAreaMot.setBackground(Color.WHITE);
-		textAreaMot.setBounds(123, 111, 201, 77);	
+		textAreaMot.setBounds(200, 87, 201, 77);	
 		panelVisitante.add(textAreaMot);
 
 		JLabel lblMotivoVisita = new JLabel("Motivo visita:");
@@ -289,12 +287,12 @@ public class IniciarSesion extends JDialog {
 
 			}
 		});
-<<<<<<< HEAD
+
 		
-		nombreUser.setFont(new Font("Tahoma", Font.PLAIN, 20));
-=======
+		//nombreUser.setFont(new Font("Tahoma", Font.PLAIN, 20));
+
 		nombreUser.setFont(new Font("Modern No. 20", Font.PLAIN, 23));
->>>>>>> origin/dariel
+
 		nombreUser.setBorder(null);
 		nombreUser.setBackground(Color.WHITE);
 		nombreUser.setBounds(0, 0, 325, 40);
@@ -314,9 +312,9 @@ public class IniciarSesion extends JDialog {
 				else if(carnet.getForeground().equals(Color.RED) && !carnet.equals("Carnet de Identidad")){
 					carnet.setForeground(Color.BLACK);
 				}
-				nombreUser.setText("");
-				responsable.setText("");
-				textAreaMot.setText("");
+//				nombreUser.setText("");
+//				responsable.setText("");
+//				textAreaMot.setText("");
 				lblDatosErroneos.setVisible(false);
 				
 				
@@ -366,7 +364,7 @@ public class IniciarSesion extends JDialog {
 		tglbtnNewToggleButton.setForeground(new Color(0,0,0));
 		tglbtnNewToggleButton.setBorder(null);
 
-<<<<<<< HEAD
+
 		
 //		tglbtnNewToggleButton.addItemListener(new ItemListener() {
 //			public void itemStateChanged(ItemEvent arg0) {
@@ -383,23 +381,24 @@ public class IniciarSesion extends JDialog {
 //			}
 //		});
 		
-		tglbtnNewToggleButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
-=======
-		tglbtnNewToggleButton.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-				if(arg0.getStateChange()== ItemEvent.SELECTED){
-					panelVisitante.setVisible(true);
-					tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(1,1,0,1,Colores.getLogin()));usuario = true;
-				}
-				else{
-					tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(0,1,1,1,Colores.getLogin()));
-					usuario  = false;
-				}
+		//tglbtnNewToggleButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
 
-			}
-		});
+//		tglbtnNewToggleButton.addItemListener(new ItemListener() {
+//			public void itemStateChanged(ItemEvent arg0) {
+//				if(arg0.getStateChange()== ItemEvent.SELECTED){
+//					panelVisitante.setVisible(true);
+//					tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(1,1,0,1,Colores.getLogin()));usuario = true;
+//				}
+//				else{
+//					tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(0,1,1,1,Colores.getLogin()));
+//					usuario  = false;
+//				}
+//
+//			}
+//		});
+		
 		tglbtnNewToggleButton.setFont(new Font("Modern No. 20", Font.PLAIN, 27));
->>>>>>> origin/dariel
+
 		tglbtnNewToggleButton.setBounds(701, 76, 190, 43);
 		contentPanel.add(tglbtnNewToggleButton);
 		tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(0,1,1,1,Colores.getLogin()));
@@ -513,12 +512,27 @@ public class IniciarSesion extends JDialog {
 				carnet.setForeground(Color.red);
 			}
 		}
+		 if(permiso){
+		try{
+			fac.accesoPermitidoAlLocal(local.getTipo().toString(),aAcceder);
+			
+		}
+		catch(IllegalArgumentException e){
+			lblDatosErroneos.setText(e.getMessage());
+			permiso = false;
+			lblDatosErroneos.setVisible(true);
+		}
+		 }
 		if(permiso){
+			
 			fac.agregarRegistro(aAcceder, local);
 			JOptionPane.showMessageDialog(null, "Usuario Registrado");
+			
+				
+			}
 		}
 
-	}
+	
 	public boolean verificarStrings(String verif){
 		boolean ok = true;
 

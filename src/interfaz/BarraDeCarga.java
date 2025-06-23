@@ -1,5 +1,7 @@
 package interfaz;
 
+import inicio.Iniciadora;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -36,11 +38,13 @@ public class BarraDeCarga extends JDialog {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		 Iniciadora.iniciar();
 			BarraDeCarga dialog = new BarraDeCarga();
 			dialog.setVisible(true);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			
 			 IniciarSesion inicio = new IniciarSesion();
+			
 			
 			try {
 				for(int i = 0; i < 100; i++){

@@ -64,7 +64,7 @@ public class GraficoBarrasDialog extends JPanel {
 
 
 		// Dibujar fondo blanco
-		g2d.setColor(Color.WHITE);
+		g2d.setColor(Colores.getLogin());
 		g2d.fillRect(0, 0, anchoPanel, altoPanel);
 
 		// Dibujar título
@@ -85,7 +85,7 @@ public class GraficoBarrasDialog extends JPanel {
 		g2d.setFont( new Font("Arial", Font.ITALIC,12));
 		String etiq2 = "Cantidad de entradas";
 		int anchoEtiq2= g2d.getFontMetrics().stringWidth(etiq2);
-		g2d.drawString(etiq2, anchoPanel/2-anchoEtiq2/2-165, altoPanel-margenInf/2-245);
+		g2d.drawString(etiq2, anchoPanel/2-anchoEtiq2/2-255, altoPanel-margenInf/2-330);
 
 		// rotar la linea
 
@@ -97,23 +97,23 @@ public class GraficoBarrasDialog extends JPanel {
 		// dibujar valores y marcas
 
 		int marcasY = 5 ;
-		for( int i = 0; i<= marcasY; i++){
-			int y = altoPanel - margenInf -(i*(altoPanel-margenSup-margenInf)/ marcasY);
-			//			g2d.setColor(Color.LIGHT_GRAY);
-			//			g2d.drawLine(margenizq, y, anchoPanel-margenDer, y);
-
-			//		    g2d.setColor(Color.BLACK);
-			//			String valor= String.valueOf((max*i)/ marcasY);
-			//			int ancho1= g2d.getFontMetrics().stringWidth(valor);
-			//			g2d.drawString(valor, margenizq-ancho1-5, y+5);
-
-		}
+//		for( int i = 0; i<= marcasY; i++){
+//			int y = altoPanel - margenInf -(i*(altoPanel-margenSup-margenInf)/ marcasY);
+//			//			g2d.setColor(Color.LIGHT_GRAY);
+//			//			g2d.drawLine(margenizq, y, anchoPanel-margenDer, y);
+//
+//			//		    g2d.setColor(Color.BLACK);
+//			//			String valor= String.valueOf((max*i)/ marcasY);
+//			//			int ancho1= g2d.getFontMetrics().stringWidth(valor);
+//			//			g2d.drawString(valor, margenizq-ancho1-5, y+5);
+//
+//		}
 
 		g2d.drawLine(margenizq, altoPanel-margenInf, anchoPanel-margenDer, altoPanel-margenInf);
 		g2d.setFont( new Font("Arial", Font.ITALIC,12));
 		String etiq = "Rango de horario";
 		int anchoEtiq= g2d.getFontMetrics().stringWidth(etiq);
-		g2d.drawString(etiq, anchoPanel/2-anchoEtiq/2+180, altoPanel-margenInf/2-5);
+		g2d.drawString(etiq, anchoPanel/2-anchoEtiq/2+250, altoPanel-margenInf/2-5);
 
 		// Calcular dimensiones de las barras
 		int numBarras = datos.length;
@@ -134,12 +134,18 @@ public class GraficoBarrasDialog extends JPanel {
 
 			String valor= String.valueOf(datos[i]);
 			int ancho1= g2d.getFontMetrics().stringWidth(valor);
-			if(datos[i]!=0)
+			if(datos[i]!=0){
+			g2d.setFont(new Font("Monospaced", Font.PLAIN, 12));
+
 				g2d.drawString(valor, margenizq-ancho1-5, y+5);
+			}
+		
+	
+
 
 
 			if(i==0){
-				g2d.drawString("0", margenizq-ancho1, 274);
+				g2d.drawString("0", margenizq-ancho1, 360);
 
 			}
 		}
@@ -208,16 +214,16 @@ public class GraficoBarrasDialog extends JPanel {
 		return max == 0 ? 1 : max; // Evitar división por cero
 	}
 
-	// Método main para probar directamente
-	//	public static void main(String[] args) {
-	//
-	//		// Datos de ejemplo
-	//		Facultad fac = new Facultad();
-	//		int[] datosEjemplo = fac.entradaALaFAcuPorHoras(LocalDate.now(), fac.getLocales().get(0));
-	//
-	//		// Crear y mostrar el diálogo
-	//		GraficoBarrasDialog dialog = new GraficoBarrasDialog(datosEjemplo);
-	//		dialog.setVisible(true);
-	//
-	//	}
+//	 Método main para probar directamente
+//		public static void main(String[] args) {
+//	
+//			// Datos de ejemplo
+//			Facultad fac = new Facultad();
+//			int[] datosEjemplo = fac.entradaALaFAcuPorHoras(LocalDate.now(), fac.getLocales().get(0));
+//	
+//			// Crear y mostrar el diálogo
+//			GraficoBarrasDialog dialog = new GraficoBarrasDialog(datosEjemplo);
+//			dialog.setVisible(true);
+//	
+//		}
 }

@@ -31,7 +31,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 
 import controllerClass.Facultad;
-import util.ScrollMinimalista;
+//import util.ScrollMinimalista;
 import util.TablaRegistrosReporte1;
 import util.TablaRegistrosReporte2;
 
@@ -155,7 +155,7 @@ public class TablaReporte2 extends JDialog {
 			scrollPane.setBackground(Color.WHITE);
 			scrollPane.getViewport().setBackground(Colores.getBlancuzo());
 			scrollPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-			scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
+			//scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
 		}
 		return scrollPane;
 	}

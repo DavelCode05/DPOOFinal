@@ -13,8 +13,8 @@ public class Local {
 	private Persona responsable;
 
 	public Local(String codigo, TipoLocal tipo, Persona responsable) {
-		setCodigo(codigo);
 		setTipo(tipo);
+		setCodigo(codigo);	
 		setResponsable(responsable);
 //		this.responsable = responsable;
 	}
@@ -24,6 +24,7 @@ public class Local {
 	}
 
 	public String getCodigo() {
+	
 		return codigo;
 	}
 
@@ -61,7 +62,7 @@ public class Local {
 	}
 	
 	public String toString(){
-		return tipo.toString();
+		return tipo.toString()+" "+codigo;
 	}
 
 

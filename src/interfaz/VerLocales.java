@@ -15,10 +15,13 @@ import java.awt.Toolkit;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import controllerClass.Facultad;
 
@@ -48,44 +51,46 @@ public class VerLocales extends JDialog {
 
 	private final JPanel contentPanel;
 	private Facultad fac;
-	JComboBox<Persona> respons;
+	private JComboBox<Persona> respons;
 	private JScrollPane scrollPane;
 	private JTable tableloc;
-	int row;
+	private int row;
 	private MostrarLocales tablemodel;
 	private JButton btnNewButton;
 	private JTextField codigo;
-	JComboBox<TipoLocal> tipoLoc;
+	private JComboBox<TipoLocal> tipoLoc;
 	boolean editando;
 	boolean agregar;
-	JLabel errores;
+	private JLabel errores;
 	private JButton btnCancelar;
 	private JButton btnGuardar;
-	JButton btnEliminar;
-	JButton btneditar;
-	JLabel lblTipo ;
-	JLabel lblCodigo;
-	JLabel lblResponsable;
+	private JButton btnEliminar;
+	private JButton btneditar;
+	private JLabel lblTipo ;
+	private JLabel lblCodigo;
+	private JLabel lblResponsable;
 	private JButton btnAgregar;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			VerLocales dialog = new VerLocales();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
-	public VerLocales(/*JFrame p*/) {
-		//		super(p, true);
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		try {
+//			VerLocales dialog = new VerLocales();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
+//	/**
+//	 * Create the dialog.
+//	 */
+//	
+	
+	public VerLocales(JFrame p) {
+    	super(p, true);
 		fac = Facultad.getFacultad();
 		setBounds(100, 100, 1234, 760);
 		editando = false;
@@ -96,6 +101,7 @@ public class VerLocales extends JDialog {
 				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 			}
 		};
+			
 		setUndecorated(true);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -108,27 +114,9 @@ public class VerLocales extends JDialog {
 		contentPanel.add(panel);
 		panel.setLayout(null);
 
-		lblCodigo = new JLabel("Codigo");
-		lblCodigo.setBounds(28, 80, 46, 14);
-		panel.add(lblCodigo);
 
-		lblTipo = new JLabel("tipo");
-		lblTipo.setBounds(28, 135, 46, 14);
-		panel.add(lblTipo);
-
-		lblResponsable = new JLabel("Responsable");
-		lblResponsable.setBounds(28, 191, 70, 14);
-		panel.add(lblResponsable);
-
-		codigo = new JTextField();
-		codigo.setBounds(82, 77, 86, 20);
-		panel.add(codigo);
-		codigo.setColumns(10);
-		
 		scrollPane = new JScrollPane();
 		contentPanel.add(scrollPane);
-
-
 
 		scrollPane.setBackground(Colores.getAzulCielo());
 		scrollPane.getViewport().setBackground(Colores.getLogin());
@@ -150,24 +138,24 @@ public class VerLocales extends JDialog {
 		tableloc.setGridColor(Colores.getLogin());
 		tableloc.getTableHeader().setBackground(Colores.getLogin());
 		tableloc.setBorder(null);
-		
+
 
 		tableloc.addMouseMotionListener(new MouseMotionListener() {
 
 			@Override
 			public void mouseMoved(java.awt.event.MouseEvent arg0) {
 				if(!editando){
-				row = tableloc.rowAtPoint(arg0.getPoint());
-				
-				if( row!=-1){
-					tableloc.setRowSelectionInterval(row,row);
-					tableloc.setAutoscrolls(true);
-					mostrar(fac.getLocales().get(row));	
+					row = tableloc.rowAtPoint(arg0.getPoint());
 
-				}
-				else {
-					tableloc.clearSelection();
-				}
+					if( row!=-1){
+						tableloc.setRowSelectionInterval(row,row);
+						tableloc.setAutoscrolls(true);
+						mostrar(fac.getLocales().get(row));	
+
+					}
+					else {
+						tableloc.clearSelection();
+					}
 				}
 			}
 
@@ -179,21 +167,52 @@ public class VerLocales extends JDialog {
 
 
 		});
-		
+
 		tableloc.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent arg0) {
 
 				if(!editando){
-			    mostrar (fac.getLocales().get(row));
-				
-				tablemodel.setRowCount(0);
-				tablemodel.cargarInfo(fac.getLocales());
+					mostrar (fac.getLocales().get(row));
+
+					tablemodel.setRowCount(0);
+					tablemodel.cargarInfo(fac.getLocales());
 				}
 			}
-				
+
 		});
-		tablemodel.cargarInfo(fac.getLocales());
+
+		tableloc.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				int indice = tableloc.getSelectedRow();
+				if(indice>-1){
+					tableloc.setRowSelectionInterval(indice,indice);
+					tableloc.setAutoscrolls(true);
+					mostrar(fac.getLocales().get(indice));
+				}
+
+			}
+		});
+		
+/////////////////////////////// LABEL Y TEXT FIELDS ////////////////////////////////////////////////////////////
+		
+		lblCodigo = new JLabel("Codigo");
+		lblCodigo.setBounds(28, 80, 46, 14);
+		panel.add(lblCodigo);
+
+		lblTipo = new JLabel("tipo");
+		lblTipo.setBounds(28, 135, 46, 14);
+		panel.add(lblTipo);
+
+		lblResponsable = new JLabel("Responsable");
+		lblResponsable.setBounds(28, 191, 70, 14);
+		panel.add(lblResponsable);
+
+		codigo = new JTextField();
+		codigo.setBounds(82, 77, 86, 20);
+		panel.add(codigo);
+		codigo.setColumns(10);
 
 		tipoLoc = new JComboBox<TipoLocal>();
 		tipoLoc.setBounds(96, 132, 125, 20);
@@ -204,8 +223,20 @@ public class VerLocales extends JDialog {
 		respons.setBounds(96, 188, 125, 20);
 		panel.add(respons);
 		respons.setModel(new DefaultComboBoxModel<>(fac.obtenerResponsables().toArray(new Persona[0])));
+		
+		
+		errores = new JLabel("New label");
+		errores.setBounds(10, 358, 179, 14);
+		panel.add(errores);
+		
+		
+		
+		mostrar(fac.getLocales().get(0));
+		tablemodel.cargarInfo(fac.getLocales());
 
-		 btneditar = new JButton("Editar");
+		
+///////////////////////////////BOTON EDITAR ////////////////////////////////////////////////////////////
+		btneditar = new JButton("Editar");
 		btneditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				editando = true;
@@ -220,200 +251,202 @@ public class VerLocales extends JDialog {
 		});
 		btneditar.setBounds(217, 28, 89, 23);
 		panel.add(btneditar);
-
 		
-
-		btnGuardar = new JButton("Guardar");
+/////////////////////////////// BOTON ELIMINAR  ////////////////////////////////////////////////////////////
 		
-		btnGuardar.setBounds(237, 312, 89, 23);
-		panel.add(btnGuardar);
-		btnGuardar.setVisible(false);
-
-mostrar(fac.getLocales().get(0));
-		 btnEliminar = new JButton("Eliminar");
-		 btnEliminar.setVisible(true);
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setVisible(true);
 		btnEliminar.addActionListener(new ActionListener() {
-			
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					int confirm = JOptionPane.showConfirmDialog(null, "¿Eliminar esta persona?", "Confirmar", JOptionPane.YES_NO_OPTION);
-					if (confirm == JOptionPane.YES_OPTION) {
-						
-						fac.getLocales().remove(row);
-						tablemodel.setRowCount(0);
-						tablemodel.cargarInfo(fac.getLocales());
-						btnCancelar.setVisible(false);
-				        btnEliminar.setVisible(true);
-				        btnEliminar.setEnabled(true);
-				        btnGuardar.setVisible(false);
-				        btneditar.setVisible(true);
-				        codigo.setEditable(false);
-				        respons.setEnabled(false);
-				        tipoLoc.setEnabled(false);
-						
-						
-					}
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int confirm = JOptionPane.showConfirmDialog(null, "¿Eliminar esta persona?", "Confirmar", JOptionPane.YES_NO_OPTION);
+				if (confirm == JOptionPane.YES_OPTION) {
+
+					fac.getLocales().remove(row);
+					tablemodel.setRowCount(0);
+					tablemodel.cargarInfo(fac.getLocales());
+					btnCancelar.setVisible(false);
+					btnEliminar.setVisible(true);
+					btnEliminar.setEnabled(true);
+					btnGuardar.setVisible(false);
+					btneditar.setVisible(true);
+					codigo.setEditable(false);
+					respons.setEnabled(false);
+					tipoLoc.setEnabled(false);
+
+
 				}
-			
+			}
+
 		});
 		btnEliminar.setBounds(352, 312, 89, 23);
 		panel.add(btnEliminar);
 
-		errores = new JLabel("New label");
-		errores.setBounds(10, 358, 179, 14);
-		panel.add(errores);
 		
-				
+
+/////////////////////////////// BOTON GUARDAR ////////////////////////////////////////////////////////////
+		
+		btnGuardar = new JButton("Guardar");
+
+		btnGuardar.setBounds(237, 312, 89, 23);
+		panel.add(btnGuardar);
+		btnGuardar.setVisible(false);
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				if(crearLoc(fac.getLocales().get(row))){
 					editando = false;
 					agregar = false;
-				codigo.setEditable(false);
-				btneditar.setVisible(true);
-				btnEliminar.setVisible(true);
-				btnCancelar.setVisible(false);
-				btnGuardar.setVisible(false);
-				respons.setEnabled(false);
-				tipoLoc.setEnabled(false);
-				 tablemodel.setRowCount(0);
+					codigo.setEditable(false);
+					btneditar.setVisible(true);
+					btnEliminar.setVisible(true);
+					btnCancelar.setVisible(false);
+					btnGuardar.setVisible(false);
+					respons.setEnabled(false);
+					tipoLoc.setEnabled(false);
+					tablemodel.setRowCount(0);
 					tablemodel.cargarInfo(fac.getLocales());
 				}
-				
-				
-		
+
+
+
 			}
 		});
 		
-		 btnCancelar = new JButton("Cancelar");
+///////////////////////////////BOTON CANCELAR ////////////////////////////////////////////////////////////
 
-			btnCancelar.setBounds(352, 28, 89, 23);
-			panel.add(btnCancelar);
-			
-			btnAgregar = new JButton("agregar");
-			btnAgregar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					editando = true;
-					agregar = true;
-					btnCancelar.setVisible(true);
-			        btnEliminar.setVisible(false);
-			        btnGuardar.setVisible(true);
-			        btneditar.setVisible(false);
-			        codigo.setText("");
-			        codigo.setEditable(true);
-			        respons.setSelectedIndex(0);
-			        respons.setEnabled(true);
-			        tipoLoc.setEnabled(true);
-			        tipoLoc.setSelectedIndex(0);
-			        
-				}
-			});
-			btnAgregar.setBounds(233, 70, 89, 23);
-			contentPanel.add(btnAgregar);
-			btnCancelar.setVisible(false);
-		
-		 
+		btnCancelar = new JButton("Cancelar");
+
+		btnCancelar.setBounds(352, 28, 89, 23);
+		panel.add(btnCancelar);
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				
+
+
 				int confirm = JOptionPane.showConfirmDialog(null, "¿Desea cancelar sin guardar los cambios?", "Confirmar", JOptionPane.YES_NO_OPTION);
 				if (confirm == JOptionPane.YES_OPTION) {
-			    editando = false;
-				mostrar(fac.getLocales().get(row));
-		       
-		        btnCancelar.setVisible(false);
-		        btnEliminar.setVisible(true);
-		        btnEliminar.setEnabled(true);
-		        btnGuardar.setVisible(false);
-		        btneditar.setVisible(true);
-		        codigo.setEditable(false);
-		        respons.setEnabled(false);
-		        tipoLoc.setEnabled(false);
+					editando = false;
+					mostrar(fac.getLocales().get(row));
+
+					btnCancelar.setVisible(false);
+					btnEliminar.setVisible(true);
+					btnEliminar.setEnabled(true);
+					btnGuardar.setVisible(false);
+					btneditar.setVisible(true);
+					codigo.setEditable(false);
+					respons.setEnabled(false);
+					tipoLoc.setEnabled(false);
 				}
 			}
 		});
+
 		
+/////////////////////////////// BOTON AGREGAR////////////////////////////////////////////////////////////
+
+		btnAgregar = new JButton("agregar");
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				editando = true;
+				agregar = true;
+				btnCancelar.setVisible(true);
+				btnEliminar.setVisible(false);
+				btnGuardar.setVisible(true);
+				btneditar.setVisible(false);
+				codigo.setText("");
+				codigo.setEditable(true);
+				respons.setSelectedIndex(0);
+				respons.setEnabled(true);
+				tipoLoc.setEnabled(true);
+				tipoLoc.setSelectedIndex(0);
+
+			}
+		});
+		btnAgregar.setBounds(233, 70, 89, 23);
+		contentPanel.add(btnAgregar);
+		btnCancelar.setVisible(false);
+
+
 		
+
 	}
 	//private JScrollPane getScrollPane() {
 	//	if (scrollPane == null) {
-//			scrollPane = new JScrollPane();
-//
-//
-//
-//			scrollPane.setBackground(Colores.getAzulCielo());
-//			scrollPane.getViewport().setBackground(Colores.getLogin());
-//			scrollPane.setBorder(new EmptyBorder(3, 3, 3, 3));
-//			scrollPane.setBounds(33, 153, 591, 460);
-//
-//			tableloc = new JTable();
-//
-//			tablemodel = new MostrarLocales();
-//
-//			scrollPane.setViewportView(tableloc);
-//			tableloc.setModel(tablemodel);
-//			tableloc.setFont(new Font("Tahoma", Font.PLAIN, 16));
-//			tableloc.setRowHeight(29);
-//			tableloc.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//			tableloc.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 17));
-//			tableloc.setForeground(Color.WHITE);
-//			tableloc.setBackground(Colores.getAzulCielo());
-//			tableloc.setGridColor(Colores.getLogin());
-//			tableloc.getTableHeader().setBackground(Colores.getLogin());
-//			tableloc.setBorder(null);
-//			
-//
-//			tableloc.addMouseMotionListener(new MouseMotionListener() {
-//
-//				@Override
-//				public void mouseMoved(java.awt.event.MouseEvent arg0) {
-//					if(!editando){
-//					row = tableloc.rowAtPoint(arg0.getPoint());
-//					
-//					if( row!=-1){
-//						tableloc.setRowSelectionInterval(row,row);
-//						tableloc.setAutoscrolls(true);
-//						mostrar(fac.getLocales().get(row));	
-//
-//					}
-//					else {
-//						tableloc.clearSelection();
-//					}
-//					}
-//				}
-//
-//				@Override
-//				public void mouseDragged(java.awt.event.MouseEvent arg0) {
-//					// TODO Auto-generated method stub
-//
-//				}
-//
-//
-//			});
-//			
-//			tableloc.addMouseListener(new MouseAdapter() {
-//				@Override
-//				public void mouseClicked(java.awt.event.MouseEvent arg0) {
-//
-//					if(!editando){
-//				    mostrar (fac.getLocales().get(row));
-//					
-//					tablemodel.setRowCount(0);
-//					tablemodel.cargarInfo(fac.getLocales());
-//					}
-//				}
-//					
-//			});
-//			tablemodel.cargarInfo(fac.getLocales());
-//		}
-//		return scrollPane;
-//	}
-	
-	
+	//			scrollPane = new JScrollPane();
+	//
+	//
+	//
+	//			scrollPane.setBackground(Colores.getAzulCielo());
+	//			scrollPane.getViewport().setBackground(Colores.getLogin());
+	//			scrollPane.setBorder(new EmptyBorder(3, 3, 3, 3));
+	//			scrollPane.setBounds(33, 153, 591, 460);
+	//
+	//			tableloc = new JTable();
+	//
+	//			tablemodel = new MostrarLocales();
+	//
+	//			scrollPane.setViewportView(tableloc);
+	//			tableloc.setModel(tablemodel);
+	//			tableloc.setFont(new Font("Tahoma", Font.PLAIN, 16));
+	//			tableloc.setRowHeight(29);
+	//			tableloc.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	//			tableloc.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 17));
+	//			tableloc.setForeground(Color.WHITE);
+	//			tableloc.setBackground(Colores.getAzulCielo());
+	//			tableloc.setGridColor(Colores.getLogin());
+	//			tableloc.getTableHeader().setBackground(Colores.getLogin());
+	//			tableloc.setBorder(null);
+	//			
+	//
+	//			tableloc.addMouseMotionListener(new MouseMotionListener() {
+	//
+	//				@Override
+	//				public void mouseMoved(java.awt.event.MouseEvent arg0) {
+	//					if(!editando){
+	//					row = tableloc.rowAtPoint(arg0.getPoint());
+	//					
+	//					if( row!=-1){
+	//						tableloc.setRowSelectionInterval(row,row);
+	//						tableloc.setAutoscrolls(true);
+	//						mostrar(fac.getLocales().get(row));	
+	//
+	//					}
+	//					else {
+	//						tableloc.clearSelection();
+	//					}
+	//					}
+	//				}
+	//
+	//				@Override
+	//				public void mouseDragged(java.awt.event.MouseEvent arg0) {
+	//					// TODO Auto-generated method stub
+	//
+	//				}
+	//
+	//
+	//			});
+	//			
+	//			tableloc.addMouseListener(new MouseAdapter() {
+	//				@Override
+	//				public void mouseClicked(java.awt.event.MouseEvent arg0) {
+	//
+	//					if(!editando){
+	//				    mostrar (fac.getLocales().get(row));
+	//					
+	//					tablemodel.setRowCount(0);
+	//					tablemodel.cargarInfo(fac.getLocales());
+	//					}
+	//				}
+	//					
+	//			});
+	//			tablemodel.cargarInfo(fac.getLocales());
+	//		}
+	//		return scrollPane;
+	//	}
 
 
+
+/////////////////////////////// BOTON SALIR  ////////////////////////////////////////////////////////////
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("salir");
@@ -426,9 +459,11 @@ mostrar(fac.getLocales().get(0));
 		}
 		return btnNewButton;
 	}
+	
+/////////////////////////////// MOSTRAR INFORMACION  ////////////////////////////////////////////////////////////
 
 	public void mostrar(Local l){
-		
+
 		codigo.setText(l.getCodigo());
 		codigo.setEditable(false);
 		tipoLoc.setSelectedItem(l.getTipo());
@@ -437,6 +472,8 @@ mostrar(fac.getLocales().get(0));
 		respons.setEnabled(false);
 
 	}
+	
+/////////////////////////////// CREAR Y EDITAR LOCALES  ////////////////////////////////////////////////////////////
 
 	public boolean crearLoc(Local lo){
 		String cod = codigo.getText();
@@ -485,7 +522,7 @@ mostrar(fac.getLocales().get(0));
 
 			}
 		}
-		
+
 		if(agregar && bien){
 			fac.addLocal(cod, res, loc);
 		}
@@ -496,6 +533,6 @@ mostrar(fac.getLocales().get(0));
 		}
 
 
-return bien;
+		return bien;
 	}
 }

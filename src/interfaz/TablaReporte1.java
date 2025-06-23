@@ -30,7 +30,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 
 import controllerClass.Facultad;
-import util.ScrollMinimalista;
+//import util.ScrollMinimalista;
 import util.TablaRegistrosReporte1;
 
 import java.awt.Color;
@@ -54,6 +54,8 @@ import java.awt.event.HierarchyListener;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class TablaReporte1 extends JDialog {
 
@@ -76,26 +78,26 @@ public class TablaReporte1 extends JDialog {
 	private JLabel lblNewLabel_3;
 	JComboBox<Persona> comboBox;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			TablaReporte1 dialog = new TablaReporte1();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		try {
+//			TablaReporte1 dialog = new TablaReporte1();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
+//	/**
+//	 * Create the dialog.
+//	 */
 
-	/**
-	 * Create the dialog.
-	 */
 
-
-	public TablaReporte1(/*JFrame padre*/) {
-		//		super(padre, "Reporte 1", true);
+	public TablaReporte1(JFrame padre) {
+		super(padre, "Reporte 1", true);
 		setTitle("Chequeo de registros");
 		fac = Facultad.getFacultad();
 		setBounds(100, 100, 1086, 760);
@@ -105,30 +107,35 @@ public class TablaReporte1 extends JDialog {
 		contentPanel.setBorder(new LineBorder(Colores.getAzulOScuro()));
 		this.setUndecorated(true);
 		setLocationRelativeTo(null);
+		
+		comboBox = new JComboBox<>();
+		comboBox.setToolTipText("");
+		comboBox.setSelectedItem(fac.getPersonal().get(0));
+		comboBox.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+		
+
+		comboBox.setBounds(33, 75, 247, 53);
+		
+		comboBox.setModel(new DefaultComboBoxModel<>(fac.getPersonal().toArray(new Persona[0])));
+		
 		contentPanel.setLayout(null);
 		contentPanel.add(getLblNewLabel());
 		contentPanel.add(getScrollPane());
 		contentPanel.add(getErrores());
 		contentPanel.add(getBtnNewButton_1());
-		contentPanel.add(getDateinicio());
+		contentPanel.add(comboBox);
 		contentPanel.add(getDatefinal());
+		contentPanel.add(getDateinicio());	
 		contentPanel.add(getLblNewLabel_2());
 		contentPanel.add(getLblNewLabel_3());
 	
-
-
-		comboBox = new JComboBox<>();
-		comboBox.setToolTipText("");
-		comboBox.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				entradaCarnet();
 			}
 		});
 
-		comboBox.setBounds(33, 75, 247, 53);
-		contentPanel.add(comboBox);
-		comboBox.setModel(new DefaultComboBoxModel<>(fac.getPersonal().toArray(new Persona[0])));
+		
 
 		entradaCarnet();
 
@@ -158,7 +165,7 @@ public class TablaReporte1 extends JDialog {
 			scrollPane.setBackground(Color.WHITE);
 			scrollPane.getViewport().setBackground(Colores.getBlancuzo());
 			scrollPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-			scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
+		//	scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
 		}
 		return scrollPane;
 	}
@@ -245,15 +252,18 @@ public class TablaReporte1 extends JDialog {
 	private JDateChooser getDateinicio() {
 		if (dateinicio == null) {
 			dateinicio = new JDateChooser("dd/MM/yyyy", "##/##/####",'_');
-			dateinicio.getCalendarButton().addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
+			dateinicio.setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			getDatefinal().setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			dateinicio.addPropertyChangeListener(new PropertyChangeListener() {
+				public void propertyChange(PropertyChangeEvent arg0) {
 					entradaCarnet();
 				}
 			});
+			
 			dateinicio.setFont(new Font("Tahoma", Font.BOLD, 16));
 			dateinicio.setDateFormatString("dd/MM/yyyy");
 			dateinicio.setForeground(Color.BLACK);
-			dateinicio.setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+		
 			//			JTextField dateField = (JTextField)dateChooser.getDateEditor().getUiComponent();
 			//			dateField.setForeground(Color.WHITE);
 			dateinicio.setBounds(413, 75, 131, 53);
@@ -264,17 +274,17 @@ public class TablaReporte1 extends JDialog {
 	private JDateChooser getDatefinal() {
 		if (datefinal == null) {
 			datefinal = new JDateChooser("dd/MM/yyyy", "##/##/####",'_');
-			datefinal.addInputMethodListener(new InputMethodListener() {
-				public void caretPositionChanged(InputMethodEvent arg0) {
-				}
-				public void inputMethodTextChanged(InputMethodEvent arg0) {
+			datefinal.setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			getDateinicio().setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			
+			datefinal.addPropertyChangeListener(new PropertyChangeListener() {
+				public void propertyChange(PropertyChangeEvent arg0) {
 					entradaCarnet();
 				}
 			});
 			
-			
 			datefinal.setFont(new Font("Tahoma", Font.BOLD, 16));
-			datefinal.setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			
 			//			JTextField dateField1 = (JTextField)dateChooser_1.getDateEditor().getUiComponent();
 			//			dateField1.setForeground(Color.WHITE);
 			datefinal.setForeground(Color.BLACK);
@@ -305,9 +315,11 @@ public class TablaReporte1 extends JDialog {
 	public void entradaCarnet(){
 		//		String carnet = textField.getText();
 		//		boolean correcto = true;
-		String p = ((Persona) comboBox.getSelectedItem()).getNumeroIdentidad();
+
 		LocalDate inicio = dateinicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate finalll = datefinal.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		String p = ((Persona) comboBox.getSelectedItem()).getNumeroIdentidad();
+		
 		if(inicio.isBefore(finalll) || inicio.isEqual(finalll)){
 	    errores.setVisible(false);
 		tablaModel.setRowCount(0);

@@ -77,7 +77,7 @@ public class EleccionReporte3 extends JDialog {
 		}
 
 	};
-	JComboBox <TipoLocal> comboBoxLocal ;
+	JComboBox <Local> comboBoxLocal ;
 	JPanel panelloc;
 	GraficoBarrasDialog g;
 	JRadioButton rdbtnGraficoDeBarras;
@@ -108,16 +108,16 @@ public class EleccionReporte3 extends JDialog {
 	LocalesRep3TableModel tableModelLocal;
 	private JButton btnNewButton;
 
-
-	public static void main(String[] args) {
-		try {
-			EleccionReporte3 dialog = new EleccionReporte3();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//
+//	public static void main(String[] args) {
+//		try {
+//			EleccionReporte3 dialog = new EleccionReporte3();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	
 //		/**
@@ -125,8 +125,8 @@ public class EleccionReporte3 extends JDialog {
 //		 */
 	
 
-	public EleccionReporte3(/*JFrame padre*/) {
-//		super(padre, "", true);
+	public EleccionReporte3(JFrame padre) {
+		super(padre, "", true);
 
 
 		fac = Facultad.getFacultad();
@@ -156,7 +156,8 @@ public class EleccionReporte3 extends JDialog {
 		});
 		comboBoxLocal.setBackground(new Color(255, 255, 255));
 		comboBoxLocal.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		comboBoxLocal.setModel(new DefaultComboBoxModel<>(TipoLocal.values()));
+		comboBoxLocal.setModel(new DefaultComboBoxModel<>(fac.getLocales().toArray(new Local[0])));
+		comboBoxLocal.setSelectedItem(0);
 		comboBoxLocal.setBounds(0, 40, 228, 27);
 		panelloc.add(comboBoxLocal);
 
@@ -198,6 +199,8 @@ public class EleccionReporte3 extends JDialog {
 		contentPanel.add(rdbtnTabla);
 
 		dateChooser = new JDateChooser("dd/MM/yyyy", "##/##/####",'_');
+		dateChooser.setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+		
 		dateChooser.setFont(new Font("Tahoma", Font.PLAIN, 17) );
 
 		dateChooser.getCalendarButton().addActionListener(new ActionListener() {
@@ -206,7 +209,7 @@ public class EleccionReporte3 extends JDialog {
 			}
 		});
 		dateChooser.getCalendarButton().setToolTipText("");
-		dateChooser.setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+		
 
 		//		dateChooser.setDate(LocalDate.now().toInstant().);
 		dateChooser.setBounds(224, 267, 157, 36);
@@ -377,6 +380,13 @@ public class EleccionReporte3 extends JDialog {
 				}
 			}
 		});
+		
+		dateChooser.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent arg0) {
+				representarReportePorDia();
+				
+			}
+		});
 
 
 		representarReportePorDia();
@@ -403,7 +413,7 @@ public class EleccionReporte3 extends JDialog {
 
 		if(comboBox.getSelectedItem().toString().equals("Local")){
 
-			loc = fac.buscarLocal(comboBoxLocal.getSelectedItem().toString());
+			loc = fac.buscarLocal(((Local)comboBoxLocal.getSelectedItem()).getCodigo());
 			if(dateChooser.getDate()!=null){
 				fecha = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 

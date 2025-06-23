@@ -141,6 +141,15 @@ public class Inicio extends JFrame {
 			mnAccesos.setIcon(new ImageIcon(Inicio.class.getResource("/images/acceso.png")));
 			mnAccesos.setForeground(Colores.getNegro());
 			mnAccesos.setFont(new Font("Tahoma", Font.PLAIN, 27));
+			
+			JMenuItem mntmInformeDeRegistros = new JMenuItem("Informe de registros");
+			mntmInformeDeRegistros.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					VerRegistros p = new VerRegistros(Inicio.this);
+					p.setVisible(true);
+				}
+			});
+			mnAccesos.add(mntmInformeDeRegistros);
 		}
 		return mnAccesos;
 	}
@@ -292,6 +301,13 @@ public class Inicio extends JFrame {
 	private JMenuItem getMntmVerLocales() {
 		if (mntmVerLocales == null) {
 			mntmVerLocales = new JMenuItem("Ver Locales");
+			mntmVerLocales.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					VerLocales l = new VerLocales(Inicio.this);
+					l.setVisible(true);
+					
+				}
+			});
 			mntmVerLocales.setFont(new Font("Tahoma", Font.BOLD, 20));
 		}
 		return mntmVerLocales;

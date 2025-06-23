@@ -58,22 +58,20 @@ public class IniciarAdim extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			IniciarAdim dialog = new IniciarAdim();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			IniciarAdim dialog = new IniciarAdim();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
 
-	/**
-	 * Create the dialog.
-	 */
-	public IniciarAdim(/*JDialog padre*/) {
+	public IniciarAdim(JDialog padre) {
 		
-//		super(padre, "Iniciar Sesion Administrador", true);
+	super(padre, "Iniciar Sesion Administrador", true);
 		setBounds(100, 100, 406, 489);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);
@@ -143,14 +141,14 @@ public class IniciarAdim extends JDialog {
 
 		contentPanel.add(button);
 
-<<<<<<< HEAD
-		JButton btnAtras = new JButton("Atras");
+
+		btnAtras = new JButton("Atras");
 		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnAtras.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		btnAtras.setBackground(Colores.getLogin());
 		
-=======
-		btnAtras = new JButton("Atr\u00E1s");
+
+	
 		btnAtras.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -166,8 +164,7 @@ public class IniciarAdim extends JDialog {
         });
 		btnAtras.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 		btnAtras.setBorder(new LineBorder(Color.DARK_GRAY, 1, true));
-		btnAtras.setBackground(Color.WHITE);
->>>>>>> origin/dariel
+
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
@@ -175,12 +172,12 @@ public class IniciarAdim extends JDialog {
 				inicio.setVisible(true);	
 			}
 		});
-<<<<<<< HEAD
+
 		
 		btnAtras.setBounds(219, 420, 107, 33);
-=======
+
 		btnAtras.setBounds(214, 420, 107, 33);
->>>>>>> origin/dariel
+
 		contentPanel.add(btnAtras);
 		contentPanel.add(getPasswordField());
 		contentPanel.add(getLblNewLabel_2());
