@@ -22,6 +22,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -97,15 +98,11 @@ public class TablaReporte1 extends JDialog {
 //	 */
 
 
-<<<<<<< HEAD
+
 	public TablaReporte1(JFrame padre) {
-		super(padre, "Reporte 1", true);
-		setTitle("Chequeo de registros");
-=======
-	public TablaReporte1(/*JFrame padre*/) {
-//				super(padre, "Reporte 1", true);
+				super(padre, "Reporte 1", true);
 		setTitle("Chequeo de Registros Personal");
->>>>>>> origin/dariel
+
 		fac = Facultad.getFacultad();
 		setBounds(100, 100, 1086, 760);
 		getContentPane().setLayout(new BorderLayout());
@@ -232,7 +229,7 @@ public class TablaReporte1 extends JDialog {
 			errores.setBackground(Color.WHITE);
 			errores.setFont(new Font("Tahoma", Font.PLAIN, 19));
 			errores.setForeground(new Color(255, 0, 51));
-			errores.setBounds(33, 136, 352, 48);
+			errores.setBounds(33, 136, 646, 48);
 			errores.setVisible(false);;
 		}
 		return errores;
@@ -286,6 +283,7 @@ public class TablaReporte1 extends JDialog {
 			getDatefinal().setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
 			dateinicio.addPropertyChangeListener(new PropertyChangeListener() {
 				public void propertyChange(PropertyChangeEvent arg0) {
+					if(isVisible())
 					entradaCarnet();
 				}
 			});
@@ -309,6 +307,7 @@ public class TablaReporte1 extends JDialog {
 			
 			datefinal.addPropertyChangeListener(new PropertyChangeListener() {
 				public void propertyChange(PropertyChangeEvent arg0) {
+					if(isVisible())
 					entradaCarnet();
 				}
 			});
@@ -356,9 +355,9 @@ public class TablaReporte1 extends JDialog {
 		tablaModel.cargarInfo(fac.obtenerReporteVisitasPersonas(p, inicio,finalll));
 		}
 		else {
-			errores.setText("Rango de fecha incorrecto: La fecha de inicio no puede ser después de la fecha final ");
-			errores.setForeground(Color.RED);
-			errores.setVisible(true);
+			JOptionPane.showMessageDialog(this, "La fecha inicial no puede ser posterior a la feha final", "Error en rango de fechas", JOptionPane.ERROR_MESSAGE);
+			tablaModel.setRowCount(0);
+			
 			
 		}
 		

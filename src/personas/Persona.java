@@ -1,13 +1,12 @@
 package personas;
 
-<<<<<<< HEAD
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 import util.ValidarCarnet;
 
-=======
->>>>>>> origin/dariel
+
 public abstract class Persona {
 	protected String nombre;
 	protected String numeroIdentidad;
@@ -39,23 +38,31 @@ public abstract class Persona {
 		return numeroIdentidad;
 	}
 	public void setNumeroIdentidad(String numeroIdentidad) {
+		
 		if (numeroIdentidad != null && !numeroIdentidad.replaceAll(" ", "").equals("")) {
-			this.numeroIdentidad = numeroIdentidad;
+			char [] n = numeroIdentidad.toCharArray();
+			 String annio = String.valueOf(n[0])+String.valueOf(n[1]);
+			
+			 String mes = String.valueOf(n[2])+String.valueOf(n[3]);
+		
+			 String dia = String.valueOf(n[4])+String.valueOf(n[5]);
+			
+			 String siglo = String.valueOf(n[6]);
+			
+			 if( ValidarCarnet.validarAnnioYSiglo(annio, siglo) && ValidarCarnet.validarDiaYMes(dia, mes)) {
+			    this.numeroIdentidad = numeroIdentidad;
+			 }
+			 else 
+				 throw new IllegalArgumentException("No pueden haber campos vacios");
+				
 		}else 
 			throw new IllegalArgumentException("No pueden haber campos vacios");
-		
-	 char [] n = numeroIdentidad.toCharArray();
-	 String annio = ((n[0]- '0')*10+ (n[1]-'0'))+"0";
-	 String mes = ((n[2]- '0')*10+ (n[3]-'0'))+"0";
-	 String dia = ((n[4]- '0')*10+ (n[5]-'0'))+"0";
-	 String siglo = ((n[0]- '0')*10+ (n[1]-'0'))+"0";
 	 
 	 
 	 
-		
-		
-		
-		
+	 
+	 
+			
 	}
 	
 	@Override

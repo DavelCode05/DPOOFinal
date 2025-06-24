@@ -32,39 +32,7 @@ public class ModeloTablaSalida extends DefaultTableModel{
 		}
 	}
 
-//	
-//	public void cargarInfoSeleccion(ArrayList<Registro> r)
-//	{
-//		boolean ro = false;
-//		this.setRowCount(0);
-//		Object [] newR = null;
-//		for(int i=0; i < r.size(); i++){
-//                if(r.get(i).getHoraSalida()==null){
-//			 newR = new Object[]{ro, r.get(i).getPersona().getNombre(), r.get(i).getLocal().getCodigo(),
-//					r.get(i).getHoraEntrada().format(DateTimeFormatter.ofPattern("HH:mm")), r.get(i).getHoraSalida()==null? "No ha salido": r.get(i).getHoraSalida().format(DateTimeFormatter.ofPattern("HH:mm"))
-//					
-//			};
-//                
-//			this.addRow(newR);
-//                }
-//		}
-//	}
-//	
-//	public void cargarInfoSinSalidas(ArrayList<Registro> r){
-//		this.setRowCount(0);
-//		Object [] newR = null;
-//		boolean ro = false;
-//		for(int i=0; i < r.size(); i++){
-//                if(r.get(i).getHoraSalida()==null){
-//			 newR = new Object[]{ro,r.get(i).getPersona().getNombre(), r.get(i).getLocal().getCodigo(),
-//					r.get(i).getHoraEntrada().format(DateTimeFormatter.ofPattern("HH:mm")), r.get(i).getHoraSalida()==null? "No ha salido": r.get(i).getHoraSalida().format(DateTimeFormatter.ofPattern("HH:mm"))
-//					
-//			};
-//                
-//			this.addRow(newR);
-//                }
-//		}
-//	}
+
 	
 	public Class<?> getColumnClass(int column){
 		return column == 0? Boolean.class : Registro.class;

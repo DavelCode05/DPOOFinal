@@ -17,10 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-<<<<<<< HEAD
 import javax.swing.JOptionPane;
-=======
->>>>>>> origin/dariel
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
@@ -61,7 +58,7 @@ public class VerLocales extends JDialog {
 	private JTable tableloc;
 	private int row;
 	private MostrarLocales tablemodel;
-<<<<<<< HEAD
+
 	private JButton btnNewButton;
 	private JTextField codigo;
 	private JComboBox<TipoLocal> tipoLoc;
@@ -76,9 +73,9 @@ public class VerLocales extends JDialog {
 	private JLabel lblCodigo;
 	private JLabel lblResponsable;
 	private JButton btnAgregar;
-=======
+
 	private JButton btnNewButton_1;
->>>>>>> origin/dariel
+
 
 	/**
 //	 * Launch the application.
@@ -117,7 +114,7 @@ public class VerLocales extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		contentPanel.add(getBtnNewButton());
-<<<<<<< HEAD
+
 
 		JPanel panel = new JPanel();
 		panel.setBounds(646, 153, 531, 431);
@@ -152,45 +149,12 @@ public class VerLocales extends JDialog {
 
 		tableloc.addMouseMotionListener(new MouseMotionListener() {
 
-			@Override
-			public void mouseMoved(java.awt.event.MouseEvent arg0) {
-				if(!editando){
-					row = tableloc.rowAtPoint(arg0.getPoint());
-
-					if( row!=-1){
-=======
-	}
-	private JScrollPane getScrollPane() {
-		if (scrollPane == null) {
-			scrollPane = new JScrollPane();
-			scrollPane.setBackground(Color.WHITE);
-			scrollPane.getViewport().setBackground(Colores.getLogin());
-			scrollPane.setBorder(new EmptyBorder(2, 2, 2, 2));
-			scrollPane.setBounds(33, 153, 591, 460);
-			
-			tableloc = new JTable();
-			
-			tablemodel = new MostrarLocales();
-			
-			scrollPane.setViewportView(tableloc);
-			tableloc.setModel(tablemodel);
-			tableloc.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			tableloc.setRowHeight(29);
-			tableloc.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			tableloc.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 17));
-			tableloc.setForeground(Color.WHITE);
-			tableloc.setBackground(Colores.getAzulCielo());
-			tableloc.setGridColor(Colores.getLogin());
-			tableloc.getTableHeader().setBackground(Colores.getLogin());
-			tableloc.setBorder(null);
-			
-			tableloc.addMouseMotionListener(new MouseMotionListener() {
 				
 				@Override
 				public void mouseMoved(java.awt.event.MouseEvent arg0) {
 					 row = tableloc.rowAtPoint(arg0.getPoint());
 					if(row!=-1){
->>>>>>> origin/dariel
+
 						tableloc.setRowSelectionInterval(row,row);
 						tableloc.setAutoscrolls(true);
 						mostrar(fac.getLocales().get(row));	
@@ -200,16 +164,19 @@ public class VerLocales extends JDialog {
 						tableloc.clearSelection();
 					}
 				}
-			}
 
-			@Override
-			public void mouseDragged(java.awt.event.MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-
-		});
+				@Override
+				public void mouseDragged(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+	
+			
+		
+		
+		
+		
 
 		tableloc.addMouseListener(new MouseAdapter() {
 			@Override
@@ -217,7 +184,6 @@ public class VerLocales extends JDialog {
 
 				if(!editando){
 					mostrar (fac.getLocales().get(row));
-
 					tablemodel.setRowCount(0);
 					tablemodel.cargarInfo(fac.getLocales());
 				}
@@ -225,6 +191,9 @@ public class VerLocales extends JDialog {
 
 		});
 
+		
+		
+		
 		tableloc.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
@@ -303,8 +272,9 @@ public class VerLocales extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int confirm = JOptionPane.showConfirmDialog(null, "¿Eliminar esta persona?", "Confirmar", JOptionPane.YES_NO_OPTION);
+				int confirm = JOptionPane.showConfirmDialog(null, "¿Eliminar este local?", "Confirmar", JOptionPane.YES_NO_OPTION);
 				if (confirm == JOptionPane.YES_OPTION) {
+					if(!fac.verificarRegistrosActivos(fac.getLocales().get(row), null)){
 
 					fac.getLocales().remove(row);
 					tablemodel.setRowCount(0);
@@ -317,10 +287,13 @@ public class VerLocales extends JDialog {
 					codigo.setEditable(false);
 					respons.setEnabled(false);
 					tipoLoc.setEnabled(false);
+					JOptionPane.showMessageDialog(VerLocales.this, "Local eliminado con éxito", "Eliminación exitosa", JOptionPane.INFORMATION_MESSAGE);
 
-
+				}else
+					JOptionPane.showMessageDialog(VerLocales.this, "Hay registros sobre este local sin salida registrada", "Error al eliminar", JOptionPane.ERROR_MESSAGE);
 				}
-			}
+				}
+			
 
 		});
 		btnEliminar.setBounds(352, 312, 89, 23);
@@ -350,6 +323,8 @@ public class VerLocales extends JDialog {
 					tipoLoc.setEnabled(false);
 					tablemodel.setRowCount(0);
 					tablemodel.cargarInfo(fac.getLocales());
+					JOptionPane.showMessageDialog(VerLocales.this, "Información editada con éxito", "Edición exitosa", JOptionPane.INFORMATION_MESSAGE);
+
 				}
 
 
@@ -408,94 +383,15 @@ public class VerLocales extends JDialog {
 		btnAgregar.setBounds(233, 70, 89, 23);
 		contentPanel.add(btnAgregar);
 		btnCancelar.setVisible(false);
-
-
+		}
+					
 		
-
-	}
-	//private JScrollPane getScrollPane() {
-	//	if (scrollPane == null) {
-	//			scrollPane = new JScrollPane();
-	//
-	//
-	//
-	//			scrollPane.setBackground(Colores.getAzulCielo());
-	//			scrollPane.getViewport().setBackground(Colores.getLogin());
-	//			scrollPane.setBorder(new EmptyBorder(3, 3, 3, 3));
-	//			scrollPane.setBounds(33, 153, 591, 460);
-	//
-	//			tableloc = new JTable();
-	//
-	//			tablemodel = new MostrarLocales();
-	//
-	//			scrollPane.setViewportView(tableloc);
-	//			tableloc.setModel(tablemodel);
-	//			tableloc.setFont(new Font("Tahoma", Font.PLAIN, 16));
-	//			tableloc.setRowHeight(29);
-	//			tableloc.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	//			tableloc.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 17));
-	//			tableloc.setForeground(Color.WHITE);
-	//			tableloc.setBackground(Colores.getAzulCielo());
-	//			tableloc.setGridColor(Colores.getLogin());
-	//			tableloc.getTableHeader().setBackground(Colores.getLogin());
-	//			tableloc.setBorder(null);
-	//			
-	//
-	//			tableloc.addMouseMotionListener(new MouseMotionListener() {
-	//
-	//				@Override
-	//				public void mouseMoved(java.awt.event.MouseEvent arg0) {
-	//					if(!editando){
-	//					row = tableloc.rowAtPoint(arg0.getPoint());
-	//					
-	//					if( row!=-1){
-	//						tableloc.setRowSelectionInterval(row,row);
-	//						tableloc.setAutoscrolls(true);
-	//						mostrar(fac.getLocales().get(row));	
-	//
-	//					}
-	//					else {
-	//						tableloc.clearSelection();
-	//					}
-	//					}
-	//				}
-	//
-	//				@Override
-	//				public void mouseDragged(java.awt.event.MouseEvent arg0) {
-	//					// TODO Auto-generated method stub
-	//
-	//				}
-	//
-	//
-	//			});
-	//			
-	//			tableloc.addMouseListener(new MouseAdapter() {
-	//				@Override
-	//				public void mouseClicked(java.awt.event.MouseEvent arg0) {
-	//
-	//					if(!editando){
-	//				    mostrar (fac.getLocales().get(row));
-	//					
-	//					tablemodel.setRowCount(0);
-	//					tablemodel.cargarInfo(fac.getLocales());
-	//					}
-	//				}
-	//					
-	//			});
-	//			tablemodel.cargarInfo(fac.getLocales());
-	//		}
-	//		return scrollPane;
-	//	}
 
 
 
 /////////////////////////////// BOTON SALIR  ////////////////////////////////////////////////////////////
 	private JButton getBtnNewButton() {
-<<<<<<< HEAD
-		if (btnNewButton == null) {
-			btnNewButton = new JButton("salir");
-			btnNewButton.addActionListener(new ActionListener() {
-=======
+
 		if (btnNewButton_1 == null) {
 			btnNewButton_1 = new JButton("");
 			UIManager.put("ToolTip.background", Color.WHITE);
@@ -530,7 +426,7 @@ public class VerLocales extends JDialog {
 			
 			btnNewButton_1.setIcon(new ImageIcon(TablaReporte1.class.getResource("/images/close.png")));
 			btnNewButton_1.addActionListener(new ActionListener() {
->>>>>>> origin/dariel
+
 				public void actionPerformed(ActionEvent arg0) {
 					dispose();
 				}

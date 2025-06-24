@@ -173,7 +173,7 @@ public class Inicio extends JFrame {
 			mntmNewMenuItem_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 			mntmNewMenuItem_1.setForeground(Color.BLACK);
 			mnReportes.add(mntmNewMenuItem_1);
-<<<<<<< HEAD
+
 			
 			JMenuItem mntmDatosDeVisitantes = new JMenuItem("Datos de Visitantes Autorizados");
 			mntmDatosDeVisitantes.addActionListener(new ActionListener() {
@@ -185,9 +185,9 @@ public class Inicio extends JFrame {
 				}
 			});
 			mnReportes.add(mntmDatosDeVisitantes);
-=======
+
 			mnReportes.add(getMntmChequeoDeRegistros());
->>>>>>> origin/dariel
+
 
 			
 
@@ -307,12 +307,12 @@ public class Inicio extends JFrame {
 		if (mntmVerLocales == null) {
 			mntmVerLocales = new JMenuItem("Ver Locales");
 			mntmVerLocales.addActionListener(new ActionListener() {
-<<<<<<< HEAD
-				public void actionPerformed(ActionEvent arg0) {
-					VerLocales l = new VerLocales(Inicio.this);
-					l.setVisible(true);
-					
-=======
+
+//				public void actionPerformed(ActionEvent arg0) {
+//					VerLocales l = new VerLocales(Inicio.this);
+//					l.setVisible(true);
+//					
+
 				public void actionPerformed(ActionEvent e) {
 					try {
 						VerLocales dialog = new VerLocales(Inicio.this);
@@ -321,13 +321,14 @@ public class Inicio extends JFrame {
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
->>>>>>> origin/dariel
+
 				}
 			});
 			mntmVerLocales.setFont(new Font("Tahoma", Font.BOLD, 20));
 		}
 		return mntmVerLocales;
 	}
+	
 	private JMenuItem getMntmChequeoDeRegistros() {
 		if (mntmChequeoDeRegistros == null) {
 			mntmChequeoDeRegistros = new JMenuItem("Chequeo de Registros Locales");

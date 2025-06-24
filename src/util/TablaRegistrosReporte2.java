@@ -33,9 +33,10 @@ public class TablaRegistrosReporte2 extends DefaultTableModel{
 		
 		for(int i=0; i < registros.size(); i++){
 			String hora= registros.get(i).getHoraEntrada().format(DateTimeFormatter.ofPattern("HH:mm"));
+			String horaSal = registros.get(i).getHoraSalida()==null? "No ha salido": registros.get(i).getHoraSalida().format(DateTimeFormatter.ofPattern("HH:mm"));
 
 			Object [] newR = new Object[]{registros.get(i).getPersona().getNombre(), registros.get(i).getPersona().getNumeroIdentidad(), hora,
-					registros.get(i).getHoraSalida(), registros.get(i).getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+					horaSal, registros.get(i).getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
 			};
 			this.addRow(newR);
 		}

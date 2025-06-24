@@ -8,6 +8,7 @@ import javafx.scene.control.SelectionModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
@@ -282,6 +283,11 @@ public class VerRegistros extends JDialog {
 		panel_2.add(guardar);
 		guardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				int tam = llll().size();
+				if(tam>0){
+				int confirm = JOptionPane.showConfirmDialog(null, "¿Registrar la salida de estas " + tam+" personas ?", "Confirmar", JOptionPane.YES_NO_OPTION);
+				if (confirm == JOptionPane.YES_OPTION) {
 				for(Registro r : llll()){
 					r.setHoraSalida(LocalTime.now());
 
@@ -296,9 +302,14 @@ public class VerRegistros extends JDialog {
 				btnSeleccionarVarios.setVisible(true);
 				setsalida.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
 				btnRegistarSalida.setVisible(false);
+				}
 
 			}
-		});
+			
+			else
+				JOptionPane.showMessageDialog(VerRegistros.this, "No se seleccionaron registros", "Registro de salida", JOptionPane.INFORMATION_MESSAGE);
+			}
+			});
 		guardar.setVisible(false);
 
 		////////////////////////// BOTON CANCELAR ////////////////////////
@@ -354,6 +365,8 @@ public class VerRegistros extends JDialog {
 
 				btnRegistarSalida.setVisible(false);
 				setsalida.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+				JOptionPane.showMessageDialog(VerRegistros.this, "Salida Registrada con éxito", "Registro de salida", JOptionPane.INFORMATION_MESSAGE);
+
 
 			}
 		});

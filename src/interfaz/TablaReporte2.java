@@ -53,6 +53,8 @@ import personas.Persona;
 import java.awt.Component;
 
 import locales.Local;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class TablaReporte2 extends JDialog {
 
@@ -78,23 +80,23 @@ public class TablaReporte2 extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			TablaReporte2 dialog = new TablaReporte2();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			TablaReporte2 dialog = new TablaReporte2();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Create the dialog.
 	 */
 
 
-	public TablaReporte2(/*JFrame padre*/) {
-//		super(padre, "Reporte 2", true);
+	public TablaReporte2(JFrame padre) {
+	super(padre, "Reporte 2", true);
 		setTitle("Chequeo de Registros Locales");
 		fac = Facultad.getFacultad();
 		setBounds(100, 100, 1086, 760);
@@ -105,6 +107,11 @@ public class TablaReporte2 extends JDialog {
 		this.setUndecorated(true);
 		setLocationRelativeTo(null);
 		contentPanel.setLayout(null);
+		
+		comboBox = new JComboBox<>();
+		comboBox.setToolTipText("");
+		comboBox.setFont(new Font("Modern No. 20", Font.PLAIN, 21));
+		
 		contentPanel.add(getLblNewLabel());
 		contentPanel.add(getScrollPane());
 		contentPanel.add(getLblNewLabel_1());
@@ -114,9 +121,7 @@ public class TablaReporte2 extends JDialog {
 		contentPanel.add(getLblNewLabel_2());
 		contentPanel.add(getLblNewLabel_3());
 		
-		comboBox = new JComboBox<>();
-		comboBox.setToolTipText("");
-		comboBox.setFont(new Font("Modern No. 20", Font.PLAIN, 21));
+		
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(comboBox.getSelectedItem() != null /*&& dateinicio.getDate() != null && datefinal.getDate() != null*/)
@@ -267,10 +272,18 @@ public class TablaReporte2 extends JDialog {
 	private JDateChooser getDateinicio() {
 		if (dateinicio == null) {
 			dateinicio = new JDateChooser("dd/MM/yyyy", "##/##/####",'_');
+			dateinicio.setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			getDatefinal().setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			dateinicio.addPropertyChangeListener(new PropertyChangeListener() {
+				public void propertyChange(PropertyChangeEvent arg0) {
+					if(isVisible())
+					entradaLocal();
+				}
+			});
 			dateinicio.setFont(new Font("Tahoma", Font.BOLD, 16));
 			dateinicio.setDateFormatString("dd/MM/yyyy");
 			dateinicio.setForeground(Color.BLACK);
-			dateinicio.setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			
 			//			JTextField dateField = (JTextField)dateChooser.getDateEditor().getUiComponent();
 			//			dateField.setForeground(Color.WHITE);
 			dateinicio.setBounds(413, 75, 131, 53);
@@ -281,8 +294,16 @@ public class TablaReporte2 extends JDialog {
 	private JDateChooser getDatefinal() {
 		if (datefinal == null) {
 			datefinal = new JDateChooser("dd/MM/yyyy", "##/##/####",'_');
-			datefinal.setFont(new Font("Tahoma", Font.BOLD, 16));
 			datefinal.setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			getDateinicio().setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			datefinal.addPropertyChangeListener(new PropertyChangeListener() {
+				public void propertyChange(PropertyChangeEvent arg0) {
+					if(isVisible())
+					entradaLocal();
+				}
+			});
+			datefinal.setFont(new Font("Tahoma", Font.BOLD, 16));
+			
 			//			JTextField dateField1 = (JTextField)dateChooser_1.getDateEditor().getUiComponent();
 			//			dateField1.setForeground(Color.WHITE);
 			datefinal.setForeground(Color.BLACK);
@@ -313,13 +334,16 @@ public class TablaReporte2 extends JDialog {
 	public void entradaLocal(){
 		LocalDate inicio = dateinicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate finalll = datefinal.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		TipoLocal tipo = (TipoLocal)comboBox.getSelectedItem();
 		
 		if(!inicio.isAfter(finalll)){
-		TipoLocal tipo = (TipoLocal)comboBox.getSelectedItem();	
+			
 		tablaModel.setRowCount(0);
 		tablaModel.cargarInfo(fac.obtenerInfoLocales(tipo, inicio, finalll));
+		
 		}else{
 			JOptionPane.showMessageDialog(this, "La fecha inicial no puede ser posterior a la feha final", "Error en rango de fechas", JOptionPane.ERROR_MESSAGE);
+			
 		}
 
 	}

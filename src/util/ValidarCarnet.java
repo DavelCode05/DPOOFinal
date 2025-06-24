@@ -6,11 +6,14 @@ public class ValidarCarnet {
 	public static boolean validarAnnioYSiglo(String year, String siglo)
 	{
 		boolean x=false;
+	
 		
 		if(year.matches("^([0-9][0-9])$") && siglo.matches("^[0-8]$"))
 		{
+			
 			if(siglo.matches("^[0-5]$"))
 			{
+				
 				Date fecha = new Date();
 				int annioA = (fecha.getYear()+1900);
 				String cadenaAnnioR = "19"+year;
@@ -20,8 +23,10 @@ public class ValidarCarnet {
 				int dif = annioA-annioR;
 				
 			
-				if(dif>=18 && dif<=95)
+				if(dif>=18 && dif<=95){
+					
 					x=true;
+				}
 				else
 					x=false;	
 			}
@@ -52,8 +57,11 @@ public class ValidarCarnet {
 		
 		if(mes.equals("01")||mes.equals("03")||mes.equals("05")||mes.equals("07")||mes.equals("08")||mes.equals("10")||mes.equals("12"))
 			{
-				if(dia.matches("^(0[1-9]|[1-2][0-9]|3[0-1])$"))
+			System.out.println("1");
+				if(dia.matches("^(0[1-9]|[1-2][0-9]|3[0-1])$")){
 				x=true;
+				System.out.println("2");
+				}
 			
 				else
 				x=false;
@@ -61,8 +69,10 @@ public class ValidarCarnet {
 			else
 				if(mes.equals("04")||mes.equals("06")||mes.equals("09")||mes.equals("11"))
 				{
-					if(dia.matches("^(0[1-9]|[1-2][0-9]|30)$"))
+					System.out.println("3");
+					if(dia.matches("^(0[1-9]|[1-2][0-9]|30)$")){
 					x=true;
+					System.out.println("4");}
 				
 					else
 					x=false;
@@ -70,8 +80,11 @@ public class ValidarCarnet {
 				else
 					if(mes.equals("02"))
 					{
-						if(dia.matches("^(0[1-9]|[1-2][0-9])$"))
+						System.out.println("5");
+						if(dia.matches("^(0[1-9]|[1-2][0-9])$")){
 						x=true;
+						System.out.println("6");
+						}
 					
 						else
 						x=false;
