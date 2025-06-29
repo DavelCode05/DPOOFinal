@@ -1,9 +1,6 @@
 package personas;
 
 
-import java.util.ArrayList;
-import java.util.Objects;
-
 import util.ValidarCarnet;
 
 

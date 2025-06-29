@@ -1,56 +1,49 @@
 package interfaz;
 
 import java.awt.BorderLayout;
-
-import util.JTextFieldCarnet;
-
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.TextArea;
 import java.awt.Toolkit;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.JLabel;
-
-import java.awt.Font;
-
-import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
-import javax.swing.JTextField;
-
-import java.awt.Color;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 //import java.time.LocalDate;
 //import java.time.LocalTime;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-
-import enums.TipoLocal;
-import locales.Local;
-import personas.Persona;
-import personas.Visitante;
-import util.JTextFieldCarnet;
-import util.JTextFieldString;
-import controllerClass.Facultad;
-
-import javax.swing.BorderFactory;
-import javax.swing.JOptionPane;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 //import javax.swing.JTextArea;
 //import javax.swing.JScrollBar;
 //import javax.swing.JTextPane;
 //import javax.swing.JFormattedTextField;
 import javax.swing.JToggleButton;
 
+import locales.Local;
+import personas.Persona;
+import personas.Visitante;
+import util.JTextFieldCarnet;
+import util.JTextFieldString;
+import controllerClass.Facultad;
+//import javax.swing.JRadioButton;
+//
+//import javafx.scene.control.ComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+import javax.swing.BorderFactory;
+import javax.swing.border.EmptyBorder;
+import javax.swing.ButtonGroup;
 //import java.awt.ScrollPane;
 //
 //import javax.swing.JScrollPane;
@@ -59,22 +52,7 @@ import javax.swing.JToggleButton;
 //import javax.swing.border.MatteBorder;
 //import javax.swing.event.DocumentEvent;
 //import javax.swing.event.DocumentListener;
-
-
-import java.awt.TextArea;
-
-//import javax.swing.JRadioButton;
-//
-//import javafx.scene.control.ComboBox;
-
-
-import javax.swing.ButtonGroup;
-
 //import com.sun.xml.internal.ws.org.objectweb.asm.Label;
-
-
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 
 public class IniciarSesion extends JDialog {
 
@@ -108,16 +86,19 @@ public class IniciarSesion extends JDialog {
 //	/**
 //	 * Launch the application.
 //	 */
-//		public static void main(String[] args) {
-//			try {
-//				IniciarSesion dialog = new IniciarSesion();
-//				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//				dialog.setLocationRelativeTo(null);
-//				dialog.setVisible(true);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
+		public static void main(String[] args) {
+			
+			try {
+				IniciarSesion dialog = new IniciarSesion();
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setLocationRelativeTo(null);
+				dialog.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+
+		}
 	/**
 	 * Create the dialog.
 	 */
@@ -135,8 +116,28 @@ public class IniciarSesion extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		
+//		try{
+//			boolean found = false;
+//			for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
+//				if("Nimbus".equals(info.getName()) && !found){
+//					UIManager.setLookAndFeel(info.getClassName());
+//					found = true;
+//				}
+//			}
+//			if(!found){
+//				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//			}
+//		} catch(Exception e){
+//			try{
+//				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//			}catch(Exception ex){
+//				ex.printStackTrace();
+//			}
+//		}
 
 		btnIniciar = new JButton("Registrarse");
+		btnIniciar.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnIniciar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -150,7 +151,8 @@ public class IniciarSesion extends JDialog {
             	btnIniciar.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
             }
         });
-		btnIniciar.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
+		
+//			btnIniciar.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 		btnIniciar.setBorder(null);
 		btnIniciar.setBackground(Color.WHITE);
 		btnIniciar.addActionListener(new ActionListener() {
@@ -158,7 +160,7 @@ public class IniciarSesion extends JDialog {
 				crearRegistro();
 			}
 		});
-		btnIniciar.setBounds(621, 536, 178, 34);
+		btnIniciar.setBounds(632, 536, 178, 34);
 		contentPanel.add(btnIniciar);
 
 		JLabel lblLocal = new JLabel("Local:");
@@ -255,7 +257,7 @@ public class IniciarSesion extends JDialog {
 	    textAreaMot = new TextArea();
 		textAreaMot.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textAreaMot.setBackground(Color.WHITE);
-		textAreaMot.setBounds(200, 87, 201, 77);	
+		textAreaMot.setBounds(124, 105, 201, 77);	
 		panelVisitante.add(textAreaMot);
 
 		JLabel lblMotivoVisita = new JLabel("Motivo visita:");
@@ -348,7 +350,7 @@ public class IniciarSesion extends JDialog {
 					carnet.setForeground(Color.GRAY);
 				}
 				else if(carnet.getForeground().equals(Color.RED) && !carnet.equals("Carnet de Identidad")){
-					carnet.setForeground(Color.BLACK);
+					carnet.setForeground(Color.GRAY);
 				}
 					
 				panelVisitante.setVisible(true);

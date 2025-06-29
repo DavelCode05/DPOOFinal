@@ -3,22 +3,22 @@ package interfaz;
 import inicio.Iniciadora;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
 
-import javax.swing.JButton;
+import javax.swing.BorderFactory;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JProgressBar;
-
-import java.awt.Color;
-
 import javax.swing.JLabel;
-
-import java.awt.Font;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 
 public class BarraDeCarga extends JDialog {
 
@@ -29,7 +29,7 @@ public class BarraDeCarga extends JDialog {
 		}
 
 	};
-	private JProgressBar progressBar;
+	JProgressBar progressBar;
 	private JPanel panel;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
@@ -38,7 +38,7 @@ public class BarraDeCarga extends JDialog {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		 Iniciadora.iniciar();
+		    Iniciadora.iniciar();
 			BarraDeCarga dialog = new BarraDeCarga();
 			dialog.setVisible(true);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -79,16 +79,21 @@ public class BarraDeCarga extends JDialog {
 		contentPanel.add(getPanel());
 		contentPanel.add(getLblNewLabel());
 		contentPanel.add(getLblNewLabel_1());
+	
 	}
+	
 	private JProgressBar getProgressBar() {
+		UIManager.put("ProgressBar.foreground", new Color(76, 175, 80)); // Verde moderno
+		UIManager.put("ProgressBar.background", new Color(240, 240, 240)); // Fondo claro
+		UIManager.put("ProgressBar.selectionForeground", Color.BLACK);
+		UIManager.put("ProgressBar.selectionBackground", Color.WHITE);
+		UIManager.put("ProgressBar.border", BorderFactory.createEmptyBorder()); // Sin borde predeterminado
 		if (progressBar == null) {
-			progressBar = new JProgressBar();
-			progressBar.setBounds(12, 434, 715, 29);
-			progressBar.setBorderPainted(false);
-			progressBar.setBorder(null);
-			progressBar.setForeground(new Color(0, 204, 51));
+		    progressBar = new RoundedProgressBar();
+		    progressBar.setBounds(12, 434, 715, 30);
 		}
 		return progressBar;
+
 	}
 	private JPanel getPanel() {
 		if (panel == null) {
@@ -118,4 +123,50 @@ public class BarraDeCarga extends JDialog {
 		}
 		return lblNewLabel_1;
 	}
+	
+	class RoundedProgressBar extends JProgressBar {
+
+	    public RoundedProgressBar() {
+	        super();
+	        setBorderPainted(false);
+	        setStringPainted(true);
+	        setFont(new Font("Segoe UI", Font.BOLD, 14));
+	        setForeground(new Color(76, 175, 80));
+	        setBackground(new Color(240, 240, 240));
+	    }
+
+	    @Override
+	    protected void paintComponent(Graphics g) {
+	        int width = getWidth();
+	        int height = getHeight();
+	        int arc = 20;
+
+	        Graphics2D g2 = (Graphics2D) g.create();
+	        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+	        // Fondo redondeado
+	        g2.setColor(getBackground());
+	        g2.fillRoundRect(0, 0, width, height, arc, arc);
+
+	        // Relleno del progreso
+	        int fillWidth = (int) (width * getPercentComplete());
+	        g2.setColor(getForeground());
+	        g2.fillRoundRect(0, 0, fillWidth, height, arc, arc);
+
+	        // Texto centrado
+	        String text = getString();
+	        FontMetrics fm = g2.getFontMetrics();
+	        int textWidth = fm.stringWidth(text);
+	        int textHeight = fm.getAscent();
+	        int x = (width - textWidth) / 2;
+	        int y = (height + textHeight) / 2 - 2;
+
+	        g2.setColor(Color.BLACK);
+	        g2.drawString(text, x, y);
+
+	        g2.dispose();
+	    }
+	}
+
 }
+

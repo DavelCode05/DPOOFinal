@@ -1,63 +1,45 @@
 package interfaz;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseMotionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.plaf.basic.BasicScrollBarUI;
-import javax.swing.table.TableModel;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
-import controllerClass.Facultad;
+import personas.Persona;
 //import util.ScrollMinimalista;
 import util.TablaRegistrosReporte1;
 
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseMotionListener;
-import java.awt.Font;
-
 import com.toedter.calendar.JDateChooser;
 
-import enums.TipoLocal;
-
-import javax.swing.JComboBox;
-
-import personas.Persona;
-
-import java.awt.Component;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.HierarchyListener;
-import java.awt.event.HierarchyEvent;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
+import controllerClass.Facultad;
 
 public class TablaReporte1 extends JDialog {
 
@@ -111,6 +93,24 @@ public class TablaReporte1 extends JDialog {
 		contentPanel.setBorder(new LineBorder(Colores.getAzulOScuro()));
 		this.setUndecorated(true);
 		setLocationRelativeTo(null);
+		try{
+			boolean found = false;
+			for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
+				if("Nimbus".equals(info.getName()) && !found){
+					UIManager.setLookAndFeel(info.getClassName());
+					found = true;
+				}
+			}
+			if(!found){
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}
+		} catch(Exception e){
+			try{
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+		}
 		
 		comboBox = new JComboBox<>();
 		comboBox.setToolTipText("");
@@ -162,7 +162,7 @@ public class TablaReporte1 extends JDialog {
 				}
 			};
 			scrollPane.setEnabled(false);
-			scrollPane.setBackground(Colores.getAzulCielo());
+//			scrollPane.setBackground(Colores.getAzulCielo());
 			scrollPane.setBounds(33, 202, 1018, 525);
 			scrollPane.setViewportView(getTable());
 			
@@ -179,16 +179,16 @@ public class TablaReporte1 extends JDialog {
 		tablaModel = new TablaRegistrosReporte1();
 		table.setModel(tablaModel);
 		
-		table.setShowHorizontalLines(false);
+//		table.setShowHorizontalLines(false);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		table.setRowHeight(29);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getTableHeader().setFont(new Font("Modern No. 20", Font.BOLD, 19));
-		table.setForeground(Color.BLACK);
-		table.setBackground(Colores.getBlancuzo());
-		table.setGridColor(Color.lightGray);
-		table.getTableHeader().setBackground(Color.white);
-		table.setBorder(null);
+//		table.setForeground(Color.BLACK);
+//		table.setBackground(Colores.getBlancuzo());
+//		table.setGridColor(Color.lightGray);
+//		table.getTableHeader().setBackground(Color.white);
+//		table.setBorder(null);
 		
 		table.setEnabled(false);
 //		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -294,7 +294,7 @@ public class TablaReporte1 extends JDialog {
 		
 			//			JTextField dateField = (JTextField)dateChooser.getDateEditor().getUiComponent();
 			//			dateField.setForeground(Color.WHITE);
-			dateinicio.setBounds(413, 75, 131, 53);
+			dateinicio.setBounds(413, 75, 168, 53);
 			//			dateField.setBackground(Colores.getAzulCielo());
 		}
 		return dateinicio;
@@ -317,7 +317,7 @@ public class TablaReporte1 extends JDialog {
 			//			JTextField dateField1 = (JTextField)dateChooser_1.getDateEditor().getUiComponent();
 			//			dateField1.setForeground(Color.WHITE);
 			datefinal.setForeground(Color.BLACK);
-			datefinal.setBounds(578, 75, 131, 53);
+			datefinal.setBounds(652, 75, 168, 53);
 			//			dateField1.setBackground(Colores.getAzulCielo());
 		}
 		return datefinal;
@@ -336,7 +336,7 @@ public class TablaReporte1 extends JDialog {
 			lblNewLabel_3 = new JLabel("Hasta");
 			lblNewLabel_3.setForeground(Color.WHITE);
 			lblNewLabel_3.setFont(new Font("Modern No. 20", Font.BOLD, 25));
-			lblNewLabel_3.setBounds(578, 51, 74, 16);
+			lblNewLabel_3.setBounds(652, 51, 74, 16);
 		}
 		return lblNewLabel_3;
 	}

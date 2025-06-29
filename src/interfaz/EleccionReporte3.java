@@ -1,75 +1,46 @@
 package interfaz;
-import enums.TipoLocal;
-
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.text.StyledEditorKit.BoldAction;
-import javax.swing.JRadioButton;
-
-import java.awt.Font;
-
-import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JToggleButton;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingUtilities;
-
-import java.awt.List;
-
-import javax.swing.JComboBox;
-
-import enums.TipoLocal;
-
-import java.awt.Label;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseMotionListener;
-
-import javax.swing.ButtonGroup;
-
-import util.EntradasTable;
-import util.LocalesRep3TableModel;
-import util.ScrollMinimalista;
-import controllerClass.Facultad;
-
-import java.awt.event.ItemEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-import locales.Local;
-
-import com.toedter.calendar.demo.DateChooserPanel;
-import com.toedter.calendar.JDateChooser;
-
-import javax.swing.SwingConstants;
-
-import java.awt.CardLayout;
-
-import javax.swing.JLayeredPane;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
+import locales.Local;
+import util.EntradasTable;
+import util.LocalesRep3TableModel;
+
+import com.toedter.calendar.JDateChooser;
+
+import controllerClass.Facultad;
 
 public class EleccionReporte3 extends JDialog {
 
@@ -143,11 +114,29 @@ public class EleccionReporte3 extends JDialog {
 
 		panelloc = new JPanel();
 		panelloc.setBackground(Colores.getAzulCielo());
-		panelloc.setBounds(175, 104, 228, 70);
+		panelloc.setBounds(156, 104, 247, 92);
 		contentPanel.add(panelloc);
 		panelloc.setLayout(null);
 		panelloc.setVisible(false);
 
+		try{
+			boolean found = false;
+			for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
+				if("Nimbus".equals(info.getName()) && !found){
+					UIManager.setLookAndFeel(info.getClassName());
+					found = true;
+				}
+			}
+			if(!found){
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}
+		} catch(Exception e){
+			try{
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+		}
 
 
 
@@ -161,7 +150,7 @@ public class EleccionReporte3 extends JDialog {
 		comboBoxLocal.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		comboBoxLocal.setModel(new DefaultComboBoxModel<>(fac.getLocales().toArray(new Local[0])));
 		comboBoxLocal.setSelectedItem(0);
-		comboBoxLocal.setBounds(0, 40, 228, 27);
+		comboBoxLocal.setBounds(0, 40, 247, 36);
 		panelloc.add(comboBoxLocal);
 
 		JLabel lblNewLabel = new JLabel("Seleccionar Local:");
@@ -173,11 +162,11 @@ public class EleccionReporte3 extends JDialog {
 		lblFormaDeVisualizacin = new JLabel("Forma de visualizaci\u00F3n:");
 		lblFormaDeVisualizacin.setForeground(Color.WHITE);
 		lblFormaDeVisualizacin.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblFormaDeVisualizacin.setBounds(37, 339, 246, 27);
+		lblFormaDeVisualizacin.setBounds(18, 339, 246, 27);
 		contentPanel.add(lblFormaDeVisualizacin);
 
 		rdbtnTabla = new JRadioButton("Tabla");
-		rdbtnTabla.setForeground(Color.BLACK);
+//		rdbtnTabla.setForeground(Color.WHITE);
 		rdbtnTabla.setFont(new Font("Tahoma", Font.PLAIN, 21));
 
 
@@ -198,7 +187,7 @@ public class EleccionReporte3 extends JDialog {
 		//				}
 		//			}
 		//		});
-		rdbtnTabla.setBounds(37, 387, 109, 36);
+		rdbtnTabla.setBounds(18, 387, 109, 36);
 		contentPanel.add(rdbtnTabla);
 
 		dateChooser = new JDateChooser("dd/MM/yyyy", "##/##/####",'_');
@@ -215,17 +204,17 @@ public class EleccionReporte3 extends JDialog {
 		
 
 		//		dateChooser.setDate(LocalDate.now().toInstant().);
-		dateChooser.setBounds(224, 267, 157, 36);
+		dateChooser.setBounds(205, 267, 157, 36);
 		contentPanel.add(dateChooser);
 
 		lblSeleccionarFecha = new JLabel("Seleccionar fecha:");
 		lblSeleccionarFecha.setForeground(Color.WHITE);
 		lblSeleccionarFecha.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblSeleccionarFecha.setBounds(37, 272, 246, 27);
+		lblSeleccionarFecha.setBounds(18, 272, 246, 27);
 		contentPanel.add(lblSeleccionarFecha);
 
 		rdbtnGraficoDeBarras = new JRadioButton("Gr\u00E1fico de barras");
-		rdbtnGraficoDeBarras.setForeground(Color.BLACK);
+		rdbtnGraficoDeBarras.setForeground(Color.WHITE);
 		rdbtnGraficoDeBarras.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		rdbtnGraficoDeBarras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -235,7 +224,7 @@ public class EleccionReporte3 extends JDialog {
 		rdbtnGraficoDeBarras.setBackground(Colores.getBlancuzo());
 
 
-		rdbtnGraficoDeBarras.setBounds(175, 387, 211, 36);
+		rdbtnGraficoDeBarras.setBounds(156, 387, 211, 36);
 		contentPanel.add(rdbtnGraficoDeBarras);
 		buttonGroupFormas.add(rdbtnGraficoDeBarras);
 		buttonGroupFormas.add(rdbtnTabla);
@@ -245,13 +234,13 @@ public class EleccionReporte3 extends JDialog {
 		comboBox.setBackground(new Color(255, 255, 255));
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Facultad", "Local"}));
-		comboBox.setBounds(37, 144, 128, 27);
+		comboBox.setBounds(18, 144, 128, 36);
 		contentPanel.add(comboBox);
 
 		JLabel lblMostrarPor = new JLabel("Mostrar Por:");
 		lblMostrarPor.setForeground(Color.WHITE);
 		lblMostrarPor.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblMostrarPor.setBounds(37, 104, 151, 27);
+		lblMostrarPor.setBounds(18, 104, 137, 27);
 		contentPanel.add(lblMostrarPor);
 
 
@@ -262,12 +251,12 @@ public class EleccionReporte3 extends JDialog {
 		lblFormato = new JLabel("Formato:");
 		lblFormato.setForeground(Color.WHITE);
 		lblFormato.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblFormato.setBounds(37, 205, 89, 27);
+		lblFormato.setBounds(18, 205, 89, 27);
 		contentPanel.add(lblFormato);
 
 
 		rdbtnDa = new JRadioButton("D\u00EDa");
-		rdbtnDa.setForeground(Color.BLACK);
+		rdbtnDa.setForeground(Color.WHITE);
 		rdbtnDa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				representarReportePorDia();
@@ -275,22 +264,22 @@ public class EleccionReporte3 extends JDialog {
 		});
 		rdbtnDa.setSelected(true);
 		rdbtnDa.setBackground(Colores.getBlancuzo());
-		rdbtnDa.setFont(new Font("Tahoma", Font.BOLD, 15));
-		rdbtnDa.setBounds(134, 207, 63, 28);
+		rdbtnDa.setFont(new Font("Tahoma", Font.BOLD, 18));
+		rdbtnDa.setBounds(115, 205, 68, 30);
 		contentPanel.add(rdbtnDa);
 
 		rdbtnSemana = new JRadioButton("Semana");
-		rdbtnSemana.setForeground(Color.BLACK);
+		rdbtnSemana.setForeground(Color.WHITE);
 		rdbtnSemana.setBackground(Colores.getBlancuzo());
-		rdbtnSemana.setFont(new Font("Tahoma", Font.BOLD, 15));
-		rdbtnSemana.setBounds(201, 207, 93, 28);
+		rdbtnSemana.setFont(new Font("Tahoma", Font.BOLD, 18));
+		rdbtnSemana.setBounds(187, 205, 109, 30);
 		contentPanel.add(rdbtnSemana);
 
 		rdbtnMes = new JRadioButton("Mes");
-		rdbtnMes.setForeground(Color.BLACK);
+		rdbtnMes.setForeground(Color.WHITE);
 		rdbtnMes.setBackground(Colores.getBlancuzo());
-		rdbtnMes.setFont(new Font("Tahoma", Font.BOLD, 15));
-		rdbtnMes.setBounds(298, 207, 83, 28);
+		rdbtnMes.setFont(new Font("Tahoma", Font.BOLD, 18));
+		rdbtnMes.setBounds(300, 205, 83, 30);
 		contentPanel.add(rdbtnMes);
 
 		buttonGroup.add(rdbtnMes);
@@ -316,16 +305,16 @@ public class EleccionReporte3 extends JDialog {
 
 
 		JScrollPane scrollPane = new JScrollPane(){
-			public void paintComponent(Graphics g){
-				Image img = Toolkit.getDefaultToolkit().getImage(EleccionReporte3.class.getResource("/images/fondosTablas.png"));
-				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-			}
+//			public void paintComponent(Graphics g){
+//				Image img = Toolkit.getDefaultToolkit().getImage(EleccionReporte3.class.getResource("/images/fondosTablas.png"));
+//				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+//			}
 		};
 		
-		scrollPane.setBackground(Color.WHITE);
-		scrollPane.getViewport().setBackground(Colores.getBlancuzo());
+//		scrollPane.setBackground(Color.WHITE);
+//		scrollPane.getViewport().setBackground(Colores.getBlancuzo());
 		scrollPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-		scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
+//		scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
 		scrollPane.setEnabled(false);
 		scrollPane.setBorder(new LineBorder(Color.WHITE));
 		scrollPane.setAutoscrolls(true);
@@ -339,16 +328,16 @@ public class EleccionReporte3 extends JDialog {
 		tableModelLocal = new LocalesRep3TableModel();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setModel(tableModelLocal);
-		table.setShowHorizontalLines(false);
+//		table.setShowHorizontalLines(false);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		table.setRowHeight(29);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getTableHeader().setFont(new Font("Modern No. 20", Font.BOLD, 19));
-		table.setForeground(Color.BLACK);
-		table.setBackground(Colores.getBlancuzo());
-		table.setGridColor(Color.LIGHT_GRAY);
-		table.getTableHeader().setBackground(Color.white);
-		table.setBorder(null);
+//		table.setForeground(Color.BLACK);
+//		table.setBackground(Colores.getBlancuzo());
+//		table.setGridColor(Color.LIGHT_GRAY);
+//		table.getTableHeader().setBackground(Color.white);
+//		table.setBorder(null);
 		table.setEnabled(false);
 //		table.setCellSelectionEnabled(true);
 //		table.setRowSelectionAllowed(true);

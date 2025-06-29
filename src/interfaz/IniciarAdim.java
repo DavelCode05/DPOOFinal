@@ -1,36 +1,28 @@
 package interfaz;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
-
-import java.awt.Font;
-import java.awt.Color;
-
-import javax.swing.SwingConstants;
-
-import controllerClass.Facultad;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseAdapter;
+import controllerClass.Facultad;
 
 public class IniciarAdim extends JDialog {
 
@@ -51,8 +43,6 @@ public class IniciarAdim extends JDialog {
 	private JPasswordField passwordField;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
-	private JPanel panel;
-	private JPanel panel_1;
 
 
 	/**
@@ -75,6 +65,24 @@ public class IniciarAdim extends JDialog {
 	public IniciarAdim(JDialog padre) {
 		
 		super(padre, "Iniciar Sesion Administrador", true);
+//		try{
+//			boolean found = false;
+//			for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
+//				if("Nimbus".equals(info.getName()) && !found){
+//					UIManager.setLookAndFeel(info.getClassName());
+//					found = true;
+//				}
+//			}
+//			if(!found){
+//				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//			}
+//		} catch(Exception e){
+//			try{
+//				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//			}catch(Exception ex){
+//				ex.printStackTrace();
+//			}
+//		}
 
 		setBounds(100, 100, 406, 489);
 		getContentPane().setLayout(new BorderLayout());
@@ -109,7 +117,24 @@ public class IniciarAdim extends JDialog {
 		lblNewLabel_1.setBounds(76, 393, 260, 14);
 		contentPanel.add(lblNewLabel_1);
 		lblNewLabel_1.setVisible(false);
-
+//		try{
+//			boolean found = false;
+//			for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
+//				if("Nimbus".equals(info.getName()) && !found){
+//					UIManager.setLookAndFeel(info.getClassName());
+//					found = true;
+//				}
+//			}
+//			if(!found){
+//				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//			}
+//		} catch(Exception e){
+//			try{
+//				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//			}catch(Exception ex){
+//				ex.printStackTrace();
+//			}
+//		}
 		button = new JButton("Iniciar");
 		button.addMouseListener(new MouseAdapter() {
             @Override
@@ -149,7 +174,7 @@ public class IniciarAdim extends JDialog {
 		btnAtras = new JButton("Atras");
 		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnAtras.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		btnAtras.setBackground(Colores.getLogin());
+		btnAtras.setBackground(Color.WHITE);
 		
 
 	
@@ -190,16 +215,6 @@ public class IniciarAdim extends JDialog {
 		lblNewLabel_3.setIcon(new ImageIcon(IniciarAdim.class.getResource("/images/password.png")));
 		lblNewLabel_3.setBounds(153, 86, 96, 96);
 		contentPanel.add(lblNewLabel_3);
-		contentPanel.add(getPanel());
-		
-		panel_1 = new JPanel() {
-			public void paintComponent(Graphics g) {
-				Image img= Toolkit.getDefaultToolkit().getImage(IniciarAdim.class.getResource("/images/passwordEye.gif"));
-				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-			}
-		};
-		panel_1.setBounds(291, 258, 30, 30);
-		contentPanel.add(panel_1);
 	}
 
 	public boolean iniciar(){
@@ -223,6 +238,7 @@ public class IniciarAdim extends JDialog {
 	private JPasswordField getPasswordField() {
 		if (passwordField == null) {
 			passwordField = new JPasswordField();
+			passwordField.setBackground(Color.WHITE);
 			passwordField.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			passwordField.setBorder(null);
 			passwordField.setBounds(76, 334, 245, 33);
@@ -238,17 +254,5 @@ public class IniciarAdim extends JDialog {
 			lblNewLabel_2.setBounds(64, 13, 294, 75);
 		}
 		return lblNewLabel_2;
-	}
-	private JPanel getPanel() {
-		if (panel == null) {
-			panel = new JPanel(){
-				public void paintComponent(Graphics g){
-					Image img= Toolkit.getDefaultToolkit().getImage(IniciarAdim.class.getResource("/images/passwordMove.gif"));
-					g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-				}
-			};
-			panel.setBounds(291, 335, 30, 30);
-		}
-		return panel;
 	}
 }

@@ -2,8 +2,8 @@ package clasesAuxiliares;
 
 import java.util.ArrayList;
 
-import acceso.Registro;
 import personas.Persona;
+import acceso.Registro;
 
 public class VisitantesAutorizadosPorX {
    private Persona autirizador;
