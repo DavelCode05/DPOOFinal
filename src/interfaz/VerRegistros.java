@@ -1,45 +1,34 @@
 package interfaz;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javafx.scene.control.SelectionModel;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.TableColumn;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-
-import acceso.Registro;
-import controllerClass.Facultad;
-import util.ModeloTablaSalida;
-
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-
-import java.awt.event.ActionListener;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.time.LocalDate;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseEvent;
-
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableColumn;
 
-import java.awt.event.MouseAdapter;
+import util.ModeloTablaSalida;
+import acceso.Registro;
+import controllerClass.Facultad;
 
 public class VerRegistros extends JDialog {
 
@@ -75,15 +64,15 @@ public class VerRegistros extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	//	public static void main(String[] args) {
-	//		try {
-	//			VerRegistros dialog = new VerRegistros();
-	//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	//			dialog.setVisible(true);
-	//		} catch (Exception e) {
-	//			e.printStackTrace();
-	//		}
-	//	}
+//		public static void main(String[] args) {
+//			try {
+//				VerRegistros dialog = new VerRegistros();
+//				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//				dialog.setVisible(true);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
 
 	/**
 	 * Create the dialog.
@@ -93,16 +82,34 @@ public class VerRegistros extends JDialog {
 	public VerRegistros(JFrame p) {
 		super(p, "", true);
 		fac = Facultad.getFacultad();
-		setBounds(100, 100, 893, 481);
+		setBounds(100, 100, 1193, 645);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
+		try{
+			boolean found = false;
+			for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
+				if("Nimbus".equals(info.getName()) && !found){
+					UIManager.setLookAndFeel(info.getClassName());
+					found = true;
+				}
+			}
+			if(!found){
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}
+		} catch(Exception e){
+			try{
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+		}
 
 
 		JPanel panel = new JPanel();
-		panel.setBounds(547, 53, 297, 234);
+		panel.setBounds(748, 50, 415, 535);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 
@@ -110,52 +117,64 @@ public class VerRegistros extends JDialog {
 		//////////////////////////////// LABELS ////////////////////////////////////////////////		
 
 		JLabel nomb = new JLabel("Nombre :");
-		nomb.setBounds(10, 11, 46, 14);
+		nomb.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		nomb.setBounds(12, 60, 96, 38);
 		panel.add(nomb);
 
 		setNomb = new JLabel("New label");
-		setNomb.setBounds(66, 11, 76, 14);
+		setNomb.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		setNomb.setBounds(120, 60, 260, 38);
 		panel.add(setNomb);
 
 		JLabel carnet = new JLabel("Carnet:");
-		carnet.setBounds(10, 57, 46, 14);
+		carnet.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		carnet.setBounds(12, 121, 70, 38);
 		panel.add(carnet);
 
 		setcarn = new JLabel("New label");
-		setcarn.setBounds(66, 57, 102, 14);
+		setcarn.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		setcarn.setBounds(120, 121, 260, 38);
 		panel.add(setcarn);
 
 		JLabel local = new JLabel("Local:");
-		local.setBounds(10, 105, 46, 14);
+		local.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		local.setBounds(12, 184, 96, 38);
 		panel.add(local);
 
 		setloc = new JLabel("New label");
-		setloc.setBounds(66, 105, 76, 14);
+		setloc.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		setloc.setBounds(120, 184, 260, 38);
 		panel.add(setloc);
 
-		JLabel entrada = new JLabel("Hora de Entrada ");
-		entrada.setBounds(10, 143, 108, 14);
+		JLabel entrada = new JLabel("Hora de Entrada:");
+		entrada.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		entrada.setBounds(12, 321, 183, 38);
 		panel.add(entrada);
 
 		salida = new JLabel("Hora de Salida: ");
-		salida.setBounds(10, 169, 108, 14);
+		salida.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		salida.setBounds(12, 361, 183, 38);
 		panel.add(salida);
 
 		fecha = new JLabel("Fecha:");
-		fecha.setBounds(158, 11, 46, 14);
+		fecha.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		fecha.setBounds(238, 11, 61, 14);
 		panel.add(fecha);
 
 
 		setentrada = new JLabel("New label");
-		setentrada.setBounds(139, 143, 82, 14);
+		setentrada.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		setentrada.setBounds(207, 321, 168, 38);
 		panel.add(setentrada);
 
 		setsalida = new JLabel("New label");
-		setsalida.setBounds(149, 169, 82, 14);
+		setsalida.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		setsalida.setBounds(207, 361, 196, 38);
 		panel.add(setsalida);
 
 		setfecha = new JLabel("New label");
-		setfecha.setBounds(207, 11, 80, 14);
+		setfecha.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		setfecha.setBounds(292, 11, 111, 14);
 		panel.add(setfecha);
 
 
@@ -163,20 +182,25 @@ public class VerRegistros extends JDialog {
 
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(24, 53, 491, 353);
+		tabbedPane.setBounds(12, 13, 735, 572);
 		contentPanel.add(tabbedPane);
 
 		panel_1 = new JPanel();
 		tabbedPane.addTab("Todos", null, panel_1, null);
+		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panel_1.setLayout(null);
 
 		/////////////////////////// PANEL Y TABLA DE TODOS//////////////////////
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 30, 466, 261);
+		scrollPane.setBounds(10, 30, 708, 493);
 		panel_1.add(scrollPane);
 
 		table = new JTable();
+		table.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 17));
+		table.setRowHeight(29);
+		
 		scrollPane.setColumnHeaderView(table);
 
 		modelo = new ModeloTablaSalida();
@@ -223,15 +247,18 @@ public class VerRegistros extends JDialog {
 
 
 		panel_2 = new JPanel();
-		tabbedPane.addTab("Sin Salidas Registradas", null, panel_2, null);
+		tabbedPane.addTab("Sin salidas registradas", null, panel_2, null);
 		panel_2.setLayout(null);
 
 		////////////////PANEL Y TABLA SIN SALIDAS REGISTRADAS //////////////////////		
 		sinsal = new JScrollPane();
-		sinsal.setBounds(10, 32, 466, 261);
+		sinsal.setBounds(10, 36, 708, 458);
 		panel_2.add(sinsal);
 
 		table_1 = new JTable();
+		table_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		table_1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 17));
+		table_1.setRowHeight(29);
 		modelo2 = new ModeloTablaSalida();
 
 		sinsal.setColumnHeaderView(table_1);
@@ -278,8 +305,9 @@ public class VerRegistros extends JDialog {
 
 		/////////////// BOTON GUARDAR////////////////////////////
 
-		guardar = new JButton("GuardarRegistro");
-		guardar.setBounds(30, 291, 122, 23);
+		guardar = new JButton("Guardar registro");
+		guardar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		guardar.setBounds(10, 496, 155, 36);
 		panel_2.add(guardar);
 		guardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -314,7 +342,8 @@ public class VerRegistros extends JDialog {
 
 		////////////////////////// BOTON CANCELAR ////////////////////////
 
-		cancelar = new JButton("cancelar");
+		cancelar = new JButton("Cancelar");
+		cancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -325,14 +354,15 @@ public class VerRegistros extends JDialog {
 
 			}
 		});
-		cancelar.setBounds(196, 291, 89, 23);
+		cancelar.setBounds(165, 496, 89, 36);
 		panel_2.add(cancelar);
 		cancelar.setVisible(false);
 
 		///////////////////////////// BOTON SELECCION MULTIPLE /////////////////////
 
-		btnSeleccionarVarios = new JButton("Seleccionar Varios");
-		btnSeleccionarVarios.setBounds(352, 11, 124, 23);
+		btnSeleccionarVarios = new JButton("Seleccionar varios");
+		btnSeleccionarVarios.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnSeleccionarVarios.setBounds(528, 0, 190, 36);
 		panel_2.add(btnSeleccionarVarios);
 		btnSeleccionarVarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -349,7 +379,8 @@ public class VerRegistros extends JDialog {
 
 		///////////////////// BOTON REGISTRAR SALIDA///////////////////////
 
-		btnRegistarSalida = new JButton("Registar Salida");
+		btnRegistarSalida = new JButton("Registrar Salida");
+		btnRegistarSalida.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		btnRegistarSalida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(tabbedPane.getSelectedIndex()==0)
@@ -370,7 +401,7 @@ public class VerRegistros extends JDialog {
 
 			}
 		});
-		btnRegistarSalida.setBounds(171, 200, 116, 23);
+		btnRegistarSalida.setBounds(205, 486, 198, 44);
 		panel.add(btnRegistarSalida);
 		btnRegistarSalida.setVisible(false);
 

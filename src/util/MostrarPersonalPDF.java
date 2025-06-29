@@ -1,17 +1,14 @@
 package util;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
 
 import personas.Persona;
-import acceso.Registro;
 
-public class MostrarPersonal extends DefaultTableModel{
-	
-	public MostrarPersonal(){
-		String [] columnas =  {"Nombre","Rol"};
+public class MostrarPersonalPDF extends DefaultTableModel {
+	public MostrarPersonalPDF(){
+		String [] columnas =  {"Nombre","Rol", "Carnet de Identidad"};
 		this.setColumnIdentifiers(columnas);
 
 
@@ -23,7 +20,7 @@ public class MostrarPersonal extends DefaultTableModel{
 		for(int i=0; i < personas.size(); i++){
 			
 
-			Object [] newR = new Object[]{personas.get(i).getNombre(), personas.get(i).getClass().getSimpleName()
+			Object [] newR = new Object[]{personas.get(i).getNombre(), personas.get(i).getClass().getSimpleName(), personas.get(i).getNumeroIdentidad()
 					
 			};
 			this.addRow(newR);

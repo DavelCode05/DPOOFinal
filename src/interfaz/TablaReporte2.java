@@ -1,60 +1,58 @@
 package interfaz;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseMotionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Date;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.plaf.basic.BasicScrollBarUI;
-import javax.swing.table.TableModel;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
-import controllerClass.Facultad;
-//import util.ScrollMinimalista;
-import util.TablaRegistrosReporte1;
 import util.TablaRegistrosReporte2;
 
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseMotionListener;
-import java.awt.Font;
-
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.sun.glass.events.MouseEvent;
 import com.toedter.calendar.JDateChooser;
 
+import controllerClass.Facultad;
 import enums.TipoLocal;
-
-import javax.swing.JComboBox;
-
-import personas.Persona;
-
-import java.awt.Component;
-
-import locales.Local;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
+//import util.ScrollMinimalista;
 
 public class TablaReporte2 extends JDialog {
 
@@ -76,6 +74,7 @@ public class TablaReporte2 extends JDialog {
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
 	JComboBox comboBox;
+	private JButton btnNewButton;
 
 	/**
 	 * Launch the application.
@@ -108,6 +107,25 @@ public class TablaReporte2 extends JDialog {
 		setLocationRelativeTo(null);
 		contentPanel.setLayout(null);
 		
+		try{
+			boolean found = false;
+			for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
+				if("Nimbus".equals(info.getName()) && !found){
+					UIManager.setLookAndFeel(info.getClassName());
+					found = true;
+				}
+			}
+			if(!found){
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}
+		} catch(Exception e){
+			try{
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+		}
+		
 		comboBox = new JComboBox<>();
 		comboBox.setToolTipText("");
 		comboBox.setFont(new Font("Modern No. 20", Font.PLAIN, 21));
@@ -129,9 +147,10 @@ public class TablaReporte2 extends JDialog {
 			}
 		});
 
-		comboBox.setBounds(33, 75, 209, 53);
+		comboBox.setBounds(33, 113, 209, 53);
 		contentPanel.add(comboBox);
 		comboBox.setModel(new DefaultComboBoxModel<>(TipoLocal.values()));
+		contentPanel.add(getBtnNewButton());
 
 		entradaLocal();
 
@@ -141,7 +160,7 @@ public class TablaReporte2 extends JDialog {
 			lblNewLabel = new JLabel("Local");
 			lblNewLabel.setForeground(Color.WHITE);
 			lblNewLabel.setFont(new Font("Modern No. 20", Font.BOLD, 25));
-			lblNewLabel.setBounds(33, 46, 260, 26);
+			lblNewLabel.setBounds(33, 84, 260, 26);
 		}
 		return lblNewLabel;
 	}
@@ -154,7 +173,7 @@ public class TablaReporte2 extends JDialog {
 				}
 			};
 			scrollPane.setEnabled(false);
-			scrollPane.setBackground(Colores.getAzulCielo());
+//			scrollPane.setBackground(Colores.getAzulCielo());
 			scrollPane.setBounds(33, 202, 1018, 525);
 			scrollPane.setViewportView(getTable());
 			
@@ -172,16 +191,16 @@ public class TablaReporte2 extends JDialog {
 		tablaModel = new TablaRegistrosReporte2();
 		table.setModel(tablaModel);
 		
-		table.setShowHorizontalLines(false);
+//		table.setShowHorizontalLines(false);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		table.setRowHeight(29);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getTableHeader().setFont(new Font("Modern No. 20", Font.BOLD, 19));
-		table.setForeground(Color.BLACK);
-		table.setBackground(Colores.getBlancuzo());
-		table.setGridColor(Color.lightGray);
-		table.getTableHeader().setBackground(Color.white);
-		table.setBorder(null);
+//		table.setForeground(Color.BLACK);
+//		table.setBackground(Colores.getBlancuzo());
+//		table.setGridColor(Color.lightGray);
+//		table.getTableHeader().setBackground(Color.white);
+//		table.setBorder(null);
 		
 		table.setEnabled(false);
 //		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -286,7 +305,7 @@ public class TablaReporte2 extends JDialog {
 			
 			//			JTextField dateField = (JTextField)dateChooser.getDateEditor().getUiComponent();
 			//			dateField.setForeground(Color.WHITE);
-			dateinicio.setBounds(413, 75, 131, 53);
+			dateinicio.setBounds(413, 113, 176, 53);
 			//			dateField.setBackground(Colores.getAzulCielo());
 		}
 		return dateinicio;
@@ -307,7 +326,7 @@ public class TablaReporte2 extends JDialog {
 			//			JTextField dateField1 = (JTextField)dateChooser_1.getDateEditor().getUiComponent();
 			//			dateField1.setForeground(Color.WHITE);
 			datefinal.setForeground(Color.BLACK);
-			datefinal.setBounds(578, 75, 131, 53);
+			datefinal.setBounds(682, 113, 176, 53);
 			//			dateField1.setBackground(Colores.getAzulCielo());
 		}
 		return datefinal;
@@ -317,7 +336,7 @@ public class TablaReporte2 extends JDialog {
 			lblNewLabel_2 = new JLabel("Desde");
 			lblNewLabel_2.setForeground(Color.WHITE);
 			lblNewLabel_2.setFont(new Font("Modern No. 20", Font.BOLD, 25));
-			lblNewLabel_2.setBounds(413, 51, 74, 16);
+			lblNewLabel_2.setBounds(413, 89, 74, 16);
 		}
 		return lblNewLabel_2;
 	}
@@ -326,7 +345,7 @@ public class TablaReporte2 extends JDialog {
 			lblNewLabel_3 = new JLabel("Hasta");
 			lblNewLabel_3.setForeground(Color.WHITE);
 			lblNewLabel_3.setFont(new Font("Modern No. 20", Font.BOLD, 25));
-			lblNewLabel_3.setBounds(578, 51, 74, 16);
+			lblNewLabel_3.setBounds(682, 89, 74, 16);
 		}
 		return lblNewLabel_3;
 	}
@@ -346,5 +365,110 @@ public class TablaReporte2 extends JDialog {
 			
 		}
 
+	}
+	
+	/////PDF/////
+	public static void generarPdf(DefaultTableModel modeloTabla, String rutaArchivo){
+	    Document document = new Document();
+
+	    try {
+	        PdfWriter.getInstance(document, new FileOutputStream(rutaArchivo));
+	        document.open();
+
+	        int numColumnas = modeloTabla.getColumnCount();
+	        PdfPTable table = new PdfPTable(numColumnas);
+	        table.setWidthPercentage(100); // Ocupa todo el ancho disponible
+
+	        // Configurar anchos proporcionales de las columnas (aquí todos iguales)
+	        float[] anchos = new float[numColumnas];
+	        Arrays.fill(anchos, 1f); // Puedes personalizar los valores, por ejemplo: {2f, 3f, 1f}
+	        table.setWidths(anchos);
+
+	        for (int i = 0; i < numColumnas; i++) {
+	            PdfPCell celda = new PdfPCell(new Paragraph(modeloTabla.getColumnName(i)));
+	            celda.setFixedHeight(25f);
+	            table.addCell(celda);
+	        }
+
+	        for (int fila = 0; fila < modeloTabla.getRowCount(); fila++) {
+	            for (int columna = 0; columna < numColumnas; columna++) {
+	                Object valor = modeloTabla.getValueAt(fila, columna);
+	                PdfPCell celda = new PdfPCell(new Paragraph(valor != null ? valor.toString() : ""));
+	                celda.setFixedHeight(25f);
+	                table.addCell(celda);
+	            }
+	        }
+
+	        document.add(table);
+	        mostrarMensajePerzonalizado("Éxito", "PDF creado exitosamente en: " + rutaArchivo);
+
+	    } catch (DocumentException | IOException e) {
+	        mostrarMensajePerzonalizado("Error", "Error al crear el PDF: " + e.getMessage());
+	        e.printStackTrace();
+	    } finally {
+	        document.close();
+	    }
+	}
+	
+	private static void mostrarMensajePerzonalizado(String titulo, String mensaje){
+		
+		JPanel panel2 = new JPanel(new BorderLayout(10, 10));
+		panel2.setBorder(new EmptyBorder(15, 15, 15, 15));
+		panel2.setBackground(new Color(240, 248, 255));
+		
+		JLabel messageLabel = new JLabel("<html><b>"+mensaje+"<b><html>");
+		messageLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		messageLabel.setForeground(new Color(0,102,204));
+		panel2.add(messageLabel, BorderLayout.CENTER);
+		
+		JOptionPane.showOptionDialog(null, panel2, titulo, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
+		
+		
+	}
+	private JButton getBtnNewButton() {
+		if (btnNewButton == null) {
+			btnNewButton = new JButton("Generar PDF");
+			btnNewButton.setFont(new Font("Modern No. 20", Font.BOLD, 21));
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JFileChooser fileChooser = new JFileChooser();
+					fileChooser.setDialogTitle("Guardar PDF");
+					fileChooser.setSelectedFile(new File("tabla.pdf"));
+					fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter(){
+						@Override
+						public boolean accept(File f){
+							return f.isDirectory()||f.getName().toLowerCase().endsWith(".pdf");
+						}
+						
+						@Override
+						public String getDescription(){
+							return "Archivos PDF (*.pdf)";						}
+					});
+					
+					int userSelection = fileChooser.showSaveDialog(contentPanel);
+					if(userSelection == JFileChooser.APPROVE_OPTION){
+						File fileToSave = fileChooser.getSelectedFile();
+						String rutaArchivo = fileToSave.getAbsolutePath();
+						if(!rutaArchivo.toLowerCase().endsWith(".pdf")){
+							rutaArchivo += ".pdf";
+						}
+						generarPdf(tablaModel, rutaArchivo);
+					}
+					
+				}
+			});
+			btnNewButton.addMouseListener(new MouseAdapter() {
+				public void mouseEntered(MouseEvent e) {
+
+					btnNewButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+				}
+				public void mouseExited(MouseEvent e) {
+
+					btnNewButton.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+				}
+			});
+			btnNewButton.setBounds(33, 31, 166, 36);
+		}
+		return btnNewButton;
 	}
 }

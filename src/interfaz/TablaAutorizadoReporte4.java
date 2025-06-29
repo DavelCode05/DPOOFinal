@@ -1,33 +1,27 @@
 package interfaz;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
-import controllerClass.Facultad;
-import util.VisitantesAutorizadosTable;
-import clasesAuxiliares.VisitantesAutorizadosPorX;
-
-import javax.swing.JLabel;
-
-import java.awt.Font;
-
-import javax.swing.JTextField;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JComboBox;
+import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 
 import personas.Persona;
+import util.VisitantesAutorizadosTable;
+import controllerClass.Facultad;
 
 public class TablaAutorizadoReporte4 extends JDialog {
 
@@ -57,35 +51,78 @@ public class TablaAutorizadoReporte4 extends JDialog {
         super(p,"", true);
 
 		fac= Facultad.getFacultad();
+	
+		
+		try{
+			boolean found = false;
+			for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
+				if("Nimbus".equals(info.getName()) && !found){
+					UIManager.setLookAndFeel(info.getClassName());
+					found = true;
+				}
+			}
+			if(!found){
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}
+		} catch(Exception e){
+			try{
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+		}
+		
 
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 636, 437);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setLocationRelativeTo(null);
 		
+		
+		UIManager.put("ComboBox.disabledForeground", Color.GRAY);
+		UIManager.put("ComboBox.border", BorderFactory.createLineBorder(new Color(180, 180, 180), 1, true));
+		UIManager.put("ComboBox.foreground", Color.BLACK);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 65, 414, 164);
+//		scrollPane.setBackground(Color.WHITE);
+//		scrollPane.getViewport().setBackground(Colores.getBlancuzo());
+		scrollPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+//		scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
+		scrollPane.setBounds(10, 78, 596, 299);
 		contentPanel.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
+		
 		tablemodel= new VisitantesAutorizadosTable();
 		table.setModel(tablemodel);
+//		table.setShowHorizontalLines(false);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		table.setRowHeight(29);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.getTableHeader().setFont(new Font("Modern No. 20", Font.BOLD, 17));
+//		table.setForeground(Color.BLACK);
+//		table.setBackground(Colores.getBlancuzo());
+//		table.setGridColor(Color.LIGHT_GRAY);
+//		table.getTableHeader().setBackground(Color.white);
+//		table.setBorder(null);
 		
 		JLabel lblResponsable = new JLabel("Responsable:");
-		lblResponsable.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblResponsable.setBounds(10, 24, 87, 14);
+		lblResponsable.setFont(new Font("Modern No. 20", Font.PLAIN, 25));
+		lblResponsable.setBounds(10, 23, 170, 41);
 		contentPanel.add(lblResponsable);
 		
 	    respons = new JComboBox<Persona>();
+	    respons.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 		respons.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				tablemodel.llenarTabla(fac.personasAutorizada((Persona) respons.getSelectedItem()));
 			}
 		});
-		respons.setBounds(90, 22, 139, 20);
+		respons.setBounds(156, 28, 249, 31);
 		contentPanel.add(respons);
 		respons.setModel(new DefaultComboBoxModel<>(fac.obtenerResponsables().toArray(new Persona[0])));
+		
 	}
 }

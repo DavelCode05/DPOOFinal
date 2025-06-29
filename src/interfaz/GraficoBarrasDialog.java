@@ -1,17 +1,15 @@
 package interfaz;
-import javax.swing.*;
-
-import controllerClass.Facultad;
-
-import java.awt.*;
-import java.awt.font.TextAttribute;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
-import java.text.AttributedString;
-import java.time.LocalDate;
-import java.util.ArrayList;
 
-import locales.Local;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
 
 public class GraficoBarrasDialog extends JPanel {
 	private int[] datos;
@@ -34,7 +32,9 @@ public class GraficoBarrasDialog extends JPanel {
 
 
 	//	add(panel);
+		
 	}
+	
 
 	@Override
 	protected void paintComponent(Graphics g) {

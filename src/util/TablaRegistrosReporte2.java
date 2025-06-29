@@ -12,7 +12,7 @@ import acceso.Registro;
 public class TablaRegistrosReporte2 extends DefaultTableModel{
 
 	public TablaRegistrosReporte2(){
-		String [] columnas =  {"Nombre   ", "Carnet de Identidad    "," Hora de Entrada    ", "Hora de salida    ", "  Fecha   "};
+		String [] columnas =  {"Nombre   ", "No. Carnet    "," Hora de Entrada    ", "Hora de salida    ", "  Fecha   "};
 		this.setColumnIdentifiers(columnas);
 
 

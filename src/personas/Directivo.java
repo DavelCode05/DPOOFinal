@@ -2,8 +2,6 @@ package personas;
 
 import enums.AreaDirectivo;
 import enums.CargoDirectivo;
-import enums.CategoriaCientifica;
-import enums.CategoriaDocente;
 import enums.TipoContrato;
 
 public class Directivo extends Profesor{

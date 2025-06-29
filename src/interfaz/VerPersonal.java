@@ -3,14 +3,20 @@ package interfaz;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -18,6 +24,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -32,83 +39,10 @@ import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
-
-import interfaz.Colores;
-import interfaz.VerPersonal;
-
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseMotionListener;
-
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import com.sun.glass.events.MouseEvent;
-
-
-import util.JTextFieldGrupo;
-import util.MostrarPersonal;
-//import util.ScrollMinimalista;
-import controllerClass.Facultad;
-import enums.AreaDirectivo;
-import enums.CargoDirectivo;
-import enums.Plaza;
-import enums.TipoContrato;
-
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseAdapter;
-
-import javax.swing.border.MatteBorder;
-
 import javax.swing.border.TitledBorder;
-
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-
-import java.awt.CardLayout;
-
-import java.awt.CardLayout;
-import java.util.ArrayList;
-
-
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-
-
-import locales.Local;
+import javax.swing.table.DefaultTableModel;
 
 import personas.Administrativo;
 import personas.Directivo;
@@ -121,19 +55,22 @@ import util.JTextFieldCarnet;
 import util.JTextFieldGrupo;
 import util.JTextFieldString;
 import util.MostrarPersonal;
-import util.ScrollMinimalista;
+import util.MostrarPersonalPDF;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.sun.glass.events.MouseEvent;
 
+//import util.ScrollMinimalista;
 import controllerClass.Facultad;
 import enums.AreaDirectivo;
 import enums.CargoDirectivo;
 import enums.Plaza;
 import enums.TipoContrato;
-
-
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 
 
@@ -142,8 +79,10 @@ public class VerPersonal extends JDialog {
 	private final JPanel contentPanel;
 	private JButton btnNewButton_1;
 	private JTable tablepers;
+	private JTable tablepers2;
 	private Facultad fac;
 	private MostrarPersonal tablemodel;
+	private MostrarPersonalPDF tablemodel2;
 	private int row;
 	private JPanel panel;
 	private JPanel panelGeneral;
@@ -154,6 +93,7 @@ public class VerPersonal extends JDialog {
 	private JTextFieldString nombre;
 	private JLabel lblCarnet;
 	private JTextFieldCarnet carnet;
+	private JButton btnagregar;
 
 
 	private JComboBox<Plaza> plazaAdmin;
@@ -214,22 +154,22 @@ public class VerPersonal extends JDialog {
 	Color verdeHover = new Color(39, 174, 96);
 	Color verdePressed = new Color(33, 150, 83);
 	private JLabel lblCargo;
+	public Document document;
+	public PdfPTable table;
+	private JButton btnNewButton;
 
 
 	//
-	//	public static void main(String[] args) {
-	//		try {
-	//			VerPersonal dialog = new VerPersonal();
-	//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	//			dialog.setVisible(true);
-	//		} catch (Exception e) {
-	//			e.printStackTrace();
-	//		}
-	//	}
-
-
-
-
+//		public static void main(String[] args) {
+//			try {
+//				VerPersonal dialog = new VerPersonal();
+//				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//				dialog.setVisible(true);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			
+//		}
 
 
 	public VerPersonal(JFrame p) {
@@ -248,7 +188,24 @@ public class VerPersonal extends JDialog {
 		//		UIManager.put("Table.showGrid", false);
 		//        UIManager.put("Table.intercellSpacing", new Dimension(0, 0));
 
-
+		try{
+			boolean found = false;
+			for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
+				if("Nimbus".equals(info.getName()) && !found){
+					UIManager.setLookAndFeel(info.getClassName());
+					found = true;
+				}
+			}
+			if(!found){
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}
+		} catch(Exception e){
+			try{
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+		}
 
 		editando = false;
 		setUndecorated(true);
@@ -274,32 +231,48 @@ public class VerPersonal extends JDialog {
 
 
 
-		scrollPane.setBackground(Color.WHITE);
+//		scrollPane.setBackground(Color.WHITE);
 		scrollPane.getViewport().setBackground(Colores.getBlancuzo());
 		scrollPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 		scrollPane.setBounds(22, 103, 603, 631);
-		//	scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
+//		scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
 
 		contentPanel.add(scrollPane);
 
 		tablepers = new JTable();
+		tablepers2 = new JTable();
 
 		tablemodel = new MostrarPersonal();
+		tablemodel2 = new MostrarPersonalPDF();
 
 		scrollPane.setViewportView(tablepers);
 
 		tablepers.setModel(tablemodel);
-		tablepers.setShowHorizontalLines(false);
+//		tablepers.setShowHorizontalLines(false);
 		tablepers.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		tablepers.setRowHeight(29);
 		tablepers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablepers.getTableHeader().setFont(new Font("Modern No. 20", Font.BOLD, 17));
-		tablepers.setForeground(Color.BLACK);
-		tablepers.setBackground(Colores.getBlancuzo());
-		tablepers.setGridColor(Color.LIGHT_GRAY);
-		tablepers.getTableHeader().setBackground(Color.white);
-		tablepers.setBorder(null);
+//		tablepers.setForeground(Color.BLACK);
+//		tablepers.setBackground(Colores.getBlancuzo());
+//		tablepers.setGridColor(Color.LIGHT_GRAY);
+//		tablepers.getTableHeader().setBackground(Color.white);
+//		tablepers.setBorder(null);
+		
+		tablepers2.setModel(tablemodel2);
+		tablepers2.setShowHorizontalLines(false);
+		tablepers2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		tablepers2.setRowHeight(29);
+		tablepers2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tablepers2.getTableHeader().setFont(new Font("Modern No. 20", Font.BOLD, 17));
+		tablepers2.setForeground(Color.BLACK);
+		tablepers2.setBackground(Colores.getBlancuzo());
+		tablepers2.setGridColor(Color.LIGHT_GRAY);
+		tablepers2.getTableHeader().setBackground(Color.white);
+		tablepers2.setBorder(null);
+		tablepers2.setVisible(false);
 
+		
 		tablepers.addMouseMotionListener(new MouseMotionListener() {
 			@Override
 			public void mouseMoved(java.awt.event.MouseEvent arg0) {
@@ -354,15 +327,67 @@ public class VerPersonal extends JDialog {
 
 		});
 
+		contentPanel.add(getPanel());
+
+
+
+		//		contentPanel.add();
+
+
+
+		comboBox = new JComboBox();
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Estudiante", "Directivo", "Administrativo", "Especialista", "T\u00E9cnico", "Profesor"}));
+		//		comboBox.addItemListener(new ItemListener() {
+		//			public void itemStateChanged(ItemEvent e) {
+		//				if (e.getStateChange() == ItemEvent.SELECTED) {
+		//					String rolSeleccionado = (String) e.getItem();
+		//					ArrayList<Persona> todas = fac.getPersonal();
+		//					ArrayList<Persona> filtradas = new ArrayList<>();
+		//
+		//					if (rolSeleccionado.equals("Todos")) {
+		//						filtradas = todas;
+		//					} else {
+		//						for (Persona p : todas) {
+		//							if (p.getClass().getSimpleName().equals(rolSeleccionado)) {
+		//								filtradas.add(p);
+		//							}
+		//						}
+		//					}
+		//
+		//					tablemodel.cargarInfo(filtradas);
+		//				}
+		//			}
+		//		});
+		tablemodel.cargarInfo(fac.getPersonal());
+		tablemodel2.cargarInfo(fac.getPersonal());
+		comboBox.setBounds(428, 32, 197, 36);
+		comboBox.setOpaque(true);
+		contentPanel.add(comboBox);
+
+		lblFiltrarPor = new JLabel("Mostrar:");
+		lblFiltrarPor.setForeground(Color.WHITE);
+		lblFiltrarPor.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		lblFiltrarPor.setBounds(329, 30, 87, 41);
+		contentPanel.add(lblFiltrarPor);
+
+
+		contentPanel.add(getPanel());
+		contentPanel.add(getBtnNewButton());
+		////////////////////////////////PDF/////////////////////////////////////////////////////////
+
 		//////////////////////////////// BOTON AGREGAR ////////////////////////////////////////////////////////////
 
-		JButton btnagregar = new JButton("");
-		btnagregar.setBackground(Color.LIGHT_GRAY);
+		btnagregar = new JButton("");
+		btnagregar.setBounds(24, 12, 58, 59);
+		contentPanel.add(btnagregar);
+		btnagregar.setBackground(Color.WHITE);
 		btnagregar.setIcon(new ImageIcon(VerPersonal.class.getResource("/images/icons8-add-user-male-50.png")));
 		btnagregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				editando = true;
 
+				lblCargo.setVisible(true);
 				btnGuardarCambios.setVisible(true);
 				btnCancelar.setVisible(true);
 				btnEliminar.setVisible(false);
@@ -411,6 +436,16 @@ public class VerPersonal extends JDialog {
 				//panelVisible(null);
 				eleccionCrear.setVisible(true);
 				tablemodel.setRowCount(0);
+				
+				TitledBorder bordeConTitulo = BorderFactory.createTitledBorder(
+						BorderFactory.createLineBorder(Colores.getBlancuzo(), 2, false),
+						"Agregar Personal",
+						TitledBorder.CENTER,
+						TitledBorder.TOP,
+						new Font("Modern No. 20", Font.BOLD, 26),
+						Color.BLACK);
+				panel.setBorder(bordeConTitulo);
+				panel.setBackground(Colores.getBlancuzo());
 
 				tablemodel.cargarInfo(fac.getPersonal());	
 
@@ -418,54 +453,6 @@ public class VerPersonal extends JDialog {
 
 			}
 		});
-		btnagregar.setBounds(12, 13, 58, 59);
-		contentPanel.add(btnagregar);
-
-		contentPanel.add(getPanel());
-
-
-
-		//		contentPanel.add();
-
-
-
-		comboBox = new JComboBox();
-		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Estudiante", "Directivo", "Administrativo", "Especialista", "T\u00E9cnico", "Profesor"}));
-		//		comboBox.addItemListener(new ItemListener() {
-		//			public void itemStateChanged(ItemEvent e) {
-		//				if (e.getStateChange() == ItemEvent.SELECTED) {
-		//					String rolSeleccionado = (String) e.getItem();
-		//					ArrayList<Persona> todas = fac.getPersonal();
-		//					ArrayList<Persona> filtradas = new ArrayList<>();
-		//
-		//					if (rolSeleccionado.equals("Todos")) {
-		//						filtradas = todas;
-		//					} else {
-		//						for (Persona p : todas) {
-		//							if (p.getClass().getSimpleName().equals(rolSeleccionado)) {
-		//								filtradas.add(p);
-		//							}
-		//						}
-		//					}
-		//
-		//					tablemodel.cargarInfo(filtradas);
-		//				}
-		//			}
-		//		});
-		tablemodel.cargarInfo(fac.getPersonal());
-		comboBox.setBounds(199, 36, 197, 36);
-		comboBox.setOpaque(true);
-		contentPanel.add(comboBox);
-
-		lblFiltrarPor = new JLabel("Mostrar:");
-		lblFiltrarPor.setForeground(Color.WHITE);
-		lblFiltrarPor.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		lblFiltrarPor.setBounds(100, 34, 87, 41);
-		contentPanel.add(lblFiltrarPor);
-
-
-		contentPanel.add(getPanel());
 
 		menuContextual = new JPopupMenu();
 		JMenuItem itemEditar = new JMenuItem("Editar");
@@ -528,26 +515,6 @@ public class VerPersonal extends JDialog {
 		});
 
 		tablepers.addMouseListener(new MouseAdapter() {
-			//			@Override
-			//			public void mouseClicked(java.awt.event.MouseEvent arg0) {
-			//				if (!editando) {
-			//					panelVisible(fac.getPersonal().get(row));
-			//
-			//					tablepers.addMouseListener(new MouseAdapter() {
-			//						@Override
-			//						public void mouseClicked(java.awt.event.MouseEvent arg0) {
-			//							CRUDVerPersonal pp = new CRUDVerPersonal(VerPersonal.this, fac.getPersonal().get(row), row);
-			//							pp.setVisible(true);
-			//							tablemodel.setRowCount(0);
-			//							tablemodel.cargarInfo(fac.getPersonal());
-			//						}
-			//					});
-			//
-			//					tablemodel.cargarInfo(fac.getPersonal());
-			//				}
-			//
-			//				tablemodel.cargarInfo(fac.getPersonal());
-			//			}
 
 			@Override
 			public void mousePressed(java.awt.event.MouseEvent e) {
@@ -567,6 +534,24 @@ public class VerPersonal extends JDialog {
 				}
 			}
 		});
+//		tablepers.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+//		    private final Color azulHover = new Color(173, 216, 230); // Azul claro tipo "Sky Blue"
+//		    
+//		    @Override
+//		    public Component getTableCellRendererComponent(JTable table, Object value,
+//		        boolean isSelected, boolean hasFocus, int row, int column) {
+//		        
+//		        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//		        
+//		        if (table.getSelectionModel().isSelectedIndex(row)) {
+//		            c.setBackground(azulHover);
+//		        } else {
+//		            c.setBackground(Colores.getBlancuzo()); // o el color de fondo por defecto
+//		        }
+//		        
+//		        return c;
+//		    }
+//		});
 
 		itemEditar.addActionListener(new ActionListener() { // opcion editar con doble click
 
@@ -575,6 +560,7 @@ public class VerPersonal extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				editando = true;
 				tablepers.setEnabled(false);
+				btnagregar.setEnabled(false);
 				btnGuardarCambios.setVisible(true);
 				btnCancelar.setVisible(true);
 				btnEliminar.setVisible(false);
@@ -604,7 +590,15 @@ public class VerPersonal extends JDialog {
 				TFproyectoEsp.setEditable(true);
 				btnEliminar.setEnabled(false);
 				btnEditar.setVisible(false);
-				JOptionPane.showMessageDialog(VerPersonal.this, "Información editada con éxito", "Edición exitosa", JOptionPane.INFORMATION_MESSAGE);
+				TitledBorder bordeConTitulo = BorderFactory.createTitledBorder(
+						BorderFactory.createLineBorder(Colores.getBlancuzo(), 2, false),
+						"Edición",
+						TitledBorder.CENTER,
+						TitledBorder.TOP,
+						new Font("Modern No. 20", Font.BOLD, 26),
+						Color.BLACK);
+				panel.setBorder(bordeConTitulo);
+				panel.setBackground(Colores.getBlancuzo());
 
 
 			}
@@ -616,7 +610,7 @@ public class VerPersonal extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int confirm = JOptionPane.showConfirmDialog(null, "¿Eliminar esta persona?", "Confirmar", JOptionPane.YES_NO_OPTION);
+				int confirm = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar a esta persona?", "Confirmar", JOptionPane.YES_NO_OPTION);
 				if (confirm == JOptionPane.YES_OPTION) {
 					if(!fac.verificarRegistrosActivos(null, fac.getPersonal().get(row))){
 					fac.getPersonal().remove(row);
@@ -657,7 +651,7 @@ public class VerPersonal extends JDialog {
 			});
 			eleccionCrear.setModel(new DefaultComboBoxModel<String>(new String[] {"Administrativo", "Directivo", "Profesor", "Especialista", "Estudiante", "Tecnico"}));
 
-			eleccionCrear.setBounds(12, 26, 176, 36);
+			eleccionCrear.setBounds(99, 45, 176, 36);
 			panel.add(eleccionCrear);
 			eleccionCrear.setVisible(false);
 
@@ -665,17 +659,7 @@ public class VerPersonal extends JDialog {
 		return eleccionCrear;
 	}
 
-
-
-
-
-
-
-
-
 	////////////////////////////////PANELES  ////////////////////////////////////////////////////////////
-
-
 
 	private JPanel getPanel() {
 		if (panel == null) {
@@ -819,26 +803,6 @@ public class VerPersonal extends JDialog {
 
 	////////////////////////////////LABELS Y TEXT FIELD  ////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	private JLabel getLblNombreYApellidos() {
 		if (lblNombreYApellidos == null) {
 			lblNombreYApellidos = new JLabel("Nombre:");
@@ -911,7 +875,7 @@ public class VerPersonal extends JDialog {
 			lblDepartamento = new JLabel("Departamento:");
 			lblDepartamento.setForeground(Color.BLACK);
 			lblDepartamento.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
-			lblDepartamento.setBounds(0, 30, 190, 22);
+			lblDepartamento.setBounds(0, 30, 195, 30);
 		}
 		return lblDepartamento;
 	}
@@ -920,7 +884,7 @@ public class VerPersonal extends JDialog {
 			DepaDirect = new JTextFieldString();
 			DepaDirect.setBackground(Color.WHITE);
 			DepaDirect.setFont(new Font("Tahoma", Font.PLAIN, 19));
-			DepaDirect.setBounds(258, 23, 245, 36);
+			DepaDirect.setBounds(258, 27, 245, 36);
 			DepaDirect.setColumns(10);
 
 		}
@@ -958,7 +922,7 @@ public class VerPersonal extends JDialog {
 			contratodirect = new JComboBox<TipoContrato>();
 			contratodirect.setBackground(Color.WHITE);
 			contratodirect.setFont(new Font("Tahoma", Font.PLAIN, 19));
-			contratodirect.setBounds(258, 196, 245, 36);
+			contratodirect.setBounds(258, 198, 245, 36);
 			contratodirect.setModel(new DefaultComboBoxModel<>(TipoContrato.values()));
 
 
@@ -1022,7 +986,7 @@ public class VerPersonal extends JDialog {
 			catCientdirec = new JTextFieldString();
 			catCientdirec.setBackground(Color.WHITE);
 			catCientdirec.setFont(new Font("Tahoma", Font.PLAIN, 19));
-			catCientdirec.setBounds(258, 83, 245, 36);
+			catCientdirec.setBounds(258, 84, 245, 36);
 
 		}
 		return catCientdirec;
@@ -1132,7 +1096,7 @@ public class VerPersonal extends JDialog {
 		if (DepaProfesor == null) {
 			DepaProfesor = new JTextFieldString();
 			DepaProfesor.setBackground(Color.WHITE);
-			DepaProfesor.setFont(new Font("Dialog", Font.PLAIN, 19));
+			DepaProfesor.setFont(new Font("Tahoma", Font.PLAIN, 19));
 			DepaProfesor.setColumns(10);
 			DepaProfesor.setBounds(258, 27, 245, 36);
 
@@ -1152,8 +1116,8 @@ public class VerPersonal extends JDialog {
 		if (catDocProfesor == null) {
 			catDocProfesor = new JTextFieldString();
 			catDocProfesor.setBackground(Color.WHITE);
-			catDocProfesor.setFont(new Font("Dialog", Font.PLAIN, 19));
-			catDocProfesor.setBounds(258, 140, 245, 36);
+			catDocProfesor.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			catDocProfesor.setBounds(258, 141, 245, 36);
 
 		}
 		return catDocProfesor;
@@ -1171,7 +1135,7 @@ public class VerPersonal extends JDialog {
 		if (catCientProfesor == null) {
 			catCientProfesor = new JTextFieldString();
 			catCientProfesor.setBackground(Color.WHITE);
-			catCientProfesor.setFont(new Font("Dialog", Font.PLAIN, 19));
+			catCientProfesor.setFont(new Font("Tahoma", Font.PLAIN, 19));
 			catCientProfesor.setBounds(258, 84, 245, 36);
 
 		}
@@ -1190,7 +1154,7 @@ public class VerPersonal extends JDialog {
 		if (contratoProfesor == null) {
 			contratoProfesor = new JComboBox<TipoContrato>();
 			contratoProfesor.setBackground(Color.WHITE);
-			contratoProfesor.setFont(new Font("Dialog", Font.PLAIN, 19));
+			contratoProfesor.setFont(new Font("Tahoma", Font.PLAIN, 19));
 			contratoProfesor.setModel(new DefaultComboBoxModel<>(TipoContrato.values()));
 			contratoProfesor.setBounds(258, 198, 245, 36);
 
@@ -1257,6 +1221,7 @@ public class VerPersonal extends JDialog {
 			btnEditar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					editando = true;
+					btnagregar.setEnabled(false);
 					tablepers.setEnabled(false);
 					btnGuardarCambios.setVisible(true);
 					btnCancelar.setVisible(true);
@@ -1289,6 +1254,15 @@ public class VerPersonal extends JDialog {
 					btnEliminar.setEnabled(false);
 					btnEditar.setVisible(false);
 
+					TitledBorder bordeConTitulo = BorderFactory.createTitledBorder(
+							BorderFactory.createLineBorder(Colores.getBlancuzo(), 2, false),
+							"Edición",
+							TitledBorder.CENTER,
+							TitledBorder.TOP,
+							new Font("Modern No. 20", Font.BOLD, 26),
+							Color.BLACK);
+					panel.setBorder(bordeConTitulo);
+					panel.setBackground(Colores.getBlancuzo());
 
 
 				}
@@ -1351,10 +1325,11 @@ public class VerPersonal extends JDialog {
 	private JLabel getLblCargo() {
 		if (lblCargo == null) {
 			lblCargo = new JLabel("Cargo:");
+			lblCargo.setVisible(false);
 			lblCargo.setForeground(Color.BLACK);
 			lblCargo.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			lblCargo.setBackground(Color.WHITE);
-			lblCargo.setBounds(39, 37, 77, 30);
+			lblCargo.setBounds(39, 50, 51, 30);
 		}
 		return lblCargo;
 
@@ -1388,6 +1363,7 @@ public class VerPersonal extends JDialog {
 					if(listo){
 						editando = false;
 
+						btnagregar.setEnabled(true);
 						AnnoEst.setEnabled(false);
 						grupoEst.setEditable(false);
 						nombre.setEditable(false);
@@ -1419,7 +1395,8 @@ public class VerPersonal extends JDialog {
 
 						tablemodel.setRowCount(0);
 						tablemodel.cargarInfo(fac.getPersonal());
-						JOptionPane.showMessageDialog(VerPersonal.this, "Informacion añadida con éxito", "Edición exitosa", JOptionPane.INFORMATION_MESSAGE);
+						mostrarMensajePerzonalizado("Edición exitosa", "Información editada con éxito");
+//						JOptionPane.showMessageDialog(VerPersonal.this, "Información editada con éxito", "Edición exitosa", JOptionPane.INFORMATION_MESSAGE);
 
 					}
 				}
@@ -1462,6 +1439,9 @@ public class VerPersonal extends JDialog {
 					if (confirm == JOptionPane.YES_OPTION) {
 						editando = false;
 						panelVisible(fac.getPersonal().get(row));
+						lblCargo.setVisible(false);
+						btnagregar.setEnabled(true);
+						eleccionCrear.setVisible(false);
 						btnGuardarCambios.setVisible(false);
 						btnCancelar.setVisible(false);
 						btnEliminar.setVisible(true);
@@ -1484,6 +1464,16 @@ public class VerPersonal extends JDialog {
 						lblPlaza_1.setForeground(Color.BLACK);
 						lblreaDeTrabajo.setForeground(Color.BLACK);
 						lblTipoDeContrato.setForeground(Color.BLACK);
+						
+						TitledBorder bordeConTitulo = BorderFactory.createTitledBorder(
+								BorderFactory.createLineBorder(Colores.getBlancuzo(), 2, false),
+								"Detalles de la persona",
+								TitledBorder.CENTER,
+								TitledBorder.TOP,
+								new Font("Modern No. 20", Font.BOLD, 26),
+								Color.BLACK);
+						panel.setBorder(bordeConTitulo);
+						panel.setBackground(Colores.getBlancuzo());
 
 					}
 				}
@@ -1601,6 +1591,59 @@ public class VerPersonal extends JDialog {
 
 	}
 
+	////PDF///
+	public static void generarPdf(DefaultTableModel modeloTabla, String rutaArchivo){
+		Document document = new Document();
+		
+		try{
+			PdfWriter.getInstance(document, new FileOutputStream(rutaArchivo));
+			document.open();
+			
+			int numColumnas = modeloTabla.getColumnCount();
+			PdfPTable table = new PdfPTable(numColumnas);
+			
+			for(int i = 0; i<numColumnas; i++){
+				PdfPCell celda = new PdfPCell(new Paragraph(modeloTabla.getColumnName(i)));
+				celda.setFixedHeight(25f);
+				table.addCell(celda);
+			}
+			
+			for(int fila=0; fila < modeloTabla.getRowCount(); fila++){
+				for(int columna = 0; columna < numColumnas; columna++){
+					Object valor = modeloTabla.getValueAt(fila, columna);
+					PdfPCell celda = new PdfPCell(new Paragraph(valor != null ? valor.toString(): ""));
+					celda.setFixedHeight(25f);
+					table.addCell(celda);
+				}
+			}
+			
+			document.add(table);
+			mostrarMensajePerzonalizado("Éxito", "PDF creado exitosamente en: " + rutaArchivo);
+//			JOptionPane.showMessageDialog(null, "PDF creado exitosamente en: "+ rutaArchivo, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+		}catch(DocumentException | IOException e){
+			mostrarMensajePerzonalizado("Error", "Error al crear el PDF: " + e.getMessage());
+//			JOptionPane.showMessageDialog(null, "Error al crear el PDF: "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}finally{
+			document.close();
+		}
+	}
+	
+	private static void mostrarMensajePerzonalizado(String titulo, String mensaje){
+		
+		JPanel panel2 = new JPanel(new BorderLayout(10, 10));
+		panel2.setBorder(new EmptyBorder(15, 15, 15, 15));
+		panel2.setBackground(new Color(240, 248, 255));
+		
+		JLabel messageLabel = new JLabel("<html><b>"+mensaje+"<b><html>");
+		messageLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		messageLabel.setForeground(new Color(0,102,204));
+		panel2.add(messageLabel, BorderLayout.CENTER);
+		
+		JOptionPane.showOptionDialog(null, panel2, titulo, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
+		
+		
+	}
 	//////////////////////////////// CREAR ESPECIALISTA  ////////////////////////////////////////////////////////////
 	public boolean crearEspecialista(){
 		String nom = nombre.getText();
@@ -2073,6 +2116,71 @@ public class VerPersonal extends JDialog {
 				contratoProfesor.setSelectedItem(((Profesor)per).getTipoContrato().toString());
 				contratoProfesor.setEnabled(false);
 			}
+		}
+	}
+	private JButton getBtnNewButton() {
+		if (btnNewButton == null) {
+			btnNewButton = new JButton("Generar PDF");
+			btnNewButton.setFont(new Font("Modern No. 20", Font.BOLD, 21));
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JFileChooser fileChooser = new JFileChooser();
+					fileChooser.setDialogTitle("Guardar PDF");
+					fileChooser.setSelectedFile(new File("tabla.pdf"));
+					fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter(){
+						@Override
+						public boolean accept(File f){
+							return f.isDirectory()||f.getName().toLowerCase().endsWith(".pdf");
+						}
+						
+						@Override
+						public String getDescription(){
+							return "Archivos PDF (*.pdf)";						}
+					});
+					
+					int userSelection = fileChooser.showSaveDialog(contentPanel);
+					if(userSelection == JFileChooser.APPROVE_OPTION){
+						File fileToSave = fileChooser.getSelectedFile();
+						String rutaArchivo = fileToSave.getAbsolutePath();
+						if(!rutaArchivo.toLowerCase().endsWith(".pdf")){
+							rutaArchivo += ".pdf";
+						}
+						generarPdf(tablemodel2, rutaArchivo);
+					}
+					
+				}
+			});
+			btnNewButton.addMouseListener(new MouseAdapter() {
+				public void mouseEntered(MouseEvent e) {
+
+					btnNewButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+				}
+				public void mouseExited(MouseEvent e) {
+
+					btnNewButton.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+				}
+			});
+			btnNewButton.setBounds(102, 33, 166, 36);
+		}
+		return btnNewButton;
+	}
+	class GradientPanel extends JPanel{
+		public GradientPanel(){
+			setBorder(new EmptyBorder(15, 15, 15, 15));
+		}
+		
+		@Override
+		protected void paintComponent(Graphics g){
+			super.paintComponent(g);
+			Graphics2D g2d = (Graphics2D)g;
+			GradientPaint gradient = new GradientPaint(0, 0, new Color(240, 248, 255), 0, getHeight(), new Color(200, 230, 255));
+			g2d.setPaint(gradient);
+			g2d.fillRect(0, 0, getWidth(), getHeight());
+		}
+		
+		@Override
+		public Dimension getPreferredSize(){
+			return new Dimension(300, 100);
 		}
 	}
 }
