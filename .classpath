@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Dan/Cujae/Proyectos/Java/jcalendar-1.4.jar"/>
-	<classpathentry kind="lib" path="C:/Dan/Cujae/Proyectos/Librerias Java/itextpdf-5.5.13.4.jar"/>
+	<classpathentry kind="lib" path="D:/DPOO/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="D:/DPOO/DpooFinal/DPOOFinal/itextpdf-5.5.13.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

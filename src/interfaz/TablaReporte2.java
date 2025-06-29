@@ -39,6 +39,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import locales.Local;
 import util.TablaRegistrosReporte2;
 
 import com.itextpdf.text.Document;
@@ -73,7 +74,7 @@ public class TablaReporte2 extends JDialog {
 	private JDateChooser datefinal;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
-	JComboBox comboBox;
+	JComboBox<Local> comboBox;
 	private JButton btnNewButton;
 
 	/**
@@ -149,7 +150,7 @@ public class TablaReporte2 extends JDialog {
 
 		comboBox.setBounds(33, 113, 209, 53);
 		contentPanel.add(comboBox);
-		comboBox.setModel(new DefaultComboBoxModel<>(TipoLocal.values()));
+		comboBox.setModel(new DefaultComboBoxModel<>(fac.getLocales().toArray(new Local[0])));
 		contentPanel.add(getBtnNewButton());
 
 		entradaLocal();
@@ -353,12 +354,12 @@ public class TablaReporte2 extends JDialog {
 	public void entradaLocal(){
 		LocalDate inicio = dateinicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate finalll = datefinal.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		TipoLocal tipo = (TipoLocal)comboBox.getSelectedItem();
+		Local loc = (Local)comboBox.getSelectedItem();
 		
 		if(!inicio.isAfter(finalll)){
 			
 		tablaModel.setRowCount(0);
-		tablaModel.cargarInfo(fac.obtenerInfoLocales(tipo, inicio, finalll));
+		tablaModel.cargarInfo(fac.obtenerInfoLocales(loc, inicio, finalll));
 		
 		}else{
 			JOptionPane.showMessageDialog(this, "La fecha inicial no puede ser posterior a la feha final", "Error en rango de fechas", JOptionPane.ERROR_MESSAGE);

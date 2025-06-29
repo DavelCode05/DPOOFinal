@@ -64,10 +64,11 @@ public class IniciarSesion extends JDialog {
 	private Facultad fac ;
 	private JTextFieldCarnet responsable;
 	private boolean usuario ;
-	JToggleButton tglbtnNewToggleButton;
-	JToggleButton tglbtnUsuario;
-	JButton btnNewButton;
-	TextArea textAreaMot;
+	private JToggleButton tglbtnNewToggleButton;
+	private JToggleButton tglbtnUsuario;
+	private JLabel lblMotivoVisita ;
+	private JButton btnNewButton;
+	private TextArea textAreaMot;
 
 	
 	private ButtonGroup buttonGroup ;
@@ -260,7 +261,7 @@ public class IniciarSesion extends JDialog {
 		textAreaMot.setBounds(124, 105, 201, 77);	
 		panelVisitante.add(textAreaMot);
 
-		JLabel lblMotivoVisita = new JLabel("Motivo visita:");
+	  lblMotivoVisita = new JLabel("Motivo visita:");
 		lblMotivoVisita.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		lblMotivoVisita.setBounds(0, 113, 118, 25);
 		panelVisitante.add(lblMotivoVisita);
@@ -423,7 +424,7 @@ public class IniciarSesion extends JDialog {
 		contentPanel.add(getPanel());
 
 		lblDatosErroneos = new JLabel();
-		lblDatosErroneos.setBounds(548, 484, 325, 23);
+		lblDatosErroneos.setBounds(548, 484, 325, 34);
 		contentPanel.add(lblDatosErroneos);
 		lblDatosErroneos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDatosErroneos.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -439,6 +440,7 @@ public class IniciarSesion extends JDialog {
 		String respon = responsable.getText();
 		Persona aAcceder= null;
 		Persona res;
+		String motivo = textAreaMot.getText();
 		boolean permiso = true;
 
 		if(!usuario){
@@ -467,6 +469,7 @@ public class IniciarSesion extends JDialog {
 
 			try{
 				if(!CI.equals("Carnet de Identidad")){
+					if(fac.buscarEnPersonal(CI)==null){
 				aAcceder.setNumeroIdentidad(CI);
 				carnet.setForeground(Color.BLACK);
 				}
@@ -474,7 +477,17 @@ public class IniciarSesion extends JDialog {
 					carnet.setForeground(Color.RED);
 					permiso = false;
 					lblDatosErroneos.setVisible(true);
+					lblDatosErroneos.setText("Persona existente en el sistema Registrese como Personal");
+					
+				}
+				}
+				else{
+					carnet.setForeground(Color.RED);
+					permiso = false;
+					lblDatosErroneos.setVisible(true);
 					lblDatosErroneos.setText("Datos Erroneos");
+					
+					
 				}
 			}
 			catch(IllegalArgumentException e){
@@ -498,6 +511,17 @@ public class IniciarSesion extends JDialog {
 
 				}
 			}
+			try{
+				((Visitante)aAcceder).setMotivoVisita(motivo);
+				lblMotivoVisita.setForeground(Color.BLACK);
+				
+			}
+			catch(IllegalArgumentException e){
+				lblMotivoVisita.setForeground(Color.RED);
+				permiso = false;
+				lblDatosErroneos.setVisible(true);
+				lblDatosErroneos.setText("Datos Erroneos");
+			}
 
 		}
 		else{
@@ -516,7 +540,7 @@ public class IniciarSesion extends JDialog {
 		}
 		 if(permiso){
 		try{
-			fac.accesoPermitidoAlLocal(local.getTipo().toString(),aAcceder);
+			aAcceder.verificarAccesoAlLocal(local);
 			
 		}
 		catch(IllegalArgumentException e){

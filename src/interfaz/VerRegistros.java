@@ -283,8 +283,6 @@ public class VerRegistros extends JDialog {
 				else{
 					table_1.clearSelection();
 				}
-
-
 			}
 		});
 
@@ -327,6 +325,7 @@ public class VerRegistros extends JDialog {
 				table_1.removeColumn(mi0);
 				guardar.setVisible(false);
 				cancelar.setVisible(false);
+				btnRegistarSalida.setVisible(true);
 				btnSeleccionarVarios.setVisible(true);
 				setsalida.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
 				btnRegistarSalida.setVisible(false);
@@ -346,7 +345,7 @@ public class VerRegistros extends JDialog {
 		cancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+btnRegistarSalida.setVisible(true);  
 				table_1.removeColumn(mi0);
 				guardar.setVisible(false);
 				cancelar.setVisible(false);
@@ -368,7 +367,7 @@ public class VerRegistros extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				table_1.addColumn(mi0);
 				table_1.moveColumn(table_1.getColumnCount()-1, 0);
-
+                btnRegistarSalida.setVisible(false);
 				guardar.setVisible(true);
 				cancelar.setVisible(true);
 				btnSeleccionarVarios.setVisible(false);
@@ -439,7 +438,7 @@ public class VerRegistros extends JDialog {
 		setentrada.setText(r.getHoraEntrada().toString());
 		setsalida.setText(r.getHoraSalida()==null? "No ha salido ": r.getHoraSalida().format(DateTimeFormatter.ofPattern("HH:mm")));
 
-		if(r.getHoraSalida()==null){
+		if(r.getHoraSalida()==null && btnSeleccionarVarios.isVisible()){
 			btnRegistarSalida.setVisible(true);
 		}
 		else

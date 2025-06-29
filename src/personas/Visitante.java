@@ -1,9 +1,16 @@
 package personas;
 
+import java.time.LocalTime;
+
+import enums.TipoLocal;
+import locales.Local;
+
 public class Visitante extends Persona{
     private String areaUniversidad;
     private String motivoVisita;
     private Persona autorizadoPor;
+    private static LocalTime horaEntradaVis = LocalTime.of(8,0);
+	private static LocalTime horaSalidaVis = LocalTime.of(12,0);
     
     public Visitante(){
    
@@ -49,6 +56,19 @@ public class Visitante extends Persona{
 		}else
 			throw new IllegalArgumentException("No pueden haber campos vacios");
     }
+
+	@Override
+	public boolean verificarAccesoAlLocal(Local l) {
+		boolean permitido = false;
+    	LocalTime hora = LocalTime.now();
+			if(hora.isAfter(horaEntradaVis)&& hora.isBefore(horaSalidaVis)){
+				permitido = true;
+			}
+			else 
+				throw new IllegalArgumentException("Acceso Denegado: Fuera de horario");
+		
+    	return permitido;
+	}
     
     
 }
