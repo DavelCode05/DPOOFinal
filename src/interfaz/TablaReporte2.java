@@ -52,7 +52,7 @@ import com.toedter.calendar.JDateChooser;
 
 import controllerClass.Facultad;
 import enums.TipoLocal;
-//import util.ScrollMinimalista;
+
 
 public class TablaReporte2 extends JDialog {
 
@@ -98,7 +98,7 @@ public class TablaReporte2 extends JDialog {
 	super(padre, "Reporte 2", true);
 		setTitle("Chequeo de Registros Locales");
 		fac = Facultad.getFacultad();
-		setBounds(100, 100, 1086, 760);
+		setBounds(100, 100, 1086, 795);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -128,7 +128,7 @@ public class TablaReporte2 extends JDialog {
 		
 		comboBox = new JComboBox<>();
 		comboBox.setToolTipText("");
-		comboBox.setFont(new Font("Modern No. 20", Font.PLAIN, 21));
+		comboBox.setFont(new Font("Tahoma", Font.BOLD, 21));
 		
 		contentPanel.add(getLblNewLabel());
 		contentPanel.add(getScrollPane());
@@ -147,7 +147,7 @@ public class TablaReporte2 extends JDialog {
 			}
 		});
 
-		comboBox.setBounds(33, 113, 209, 53);
+		comboBox.setBounds(33, 113, 241, 53);
 		contentPanel.add(comboBox);
 		comboBox.setModel(new DefaultComboBoxModel<>(TipoLocal.values()));
 		contentPanel.add(getBtnNewButton());
@@ -157,9 +157,9 @@ public class TablaReporte2 extends JDialog {
 	}
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("Local");
+			lblNewLabel = new JLabel("Local:");
 			lblNewLabel.setForeground(Color.WHITE);
-			lblNewLabel.setFont(new Font("Modern No. 20", Font.BOLD, 25));
+			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
 			lblNewLabel.setBounds(33, 84, 260, 26);
 		}
 		return lblNewLabel;
@@ -174,11 +174,11 @@ public class TablaReporte2 extends JDialog {
 			};
 			scrollPane.setEnabled(false);
 //			scrollPane.setBackground(Colores.getAzulCielo());
-			scrollPane.setBounds(33, 202, 1018, 525);
+			scrollPane.setBounds(33, 246, 1018, 525);
 			scrollPane.setViewportView(getTable());
 			
-			scrollPane.setBackground(Color.WHITE);
-			scrollPane.getViewport().setBackground(Colores.getBlancuzo());
+//			scrollPane.setBackground(Color.WHITE);
+//			scrollPane.getViewport().setBackground(Colores.getBlancuzo());
 			scrollPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 			//scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
 		}
@@ -241,7 +241,7 @@ public class TablaReporte2 extends JDialog {
 			lblNewLabel_1.setBackground(Color.WHITE);
 			lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 19));
 			lblNewLabel_1.setForeground(new Color(255, 0, 51));
-			lblNewLabel_1.setBounds(33, 136, 352, 48);
+			lblNewLabel_1.setBounds(33, 185, 352, 48);
 			lblNewLabel_1.setVisible(false);;
 		}
 		return lblNewLabel_1;
@@ -333,19 +333,19 @@ public class TablaReporte2 extends JDialog {
 	}
 	private JLabel getLblNewLabel_2() {
 		if (lblNewLabel_2 == null) {
-			lblNewLabel_2 = new JLabel("Desde");
+			lblNewLabel_2 = new JLabel("Desde:");
 			lblNewLabel_2.setForeground(Color.WHITE);
-			lblNewLabel_2.setFont(new Font("Modern No. 20", Font.BOLD, 25));
-			lblNewLabel_2.setBounds(413, 89, 74, 16);
+			lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 25));
+			lblNewLabel_2.setBounds(413, 84, 132, 26);
 		}
 		return lblNewLabel_2;
 	}
 	private JLabel getLblNewLabel_3() {
 		if (lblNewLabel_3 == null) {
-			lblNewLabel_3 = new JLabel("Hasta");
+			lblNewLabel_3 = new JLabel("Hasta:");
 			lblNewLabel_3.setForeground(Color.WHITE);
-			lblNewLabel_3.setFont(new Font("Modern No. 20", Font.BOLD, 25));
-			lblNewLabel_3.setBounds(682, 89, 74, 16);
+			lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 25));
+			lblNewLabel_3.setBounds(682, 84, 132, 26);
 		}
 		return lblNewLabel_3;
 	}
@@ -428,7 +428,7 @@ public class TablaReporte2 extends JDialog {
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("Generar PDF");
-			btnNewButton.setFont(new Font("Modern No. 20", Font.BOLD, 21));
+			btnNewButton.setFont(new Font("SansSerif", Font.BOLD, 21));
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					JFileChooser fileChooser = new JFileChooser();

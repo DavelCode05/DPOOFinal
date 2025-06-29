@@ -1,15 +1,18 @@
 package interfaz;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -22,6 +25,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
@@ -87,6 +91,7 @@ public class VerRegistros extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setLocationRelativeTo(null);
 
 		try{
 			boolean found = false;
@@ -143,7 +148,7 @@ public class VerRegistros extends JDialog {
 
 		setloc = new JLabel("New label");
 		setloc.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		setloc.setBounds(120, 184, 260, 38);
+		setloc.setBounds(120, 184, 283, 38);
 		panel.add(setloc);
 
 		JLabel entrada = new JLabel("Hora de Entrada:");
@@ -380,6 +385,21 @@ public class VerRegistros extends JDialog {
 		///////////////////// BOTON REGISTRAR SALIDA///////////////////////
 
 		btnRegistarSalida = new JButton("Registrar Salida");
+//        btnRegistarSalida.setBorder(null);
+
+//		btnRegistarSalida.addMouseListener(new MouseAdapter() {
+//			@Override
+//            public void mouseEntered(MouseEvent e) {
+//              
+//                btnRegistarSalida.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+//            }
+//
+//            @Override
+//            public void mouseExited(MouseEvent e) {
+//                btnRegistarSalida.setBorder(null);
+////            	btnRegistarSalida.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+//            }
+//		});
 		btnRegistarSalida.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		btnRegistarSalida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

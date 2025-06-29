@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
 import controllerClass.Facultad;
@@ -93,7 +94,7 @@ public class IniciarAdim extends JDialog {
 		setUndecorated(true);
 		setLocationRelativeTo(null);
 		usuarioo.setBorder(null);
-		usuarioo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		usuarioo.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 		usuarioo.setBounds(76, 257, 245, 33);
 		contentPanel.add(usuarioo);
 		usuarioo.setColumns(10);
@@ -117,41 +118,42 @@ public class IniciarAdim extends JDialog {
 		lblNewLabel_1.setBounds(76, 393, 260, 14);
 		contentPanel.add(lblNewLabel_1);
 		lblNewLabel_1.setVisible(false);
-//		try{
-//			boolean found = false;
-//			for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
-//				if("Nimbus".equals(info.getName()) && !found){
-//					UIManager.setLookAndFeel(info.getClassName());
-//					found = true;
-//				}
-//			}
-//			if(!found){
-//				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//			}
-//		} catch(Exception e){
-//			try{
-//				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//			}catch(Exception ex){
-//				ex.printStackTrace();
-//			}
-//		}
+		try{
+			boolean found = false;
+			for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
+				if("Nimbus".equals(info.getName()) && !found){
+					UIManager.setLookAndFeel(info.getClassName());
+					found = true;
+				}
+			}
+			if(!found){
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}
+		} catch(Exception e){
+			try{
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+		}
 		button = new JButton("Iniciar");
+		button.setBorder(null);
 		button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
               
-                button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+                button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-               
-            	button.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+                button.setBorder(null);
+//            	button.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
             }
         });
 	
 		button.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
-		button.setBorder(new LineBorder(Color.DARK_GRAY, 1, true));
+//		button.setBorder(new LineBorder(Color.DARK_GRAY, 1, true));
 		button.setBackground(Color.WHITE);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -171,9 +173,9 @@ public class IniciarAdim extends JDialog {
 		contentPanel.add(button);
 
 
-		btnAtras = new JButton("Atras");
-		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnAtras.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		btnAtras = new JButton("Atr\u00E1s");
+		btnAtras.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
+		btnAtras.setBorder(null);
 		btnAtras.setBackground(Color.WHITE);
 		
 
@@ -181,18 +183,17 @@ public class IniciarAdim extends JDialog {
 		btnAtras.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-              
-                btnAtras.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+                btnAtras.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-               
-            	btnAtras.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+            	btnAtras.setBorder(null);
+//            	btnAtras.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
             }
         });
 		btnAtras.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
-		btnAtras.setBorder(new LineBorder(Color.DARK_GRAY, 1, true));
+//		btnAtras.setBorder(new LineBorder(Color.DARK_GRAY, 1, true));
 
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -204,8 +205,6 @@ public class IniciarAdim extends JDialog {
 
 		
 		btnAtras.setBounds(219, 420, 107, 33);
-
-		btnAtras.setBounds(214, 420, 107, 33);
 
 		contentPanel.add(btnAtras);
 		contentPanel.add(getPasswordField());
@@ -239,7 +238,7 @@ public class IniciarAdim extends JDialog {
 		if (passwordField == null) {
 			passwordField = new JPasswordField();
 			passwordField.setBackground(Color.WHITE);
-			passwordField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			passwordField.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			passwordField.setBorder(null);
 			passwordField.setBounds(76, 334, 245, 33);
 		}

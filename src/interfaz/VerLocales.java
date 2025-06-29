@@ -349,21 +349,21 @@ public class VerLocales extends JDialog {
 
 		codigo = new JTextField();
 		codigo.setBackground(Color.WHITE);
-		codigo.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		codigo.setFont(new Font("Modern No. 20", Font.PLAIN, 21));
 		codigo.setBounds(295, 84, 242, 42);
 		panel.add(codigo);
 		codigo.setColumns(10);
 
 		tipoLoc = new JComboBox<TipoLocal>();
 		tipoLoc.setBackground(Color.WHITE);
-		tipoLoc.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		tipoLoc.setFont(new Font("Modern No. 20", Font.PLAIN, 21));
 		tipoLoc.setBounds(295, 154, 242, 42);
 		panel.add(tipoLoc);
 		tipoLoc.setModel(new DefaultComboBoxModel<>(TipoLocal.values()));
 
 		respons = new JComboBox<>();
 		respons.setBackground(Color.WHITE);
-		respons.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		respons.setFont(new Font("Modern No. 20", Font.PLAIN, 21));
 		respons.setBounds(295, 229, 242, 42);
 		panel.add(respons);
 		respons.setModel(new DefaultComboBoxModel<>(fac.obtenerResponsables().toArray(new Persona[0])));
@@ -419,7 +419,7 @@ public class VerLocales extends JDialog {
 			}
 		});
 		btneditar.setForeground(Color.BLACK);
-		btneditar.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btneditar.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 		btneditar.setBounds(155, 577, 113, 30);
 		btneditar.setBackground(Color.WHITE);
 		panel.add(btneditar);
@@ -438,7 +438,7 @@ public class VerLocales extends JDialog {
 				}
 			});
 		btnEliminar.setForeground(Color.BLACK);
-		btnEliminar.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnEliminar.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 		btnEliminar.setBounds(320, 577, 113, 30);
 		btnEliminar.setBackground(Color.WHITE);
 		btnEliminar.setIcon(null);
@@ -482,7 +482,7 @@ public class VerLocales extends JDialog {
 		btnGuardarCambios.setBounds(152, 576, 119, 30);
 		btnGuardarCambios.setBackground(Color.WHITE);
 		btnGuardarCambios.setFocusPainted(false);
-		btnGuardarCambios.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnGuardarCambios.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 		btnGuardarCambios.setVisible(false);
 		btnGuardarCambios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -530,7 +530,7 @@ public class VerLocales extends JDialog {
 		btnCancelar.setForeground(Color.BLACK);
 		btnCancelar.setBounds(317, 576, 119, 30);
 		btnCancelar.setBackground(Color.WHITE);
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnCancelar.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 		btnCancelar.setVisible(false);
 		panel.add(btnCancelar);
 		btnCancelar.addActionListener(new ActionListener() {
