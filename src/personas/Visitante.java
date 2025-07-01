@@ -69,6 +69,14 @@ public class Visitante extends Persona{
 		
     	return permitido;
 	}
+
+	@Override
+	public LocalTime getHoraSalida() {
+		// TODO Auto-generated method stub
+		return horaSalidaVis;
+	}
+
+	
     
     
 }

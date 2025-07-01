@@ -54,4 +54,12 @@ public class Tecnico extends Persona{
 	    	
 	    }
 
+	@Override
+	public LocalTime getHoraSalida() {
+		// TODO Auto-generated method stub
+		return horaSalidaTec;
+	}
+
+
+
 }

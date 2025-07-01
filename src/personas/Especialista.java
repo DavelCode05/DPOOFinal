@@ -16,7 +16,20 @@ public class Especialista extends Persona{
         
     }
 
-    public Especialista() {
+    public static LocalTime getHoraEntradaEsp() {
+		return horaEntradaEsp;
+	}
+
+	public static void setHoraEntradaEsp(LocalTime horaEntradaEsp) {
+		Especialista.horaEntradaEsp = horaEntradaEsp;
+	}
+
+
+	public static void setHoraSalidaEsp(LocalTime horaSalidaEsp) {
+		Especialista.horaSalidaEsp = horaSalidaEsp;
+	}
+
+	public Especialista() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -52,5 +65,11 @@ public class Especialista extends Persona{
     	return permitido;
     	
     }
+
+	@Override
+	public LocalTime getHoraSalida() {
+		// TODO Auto-generated method stub
+		return horaSalidaEsp;
+	}
 
 }

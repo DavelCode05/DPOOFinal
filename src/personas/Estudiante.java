@@ -9,7 +9,7 @@ public class Estudiante extends Persona{
 	private int anio;
 	private int grupo;
 	private static LocalTime horaEntradaEst = LocalTime.of(8,0);
-	private static LocalTime horaSalidaEst = LocalTime.of(17,0);
+	private static LocalTime horaSalidaEst = LocalTime.of(18,40);
 
 	public Estudiante(){
 
@@ -60,6 +60,13 @@ public class Estudiante extends Persona{
     	return permitido;
     	
     }
+
+	@Override
+	public LocalTime getHoraSalida() {
+		// TODO Auto-generated method stub
+		return horaSalidaEst;
+	}
+
 
 
 }

@@ -93,4 +93,12 @@ public class Profesor extends Persona{
 
 	}
 
+	@Override
+	public LocalTime getHoraSalida() {
+		// TODO Auto-generated method stub
+		return horaSalidaProf;
+	}
+
+
+
 }

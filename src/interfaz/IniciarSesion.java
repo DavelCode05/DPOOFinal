@@ -321,9 +321,11 @@ public class IniciarSesion extends JDialog {
 				else if(carnet.getForeground().equals(Color.RED) && !carnet.equals("Carnet de Identidad")){
 					carnet.setForeground(Color.BLACK);
 				}
-				//				nombreUser.setText("");
-				//				responsable.setText("");
-				//				textAreaMot.setText("");
+				nombreUser.setText("Nombre");
+				nombreUser.setForeground(Color.GRAY);
+				responsable.setText("Responsable");
+				responsable.setForeground(Color.GRAY);
+				textAreaMot.setText("");
 				lblDatosErroneos.setVisible(false);
 
 
@@ -560,8 +562,13 @@ public class IniciarSesion extends JDialog {
 
 			fac.agregarRegistro(aAcceder, local);
 			JOptionPane.showMessageDialog(null, "Usuario Registrado");
-
-
+			carnet.setText("Carnet de Identidad");
+			carnet.setForeground(Color.GRAY);
+			nombreUser.setText("Nombre");
+			nombreUser.setForeground(Color.GRAY);
+			responsable.setText("Responsable");
+			responsable.setForeground(Color.GRAY);
+			textAreaMot.setText("");
 		}
 	}
 

@@ -1,6 +1,7 @@
 package personas;
 
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -20,6 +21,7 @@ public abstract class Persona {
 	public Persona(){
 	
 	}
+	public abstract LocalTime getHoraSalida();
 	
 	public String getNombre() {
 		return nombre;

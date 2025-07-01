@@ -18,9 +18,7 @@ public class Administrativo extends Persona{
 		Administrativo.horaEntradaAdmin = horaEntradaAdmin;
 	}
 
-	public static LocalTime getHoraSalidaAdmin() {
-		return horaSalidaAdmin;
-	}
+	
 
 	public static void setHoraSalidaAdmin(LocalTime horaSalidaAdmin) {
 		Administrativo.horaSalidaAdmin = horaSalidaAdmin;
@@ -48,6 +46,12 @@ public class Administrativo extends Persona{
 	public boolean verificarAccesoAlLocal(Local l){
 				
 		return true;
+	}
+
+	@Override
+	public LocalTime getHoraSalida() {
+		// TODO Auto-generated method stub
+		return horaSalidaAdmin;
 	}
 
 }

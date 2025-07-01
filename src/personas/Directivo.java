@@ -37,6 +37,8 @@ public class Directivo extends Profesor{
 		return area;
 	}
 	
+	
+	
 	@Override 
 	public boolean verificarAccesoAlLocal(Local l){
 		return true;
