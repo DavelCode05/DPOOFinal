@@ -46,18 +46,8 @@ public class Administrativo extends Persona{
 	
 	@Override
 	public boolean verificarAccesoAlLocal(Local l){
-		boolean puede = false;
-		if(horaEntradaAdmin != null && horaSalidaAdmin != null){
-			LocalTime hora = LocalTime.now();
-			if(hora.isAfter(horaEntradaAdmin)&& hora.isBefore(horaSalidaAdmin))
-				puede = true;
-			else 
-				throw new IllegalArgumentException("Acceso Denegado: Fuera de horario");
-		}
-		else
-			puede = true;
-		
-		return puede;
+				
+		return true;
 	}
 
 }

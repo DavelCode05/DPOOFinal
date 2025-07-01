@@ -12,11 +12,14 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -36,13 +39,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import personas.Administrativo;
 import personas.Directivo;
@@ -64,6 +72,14 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.sun.glass.events.MouseEvent;
+
+
+
+
+
+
+
+
 
 //import util.ScrollMinimalista;
 import controllerClass.Facultad;
@@ -94,7 +110,7 @@ public class VerPersonal extends JDialog {
 	private JLabel lblCarnet;
 	private JTextFieldCarnet carnet;
 	private JButton btnagregar;
-
+private int fila;
 
 	private JComboBox<Plaza> plazaAdmin;
 	private Persona per;
@@ -157,9 +173,10 @@ public class VerPersonal extends JDialog {
 	public Document document;
 	public PdfPTable table;
 	private JButton btnNewButton;
+	private ArrayList <Persona> personas;
+	private JTextField filtrado;
 
 
-	//
 //		public static void main(String[] args) {
 //			try {
 //				VerPersonal dialog = new VerPersonal();
@@ -172,11 +189,13 @@ public class VerPersonal extends JDialog {
 //		}
 
 
-	public VerPersonal(JFrame p) {
+public VerPersonal(JFrame p) {
 		super(p,true);
-		setBounds(100, 100, 1234, 760);
+		setBounds(100, 100, 1392, 855);
+		
 
 		fac = Facultad.getFacultad();
+		personas = fac.getPersonal();
 		contentPanel = new JPanel(){
 			public void paintComponent(Graphics g){
 				Image img= Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/fondoDesenfocado.png"));
@@ -208,17 +227,17 @@ public class VerPersonal extends JDialog {
 		}
 
 		editando = false;
-		setUndecorated(true);
+//		setUndecorated(false);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		contentPanel.add(getBtnNewButton_1());
-		this.setUndecorated(true);
+//		contentPanel.add(getBtnNewButton_1());
+//		this.setUndecorated(true);
 		card = new CardLayout(0,0);
 
 
-		//		setLocationRelativeTo(null);
+		setLocationRelativeTo(null);
 
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -234,7 +253,7 @@ public class VerPersonal extends JDialog {
 //		scrollPane.setBackground(Color.WHITE);
 		scrollPane.getViewport().setBackground(Colores.getBlancuzo());
 		scrollPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-		scrollPane.setBounds(22, 103, 603, 631);
+		scrollPane.setBounds(88, 108, 603, 631);
 //		scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
 
 		contentPanel.add(scrollPane);
@@ -271,6 +290,8 @@ public class VerPersonal extends JDialog {
 		tablepers2.getTableHeader().setBackground(Color.white);
 		tablepers2.setBorder(null);
 		tablepers2.setVisible(false);
+		
+		
 
 		
 		tablepers.addMouseMotionListener(new MouseMotionListener() {
@@ -280,9 +301,10 @@ public class VerPersonal extends JDialog {
 
 					row = tablepers.rowAtPoint(arg0.getPoint());
 					if(row!=-1 ){
+						
 						tablepers.setRowSelectionInterval(row,row);
 						tablepers.setAutoscrolls(true);
-						panelVisible(fac.getPersonal().get(row));
+						panelVisible(personas.get(tablepers.convertRowIndexToModel(row)));
 					}
 
 					else{
@@ -306,7 +328,7 @@ public class VerPersonal extends JDialog {
 				if(indice>-1){
 					tablepers.setRowSelectionInterval(indice,indice);
 					tablepers.setAutoscrolls(true);
-					panelVisible(fac.getPersonal().get(indice));
+					panelVisible(personas.get(indice));
 
 				}
 
@@ -318,10 +340,10 @@ public class VerPersonal extends JDialog {
 			public void mouseClicked(java.awt.event.MouseEvent arg0) {
 
 				if(!editando){
-					panelVisible(fac.getPersonal().get(row));
+					panelVisible(personas.get(row));
 
 					tablemodel.setRowCount(0);
-					tablemodel.cargarInfo(fac.getPersonal());
+					tablemodel.cargarInfo(personas);
 				}
 			}
 
@@ -335,40 +357,36 @@ public class VerPersonal extends JDialog {
 
 
 
-		comboBox = new JComboBox();
-		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Estudiante", "Directivo", "Administrativo", "Especialista", "T\u00E9cnico", "Profesor"}));
-		//		comboBox.addItemListener(new ItemListener() {
-		//			public void itemStateChanged(ItemEvent e) {
-		//				if (e.getStateChange() == ItemEvent.SELECTED) {
-		//					String rolSeleccionado = (String) e.getItem();
-		//					ArrayList<Persona> todas = fac.getPersonal();
-		//					ArrayList<Persona> filtradas = new ArrayList<>();
-		//
-		//					if (rolSeleccionado.equals("Todos")) {
-		//						filtradas = todas;
-		//					} else {
-		//						for (Persona p : todas) {
-		//							if (p.getClass().getSimpleName().equals(rolSeleccionado)) {
-		//								filtradas.add(p);
-		//							}
-		//						}
-		//					}
-		//
-		//					tablemodel.cargarInfo(filtradas);
-		//				}
-		//			}
-		//		});
-		tablemodel.cargarInfo(fac.getPersonal());
-		tablemodel2.cargarInfo(fac.getPersonal());
-		comboBox.setBounds(428, 32, 197, 36);
-		comboBox.setOpaque(true);
-		contentPanel.add(comboBox);
+//		comboBox = new JComboBox();
+//		comboBox.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+//		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Estudiante", "Directivo", "Administrativo", "Especialista", "T\u00E9cnico", "Profesor"}));
+//				comboBox.addItemListener(new ItemListener() {
+//					public void itemStateChanged(ItemEvent e) {
+//						if (e.getStateChange() == ItemEvent.SELECTED) {
+//							String rolSeleccionado = (String) e.getItem();
+//		
+//							if (rolSeleccionado.equals("Todos")) {
+//								personas = fac.getPersonal();
+//							} else {
+//								personas = fac.filtrar(rolSeleccionado);
+//								
+//							}
+//		
+//							tablemodel.cargarInfo(personas);
+//						}
+//					}
+//				});
+//				
+//		tablemodel.cargarInfo(personas);
+//		tablemodel2.cargarInfo(personas);
+////		comboBox.setBounds(428, 33, 197, 36);
+////		comboBox.setOpaque(true);
+////		contentPanel.add(comboBox);
 
 		lblFiltrarPor = new JLabel("Mostrar:");
 		lblFiltrarPor.setForeground(Color.WHITE);
-		lblFiltrarPor.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		lblFiltrarPor.setBounds(329, 30, 87, 41);
+		lblFiltrarPor.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+		lblFiltrarPor.setBounds(329, 33, 87, 36);
 		contentPanel.add(lblFiltrarPor);
 
 
@@ -383,6 +401,44 @@ public class VerPersonal extends JDialog {
 		contentPanel.add(btnagregar);
 		btnagregar.setBackground(Color.WHITE);
 		btnagregar.setIcon(new ImageIcon(VerPersonal.class.getResource("/images/icons8-add-user-male-50.png")));
+		
+		
+		
+		filtrado = new JTextField();
+		filtrado.setBounds(703, 43, 133, 20);
+		contentPanel.add(filtrado);
+		final TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(tablepers.getModel());
+		tablepers.setRowSorter(rowSorter);
+		filtrado.getDocument().addDocumentListener(new DocumentListener() {
+			
+			private void filtrar(){
+				String texto = filtrado.getText();
+				if(texto.trim().length()==0){
+					rowSorter.setRowFilter(null);
+				}
+				else{
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
+				}
+			}
+			
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+			filtrar();
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				filtrar();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				filtrar();
+				
+			}
+		});
+		filtrado.setColumns(10);
 		btnagregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				editando = true;
@@ -507,7 +563,7 @@ public class VerPersonal extends JDialog {
 			public void valueChanged(ListSelectionEvent arg0) {
 				int indice = tablepers.getSelectedRow();
 				if(indice>-1){
-					panelVisible(fac.getPersonal().get(indice));
+					panelVisible(personas.get(indice));
 
 				}
 
@@ -612,10 +668,10 @@ public class VerPersonal extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				int confirm = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar a esta persona?", "Confirmar", JOptionPane.YES_NO_OPTION);
 				if (confirm == JOptionPane.YES_OPTION) {
-					if(!fac.verificarRegistrosActivos(null, fac.getPersonal().get(row))){
-					fac.getPersonal().remove(row);
+					if(!fac.verificarRegistrosActivos(null, personas.get(tablepers.convertRowIndexToModel(row)))){
+					fac.getPersonal().remove(tablepers.convertRowIndexToModel(row));
 					tablemodel.setRowCount(0);
-					tablemodel.cargarInfo(fac.getPersonal());
+					tablemodel.cargarInfo(personas);
 					JOptionPane.showMessageDialog(VerPersonal.this, "Usuario eliminado con éxito", "Eliminacion exitosa", JOptionPane.INFORMATION_MESSAGE);
 					}
 					else
@@ -627,7 +683,7 @@ public class VerPersonal extends JDialog {
 
 
 		tablemodel.cargarInfo(fac.getPersonal());
-		panelVisible(fac.getPersonal().get(0));
+		panelVisible(personas.get(0));
 
 	}
 
@@ -643,7 +699,7 @@ public class VerPersonal extends JDialog {
 	private JComboBox<String> getEleccionCrear() {
 		if (eleccionCrear == null) {
 			eleccionCrear = new JComboBox<String>();
-			eleccionCrear.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			eleccionCrear.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			eleccionCrear.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					panelVisible(null);	
@@ -651,7 +707,7 @@ public class VerPersonal extends JDialog {
 			});
 			eleccionCrear.setModel(new DefaultComboBoxModel<String>(new String[] {"Administrativo", "Directivo", "Profesor", "Especialista", "Estudiante", "Tecnico"}));
 
-			eleccionCrear.setBounds(99, 45, 176, 36);
+			eleccionCrear.setBounds(99, 46, 176, 36);
 			panel.add(eleccionCrear);
 			eleccionCrear.setVisible(false);
 
@@ -665,7 +721,7 @@ public class VerPersonal extends JDialog {
 		if (panel == null) {
 			panel = new JPanel();
 
-			panel.setBounds(626, 103, 585, 631);
+			panel.setBounds(692, 108, 585, 631);
 			panel.setLayout(null);
 			panel.setOpaque(true);
 
@@ -808,7 +864,7 @@ public class VerPersonal extends JDialog {
 			lblNombreYApellidos = new JLabel("Nombre:");
 			lblNombreYApellidos.setBounds(39, 102, 77, 30);
 			lblNombreYApellidos.setForeground(Color.BLACK);
-			lblNombreYApellidos.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+			lblNombreYApellidos.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 			lblNombreYApellidos.setBackground(Color.WHITE);
 		}
 		return lblNombreYApellidos;
@@ -817,7 +873,7 @@ public class VerPersonal extends JDialog {
 		if (nombre == null) {
 			nombre = new JTextFieldString();
 			nombre.setBounds(297, 99, 245, 36);
-			nombre.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			nombre.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			nombre.setColumns(10);
 			nombre.setBackground(Color.WHITE);
 		}
@@ -828,7 +884,7 @@ public class VerPersonal extends JDialog {
 			lblCarnet = new JLabel("Carnet de Identidad:");
 			lblCarnet.setBounds(39, 159, 195, 30);
 			lblCarnet.setForeground(Color.BLACK);
-			lblCarnet.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+			lblCarnet.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 		}
 		return lblCarnet;
 	}
@@ -836,7 +892,7 @@ public class VerPersonal extends JDialog {
 		if (carnet == null) {
 			carnet = new JTextFieldCarnet();
 			carnet.setBounds(297, 156, 245, 36);
-			carnet.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			carnet.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			carnet.setColumns(10);
 			carnet.setBackground(Color.WHITE);
 		}
@@ -850,7 +906,7 @@ public class VerPersonal extends JDialog {
 		if (lblPlazaAdmin == null) {
 			lblPlazaAdmin = new JLabel("Plaza:");
 			lblPlazaAdmin.setForeground(Color.BLACK);
-			lblPlazaAdmin.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+			lblPlazaAdmin.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 			lblPlazaAdmin.setBounds(0, 30, 88, 22);
 		}
 		return lblPlazaAdmin;
@@ -859,7 +915,7 @@ public class VerPersonal extends JDialog {
 		if (plazaAdmin == null) {
 			plazaAdmin = new JComboBox<Plaza>();
 			plazaAdmin.setBackground(Color.WHITE);
-			plazaAdmin.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			plazaAdmin.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			plazaAdmin.setBounds(258, 23, 245, 36);
 			plazaAdmin.setModel(new DefaultComboBoxModel<>(Plaza.values()));
 
@@ -874,7 +930,7 @@ public class VerPersonal extends JDialog {
 		if (lblDepartamento == null) {
 			lblDepartamento = new JLabel("Departamento:");
 			lblDepartamento.setForeground(Color.BLACK);
-			lblDepartamento.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+			lblDepartamento.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 			lblDepartamento.setBounds(0, 30, 195, 30);
 		}
 		return lblDepartamento;
@@ -883,7 +939,7 @@ public class VerPersonal extends JDialog {
 		if (DepaDirect == null) {
 			DepaDirect = new JTextFieldString();
 			DepaDirect.setBackground(Color.WHITE);
-			DepaDirect.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			DepaDirect.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			DepaDirect.setBounds(258, 27, 245, 36);
 			DepaDirect.setColumns(10);
 
@@ -894,7 +950,7 @@ public class VerPersonal extends JDialog {
 		if (lblCategoriaDocente == null) {
 			lblCategoriaDocente = new JLabel("Categoria Docente:");
 			lblCategoriaDocente.setForeground(Color.BLACK);
-			lblCategoriaDocente.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+			lblCategoriaDocente.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 			lblCategoriaDocente.setBounds(0, 144, 195, 30);
 		}
 		return lblCategoriaDocente;
@@ -903,7 +959,7 @@ public class VerPersonal extends JDialog {
 		if (lblCategoriaCientifica == null) {
 			lblCategoriaCientifica = new JLabel("Categoria Cient\u00EDfica:");
 			lblCategoriaCientifica.setForeground(Color.BLACK);
-			lblCategoriaCientifica.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+			lblCategoriaCientifica.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 			lblCategoriaCientifica.setBounds(0, 87, 195, 30);
 		}
 		return lblCategoriaCientifica;
@@ -912,7 +968,7 @@ public class VerPersonal extends JDialog {
 		if (lblTipoDeContrato == null) {
 			lblTipoDeContrato = new JLabel("Tipo de contrato:");
 			lblTipoDeContrato.setForeground(Color.BLACK);
-			lblTipoDeContrato.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+			lblTipoDeContrato.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 			lblTipoDeContrato.setBounds(0, 201, 195, 30);
 		}
 		return lblTipoDeContrato;
@@ -921,7 +977,7 @@ public class VerPersonal extends JDialog {
 		if (contratodirect == null) {
 			contratodirect = new JComboBox<TipoContrato>();
 			contratodirect.setBackground(Color.WHITE);
-			contratodirect.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			contratodirect.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			contratodirect.setBounds(258, 198, 245, 36);
 			contratodirect.setModel(new DefaultComboBoxModel<>(TipoContrato.values()));
 
@@ -975,7 +1031,7 @@ public class VerPersonal extends JDialog {
 		if (catDocDirec == null) {
 			catDocDirec = new JTextFieldString();
 			catDocDirec.setBackground(Color.WHITE);
-			catDocDirec.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			catDocDirec.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			catDocDirec.setBounds(258, 141, 245, 36);
 
 		}
@@ -985,7 +1041,7 @@ public class VerPersonal extends JDialog {
 		if (catCientdirec == null) {
 			catCientdirec = new JTextFieldString();
 			catCientdirec.setBackground(Color.WHITE);
-			catCientdirec.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			catCientdirec.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			catCientdirec.setBounds(258, 84, 245, 36);
 
 		}
@@ -998,7 +1054,7 @@ public class VerPersonal extends JDialog {
 		if (palazatec == null) {
 			palazatec = new JTextFieldString();
 			palazatec.setBackground(Color.WHITE);
-			palazatec.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			palazatec.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			palazatec.setBounds(258, 20, 245, 36);
 
 
@@ -1009,7 +1065,7 @@ public class VerPersonal extends JDialog {
 		if (lblPlaza_1 == null) {
 			lblPlaza_1 = new JLabel("Plaza:");
 			lblPlaza_1.setForeground(Color.BLACK);
-			lblPlaza_1.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+			lblPlaza_1.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 			lblPlaza_1.setBounds(0, 30, 56, 16);
 		}
 		return lblPlaza_1;
@@ -1021,7 +1077,7 @@ public class VerPersonal extends JDialog {
 			AnnoEst = new JComboBox<String>();
 			AnnoEst.setForeground(Color.BLACK);
 			AnnoEst.setBackground(Color.WHITE);
-			AnnoEst.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			AnnoEst.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			AnnoEst.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3", "4"}));
 			AnnoEst.setBounds(258, 27, 62, 36);
 
@@ -1032,7 +1088,7 @@ public class VerPersonal extends JDialog {
 		if (lblAo == null) {
 			lblAo = new JLabel("A\u00F1o:");
 			lblAo.setForeground(Color.BLACK);
-			lblAo.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+			lblAo.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 			lblAo.setBounds(0, 30, 77, 30);
 		}
 		return lblAo;
@@ -1041,7 +1097,7 @@ public class VerPersonal extends JDialog {
 		if (lblGrupo == null) {
 			lblGrupo = new JLabel("Grupo:");
 			lblGrupo.setForeground(Color.BLACK);
-			lblGrupo.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+			lblGrupo.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 			lblGrupo.setBounds(0, 87, 77, 30);
 		}
 		return lblGrupo;
@@ -1050,7 +1106,7 @@ public class VerPersonal extends JDialog {
 		if (grupoEst == null) {
 			grupoEst = new JTextFieldGrupo();
 			grupoEst.setBackground(Color.WHITE);
-			grupoEst.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			grupoEst.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			grupoEst.setBounds(258, 84, 62, 36);
 			grupoEst.setColumns(10);
 
@@ -1064,7 +1120,7 @@ public class VerPersonal extends JDialog {
 		if (TFproyectoEsp == null) {
 			TFproyectoEsp = new JTextFieldString();
 			TFproyectoEsp.setBackground(Color.WHITE);
-			TFproyectoEsp.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			TFproyectoEsp.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			TFproyectoEsp.setBounds(258, 27, 245, 36);
 
 
@@ -1075,7 +1131,7 @@ public class VerPersonal extends JDialog {
 		if (lblProyecto == null) {
 			lblProyecto = new JLabel("Proyecto:");
 			lblProyecto.setForeground(Color.BLACK);
-			lblProyecto.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+			lblProyecto.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 			lblProyecto.setBounds(0, 30, 195, 30);
 		}
 		return lblProyecto;
@@ -1087,7 +1143,7 @@ public class VerPersonal extends JDialog {
 		if (depap == null) {
 			depap = new JLabel("Departamento:");
 			depap.setForeground(Color.BLACK);
-			depap.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+			depap.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 			depap.setBounds(0, 30, 195, 30);
 		}
 		return depap;
@@ -1096,7 +1152,7 @@ public class VerPersonal extends JDialog {
 		if (DepaProfesor == null) {
 			DepaProfesor = new JTextFieldString();
 			DepaProfesor.setBackground(Color.WHITE);
-			DepaProfesor.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			DepaProfesor.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			DepaProfesor.setColumns(10);
 			DepaProfesor.setBounds(258, 27, 245, 36);
 
@@ -1107,7 +1163,7 @@ public class VerPersonal extends JDialog {
 		if (catDocP == null) {
 			catDocP = new JLabel("Categor\u00EDa Docente:");
 			catDocP.setForeground(Color.BLACK);
-			catDocP.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+			catDocP.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 			catDocP.setBounds(0, 144, 195, 30);
 		}
 		return catDocP;
@@ -1116,7 +1172,7 @@ public class VerPersonal extends JDialog {
 		if (catDocProfesor == null) {
 			catDocProfesor = new JTextFieldString();
 			catDocProfesor.setBackground(Color.WHITE);
-			catDocProfesor.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			catDocProfesor.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			catDocProfesor.setBounds(258, 141, 245, 36);
 
 		}
@@ -1126,7 +1182,7 @@ public class VerPersonal extends JDialog {
 		if (catCP == null) {
 			catCP = new JLabel("Categor\u00EDa Cient\u00EDfica:");
 			catCP.setForeground(Color.BLACK);
-			catCP.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+			catCP.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 			catCP.setBounds(0, 87, 195, 30);
 		}
 		return catCP;
@@ -1135,7 +1191,7 @@ public class VerPersonal extends JDialog {
 		if (catCientProfesor == null) {
 			catCientProfesor = new JTextFieldString();
 			catCientProfesor.setBackground(Color.WHITE);
-			catCientProfesor.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			catCientProfesor.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			catCientProfesor.setBounds(258, 84, 245, 36);
 
 		}
@@ -1145,7 +1201,7 @@ public class VerPersonal extends JDialog {
 		if (tipocontratop == null) {
 			tipocontratop = new JLabel("Tipo de contrato:");
 			tipocontratop.setForeground(Color.BLACK);
-			tipocontratop.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+			tipocontratop.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 			tipocontratop.setBounds(0, 201, 195, 30);
 		}
 		return tipocontratop;
@@ -1154,7 +1210,7 @@ public class VerPersonal extends JDialog {
 		if (contratoProfesor == null) {
 			contratoProfesor = new JComboBox<TipoContrato>();
 			contratoProfesor.setBackground(Color.WHITE);
-			contratoProfesor.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			contratoProfesor.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			contratoProfesor.setModel(new DefaultComboBoxModel<>(TipoContrato.values()));
 			contratoProfesor.setBounds(258, 198, 245, 36);
 
@@ -1165,48 +1221,48 @@ public class VerPersonal extends JDialog {
 	////////////////////////////////BOTON CERRAR  ////////////////////////////////////////////////////////////
 
 
-	private JButton getBtnNewButton_1() {
-		if (btnNewButton_1 == null) {
-			btnNewButton_1 = new JButton("");
-			UIManager.put("ToolTip.background", Color.WHITE);
-			UIManager.put("ToolTip.foreground", Color.BLACK);
-			UIManager.put("ToolTip.font", new Font("Segoe UI", Font.PLAIN, 16));
-
-			btnNewButton_1.setToolTipText("Cerrar");
-
-			btnNewButton_1.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseEntered(java.awt.event.MouseEvent arg0) {
-					btnNewButton_1.setBackground(new Color(220, 53, 69));
-					btnNewButton_1.setForeground(Color.WHITE);
-					btnNewButton_1.setText("");
-				}
-				@Override
-				public void mouseExited(java.awt.event.MouseEvent arg0) {
-					btnNewButton_1.setBackground(new Color(240, 240, 240));
-					btnNewButton_1.setForeground(Color.BLACK);
-					btnNewButton_1.setText("");
-				}
-			});
-			btnNewButton_1.setContentAreaFilled(false);
-			btnNewButton_1.setBounds(1187, 0, 47, 46);
-			btnNewButton_1.setOpaque(true);
-			btnNewButton_1.setBorder(null);
-			btnNewButton_1.setBackground(new Color(240, 240, 240));
-			btnNewButton_1.setForeground(Color.BLACK);
-			btnNewButton_1.setFocusPainted(false);
-			btnNewButton_1.setFont(new Font("Segoe UI", Font.PLAIN, 28));
-			btnNewButton_1.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
-
-			btnNewButton_1.setIcon(new ImageIcon(TablaReporte1.class.getResource("/images/close.png")));
-			btnNewButton_1.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					dispose();
-				}
-			});
-		}
-		return btnNewButton_1;
-	}
+//	private JButton getBtnNewButton_1() {
+//		if (btnNewButton_1 == null) {
+//			btnNewButton_1 = new JButton("");
+//			UIManager.put("ToolTip.background", Color.WHITE);
+//			UIManager.put("ToolTip.foreground", Color.BLACK);
+//			UIManager.put("ToolTip.font", new Font("Segoe UI", Font.PLAIN, 16));
+//
+//			btnNewButton_1.setToolTipText("Cerrar");
+//
+//			btnNewButton_1.addMouseListener(new MouseAdapter() {
+//				@Override
+//				public void mouseEntered(java.awt.event.MouseEvent arg0) {
+//					btnNewButton_1.setBackground(new Color(220, 53, 69));
+//					btnNewButton_1.setForeground(Color.WHITE);
+//					btnNewButton_1.setText("");
+//				}
+//				@Override
+//				public void mouseExited(java.awt.event.MouseEvent arg0) {
+//					btnNewButton_1.setBackground(new Color(240, 240, 240));
+//					btnNewButton_1.setForeground(Color.BLACK);
+//					btnNewButton_1.setText("");
+//				}
+//			});
+//			btnNewButton_1.setContentAreaFilled(false);
+//			btnNewButton_1.setBounds(1187, 0, 47, 46);
+//			btnNewButton_1.setOpaque(true);
+//			btnNewButton_1.setBorder(null);
+//			btnNewButton_1.setBackground(new Color(240, 240, 240));
+//			btnNewButton_1.setForeground(Color.BLACK);
+//			btnNewButton_1.setFocusPainted(false);
+//			btnNewButton_1.setFont(new Font("Segoe UI", Font.PLAIN, 28));
+//			btnNewButton_1.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+//
+//			btnNewButton_1.setIcon(new ImageIcon(TablaReporte1.class.getResource("/images/close.png")));
+//			btnNewButton_1.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent arg0) {
+//					dispose();
+//				}
+//			});
+//		}
+//		return btnNewButton_1;
+//	}
 
 	////////////////////////////////BOTON EDITAR  ////////////////////////////////////////////////////////////
 
@@ -1214,7 +1270,7 @@ public class VerPersonal extends JDialog {
 		if (btnEditar == null) {
 			btnEditar = new JButton("Editar");
 			btnEditar.setForeground(Color.BLACK);
-			btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 17));
+			btnEditar.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			btnEditar.setBounds(155, 577, 113, 30);
 			btnEditar.setBackground(Color.WHITE);
 
@@ -1286,7 +1342,7 @@ public class VerPersonal extends JDialog {
 		if (btnEliminar == null) {
 			btnEliminar = new JButton("Eliminar");
 			btnEliminar.setForeground(Color.BLACK);
-			btnEliminar.setFont(new Font("Tahoma", Font.PLAIN, 17));
+			btnEliminar.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			btnEliminar.setBounds(320, 577, 113, 30);
 			btnEliminar.setBackground(Color.WHITE);
 			btnEliminar.setIcon(null);
@@ -1296,10 +1352,10 @@ public class VerPersonal extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					int confirm = JOptionPane.showConfirmDialog(null, "¿Eliminar esta persona?", "Confirmar", JOptionPane.YES_NO_OPTION);
 					if (confirm == JOptionPane.YES_OPTION) {
-						if(!fac.verificarRegistrosActivos(null, fac.getPersonal().get(row))){
-							fac.getPersonal().remove(row);
+						if(!fac.verificarRegistrosActivos(null, fac.getPersonal().get(tablepers.convertRowIndexToModel(row)))){
+							fac.getPersonal().remove(tablepers.convertRowIndexToModel(row));
 							tablemodel.setRowCount(0);
-							tablemodel.cargarInfo(fac.getPersonal());
+							tablemodel.cargarInfo(personas);
 							JOptionPane.showMessageDialog(VerPersonal.this, "Usuario eliminado con éxito", "Eliminacion exitosa", JOptionPane.INFORMATION_MESSAGE);
 
 						}
@@ -1327,9 +1383,9 @@ public class VerPersonal extends JDialog {
 			lblCargo = new JLabel("Cargo:");
 			lblCargo.setVisible(false);
 			lblCargo.setForeground(Color.BLACK);
-			lblCargo.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+			lblCargo.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
 			lblCargo.setBackground(Color.WHITE);
-			lblCargo.setBounds(39, 50, 51, 30);
+			lblCargo.setBounds(39, 50, 88, 30);
 		}
 		return lblCargo;
 
@@ -1346,7 +1402,7 @@ public class VerPersonal extends JDialog {
 			btnGuardarCambios.setBounds(152, 576, 119, 30);
 			btnGuardarCambios.setBackground(Color.WHITE);
 			btnGuardarCambios.setFocusPainted(false);
-			btnGuardarCambios.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			btnGuardarCambios.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			btnGuardarCambios.setVisible(false);
 
 
@@ -1356,7 +1412,8 @@ public class VerPersonal extends JDialog {
 					boolean listo = false;
 
 					if(!eleccionCrear.isVisible())
-						listo = crearPersona(fac.getPersonal().get(row));
+						listo = crearPersona(personas.get(tablepers.convertRowIndexToModel(row)));
+					
 					else
 						listo = crearPersona(null);
 
@@ -1394,7 +1451,7 @@ public class VerPersonal extends JDialog {
 						btnEditar.setVisible(true);
 
 						tablemodel.setRowCount(0);
-						tablemodel.cargarInfo(fac.getPersonal());
+						tablemodel.cargarInfo(personas);
 						mostrarMensajePerzonalizado("Edición exitosa", "Información editada con éxito");
 //						JOptionPane.showMessageDialog(VerPersonal.this, "Información editada con éxito", "Edición exitosa", JOptionPane.INFORMATION_MESSAGE);
 
@@ -1428,7 +1485,7 @@ public class VerPersonal extends JDialog {
 			btnCancelar.setForeground(Color.BLACK);
 			btnCancelar.setBounds(317, 576, 119, 30);
 			btnCancelar.setBackground(Color.WHITE);
-			btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			btnCancelar.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
 			btnCancelar.setVisible(false);
 
 			btnCancelar.addActionListener(new ActionListener() {
@@ -1527,7 +1584,8 @@ public class VerPersonal extends JDialog {
 			hecho = crearTecnico();
 		}
 		else if(per instanceof Profesor || per == null && eleccionCrear.getSelectedItem().equals("Profesor")){
-			hecho = crearProfesor();}
+			hecho = crearProfesor();
+			}
 
 		return hecho;
 	}
@@ -1540,10 +1598,14 @@ public class VerPersonal extends JDialog {
 		String anno = AnnoEst.getSelectedItem().toString();
 		String grup= grupoEst.getText();
 		Estudiante est = new Estudiante();
-		boolean bien = false;;
+		boolean bien = false;
 		Persona existente =  fac.buscarPersonaCi(carn);
-		Persona editar = fac.getPersonal().get(row);
+		Persona editar = personas.get(tablepers.convertRowIndexToModel(row));
 
+		System.out.println(existente.getNumeroIdentidad());
+		System.out.println(carn);
+		System.out.println(editar.getNumeroIdentidad());
+		
 		if(verificarExistenciNombreyCarnet(carn, existente,est, nom)){
 			bien= true;
 		}else{
@@ -1653,7 +1715,7 @@ public class VerPersonal extends JDialog {
 
 		boolean bien = false;;
 		Persona existente =  fac.buscarPersonaCi(carn);
-		Persona editar = fac.getPersonal().get(row);
+		Persona editar = personas.get(tablepers.convertRowIndexToModel(row));
 
 
 		if(verificarExistenciNombreyCarnet(carn, existente,est, nom)){
@@ -1699,7 +1761,7 @@ public class VerPersonal extends JDialog {
 
 		boolean bien = false;;
 		Persona existente =  fac.buscarPersonaCi(carn);
-		Persona editar = fac.getPersonal().get(row);
+		Persona editar = personas.get(tablepers.convertRowIndexToModel(row));
 		Plaza plaza = (Plaza) plazaAdmin.getSelectedItem();
 
 
@@ -1740,7 +1802,7 @@ public class VerPersonal extends JDialog {
 		String nom = nombre.getText();
 		String carn = carnet.getText();
 		Tecnico est = new Tecnico();
-		Persona editar = fac.getPersonal().get(row);
+		Persona editar = personas.get(tablepers.convertRowIndexToModel(row));
 		boolean bien = false;;
 		Persona existente =  fac.buscarPersonaCi(carn);
 		String plaza = palazatec.getText();
@@ -1784,7 +1846,7 @@ public class VerPersonal extends JDialog {
 		String carn = carnet.getText();
 		Profesor est = new Profesor();
 		boolean bien = false;;
-		Persona editar = fac.getPersonal().get(row);
+		Persona editar = personas.get(tablepers.convertRowIndexToModel(row));
 		Persona existente =  fac.buscarPersonaCi(carn);
 		String depa = DepaProfesor.getText();
 		String catD = catDocProfesor.getText();
@@ -1882,7 +1944,7 @@ public class VerPersonal extends JDialog {
 		String carn = carnet.getText();
 		Directivo est = new Directivo();
 		boolean bien = false;
-		Persona editar = fac.getPersonal().get(row);
+		Persona editar = personas.get(tablepers.convertRowIndexToModel(row));
 		Persona existente =  fac.buscarPersonaCi(carn);
 		String depa = DepaDirect.getText();
 		String catD = catCientdirec.getText();
@@ -2002,19 +2064,22 @@ public class VerPersonal extends JDialog {
 		if(eleccionCrear.isVisible() && existente!= null){
 			bien = false;
 			errores.setText("La persona ya existe");
+			System.out.println("error if 1");
 			lblCarnet.setForeground(Color.RED);
 			errores.setVisible(true);
 		}
-		else if(!eleccionCrear.isVisible() && existente!= null && !fac.getPersonal().get(row).getNumeroIdentidad().equals(carn)){
+		else if(!eleccionCrear.isVisible() && existente!= null && !personas.get(tablepers.convertRowIndexToModel(row)).getNumeroIdentidad().equals(carn)){
 			bien = false;
 			errores.setText("Existe un usuario registrado con ese carnet");
 			errores.setVisible(true);
+			System.out.println("error if 2");
 			lblCarnet.setForeground(Color.RED);
 		}
 		else
 		{
 			lblCarnet.setForeground(Color.BLACK);
 			try{
+				System.out.println("error try");
 				est.setNumeroIdentidad(carn);
 				errores.setVisible(false);
 				lblCarnet.setForeground(Color.BLACK);
@@ -2121,7 +2186,7 @@ public class VerPersonal extends JDialog {
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("Generar PDF");
-			btnNewButton.setFont(new Font("Modern No. 20", Font.BOLD, 21));
+			btnNewButton.setFont(new Font("Modern No. 20", Font.BOLD, 20));
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					JFileChooser fileChooser = new JFileChooser();
@@ -2183,6 +2248,24 @@ public class VerPersonal extends JDialog {
 			return new Dimension(300, 100);
 		}
 	}
+	
+//	public void filtrar (String texto){
+////		ArrayList<Persona> per = new ArrayList<Persona>();
+////		for(Persona p : personas){
+////			if(p.getNombre().toLowerCase().contains(texto)){
+////				per.add(p);
+////			}
+////		}
+////		tablemodel.setRowCount(0);
+////		tablemodel.cargarInfo(per);	
+//		
+//		
+//		if(texto.trim().length()==0){
+//			rowSorter.setRowFilter
+//		}
+//		
+//	}
+	
 }
 
 

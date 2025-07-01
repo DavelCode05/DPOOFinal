@@ -15,6 +15,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import controllerClass.Facultad;
@@ -30,7 +31,6 @@ public class Inicio extends JFrame {
 	private JMenuItem mntmCerrar;
 	private JMenuItem mntmSalir;
 	private JMenuItem mntmNewMenuItem;
-	private JMenuItem mntmInformacinDeLos;
 	private JMenu mnVer;
 	private JMenuItem mntmPersonal;
 	private JMenuItem mntmReporte;
@@ -43,51 +43,51 @@ public class Inicio extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-		public static void main(String[] args) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-	//					Inicializadora.iniciar();
-						System.out.println(1111);
-						Inicio frame = new Inicio();
-						frame.setVisible(true);
-						frame.setLocationRelativeTo(null);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
-		}
+//		public static void main(String[] args) {
+//			EventQueue.invokeLater(new Runnable() {
+//				public void run() {
+//					try {
+//	//					Inicializadora.iniciar();
+//						System.out.println(1111);
+//						Inicio frame = new Inicio();
+//						frame.setVisible(true);
+//						frame.setLocationRelativeTo(null);
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
+//				}
+//			});
+//		}
 
 	/**
 	 * Create the frame.
 	 */
 	public Inicio() {
 		
-//		try{
-//			boolean found = false;
-//			for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
-//				if("Nimbus".equals(info.getName()) && !found){
-//					UIManager.setLookAndFeel(info.getClassName());
-//					found = true;
-//				}
-//			}
-//			if(!found){
-//				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//			}
-//		} catch(Exception e){
-//			try{
-//				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//			}catch(Exception ex){
-//				ex.printStackTrace();
-//			}
-//		}
+		try{
+			boolean found = false;
+			for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
+				if("Nimbus".equals(info.getName()) && !found){
+					UIManager.setLookAndFeel(info.getClassName());
+					found = true;
+				}
+			}
+			if(!found){
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}
+		} catch(Exception e){
+			try{
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+		}
 		
 		setBackground(Colores.getAzulCielo());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel(){
 			public void paintComponent(Graphics g){
-				Image img = java.awt.Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/fondo.png"));
+				Image img = java.awt.Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/NuevoFondo.png"));
 				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 			}
 		};
@@ -160,6 +160,7 @@ public class Inicio extends JFrame {
 
 			JMenuItem mntmNewMenuItem_1 = new JMenuItem("Informe de Acceso a la Facultad");
 			mntmNewMenuItem_1.setBackground(Color.WHITE);
+			
 			mntmNewMenuItem_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					EleccionReporte3 rep3 = new EleccionReporte3(Inicio.this);
@@ -167,7 +168,7 @@ public class Inicio extends JFrame {
 				}
 			});
 			mntmNewMenuItem_1.setFont(new Font("Modern No. 20", Font.BOLD, 25));
-			mntmNewMenuItem_1.setForeground(Color.BLACK);
+//			mntmNewMenuItem_1.setForeground(new Color(0, 0, 0));
 			mnReportes.add(mntmNewMenuItem_1);
 
 			
@@ -195,10 +196,20 @@ public class Inicio extends JFrame {
 	private JMenu getMnInformacionAdicional() {
 		if (mnInformacionAdicional == null) {
 			mnInformacionAdicional = new JMenu("Acerca de");
+			mnInformacionAdicional.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					try {
+						AcercaDe dialog = new AcercaDe(Inicio.this);
+						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialog.setVisible(true);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			});
 			mnInformacionAdicional.setIcon(new ImageIcon(Inicio.class.getResource("/images/about.png")));
 			mnInformacionAdicional.setForeground(Colores.getNegro());
 			mnInformacionAdicional.setFont(new Font("Modern No. 20", Font.PLAIN, 33));
-			mnInformacionAdicional.add(getMntmInformacinDeLos());
 			mnInformacionAdicional.add(getMntmNewMenuItem());
 		}
 		return mnInformacionAdicional;
@@ -207,7 +218,7 @@ public class Inicio extends JFrame {
 		if (mntmCerrar == null) {
 			mntmCerrar = new JMenuItem("Cerrar Sesi\u00F3n");
 			mntmCerrar.setBackground(Color.WHITE);
-			mntmCerrar.setForeground(Color.BLACK);
+//			mntmCerrar.setForeground(Color.BLACK);
 			mntmCerrar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					dispose();
@@ -223,7 +234,7 @@ public class Inicio extends JFrame {
 		if (mntmSalir == null) {
 			mntmSalir = new JMenuItem("Salir");
 			mntmSalir.setBackground(Color.WHITE);
-			mntmSalir.setForeground(Color.BLACK);
+//			mntmSalir.setForeground(Color.BLACK);
 			mntmSalir.setFont(new Font("Modern No. 20", Font.BOLD, 25));
 			mntmSalir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -252,14 +263,6 @@ public class Inicio extends JFrame {
 			});
 		}
 		return mntmNewMenuItem;
-	}
-	private JMenuItem getMntmInformacinDeLos() {
-		if (mntmInformacinDeLos == null) {
-			mntmInformacinDeLos = new JMenuItem("Informaci\u00F3n de los desarrolladores");
-			mntmInformacinDeLos.setBackground(Color.WHITE);
-			mntmInformacinDeLos.setFont(new Font("Modern No. 20", Font.BOLD, 25));
-		}
-		return mntmInformacinDeLos;
 	}
 	private JMenu getMnVer() {
 		if (mnVer == null) {
@@ -296,7 +299,7 @@ public class Inicio extends JFrame {
 		if (mntmReporte == null) {
 			mntmReporte = new JMenuItem("Chequeo de Registros Personal");
 			mntmReporte.setBackground(Color.WHITE);
-			mntmReporte.setForeground(Color.BLACK);
+//			mntmReporte.setForeground(Color.BLACK);
 			mntmReporte.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					TablaReporte1 tabla = new TablaReporte1(Inicio.this);

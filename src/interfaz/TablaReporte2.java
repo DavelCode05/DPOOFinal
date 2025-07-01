@@ -34,10 +34,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import locales.Local;
 import util.TablaRegistrosReporte2;
@@ -53,7 +58,9 @@ import com.toedter.calendar.JDateChooser;
 
 import controllerClass.Facultad;
 import enums.TipoLocal;
-//import util.ScrollMinimalista;
+
+import javax.swing.JTextField;
+
 
 public class TablaReporte2 extends JDialog {
 
@@ -76,6 +83,7 @@ public class TablaReporte2 extends JDialog {
 	private JLabel lblNewLabel_3;
 	JComboBox<Local> comboBox;
 	private JButton btnNewButton;
+	private JTextField filtrado;
 
 	/**
 	 * Launch the application.
@@ -99,7 +107,7 @@ public class TablaReporte2 extends JDialog {
 	super(padre, "Reporte 2", true);
 		setTitle("Chequeo de Registros Locales");
 		fac = Facultad.getFacultad();
-		setBounds(100, 100, 1086, 760);
+		setBounds(100, 100, 1086, 795);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -129,7 +137,7 @@ public class TablaReporte2 extends JDialog {
 		
 		comboBox = new JComboBox<>();
 		comboBox.setToolTipText("");
-		comboBox.setFont(new Font("Modern No. 20", Font.PLAIN, 21));
+		comboBox.setFont(new Font("Tahoma", Font.BOLD, 21));
 		
 		contentPanel.add(getLblNewLabel());
 		contentPanel.add(getScrollPane());
@@ -148,19 +156,20 @@ public class TablaReporte2 extends JDialog {
 			}
 		});
 
-		comboBox.setBounds(33, 113, 209, 53);
+		comboBox.setBounds(33, 113, 241, 53);
 		contentPanel.add(comboBox);
 		comboBox.setModel(new DefaultComboBoxModel<>(fac.getLocales().toArray(new Local[0])));
 		contentPanel.add(getBtnNewButton());
+		contentPanel.add(getFiltrado());
 
 		entradaLocal();
 
 	}
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("Local");
+			lblNewLabel = new JLabel("Local:");
 			lblNewLabel.setForeground(Color.WHITE);
-			lblNewLabel.setFont(new Font("Modern No. 20", Font.BOLD, 25));
+			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
 			lblNewLabel.setBounds(33, 84, 260, 26);
 		}
 		return lblNewLabel;
@@ -175,11 +184,11 @@ public class TablaReporte2 extends JDialog {
 			};
 			scrollPane.setEnabled(false);
 //			scrollPane.setBackground(Colores.getAzulCielo());
-			scrollPane.setBounds(33, 202, 1018, 525);
+			scrollPane.setBounds(33, 246, 1018, 525);
 			scrollPane.setViewportView(getTable());
 			
-			scrollPane.setBackground(Color.WHITE);
-			scrollPane.getViewport().setBackground(Colores.getBlancuzo());
+//			scrollPane.setBackground(Color.WHITE);
+//			scrollPane.getViewport().setBackground(Colores.getBlancuzo());
 			scrollPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 			//scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
 		}
@@ -242,7 +251,7 @@ public class TablaReporte2 extends JDialog {
 			lblNewLabel_1.setBackground(Color.WHITE);
 			lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 19));
 			lblNewLabel_1.setForeground(new Color(255, 0, 51));
-			lblNewLabel_1.setBounds(33, 136, 352, 48);
+			lblNewLabel_1.setBounds(33, 185, 352, 48);
 			lblNewLabel_1.setVisible(false);;
 		}
 		return lblNewLabel_1;
@@ -334,19 +343,19 @@ public class TablaReporte2 extends JDialog {
 	}
 	private JLabel getLblNewLabel_2() {
 		if (lblNewLabel_2 == null) {
-			lblNewLabel_2 = new JLabel("Desde");
+			lblNewLabel_2 = new JLabel("Desde:");
 			lblNewLabel_2.setForeground(Color.WHITE);
-			lblNewLabel_2.setFont(new Font("Modern No. 20", Font.BOLD, 25));
-			lblNewLabel_2.setBounds(413, 89, 74, 16);
+			lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 25));
+			lblNewLabel_2.setBounds(413, 84, 132, 26);
 		}
 		return lblNewLabel_2;
 	}
 	private JLabel getLblNewLabel_3() {
 		if (lblNewLabel_3 == null) {
-			lblNewLabel_3 = new JLabel("Hasta");
+			lblNewLabel_3 = new JLabel("Hasta:");
 			lblNewLabel_3.setForeground(Color.WHITE);
-			lblNewLabel_3.setFont(new Font("Modern No. 20", Font.BOLD, 25));
-			lblNewLabel_3.setBounds(682, 89, 74, 16);
+			lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 25));
+			lblNewLabel_3.setBounds(682, 84, 132, 26);
 		}
 		return lblNewLabel_3;
 	}
@@ -429,7 +438,7 @@ public class TablaReporte2 extends JDialog {
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("Generar PDF");
-			btnNewButton.setFont(new Font("Modern No. 20", Font.BOLD, 21));
+			btnNewButton.setFont(new Font("SansSerif", Font.BOLD, 21));
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					JFileChooser fileChooser = new JFileChooser();
@@ -471,5 +480,46 @@ public class TablaReporte2 extends JDialog {
 			btnNewButton.setBounds(33, 31, 166, 36);
 		}
 		return btnNewButton;
+	}
+	private JTextField getFiltrado() {
+		if (filtrado == null) {
+			filtrado = new JTextField();
+			filtrado.setBounds(891, 133, 86, 20);
+			filtrado.setColumns(10);
+			
+			final TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(table.getModel());
+			table.setRowSorter(rowSorter);
+			filtrado.getDocument().addDocumentListener(new DocumentListener() {
+				
+				private void filtrar(){
+					String texto = filtrado.getText();
+					if(texto.trim().length()==0){
+						rowSorter.setRowFilter(null);
+					}
+					else{
+						rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
+					}
+				}
+				
+				@Override
+				public void removeUpdate(DocumentEvent arg0) {
+					filtrar();
+					
+				}
+				
+				@Override
+				public void insertUpdate(DocumentEvent arg0) {
+					filtrar();
+					
+				}
+				
+				@Override
+				public void changedUpdate(DocumentEvent arg0) {
+					filtrar();
+					
+				}
+			});
+		}
+		return filtrado;
 	}
 }

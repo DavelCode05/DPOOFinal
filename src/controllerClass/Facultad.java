@@ -41,9 +41,7 @@ public class Facultad {
 		this.locales = new ArrayList <Local>(); 
 		this.personal = new ArrayList <Persona>();
 		this.registros = new ArrayList <Registro>();
-
-
-		
+	
 
 	}
 
@@ -79,6 +77,7 @@ public class Facultad {
 		if (found == null){
 			throw new IllegalArgumentException("No encontrado: Registrese como visitante");
 		}
+		
 		return found;
 
 	}
@@ -191,16 +190,12 @@ public class Facultad {
 
 	//Reporte 3 
 	public int[] entradaALaFAcuPorHoras(LocalDate dia, Local l ){
-		int[] entrada= new int[12]; //ahora son las 19 y no entra
+		int[] entrada= new int[16]; 
 
 		for(Registro r: registros){
 			int hora = r.getHoraEntrada().getHour();
 			int indice = hora - 8;
-			if (indice >= 0 && indice < entrada.length) {
-			    entrada[indice]++;
-			} else {
-			    System.out.println("Hora fuera del rango esperado: " + hora);
-			}
+
 			if(l.getTipo().name().equals(r.getLocal().getTipo().name())){
 				if(dia.compareTo(r.getFecha())==0){
 					hora = r.getHoraEntrada().getHour();
@@ -250,7 +245,6 @@ public class Facultad {
 	public VisitantesAutorizadosPorX personasAutorizada(Persona pp ){
 		VisitantesAutorizadosPorX aux = new VisitantesAutorizadosPorX(pp);
 
-
 		for(Registro r : registros){
 			if(r.getPersona() instanceof Visitante ){
 				Persona p = r .getPersona();
@@ -262,6 +256,15 @@ public class Facultad {
 			}
 		}
 		return aux;
+	}
+	
+	public ArrayList<Persona> filtrar(String tipo){
+		ArrayList<Persona> per = new ArrayList<Persona>();
+		for(Persona p : personal){
+			if(p.getClass().getSimpleName().equals(tipo))
+				per.add(p);		
+		}
+		return per;
 	}
 
 

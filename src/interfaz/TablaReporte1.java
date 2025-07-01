@@ -29,9 +29,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import personas.Persona;
 //import util.ScrollMinimalista;
@@ -40,6 +45,8 @@ import util.TablaRegistrosReporte1;
 import com.toedter.calendar.JDateChooser;
 
 import controllerClass.Facultad;
+
+import javax.swing.JTextField;
 
 public class TablaReporte1 extends JDialog {
 
@@ -60,7 +67,8 @@ public class TablaReporte1 extends JDialog {
 	private JDateChooser datefinal;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
-	JComboBox<Persona> comboBox;
+	private JComboBox<Persona> comboBox;
+	private JTextField filtrado;
 
 //	/**
 //	 * Launch the application.
@@ -82,7 +90,7 @@ public class TablaReporte1 extends JDialog {
 
 
 	public TablaReporte1(JFrame padre) {
-				super(padre, "Reporte 1", true);
+		super(padre, "Reporte 1", true);
 		setTitle("Chequeo de Registros Personal");
 
 		fac = Facultad.getFacultad();
@@ -93,6 +101,8 @@ public class TablaReporte1 extends JDialog {
 		contentPanel.setBorder(new LineBorder(Colores.getAzulOScuro()));
 		this.setUndecorated(true);
 		setLocationRelativeTo(null);
+		
+		
 		try{
 			boolean found = false;
 			for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
@@ -111,14 +121,15 @@ public class TablaReporte1 extends JDialog {
 				ex.printStackTrace();
 			}
 		}
+
 		
 		comboBox = new JComboBox<>();
 		comboBox.setToolTipText("");
 		comboBox.setSelectedItem(fac.getPersonal().get(0));
-		comboBox.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+		comboBox.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
 
-		comboBox.setBounds(33, 75, 247, 53);
+		comboBox.setBounds(33, 75, 275, 53);
 		
 		comboBox.setModel(new DefaultComboBoxModel<>(fac.getPersonal().toArray(new Persona[0])));
 		
@@ -132,6 +143,46 @@ public class TablaReporte1 extends JDialog {
 		contentPanel.add(getDateinicio());	
 		contentPanel.add(getLblNewLabel_2());
 		contentPanel.add(getLblNewLabel_3());
+		
+		filtrado = new JTextField();
+		filtrado.setBounds(894, 94, 86, 20);
+		contentPanel.add(filtrado);
+		filtrado.setColumns(10);
+		
+		final TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(table.getModel());
+		table.setRowSorter(rowSorter);
+		filtrado.getDocument().addDocumentListener(new DocumentListener() {
+			
+			private void filtrar(){
+				String texto = filtrado.getText();
+				if(texto.trim().length()==0){
+					rowSorter.setRowFilter(null);
+				}
+				else{
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
+				}
+			}
+			
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				filtrar();
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				filtrar();
+				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				filtrar();
+				
+			}
+		});
+			
+			
 	
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -148,8 +199,8 @@ public class TablaReporte1 extends JDialog {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("Nombre y apellidos:");
 			lblNewLabel.setForeground(Color.WHITE);
-			lblNewLabel.setFont(new Font("Modern No. 20", Font.BOLD, 25));
-			lblNewLabel.setBounds(33, 46, 260, 26);
+			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
+			lblNewLabel.setBounds(33, 46, 261, 26);
 		}
 		return lblNewLabel;
 	}
@@ -167,7 +218,7 @@ public class TablaReporte1 extends JDialog {
 			scrollPane.setViewportView(getTable());
 			
 			scrollPane.setBackground(Color.WHITE);
-			scrollPane.getViewport().setBackground(Colores.getBlancuzo());
+//			scrollPane.getViewport().setBackground(Colores.getBlancuzo());
 			scrollPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 		//	scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
 		}
@@ -183,7 +234,7 @@ public class TablaReporte1 extends JDialog {
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		table.setRowHeight(29);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.getTableHeader().setFont(new Font("Modern No. 20", Font.BOLD, 19));
+		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 18));
 //		table.setForeground(Color.BLACK);
 //		table.setBackground(Colores.getBlancuzo());
 //		table.setGridColor(Color.lightGray);
@@ -326,8 +377,8 @@ public class TablaReporte1 extends JDialog {
 		if (lblNewLabel_2 == null) {
 			lblNewLabel_2 = new JLabel("Desde");
 			lblNewLabel_2.setForeground(Color.WHITE);
-			lblNewLabel_2.setFont(new Font("Modern No. 20", Font.BOLD, 25));
-			lblNewLabel_2.setBounds(413, 51, 74, 16);
+			lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 25));
+			lblNewLabel_2.setBounds(413, 46, 350, 26);
 		}
 		return lblNewLabel_2;
 	}
@@ -335,8 +386,8 @@ public class TablaReporte1 extends JDialog {
 		if (lblNewLabel_3 == null) {
 			lblNewLabel_3 = new JLabel("Hasta");
 			lblNewLabel_3.setForeground(Color.WHITE);
-			lblNewLabel_3.setFont(new Font("Modern No. 20", Font.BOLD, 25));
-			lblNewLabel_3.setBounds(652, 51, 74, 16);
+			lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 25));
+			lblNewLabel_3.setBounds(652, 46, 111, 26);
 		}
 		return lblNewLabel_3;
 	}

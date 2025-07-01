@@ -58,14 +58,10 @@ public class EleccionReporte3 extends JDialog {
 	Facultad fac;
 	JDateChooser dateChooser;
 	JComboBox<String> comboBox;
-	JRadioButton rdbtnDa;
 	JRadioButton rdbtnTabla;
-	JRadioButton rdbtnMes;
-	JRadioButton rdbtnSemana;
 	JLabel lblFormaDeVisualizacin;
 	JPanel panelTabla;
 	CardLayout card;
-	JLabel lblFormato;
 	JLabel lblSeleccionarFecha;
 	JPanel panelGrafico2;
 	/**
@@ -105,7 +101,7 @@ public class EleccionReporte3 extends JDialog {
 
 		fac = Facultad.getFacultad();
 
-		setBounds(100, 100, 1086, 566);
+		setBounds(100, 100, 1086, 721);
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setBorder(new LineBorder(Colores.getAzulOScuro()));
 		this.setUndecorated(true);
@@ -144,6 +140,7 @@ public class EleccionReporte3 extends JDialog {
 		comboBoxLocal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				representarReportePorDia();
+				
 			}
 		});
 		comboBoxLocal.setBackground(new Color(255, 255, 255));
@@ -162,7 +159,7 @@ public class EleccionReporte3 extends JDialog {
 		lblFormaDeVisualizacin = new JLabel("Forma de visualizaci\u00F3n:");
 		lblFormaDeVisualizacin.setForeground(Color.WHITE);
 		lblFormaDeVisualizacin.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblFormaDeVisualizacin.setBounds(18, 339, 246, 27);
+		lblFormaDeVisualizacin.setBounds(18, 286, 246, 27);
 		contentPanel.add(lblFormaDeVisualizacin);
 
 		rdbtnTabla = new JRadioButton("Tabla");
@@ -187,7 +184,7 @@ public class EleccionReporte3 extends JDialog {
 		//				}
 		//			}
 		//		});
-		rdbtnTabla.setBounds(18, 387, 109, 36);
+		rdbtnTabla.setBounds(18, 334, 109, 36);
 		contentPanel.add(rdbtnTabla);
 
 		dateChooser = new JDateChooser("dd/MM/yyyy", "##/##/####",'_');
@@ -204,13 +201,13 @@ public class EleccionReporte3 extends JDialog {
 		
 
 		//		dateChooser.setDate(LocalDate.now().toInstant().);
-		dateChooser.setBounds(205, 267, 157, 36);
+		dateChooser.setBounds(205, 214, 157, 36);
 		contentPanel.add(dateChooser);
 
 		lblSeleccionarFecha = new JLabel("Seleccionar fecha:");
 		lblSeleccionarFecha.setForeground(Color.WHITE);
 		lblSeleccionarFecha.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblSeleccionarFecha.setBounds(18, 272, 246, 27);
+		lblSeleccionarFecha.setBounds(18, 219, 183, 27);
 		contentPanel.add(lblSeleccionarFecha);
 
 		rdbtnGraficoDeBarras = new JRadioButton("Gr\u00E1fico de barras");
@@ -224,7 +221,7 @@ public class EleccionReporte3 extends JDialog {
 		rdbtnGraficoDeBarras.setBackground(Colores.getBlancuzo());
 
 
-		rdbtnGraficoDeBarras.setBounds(156, 387, 211, 36);
+		rdbtnGraficoDeBarras.setBounds(156, 334, 211, 36);
 		contentPanel.add(rdbtnGraficoDeBarras);
 		buttonGroupFormas.add(rdbtnGraficoDeBarras);
 		buttonGroupFormas.add(rdbtnTabla);
@@ -240,7 +237,7 @@ public class EleccionReporte3 extends JDialog {
 		JLabel lblMostrarPor = new JLabel("Mostrar Por:");
 		lblMostrarPor.setForeground(Color.WHITE);
 		lblMostrarPor.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblMostrarPor.setBounds(18, 104, 137, 27);
+		lblMostrarPor.setBounds(18, 64, 137, 27);
 		contentPanel.add(lblMostrarPor);
 
 
@@ -248,46 +245,8 @@ public class EleccionReporte3 extends JDialog {
 		label.setBounds(59, 251, 46, 14);
 		contentPanel.add(label);
 
-		lblFormato = new JLabel("Formato:");
-		lblFormato.setForeground(Color.WHITE);
-		lblFormato.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblFormato.setBounds(18, 205, 89, 27);
-		contentPanel.add(lblFormato);
-
-
-		rdbtnDa = new JRadioButton("D\u00EDa");
-		rdbtnDa.setForeground(Color.WHITE);
-		rdbtnDa.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				representarReportePorDia();
-			}
-		});
-		rdbtnDa.setSelected(true);
-		rdbtnDa.setBackground(Colores.getBlancuzo());
-		rdbtnDa.setFont(new Font("Tahoma", Font.BOLD, 18));
-		rdbtnDa.setBounds(115, 205, 68, 30);
-		contentPanel.add(rdbtnDa);
-
-		rdbtnSemana = new JRadioButton("Semana");
-		rdbtnSemana.setForeground(Color.WHITE);
-		rdbtnSemana.setBackground(Colores.getBlancuzo());
-		rdbtnSemana.setFont(new Font("Tahoma", Font.BOLD, 18));
-		rdbtnSemana.setBounds(187, 205, 109, 30);
-		contentPanel.add(rdbtnSemana);
-
-		rdbtnMes = new JRadioButton("Mes");
-		rdbtnMes.setForeground(Color.WHITE);
-		rdbtnMes.setBackground(Colores.getBlancuzo());
-		rdbtnMes.setFont(new Font("Tahoma", Font.BOLD, 18));
-		rdbtnMes.setBounds(300, 205, 83, 30);
-		contentPanel.add(rdbtnMes);
-
-		buttonGroup.add(rdbtnMes);
-		buttonGroup.add(rdbtnSemana);
-		buttonGroup.add(rdbtnDa);
-
 		panelNuevo = new JPanel();
-		panelNuevo.setBounds(415, 104, 646, 433);
+		panelNuevo.setBounds(415, 260, 646, 433);
 		contentPanel.add(panelNuevo);
 		card = new CardLayout(0, 0);
 		panelNuevo.setLayout(card);
@@ -422,14 +381,14 @@ public class EleccionReporte3 extends JDialog {
 		String []locales = null;
 		GraficoBarrasDialog g = null;
 
-		if(!rdbtnDa.isSelected()&& !rdbtnMes.isSelected() && ! rdbtnSemana.isSelected()){
-//			lblFormato.setForeground(Color.red);
-
-		}
-		else{
-			lblFormato.setForeground(Color.WHITE);
-
-		}
+//		if(!rdbtnDa.isSelected()&& !rdbtnMes.isSelected() && ! rdbtnSemana.isSelected()){
+////			lblFormato.setForeground(Color.red);
+//
+//		}
+//		else{
+//			lblFormato.setForeground(Color.WHITE);
+//
+//		}
 
 		if(comboBox.getSelectedItem().toString().equals("Local")){
 

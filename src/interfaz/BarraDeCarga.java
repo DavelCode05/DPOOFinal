@@ -110,7 +110,7 @@ public class BarraDeCarga extends JDialog {
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("Facultad de Ingenier\u00EDa Inform\u00E1tica");
-			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 35));
+			lblNewLabel.setFont(new Font("Modern No. 20", Font.BOLD, 38));
 			lblNewLabel.setBounds(59, 178, 620, 100);
 		}
 		return lblNewLabel;
@@ -118,8 +118,8 @@ public class BarraDeCarga extends JDialog {
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
 			lblNewLabel_1 = new JLabel("Cujae");
-			lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 57));
-			lblNewLabel_1.setBounds(278, 269, 190, 78);
+			lblNewLabel_1.setFont(new Font("Modern No. 20", Font.BOLD, 64));
+			lblNewLabel_1.setBounds(286, 269, 174, 78);
 		}
 		return lblNewLabel_1;
 	}
