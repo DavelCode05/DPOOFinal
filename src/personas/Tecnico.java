@@ -60,6 +60,22 @@ public class Tecnico extends Persona{
 		return horaSalidaTec;
 	}
 
+	public static LocalTime getHoraEntradaTec() {
+		return horaEntradaTec;
+	}
+
+	public static void setHoraEntradaTec(LocalTime horaEntradaTec) {
+		Tecnico.horaEntradaTec = horaEntradaTec;
+	}
+
+	public static LocalTime getHoraSalidaTec() {
+		return horaSalidaTec;
+	}
+
+	public static void setHoraSalidaTec(LocalTime horaSalidaTec) {
+		Tecnico.horaSalidaTec = horaSalidaTec;
+	}
+
 
 
 }

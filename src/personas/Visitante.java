@@ -76,6 +76,22 @@ public class Visitante extends Persona{
 		return horaSalidaVis;
 	}
 
+	public static LocalTime getHoraEntradaVis() {
+		return horaEntradaVis;
+	}
+
+	public static void setHoraEntradaVis(LocalTime horaEntradaVis) {
+		Visitante.horaEntradaVis = horaEntradaVis;
+	}
+
+	public static LocalTime getHoraSalidaVis() {
+		return horaSalidaVis;
+	}
+
+	public static void setHoraSalidaVis(LocalTime horaSalidaVis) {
+		Visitante.horaSalidaVis = horaSalidaVis;
+	}
+
 	
     
     

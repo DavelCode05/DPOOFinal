@@ -99,6 +99,22 @@ public class Profesor extends Persona{
 		return horaSalidaProf;
 	}
 
+	public static LocalTime getHoraEntradaProf() {
+		return horaEntradaProf;
+	}
+
+	public static void setHoraEntradaProf(LocalTime horaEntradaProf) {
+		Profesor.horaEntradaProf = horaEntradaProf;
+	}
+
+	public static LocalTime getHoraSalidaProf() {
+		return horaSalidaProf;
+	}
+
+	public static void setHoraSalidaProf(LocalTime horaSalidaProf) {
+		Profesor.horaSalidaProf = horaSalidaProf;
+	}
+
 
 
 }

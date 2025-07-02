@@ -9,7 +9,23 @@ public class Estudiante extends Persona{
 	private int anio;
 	private int grupo;
 	private static LocalTime horaEntradaEst = LocalTime.of(8,0);
-	private static LocalTime horaSalidaEst = LocalTime.of(18,40);
+	private static LocalTime horaSalidaEst = LocalTime.of(23,59);
+
+	public static LocalTime getHoraEntradaEst() {
+		return horaEntradaEst;
+	}
+
+	public static void setHoraEntradaEst(LocalTime horaEntradaEst) {
+		Estudiante.horaEntradaEst = horaEntradaEst;
+	}
+
+	public static LocalTime getHoraSalidaEst() {
+		return horaSalidaEst;
+	}
+
+	public static void setHoraSalidaEst(LocalTime horaSalidaEst) {
+		Estudiante.horaSalidaEst = horaSalidaEst;
+	}
 
 	public Estudiante(){
 
