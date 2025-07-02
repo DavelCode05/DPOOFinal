@@ -153,7 +153,6 @@ private int fila;
 	private JButton btnGuardarCambios;
 	private JButton btnCancelar;
 	private JComboBox<String> eleccionCrear;
-	private JLabel errores;
 	private CardLayout card;
 	private boolean editando ;
 
@@ -175,6 +174,7 @@ private int fila;
 	private JButton btnNewButton;
 	private ArrayList <Persona> personas;
 	private JTextField filtrado;
+	private JLabel errores;
 
 
 //		public static void main(String[] args) {
@@ -684,6 +684,7 @@ public VerPersonal(JFrame p) {
 
 		tablemodel.cargarInfo(fac.getPersonal());
 		panelVisible(personas.get(0));
+		
 
 	}
 
@@ -787,11 +788,9 @@ public VerPersonal(JFrame p) {
 			panel.add(getNombre());
 			panel.add(getLblCarnet());
 			panel.add(getCarnet());
-			panel.add(getErrores());
 
 			panel.add(getLblCargo());
-
-			errores.setVisible(false);
+			panel.add(getErrores());
 
 		}
 		return panel;
@@ -1553,18 +1552,6 @@ public VerPersonal(JFrame p) {
 		return btnCancelar;
 	}
 
-	private JLabel getErrores() {
-		if (errores == null) {
-			errores = new JLabel("Faltan campos por llenar o est\u00E1n incorrectos");
-			errores.setForeground(Color.RED);
-			errores.setVisible(true);
-			errores.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			errores.setForeground(Color.RED);
-			errores.setBounds(99, 541, 443, 22);
-		}
-		return errores;
-	}
-
 	//////////////////////////////// ELECCION PARA CREAR O EDITAR ////////////////////////////////////////////////////////////
 	public boolean crearPersona(Persona per){
 		boolean hecho= false;
@@ -1602,18 +1589,19 @@ public VerPersonal(JFrame p) {
 		Persona existente =  fac.buscarPersonaCi(carn);
 		Persona editar = personas.get(tablepers.convertRowIndexToModel(row));
 
-		System.out.println(existente.getNumeroIdentidad());
-		System.out.println(carn);
-		System.out.println(editar.getNumeroIdentidad());
 		
-		if(verificarExistenciNombreyCarnet(carn, existente,est, nom)){
+		
+		if(verificarExistenciNombreyCarnet(carn, existente,est,nom)){
 			bien= true;
-		}else{
 			errores.setText("Faltan campos por llenar o están incorrectos");
-			errores.setVisible(true);
+
 		}
+//			else{
+//			errores.setText("Faltan campos por llenar o están incorrectos");
+//			errores.setVisible(true);
+//		}
 		try{
-			errores.setVisible(false);
+			//errores.setVisible(false);
 			est.setAnio(Integer.parseInt(anno));
 			lblAo.setForeground(Color.BLACK);
 		}
@@ -1625,7 +1613,7 @@ public VerPersonal(JFrame p) {
 		}
 
 		try{
-			errores.setVisible(false);
+			
 			lblGrupo.setForeground(Color.BLACK);
 			est.setGrupo(Integer.parseInt(grup));
 		}
@@ -1718,15 +1706,17 @@ public VerPersonal(JFrame p) {
 		Persona editar = personas.get(tablepers.convertRowIndexToModel(row));
 
 
-		if(verificarExistenciNombreyCarnet(carn, existente,est, nom)){
-			bien= true;		
-
-		}else{
+		if(verificarExistenciNombreyCarnet(carn, existente,est,nom)){
+			bien= true;
 			errores.setText("Faltan campos por llenar o están incorrectos");
-			errores.setVisible(true);
+
 		}
+//			else{
+//			errores.setText("Faltan campos por llenar o están incorrectos");
+//			errores.setVisible(true);
+//		}
 		try{
-			errores.setVisible(false);
+			//errores.setVisible(false);
 			lblProyecto.setForeground(Color.BLACK);
 			est.setProyecto(proyecto);
 		}
@@ -1767,14 +1757,16 @@ public VerPersonal(JFrame p) {
 
 		if(verificarExistenciNombreyCarnet(carn, existente,est,nom)){
 			bien= true;
-
-		}else{
 			errores.setText("Faltan campos por llenar o están incorrectos");
-			errores.setVisible(true);
+
 		}
+//			else{
+//			errores.setText("Faltan campos por llenar o están incorrectos");
+//			errores.setVisible(true);
+//		}
 		try{
 			lblPlazaAdmin.setForeground(Color.BLACK);
-			errores.setVisible(false);
+			//errores.setVisible(false);
 			est.setPlaza(plaza);
 		}
 		catch (IllegalArgumentException e){
@@ -1809,15 +1801,17 @@ public VerPersonal(JFrame p) {
 
 		if(verificarExistenciNombreyCarnet(carn, existente,est,nom)){
 			bien= true;
-
-		}else{
 			errores.setText("Faltan campos por llenar o están incorrectos");
-			errores.setVisible(true);
+
 		}
+//			else{
+//			errores.setText("Faltan campos por llenar o están incorrectos");
+//			errores.setVisible(true);
+//		}
 
 		try{
 			est.setPlaza(plaza);
-			errores.setVisible(false);
+			//errores.setVisible(false);
 			lblPlaza_1.setForeground(Color.BLACK);
 		}
 		catch (IllegalArgumentException e){
@@ -1858,13 +1852,15 @@ public VerPersonal(JFrame p) {
 
 		if(verificarExistenciNombreyCarnet(carn, existente,est,nom)){
 			bien= true;
-
-		}else{
 			errores.setText("Faltan campos por llenar o están incorrectos");
-			errores.setVisible(true);
+
 		}
+//			else{
+//			errores.setText("Faltan campos por llenar o están incorrectos");
+//			errores.setVisible(true);
+//		}
 		try {
-			errores.setVisible(false);
+			//errores.setVisible(false);
 			est.setCatCient(catcien);
 			catCP.setForeground(Color.BLACK);
 
@@ -1877,7 +1873,7 @@ public VerPersonal(JFrame p) {
 		}
 
 		try{
-			errores.setVisible(false);
+			//errores.setVisible(false);
 			est.setCatDoc(catD);
 			catDocP.setForeground(Color.BLACK);
 
@@ -1890,7 +1886,7 @@ public VerPersonal(JFrame p) {
 		}
 
 		try{
-			errores.setVisible(false);
+			//errores.setVisible(false);
 			est.setTipoContrato(contr);
 			tipocontratop.setForeground(Color.BLACK);
 
@@ -1903,7 +1899,7 @@ public VerPersonal(JFrame p) {
 		}
 
 		try{
-			errores.setVisible(false);
+			//errores.setVisible(false);
 			est.setDepartamento(depa);
 			depap.setForeground(Color.BLACK);
 
@@ -1956,13 +1952,15 @@ public VerPersonal(JFrame p) {
 
 		if(verificarExistenciNombreyCarnet(carn, existente,est,nom)){
 			bien= true;
-
-		}else{
 			errores.setText("Faltan campos por llenar o están incorrectos");
-			errores.setVisible(true);
+
 		}
+//			else{
+//			errores.setText("Faltan campos por llenar o están incorrectos");
+//			errores.setVisible(true);
+//		}
 		try {
-			errores.setVisible(false);
+			//errores.setVisible(false);
 			est.setCatCient(catcien);
 			lblCategoriaCientifica.setForeground(Color.BLACK);
 
@@ -1975,7 +1973,7 @@ public VerPersonal(JFrame p) {
 		}
 
 		try{
-			errores.setVisible(false);
+			//errores.setVisible(false);
 			est.setCatDoc(catD);
 			lblCategoriaDocente.setForeground(Color.BLACK);
 
@@ -1988,7 +1986,7 @@ public VerPersonal(JFrame p) {
 		}
 
 		try{
-			errores.setVisible(false);
+			//errores.setVisible(false);
 			est.setTipoContrato(contr);
 			lblTipoDeContrato.setForeground(Color.BLACK);
 
@@ -2001,7 +1999,7 @@ public VerPersonal(JFrame p) {
 		}
 
 		try{
-			errores.setVisible(false);
+			//errores.setVisible(false);
 			est.setDepartamento(depa);
 			lblDepartamento.setForeground(Color.BLACK);
 
@@ -2014,7 +2012,7 @@ public VerPersonal(JFrame p) {
 		}
 
 		try{
-			errores.setVisible(false);
+			//errores.setVisible(false);
 			est.setArea(area);
 			lblreaDeTrabajo.setForeground(Color.BLACK);
 
@@ -2027,7 +2025,7 @@ public VerPersonal(JFrame p) {
 		}
 
 		try{
-			errores.setVisible(false);
+			//errores.setVisible(false);
 			est.setCargo(cargo);
 			lblCargoAdministrativo.setForeground(Color.BLACK);
 
@@ -2093,7 +2091,7 @@ public VerPersonal(JFrame p) {
 			try {
 				est.setNombre(nom);
 				lblNombreYApellidos.setForeground(Color.BLACK);
-				errores.setVisible(false);
+				//errores.setVisible(false);
 			}
 			catch (IllegalArgumentException e){
 				errores.setText("Faltan campos por llenar o están incorrectos");
@@ -2266,6 +2264,16 @@ public VerPersonal(JFrame p) {
 //		
 //	}
 	
+	private JLabel getErrores() {
+		if (errores == null) {
+			errores = new JLabel("Faltan campos por llenar o est\u00E1n incorrectos");
+			errores.setForeground(Color.RED);
+			errores.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			errores.setBounds(99, 539, 410, 22);
+			errores.setVisible(false);
+		}
+		return errores;
+	}
 }
 
 
