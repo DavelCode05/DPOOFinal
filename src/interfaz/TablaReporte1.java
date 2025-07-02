@@ -36,10 +36,18 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
 import javax.swing.table.DefaultTableModel;
+
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 
 import personas.Persona;
 //import util.ScrollMinimalista;
@@ -56,6 +64,8 @@ import com.sun.glass.events.MouseEvent;
 import com.toedter.calendar.JDateChooser;
 
 import controllerClass.Facultad;
+
+import javax.swing.JTextField;
 
 public class TablaReporte1 extends JDialog {
 
@@ -75,8 +85,9 @@ public class TablaReporte1 extends JDialog {
 	private JDateChooser datefinal;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
-	JComboBox<Persona> comboBox;
 	private JButton btnNewButton;
+	private JComboBox<Persona> comboBox;
+	private JTextField filtrado;
 
 //	/**
 //	 * Launch the application.
@@ -110,6 +121,8 @@ public class TablaReporte1 extends JDialog {
 		contentPanel.setBorder(new LineBorder(Colores.getAzulOScuro()));
 //		this.setUndecorated(true);
 		setLocationRelativeTo(null);
+		
+		
 		try{
 			boolean found = false;
 			for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
@@ -150,6 +163,46 @@ public class TablaReporte1 extends JDialog {
 		contentPanel.add(getLblNewLabel_2());
 		contentPanel.add(getLblNewLabel_3());
 		contentPanel.add(getBtnNewButton());
+		
+		filtrado = new JTextField();
+		filtrado.setBounds(894, 94, 86, 20);
+		contentPanel.add(filtrado);
+		filtrado.setColumns(10);
+		
+		final TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(table.getModel());
+		table.setRowSorter(rowSorter);
+		filtrado.getDocument().addDocumentListener(new DocumentListener() {
+			
+			private void filtrar(){
+				String texto = filtrado.getText();
+				if(texto.trim().length()==0){
+					rowSorter.setRowFilter(null);
+				}
+				else{
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
+				}
+			}
+			
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				filtrar();
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				filtrar();
+				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				filtrar();
+				
+			}
+		});
+			
+			
 	
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

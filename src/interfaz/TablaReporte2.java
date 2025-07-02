@@ -36,11 +36,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
+import locales.Local;
 import util.TablaRegistrosReporte2;
 
 import com.itextpdf.text.Document;
@@ -54,6 +60,8 @@ import com.toedter.calendar.JDateChooser;
 
 import controllerClass.Facultad;
 import enums.TipoLocal;
+
+import javax.swing.JTextField;
 
 
 public class TablaReporte2 extends JDialog {
@@ -74,8 +82,9 @@ public class TablaReporte2 extends JDialog {
 	private JDateChooser datefinal;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
-	JComboBox comboBox;
+	JComboBox<Local> comboBox;
 	private JButton btnNewButton;
+	private JTextField filtrado;
 
 	/**
 	 * Launch the application.
@@ -150,8 +159,9 @@ public class TablaReporte2 extends JDialog {
 
 		comboBox.setBounds(90, 119, 241, 53);
 		contentPanel.add(comboBox);
-		comboBox.setModel(new DefaultComboBoxModel<>(TipoLocal.values()));
+		comboBox.setModel(new DefaultComboBoxModel<>(fac.getLocales().toArray(new Local[0])));
 		contentPanel.add(getBtnNewButton());
+		contentPanel.add(getFiltrado());
 
 		entradaLocal();
 
@@ -312,12 +322,12 @@ public class TablaReporte2 extends JDialog {
 	public void entradaLocal(){
 		LocalDate inicio = dateinicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate finalll = datefinal.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		TipoLocal tipo = (TipoLocal)comboBox.getSelectedItem();
+		Local loc = (Local)comboBox.getSelectedItem();
 		
 		if(!inicio.isAfter(finalll)){
 			
 		tablaModel.setRowCount(0);
-		tablaModel.cargarInfo(fac.obtenerInfoLocales(tipo, inicio, finalll));
+		tablaModel.cargarInfo(fac.obtenerInfoLocales(loc, inicio, finalll));
 		
 		}else{
 			JOptionPane.showMessageDialog(this, "La fecha inicial no puede ser posterior a la feha final", "Error en rango de fechas", JOptionPane.ERROR_MESSAGE);
@@ -433,5 +443,46 @@ public class TablaReporte2 extends JDialog {
 			btnNewButton.setBounds(22, 31, 166, 36);
 		}
 		return btnNewButton;
+	}
+	private JTextField getFiltrado() {
+		if (filtrado == null) {
+			filtrado = new JTextField();
+			filtrado.setBounds(891, 133, 86, 20);
+			filtrado.setColumns(10);
+			
+			final TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(table.getModel());
+			table.setRowSorter(rowSorter);
+			filtrado.getDocument().addDocumentListener(new DocumentListener() {
+				
+				private void filtrar(){
+					String texto = filtrado.getText();
+					if(texto.trim().length()==0){
+						rowSorter.setRowFilter(null);
+					}
+					else{
+						rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
+					}
+				}
+				
+				@Override
+				public void removeUpdate(DocumentEvent arg0) {
+					filtrar();
+					
+				}
+				
+				@Override
+				public void insertUpdate(DocumentEvent arg0) {
+					filtrar();
+					
+				}
+				
+				@Override
+				public void changedUpdate(DocumentEvent arg0) {
+					filtrar();
+					
+				}
+			});
+		}
+		return filtrado;
 	}
 }

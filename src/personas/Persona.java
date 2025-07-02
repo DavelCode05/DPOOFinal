@@ -1,6 +1,11 @@
 package personas;
 
 
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Objects;
+
+import locales.Local;
 import util.ValidarCarnet;
 
 
@@ -16,6 +21,7 @@ public abstract class Persona {
 	public Persona(){
 	
 	}
+	public abstract LocalTime getHoraSalida();
 	
 	public String getNombre() {
 		return nombre;
@@ -66,6 +72,8 @@ public abstract class Persona {
 	public String toString(){
 		return nombre;
 	}
+	
+	public abstract boolean verificarAccesoAlLocal(Local l);
 	
 	
 }

@@ -14,11 +14,14 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -38,13 +41,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import personas.Administrativo;
 import personas.Directivo;
@@ -66,7 +74,6 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.sun.glass.events.MouseEvent;
-
 
 //import util.ScrollMinimalista;
 import controllerClass.Facultad;
@@ -97,6 +104,9 @@ public class VerPersonal extends JDialog {
 	private JLabel lblCarnet;
 	private JTextFieldCarnet carnet;
 	private JButton btnagregar;
+
+private int fila;
+
 
 	private JComboBox<Plaza> plazaAdmin;
 	private Persona per;
@@ -155,6 +165,8 @@ public class VerPersonal extends JDialog {
 	public Document document;
 	public PdfPTable table;
 	private JButton btnNewButton;
+	private ArrayList <Persona> personas;
+	private JTextField filtrado;
 
 
 //		public static void main(String[] args) {
@@ -176,8 +188,10 @@ public VerPersonal(JFrame p) {
 	setTitle("Personal");
 		
 		setBounds(100, 100, 1392, 855);
+		
 
 		fac = Facultad.getFacultad();
+		personas = fac.getPersonal();
 		contentPanel = new JPanel(){
 			public void paintComponent(Graphics g){
 				Image img= Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/fondoDesenfocado.png"));
@@ -265,6 +279,7 @@ public VerPersonal(JFrame p) {
 		tablepers2.getTableHeader().setBackground(Color.white);
 		tablepers2.setBorder(null);
 		tablepers2.setVisible(false);
+
 		
 		tablepers.addMouseMotionListener(new MouseMotionListener() {
 			@Override
@@ -273,9 +288,10 @@ public VerPersonal(JFrame p) {
 
 					row = tablepers.rowAtPoint(arg0.getPoint());
 					if(row!=-1 ){
+						
 						tablepers.setRowSelectionInterval(row,row);
 						tablepers.setAutoscrolls(true);
-						panelVisible(fac.getPersonal().get(row));
+						panelVisible(personas.get(tablepers.convertRowIndexToModel(row)));
 					}
 
 					else{
@@ -299,7 +315,7 @@ public VerPersonal(JFrame p) {
 				if(indice>-1){
 					tablepers.setRowSelectionInterval(indice,indice);
 					tablepers.setAutoscrolls(true);
-					panelVisible(fac.getPersonal().get(indice));
+					panelVisible(personas.get(indice));
 
 				}
 
@@ -311,16 +327,17 @@ public VerPersonal(JFrame p) {
 			public void mouseClicked(java.awt.event.MouseEvent arg0) {
 
 				if(!editando){
-					panelVisible(fac.getPersonal().get(row));
+					panelVisible(personas.get(row));
 
 					tablemodel.setRowCount(0);
-					tablemodel.cargarInfo(fac.getPersonal());
+					tablemodel.cargarInfo(personas);
 				}
 			}
 
 		});
 
 		contentPanel.add(getPanel());
+
 
 //		comboBox = new JComboBox();
 //		comboBox.setBorder(null);
@@ -353,6 +370,44 @@ public VerPersonal(JFrame p) {
 //		comboBox.setOpaque(true);
 //		contentPanel.add(comboBox);
 
+
+
+		//		contentPanel.add();
+
+
+
+//		comboBox = new JComboBox();
+//		comboBox.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+//		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Estudiante", "Directivo", "Administrativo", "Especialista", "T\u00E9cnico", "Profesor"}));
+//				comboBox.addItemListener(new ItemListener() {
+//					public void itemStateChanged(ItemEvent e) {
+//						if (e.getStateChange() == ItemEvent.SELECTED) {
+//							String rolSeleccionado = (String) e.getItem();
+//		
+//							if (rolSeleccionado.equals("Todos")) {
+//								personas = fac.getPersonal();
+//							} else {
+//								personas = fac.filtrar(rolSeleccionado);
+//								
+//							}
+//		
+//							tablemodel.cargarInfo(personas);
+//						}
+//					}
+//				});
+//				
+//		tablemodel.cargarInfo(personas);
+//		tablemodel2.cargarInfo(personas);
+////		comboBox.setBounds(428, 33, 197, 36);
+////		comboBox.setOpaque(true);
+////		contentPanel.add(comboBox);
+
+		lblFiltrarPor = new JLabel("Mostrar:");
+		lblFiltrarPor.setForeground(Color.WHITE);
+		lblFiltrarPor.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
+		lblFiltrarPor.setBounds(329, 33, 87, 36);
+		contentPanel.add(lblFiltrarPor);
+
 //		lblFiltrarPor = new JLabel("Mostrar:");
 //		lblFiltrarPor.setForeground(new Color(0, 0, 0));
 //		lblFiltrarPor.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -371,6 +426,44 @@ public VerPersonal(JFrame p) {
 		contentPanel.add(btnagregar);
 //		btnagregar.setBackground(Color.WHITE);
 		btnagregar.setIcon(new ImageIcon(VerPersonal.class.getResource("/images/icons8-add-user-male-50.png")));
+		
+		
+		
+		filtrado = new JTextField();
+		filtrado.setBounds(703, 43, 133, 20);
+		contentPanel.add(filtrado);
+		final TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(tablepers.getModel());
+		tablepers.setRowSorter(rowSorter);
+		filtrado.getDocument().addDocumentListener(new DocumentListener() {
+			
+			private void filtrar(){
+				String texto = filtrado.getText();
+				if(texto.trim().length()==0){
+					rowSorter.setRowFilter(null);
+				}
+				else{
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
+				}
+			}
+			
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+			filtrar();
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				filtrar();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				filtrar();
+				
+			}
+		});
+		filtrado.setColumns(10);
 		btnagregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				editando = true;
@@ -490,7 +583,7 @@ public VerPersonal(JFrame p) {
 			public void valueChanged(ListSelectionEvent arg0) {
 				int indice = tablepers.getSelectedRow();
 				if(indice>-1){
-					panelVisible(fac.getPersonal().get(indice));
+					panelVisible(personas.get(indice));
 
 				}
 
@@ -595,10 +688,10 @@ public VerPersonal(JFrame p) {
 			public void actionPerformed(ActionEvent e) {
 				int confirm = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar a esta persona?", "Confirmar", JOptionPane.YES_NO_OPTION);
 				if (confirm == JOptionPane.YES_OPTION) {
-					if(!fac.verificarRegistrosActivos(null, fac.getPersonal().get(row))){
-					fac.getPersonal().remove(row);
+					if(!fac.verificarRegistrosActivos(null, personas.get(tablepers.convertRowIndexToModel(row)))){
+					fac.getPersonal().remove(tablepers.convertRowIndexToModel(row));
 					tablemodel.setRowCount(0);
-					tablemodel.cargarInfo(fac.getPersonal());
+					tablemodel.cargarInfo(personas);
 					JOptionPane.showMessageDialog(VerPersonal.this, "Usuario eliminado con éxito", "Eliminacion exitosa", JOptionPane.INFORMATION_MESSAGE);
 					}
 					else
@@ -610,7 +703,7 @@ public VerPersonal(JFrame p) {
 
 
 		tablemodel.cargarInfo(fac.getPersonal());
-		panelVisible(fac.getPersonal().get(0));
+		panelVisible(personas.get(0));
 
 	}
 
@@ -1272,10 +1365,10 @@ public VerPersonal(JFrame p) {
 				public void actionPerformed(ActionEvent e) {
 					int confirm = JOptionPane.showConfirmDialog(null, "¿Eliminar esta persona?", "Confirmar", JOptionPane.YES_NO_OPTION);
 					if (confirm == JOptionPane.YES_OPTION) {
-						if(!fac.verificarRegistrosActivos(null, fac.getPersonal().get(row))){
-							fac.getPersonal().remove(row);
+						if(!fac.verificarRegistrosActivos(null, fac.getPersonal().get(tablepers.convertRowIndexToModel(row)))){
+							fac.getPersonal().remove(tablepers.convertRowIndexToModel(row));
 							tablemodel.setRowCount(0);
-							tablemodel.cargarInfo(fac.getPersonal());
+							tablemodel.cargarInfo(personas);
 							JOptionPane.showMessageDialog(VerPersonal.this, "Usuario eliminado con éxito", "Eliminacion exitosa", JOptionPane.INFORMATION_MESSAGE);
 
 						}
@@ -1332,7 +1425,8 @@ public VerPersonal(JFrame p) {
 					boolean listo = false;
 
 					if(!eleccionCrear.isVisible())
-						listo = crearPersona(fac.getPersonal().get(row));
+						listo = crearPersona(personas.get(tablepers.convertRowIndexToModel(row)));
+					
 					else
 						listo = crearPersona(null);
 
@@ -1370,7 +1464,7 @@ public VerPersonal(JFrame p) {
 						btnEditar.setVisible(true);
 
 						tablemodel.setRowCount(0);
-						tablemodel.cargarInfo(fac.getPersonal());
+						tablemodel.cargarInfo(personas);
 						mostrarMensajePerzonalizado("Edición exitosa", "Información editada con éxito");
 //						JOptionPane.showMessageDialog(VerPersonal.this, "Información editada con éxito", "Edición exitosa", JOptionPane.INFORMATION_MESSAGE);
 
@@ -1503,7 +1597,8 @@ public VerPersonal(JFrame p) {
 			hecho = crearTecnico();
 		}
 		else if(per instanceof Profesor || per == null && eleccionCrear.getSelectedItem().equals("Profesor")){
-			hecho = crearProfesor();}
+			hecho = crearProfesor();
+			}
 
 		return hecho;
 	}
@@ -1516,10 +1611,14 @@ public VerPersonal(JFrame p) {
 		String anno = AnnoEst.getSelectedItem().toString();
 		String grup= grupoEst.getText();
 		Estudiante est = new Estudiante();
-		boolean bien = false;;
+		boolean bien = false;
 		Persona existente =  fac.buscarPersonaCi(carn);
-		Persona editar = fac.getPersonal().get(row);
+		Persona editar = personas.get(tablepers.convertRowIndexToModel(row));
 
+		System.out.println(existente.getNumeroIdentidad());
+		System.out.println(carn);
+		System.out.println(editar.getNumeroIdentidad());
+		
 		if(verificarExistenciNombreyCarnet(carn, existente,est, nom)){
 			bien= true;
 		}else{
@@ -1631,7 +1730,7 @@ public VerPersonal(JFrame p) {
 
 		boolean bien = false;;
 		Persona existente =  fac.buscarPersonaCi(carn);
-		Persona editar = fac.getPersonal().get(row);
+		Persona editar = personas.get(tablepers.convertRowIndexToModel(row));
 
 
 		if(verificarExistenciNombreyCarnet(carn, existente,est, nom)){
@@ -1677,7 +1776,7 @@ public VerPersonal(JFrame p) {
 
 		boolean bien = false;;
 		Persona existente =  fac.buscarPersonaCi(carn);
-		Persona editar = fac.getPersonal().get(row);
+		Persona editar = personas.get(tablepers.convertRowIndexToModel(row));
 		Plaza plaza = (Plaza) plazaAdmin.getSelectedItem();
 
 
@@ -1718,7 +1817,7 @@ public VerPersonal(JFrame p) {
 		String nom = nombre.getText();
 		String carn = carnet.getText();
 		Tecnico est = new Tecnico();
-		Persona editar = fac.getPersonal().get(row);
+		Persona editar = personas.get(tablepers.convertRowIndexToModel(row));
 		boolean bien = false;;
 		Persona existente =  fac.buscarPersonaCi(carn);
 		String plaza = palazatec.getText();
@@ -1762,7 +1861,7 @@ public VerPersonal(JFrame p) {
 		String carn = carnet.getText();
 		Profesor est = new Profesor();
 		boolean bien = false;;
-		Persona editar = fac.getPersonal().get(row);
+		Persona editar = personas.get(tablepers.convertRowIndexToModel(row));
 		Persona existente =  fac.buscarPersonaCi(carn);
 		String depa = DepaProfesor.getText();
 		String catD = catDocProfesor.getText();
@@ -1860,7 +1959,7 @@ public VerPersonal(JFrame p) {
 		String carn = carnet.getText();
 		Directivo est = new Directivo();
 		boolean bien = false;
-		Persona editar = fac.getPersonal().get(row);
+		Persona editar = personas.get(tablepers.convertRowIndexToModel(row));
 		Persona existente =  fac.buscarPersonaCi(carn);
 		String depa = DepaDirect.getText();
 		String catD = catCientdirec.getText();
@@ -1980,19 +2079,22 @@ public VerPersonal(JFrame p) {
 		if(eleccionCrear.isVisible() && existente!= null){
 			bien = false;
 			errores.setText("La persona ya existe");
+			System.out.println("error if 1");
 			lblCarnet.setForeground(Color.RED);
 			errores.setVisible(true);
 		}
-		else if(!eleccionCrear.isVisible() && existente!= null && !fac.getPersonal().get(row).getNumeroIdentidad().equals(carn)){
+		else if(!eleccionCrear.isVisible() && existente!= null && !personas.get(tablepers.convertRowIndexToModel(row)).getNumeroIdentidad().equals(carn)){
 			bien = false;
 			errores.setText("Existe un usuario registrado con ese carnet");
 			errores.setVisible(true);
+			System.out.println("error if 2");
 			lblCarnet.setForeground(Color.RED);
 		}
 		else
 		{
 			lblCarnet.setForeground(Color.BLACK);
 			try{
+				System.out.println("error try");
 				est.setNumeroIdentidad(carn);
 				errores.setVisible(false);
 				lblCarnet.setForeground(Color.BLACK);
@@ -2161,6 +2263,24 @@ public VerPersonal(JFrame p) {
 			return new Dimension(300, 100);
 		}
 	}
+	
+//	public void filtrar (String texto){
+////		ArrayList<Persona> per = new ArrayList<Persona>();
+////		for(Persona p : personas){
+////			if(p.getNombre().toLowerCase().contains(texto)){
+////				per.add(p);
+////			}
+////		}
+////		tablemodel.setRowCount(0);
+////		tablemodel.cargarInfo(per);	
+//		
+//		
+//		if(texto.trim().length()==0){
+//			rowSorter.setRowFilter
+//		}
+//		
+//	}
+	
 }
 
 

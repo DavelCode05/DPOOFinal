@@ -11,15 +11,19 @@ import personas.Estudiante;
 import personas.Persona;
 import personas.Profesor;
 import personas.Tecnico;
+import personas.Visitante;
 import acceso.Registro;
 import controllerClass.Facultad;
 import enums.AreaDirectivo;
 import enums.CargoDirectivo;
 import enums.Plaza;
+import enums.TipoLocal;
 import enums.TipoContrato;
 import enums.TipoLocal;
+import controllerClass.Facultad;
 
 public class Iniciadora {
+	
 	
 	public static void iniciar(){
 		ArrayList<Persona> personal = Facultad.getFacultad().getPersonal();
@@ -27,7 +31,6 @@ public class Iniciadora {
 		ArrayList<Registro> registros = Facultad.getFacultad().getVisitas();
 		
 		
-
 		personal.add(new Tecnico("Sandra Díaz Quesada", "86021234891", "Redes")); //0
 		personal.add(new Estudiante("Nicole Rios", "06040468470",1, 13 )); //1
 		personal.add(new Directivo("Mariana Suárez Pérez", "85071245678", "Matemática", "Auxiliar","Máster", TipoContrato.Indeterminado, CargoDirectivo.Jefe_Departamento, AreaDirectivo.Departamento)); //2
@@ -78,18 +81,19 @@ public class Iniciadora {
 		personal.add(new Administrativo("Ernesto López Pérez", "75031234569", Plaza.Asesor)); //47
 		personal.add(new Directivo("Ernesto Valdés Romero", "74091812345", "Informática", "Titular","Doctor", TipoContrato.Determinado, CargoDirectivo.Vicedecano, AreaDirectivo.Vicedecanato)); //48
 
-		
+	
 
-		locales.add(new Local("INF-EST4", TipoLocal.Estudiantes, personal.get(27))); //0
-		locales.add(new Local("INF-DEC", TipoLocal.Decano, personal.get(47) ));  //1
-		locales.add(new Local("INF-LAB3", TipoLocal.Laboratorio, personal.get(31) )); //2
-		locales.add(new Local("INF-ESP08", TipoLocal.Especialistas, personal.get(38) )); //3
-		locales.add(new Local("INF-ADMIN76", TipoLocal.Area_Administrativa, personal.get(22) ));//4
-		locales.add(new Local("INF-JEFD3", TipoLocal.Jefe_Departamento, personal.get(27) ));//5
-		locales.add(new Local("INF-VICD09", TipoLocal.Vicedecano, personal.get(25) ));//6
-		locales.add(new Local("INF-SERVIDORES98", TipoLocal.Servidores, personal.get(42)));//7
-		locales.add(new Local("INF-AULA2", TipoLocal.Aula, personal.get(28) ));//8
-		locales.add(new Local("INF-TEACH25", TipoLocal.Profesores, personal.get(2) ));//9
+		locales.add(new Local("404", TipoLocal.Estudiantes, personal.get(27))); //0
+		locales.add(new Local("D201", TipoLocal.Decano, personal.get(47) ));  //1
+		locales.add(new Local("245L", TipoLocal.Laboratorio, personal.get(31) )); //2
+		locales.add(new Local("E301", TipoLocal.Especialistas, personal.get(38) )); //3
+		locales.add(new Local("Ad99", TipoLocal.Area_Administrativa, personal.get(22) ));//4
+		locales.add(new Local("102", TipoLocal.Jefe_Departamento, personal.get(27) ));//5
+		locales.add(new Local("V202", TipoLocal.Vicedecano, personal.get(25) ));//6
+		locales.add(new Local("505", TipoLocal.Servidores, personal.get(42)));//7
+		locales.add(new Local("203", TipoLocal.Aula, personal.get(28) ));//8
+		locales.add(new Local("2P4", TipoLocal.Profesores, personal.get(2) ));//9
+
 		
 		registros.add(new Registro(personal.get(5), locales.get(0))); //0
 		registros.get(0).setHoraEntrada(LocalTime.of(8, 0)); registros.get(0).setHoraSalida(LocalTime.of(12, 0));
@@ -1064,6 +1068,20 @@ public class Iniciadora {
 		registros.add(new Registro(personal.get(44), locales.get(2))); //225
 		registros.get(225).setHoraEntrada(LocalTime.of(8, 0)); registros.get(225).setHoraSalida(LocalTime.of(10, 0));
 		registros.get(225).setFecha(LocalDate.of(2025, 6, 17));
+		
+		registros.add(new Registro(new Visitante("Sofia Vargas", "03123164370"," Decanato", "Registro de inicio",personal.get(25)), locales.get(1))); //225
+		registros.get(225).setHoraEntrada(LocalTime.of(8, 0)); registros.get(225).setHoraSalida(LocalTime.of(10, 0));
+		registros.get(225).setFecha(LocalDate.of(2025, 6, 17));
+		
+		registros.add(new Registro(new Visitante("Ernesto Ramon Perez", "00103164380"," Laboratorio", "Revisar conexiones",personal.get(2)), locales.get(2))); //225
+		registros.get(225).setHoraEntrada(LocalTime.of(8, 0)); registros.get(225).setHoraSalida(LocalTime.of(10, 0));
+		registros.get(225).setFecha(LocalDate.of(2025, 6, 17));
+		
+		
+		
+		
+		
+		
 		
 		
 		

@@ -1,10 +1,5 @@
-/interfaz
-/locales
-/personas
 /util
-/acceso
-/clasesAuxiliares
 /controllerClass
-/enums
 /inicio
-/images
+/interfaz
+/personas

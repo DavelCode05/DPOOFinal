@@ -142,6 +142,7 @@ public class EleccionReporte3 extends JDialog {
 		comboBoxLocal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				representarReportePorDia();
+				
 			}
 		});
 		comboBoxLocal.setBackground(new Color(255, 255, 255));

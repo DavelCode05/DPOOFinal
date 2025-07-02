@@ -1,6 +1,8 @@
 package interfaz;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -8,13 +10,17 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
@@ -38,6 +44,10 @@ public class Inicio extends JFrame {
 	private Facultad fac;
 	private JMenuItem mntmVerLocales;
 	private JMenuItem mntmChequeoDeRegistros;
+	JPanel panelNotificaciones;
+	DefaultListModel<String> modeloNotificaciones;
+	JButton btnMostrarNotificaciones;
+	Notificador notificador;
 
 
 	/**
@@ -63,6 +73,7 @@ public class Inicio extends JFrame {
 	 * Create the frame.
 	 */
 	public Inicio() {
+		fac = Facultad.getFacultad();
 		
 		try{
 			boolean found = false;
@@ -96,11 +107,63 @@ public class Inicio extends JFrame {
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setUndecorated(true);
 		setLocationRelativeTo(null);
+		
+		 modeloNotificaciones = new DefaultListModel<>();
+        JList<String> listaNotificaciones = new JList<>(modeloNotificaciones);
+        
+        panelNotificaciones = new JPanel();
+        panelNotificaciones.setLayout(new BorderLayout());
+        panelNotificaciones.setVisible(false);
+        panelNotificaciones.setBounds(1135, 91, 186, 297);
+       // panelNotificaciones.setPreferredSize(new Dimension(50, 50)); // Ancho 0 = oculto
+        panelNotificaciones.add(new JScrollPane(listaNotificaciones), BorderLayout.CENTER);
+        
+        JButton btnCerrarNotif = new JButton("Cerrar");
+        btnCerrarNotif.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+                panelNotificaciones.setVisible(false);
+                revalidate();
+            }
+        });
+        
+        panelNotificaciones.add(btnCerrarNotif, BorderLayout.SOUTH);
+        contentPane.add(panelNotificaciones, BorderLayout.EAST);
+
+        // --- Botón para mostrar/ocultar notificaciones ---
+        btnMostrarNotificaciones = new JButton("Notificaciones (0)");
+        btnMostrarNotificaciones.setIcon(new ImageIcon(Inicio.class.getResource("/images/aceptar.png")));
+        btnMostrarNotificaciones.setBounds(968, 91, 53, 52);
+        btnMostrarNotificaciones.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	btnMostrarNotificaciones.setIcon(new ImageIcon(Inicio.class.getResource("/images/aceptar.png")));
+                if (panelNotificaciones.isVisible()) {
+                    panelNotificaciones.setVisible(false);
+                } else {
+                    panelNotificaciones.setVisible(true);
+                }
+                revalidate();
+            }
+        });
+        contentPane.add(btnMostrarNotificaciones, BorderLayout.NORTH);
 
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		contentPane.add(getMenuBar_1());
+	    notificador = new Notificador(fac.getVisitas(), modeloNotificaciones, btnMostrarNotificaciones);
+	
+	    
+		addWindowListener(new java.awt.event.WindowAdapter() {
+	            @Override
+	            public void windowClosing(java.awt.event.WindowEvent e) {
+	                notificador.detener();
+	                dispose();
+	            }
+	        });
+		
 	}
 	private JMenuBar getMenuBar_1() {
 		if (menuBar == null) {
@@ -143,6 +206,8 @@ public class Inicio extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					VerRegistros p = new VerRegistros(Inicio.this);
 					p.setVisible(true);
+					notificador.detener();
+					notificador = new Notificador(fac.getVisitas(), modeloNotificaciones, btnMostrarNotificaciones);
 				}
 			});
 			mnAccesos.add(mntmInformeDeRegistros);
@@ -221,6 +286,7 @@ public class Inicio extends JFrame {
 //			mntmCerrar.setForeground(Color.BLACK);
 			mntmCerrar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					notificador.detener();
 					dispose();
 					IniciarSesion ini = new IniciarSesion();
 					ini.setVisible(true);
@@ -238,6 +304,7 @@ public class Inicio extends JFrame {
 			mntmSalir.setFont(new Font("Modern No. 20", Font.BOLD, 25));
 			mntmSalir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					notificador.detener();
 					dispose();
 				}
 			});

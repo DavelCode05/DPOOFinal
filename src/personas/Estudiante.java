@@ -1,8 +1,15 @@
 package personas;
 
+import java.time.LocalTime;
+
+import locales.Local;
+import enums.TipoLocal;
+
 public class Estudiante extends Persona{
 	private int anio;
 	private int grupo;
+	private static LocalTime horaEntradaEst = LocalTime.of(8,0);
+	private static LocalTime horaSalidaEst = LocalTime.of(18,40);
 
 	public Estudiante(){
 
@@ -35,6 +42,31 @@ public class Estudiante extends Persona{
 		else
 			throw new IllegalArgumentException("Error");
 	}
+	
+	@Override
+    public boolean verificarAccesoAlLocal(Local l){
+    	boolean permitido = false;
+    	LocalTime hora = LocalTime.now();
+    	 if(TipoLocal.Estudiantes.name().equalsIgnoreCase(l.getTipo().name()) || TipoLocal.Aula.name().equalsIgnoreCase(l.getTipo().name())
+				|| TipoLocal.Laboratorio.name().equalsIgnoreCase(l.getTipo().name()) || TipoLocal.Profesores.name().equalsIgnoreCase(l.getTipo().name())){
+			if(hora.isAfter(horaEntradaEst)&& hora.isBefore(horaSalidaEst)){
+				permitido = true;
+			}
+			else 
+				throw new IllegalArgumentException("Acceso Denegado: Fuera de horario");
+		}
+    	 else
+    		 throw new IllegalArgumentException("Acceso al local no permitido");
+    	return permitido;
+    	
+    }
+
+	@Override
+	public LocalTime getHoraSalida() {
+		// TODO Auto-generated method stub
+		return horaSalidaEst;
+	}
+
 
 
 }

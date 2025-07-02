@@ -1,12 +1,18 @@
 package personas;
 
+import java.time.LocalTime;
+
+import locales.Local;
 import enums.AreaDirectivo;
 import enums.CargoDirectivo;
+import enums.CategoriaCientifica;
+import enums.CategoriaDocente;
 import enums.TipoContrato;
 
 public class Directivo extends Profesor{
 	private CargoDirectivo cargo;
 	private AreaDirectivo area;
+	
 
 	public Directivo(String nombre, String numeroIdentidad, String departamento,
 			String catDoc, String catCient, TipoContrato tipoContrato, CargoDirectivo cargo,
@@ -29,6 +35,13 @@ public class Directivo extends Profesor{
 	}
 	public AreaDirectivo getArea() {
 		return area;
+	}
+	
+	
+	
+	@Override 
+	public boolean verificarAccesoAlLocal(Local l){
+		return true;
 	}
 	
 

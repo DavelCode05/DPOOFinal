@@ -23,16 +23,23 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import util.ModeloTablaSalida;
 import acceso.Registro;
 import controllerClass.Facultad;
+
+import javax.swing.JTextField;
 
 public class VerRegistros extends JDialog {
 
@@ -49,7 +56,8 @@ public class VerRegistros extends JDialog {
 	private JLabel setentrada;
 	private JLabel fecha;
 	private JLabel salida;
-	private int row;
+	//private int row;
+	//int row2;
 	private JLabel setloc;
 	private JLabel setcarn;
 	private JLabel setNomb;
@@ -61,6 +69,8 @@ public class VerRegistros extends JDialog {
 	private JTable table_1;
 	private TableColumn mi20;
 	private ModeloTablaSalida modelo2;
+	private JTextField filtrado;
+	private TableRowSorter<ModeloTablaSalida> rowSorter;
 
 
 
@@ -68,15 +78,15 @@ public class VerRegistros extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-//		public static void main(String[] args) {
-//			try {
-//				VerRegistros dialog = new VerRegistros();
-//				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//				dialog.setVisible(true);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
+	//		public static void main(String[] args) {
+	//			try {
+	//				VerRegistros dialog = new VerRegistros();
+	//				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	//				dialog.setVisible(true);
+	//			} catch (Exception e) {
+	//				e.printStackTrace();
+	//			}
+	//		}
 
 	/**
 	 * Create the dialog.
@@ -185,8 +195,6 @@ public class VerRegistros extends JDialog {
 
 
 
-
-
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(12, 13, 735, 572);
 		contentPanel.add(tabbedPane);
@@ -206,7 +214,7 @@ public class VerRegistros extends JDialog {
 		table.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 17));
 		table.setRowHeight(29);
-		
+
 		scrollPane.setColumnHeaderView(table);
 
 		modelo = new ModeloTablaSalida();
@@ -221,7 +229,7 @@ public class VerRegistros extends JDialog {
 		table.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent arg0) {
-				row = table.rowAtPoint(arg0.getPoint());
+				int row = table.rowAtPoint(arg0.getPoint());
 				if(row!=-1 ){
 					table.setRowSelectionInterval(row,row);
 					table.setAutoscrolls(true);
@@ -244,7 +252,7 @@ public class VerRegistros extends JDialog {
 				if(indice>-1){
 					table.setRowSelectionInterval(indice,indice);
 					table.setAutoscrolls(true);
-					llenarDatos(fac.getVisitas().get(indice));
+					llenarDatos(fac.getVisitas().get(table.convertRowIndexToModel(indice)));
 
 				}
 
@@ -279,9 +287,9 @@ public class VerRegistros extends JDialog {
 		table_1.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent arg0) {
-				row = table.rowAtPoint(arg0.getPoint());
-				if(row!=-1 ){
-					table_1.setRowSelectionInterval(row,row);
+				int row2 = table_1.rowAtPoint(arg0.getPoint());
+				if(row2!=-1 ){
+					table_1.setRowSelectionInterval(row2,row2);
 					table_1.setAutoscrolls(true);
 					//panelVisible(fac.getPersonal().get(row));
 				}
@@ -289,8 +297,6 @@ public class VerRegistros extends JDialog {
 				else{
 					table_1.clearSelection();
 				}
-
-
 			}
 		});
 
@@ -302,7 +308,7 @@ public class VerRegistros extends JDialog {
 				if(indice>-1){
 					table_1.setRowSelectionInterval(indice,indice);
 					table_1.setAutoscrolls(true);
-					llenarDatos(fac.sinSalidas().get(indice));
+					llenarDatos(fac.sinSalidas().get(table_1.convertRowIndexToModel(table_1.getSelectedRow())));
 
 				}
 
@@ -317,33 +323,34 @@ public class VerRegistros extends JDialog {
 		panel_2.add(guardar);
 		guardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				int tam = llll().size();
 				if(tam>0){
-				int confirm = JOptionPane.showConfirmDialog(null, "¿Registrar la salida de estas " + tam+" personas ?", "Confirmar", JOptionPane.YES_NO_OPTION);
-				if (confirm == JOptionPane.YES_OPTION) {
-				for(Registro r : llll()){
-					r.setHoraSalida(LocalTime.now());
+					int confirm = JOptionPane.showConfirmDialog(null, "¿Registrar la salida de estas " + tam+" personas ?", "Confirmar", JOptionPane.YES_NO_OPTION);
+					if (confirm == JOptionPane.YES_OPTION) {
+						for(Registro r : llll()){
+							r.setHoraSalida(LocalTime.now());
+
+						}
+						modelo2.setRowCount(0);
+						modelo2.cargarInfoGeneral(fac.sinSalidas());
+						modelo.setRowCount(0);
+						modelo.cargarInfoGeneral(fac.getVisitas());
+						table_1.removeColumn(mi0);
+						guardar.setVisible(false);
+						cancelar.setVisible(false);
+						btnRegistarSalida.setVisible(true);
+						btnSeleccionarVarios.setVisible(true);
+						setsalida.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+						btnRegistarSalida.setVisible(false);
+					}
 
 				}
-				modelo2.setRowCount(0);
-				modelo2.cargarInfoGeneral(fac.sinSalidas());
-				modelo.setRowCount(0);
-				modelo.cargarInfoGeneral(fac.getVisitas());
-				table_1.removeColumn(mi0);
-				guardar.setVisible(false);
-				cancelar.setVisible(false);
-				btnSeleccionarVarios.setVisible(true);
-				setsalida.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
-				btnRegistarSalida.setVisible(false);
-				}
 
+				else
+					JOptionPane.showMessageDialog(VerRegistros.this, "No se seleccionaron registros", "Registro de salida", JOptionPane.INFORMATION_MESSAGE);
 			}
-			
-			else
-				JOptionPane.showMessageDialog(VerRegistros.this, "No se seleccionaron registros", "Registro de salida", JOptionPane.INFORMATION_MESSAGE);
-			}
-			});
+		});
 		guardar.setVisible(false);
 
 		////////////////////////// BOTON CANCELAR ////////////////////////
@@ -352,7 +359,7 @@ public class VerRegistros extends JDialog {
 		cancelar.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		cancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				btnRegistarSalida.setVisible(true);  
 				table_1.removeColumn(mi0);
 				guardar.setVisible(false);
 				cancelar.setVisible(false);
@@ -374,7 +381,7 @@ public class VerRegistros extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				table_1.addColumn(mi0);
 				table_1.moveColumn(table_1.getColumnCount()-1, 0);
-
+				btnRegistarSalida.setVisible(false);
 				guardar.setVisible(true);
 				cancelar.setVisible(true);
 				btnSeleccionarVarios.setVisible(false);
@@ -386,28 +393,28 @@ public class VerRegistros extends JDialog {
 		///////////////////// BOTON REGISTRAR SALIDA///////////////////////
 
 		btnRegistarSalida = new JButton("Registrar Salida");
-//        btnRegistarSalida.setBorder(null);
+		//        btnRegistarSalida.setBorder(null);
 
-//		btnRegistarSalida.addMouseListener(new MouseAdapter() {
-//			@Override
-//            public void mouseEntered(MouseEvent e) {
-//              
-//                btnRegistarSalida.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-//            }
-//
-//            @Override
-//            public void mouseExited(MouseEvent e) {
-//                btnRegistarSalida.setBorder(null);
-////            	btnRegistarSalida.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-//            }
-//		});
+		//		btnRegistarSalida.addMouseListener(new MouseAdapter() {
+		//			@Override
+		//            public void mouseEntered(MouseEvent e) {
+		//              
+		//                btnRegistarSalida.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		//            }
+		//
+		//            @Override
+		//            public void mouseExited(MouseEvent e) {
+		//                btnRegistarSalida.setBorder(null);
+		////            	btnRegistarSalida.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		//            }
+		//		});
 		btnRegistarSalida.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		btnRegistarSalida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(tabbedPane.getSelectedIndex()==0)
-					fac.getVisitas().get(row).setHoraSalida(LocalTime.now());
+					fac.getVisitas().get(table.convertRowIndexToModel(table.getSelectedRow())).setHoraSalida(LocalTime.now());
 				else
-					fac.sinSalidas().get(row).setHoraSalida(LocalTime.now());
+					fac.sinSalidas().get(table_1.convertRowIndexToModel(table_1.getSelectedRow())).setHoraSalida(LocalTime.now());
 
 				modelo.setRowCount(0);
 				modelo.cargarInfoGeneral(fac.getVisitas());
@@ -424,12 +431,51 @@ public class VerRegistros extends JDialog {
 		});
 		btnRegistarSalida.setBounds(205, 486, 198, 44);
 		panel.add(btnRegistarSalida);
+
+		filtrado = new JTextField();
+		filtrado.setBounds(773, 25, 86, 20);
+		contentPanel.add(filtrado);
+		filtrado.setColumns(10);
 		btnRegistarSalida.setVisible(false);
+		rowSorter = new TableRowSorter<>(modelo);
+		table.setRowSorter(rowSorter);
+
+		final TableRowSorter<TableModel> rowSorter2 = new TableRowSorter<>(table_1.getModel());
+		table_1.setRowSorter(rowSorter2);
+
+		filtrado.getDocument().addDocumentListener(new DocumentListener() {
+			public void filtrar() {
+				String texto = filtrado.getText();
+
+				System.out.println(table.getRowSorter().getViewRowCount());
+				System.out.println(table_1.getRowSorter().getViewRowCount());
 
 
+				rowSorter.setRowFilter(texto.trim().isEmpty() ? null :
+					RowFilter.regexFilter("(?i)" + texto));
 
+				rowSorter2.setRowFilter(texto.trim().isEmpty() ? null :
+					RowFilter.regexFilter("(?i)" + texto));
+			}
 
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				filtrar();
 
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				filtrar();
+
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				filtrar();
+
+			}
+		});
 
 		modelo.cargarInfoGeneral(fac.getVisitas());
 		modelo2.cargarInfoGeneral(fac.sinSalidas());
@@ -450,24 +496,23 @@ public class VerRegistros extends JDialog {
 		return r;	
 	}
 
-
 	/////////////////////////////// LLENAR DATOS ///////////////////////////////////////
+
 	public void llenarDatos(Registro r){
 		setNomb.setText(r.getPersona().getNombre());
 		setcarn.setText(r.getPersona().getNumeroIdentidad());
 		setfecha.setText(r.getFecha().toString());
 		setloc.setText(r.getLocal().toString());
-		setentrada.setText(r.getHoraEntrada().toString());
+		setentrada.setText(r.getHoraEntrada().format(DateTimeFormatter.ofPattern("HH:mm")));
 		setsalida.setText(r.getHoraSalida()==null? "No ha salido ": r.getHoraSalida().format(DateTimeFormatter.ofPattern("HH:mm")));
 
-		if(r.getHoraSalida()==null){
+		if(r.getHoraSalida()==null && btnSeleccionarVarios.isVisible()){
 			btnRegistarSalida.setVisible(true);
 		}
 		else
 			btnRegistarSalida.setVisible(false);
 
 	}
-
 
 
 }

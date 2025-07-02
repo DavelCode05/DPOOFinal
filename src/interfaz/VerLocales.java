@@ -34,10 +34,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -48,6 +51,9 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import locales.Local;
 import personas.Persona;
@@ -79,12 +85,16 @@ public class VerLocales extends JDialog {
 	private JLabel lblCodigo;
 	private JLabel lblResponsable;
 	private JButton btnAgregar;
-	Color verdePrincipal = new Color(46, 204, 113);
-	Color verdeHover = new Color(56, 142, 60);
-	Color verdePressed = new Color(33, 150, 83);
 	private JPanel panel;
 	private JPopupMenu menuContextual;
 	private JButton btnGenerarPdf;
+
+	private Color verdePrincipal = new Color(46, 204, 113);
+	private Color verdeHover = new Color(39, 174, 96);
+	private Color verdePressed = new Color(33, 150, 83);
+
+	private JButton btnNewButton_1;
+	private JTextField filtrado;
 
 
 	/**
@@ -204,7 +214,7 @@ public class VerLocales extends JDialog {
 
 						tableloc.setRowSelectionInterval(row,row);
 						tableloc.setAutoscrolls(true);
-						mostrar(fac.getLocales().get(row));	
+						mostrar(fac.getLocales().get(tableloc.convertRowIndexToModel(row)));	
 
 					}
 					else {
@@ -230,7 +240,7 @@ public class VerLocales extends JDialog {
 			public void mouseClicked(java.awt.event.MouseEvent arg0) {
 
 				if(!editando){
-					mostrar (fac.getLocales().get(row));
+					mostrar (fac.getLocales().get(tableloc.convertRowIndexToModel(row)));
 					tablemodel.setRowCount(0);
 					tablemodel.cargarInfo(fac.getLocales());
 				}
@@ -248,7 +258,7 @@ public class VerLocales extends JDialog {
 				if(indice>-1){
 					tableloc.setRowSelectionInterval(indice,indice);
 					tableloc.setAutoscrolls(true);
-					mostrar(fac.getLocales().get(indice));
+					mostrar(fac.getLocales().get(tableloc.convertRowIndexToModel(indice)));
 				}
 
 			}
@@ -324,7 +334,7 @@ public class VerLocales extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				int confirm = JOptionPane.showConfirmDialog(null, "¿Eliminar este local?", "Confirmar", JOptionPane.YES_NO_OPTION);
 				if (confirm == JOptionPane.YES_OPTION) {
-					if(!fac.verificarRegistrosActivos(fac.getLocales().get(row), null)){
+					if(!fac.verificarRegistrosActivos(fac.getLocales().get(tableloc.convertRowIndexToModel(row)), null)){
 
 					fac.getLocales().remove(row);
 					tablemodel.setRowCount(0);
@@ -464,9 +474,9 @@ public class VerLocales extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				int confirm = JOptionPane.showConfirmDialog(null, "¿Eliminar este local?", "Confirmar", JOptionPane.YES_NO_OPTION);
 				if (confirm == JOptionPane.YES_OPTION) {
-					if(!fac.verificarRegistrosActivos(fac.getLocales().get(row), null)){
+					if(!fac.verificarRegistrosActivos(fac.getLocales().get(tableloc.convertRowIndexToModel(row)), null)){
 
-					fac.getLocales().remove(row);
+					fac.getLocales().remove(tableloc.convertRowIndexToModel(row));
 					tablemodel.setRowCount(0);
 					tablemodel.cargarInfo(fac.getLocales());
 					btnCancelar.setVisible(false);
@@ -503,7 +513,7 @@ public class VerLocales extends JDialog {
 		btnGuardarCambios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				if(crearLoc(fac.getLocales().get(row))){
+				if(crearLoc(fac.getLocales().get(tableloc.convertRowIndexToModel(row)))){
 					editando = false;
 					agregar = false;
 					codigo.setEditable(false);
@@ -556,7 +566,7 @@ public class VerLocales extends JDialog {
 				int confirm = JOptionPane.showConfirmDialog(null, "¿Desea cancelar sin guardar los cambios?", "Confirmar", JOptionPane.YES_NO_OPTION);
 				if (confirm == JOptionPane.YES_OPTION) {
 					editando = false;
-					mostrar(fac.getLocales().get(row));
+					mostrar(fac.getLocales().get(tableloc.convertRowIndexToModel(row)));
 
 					lblCodigo.setForeground(Color.black);
 					errores.setVisible(false);
@@ -641,7 +651,99 @@ public class VerLocales extends JDialog {
 		btnAgregar.setBounds(22, 28, 166, 36);
 		contentPanel.add(btnAgregar);
 		contentPanel.add(getBtnGenerarPdf());
+
+		btnAgregar.setBackground(Color.WHITE);
+		
+		filtrado = new JTextField();
+		filtrado.setBounds(426, 39, 107, 20);
+		contentPanel.add(filtrado);
+		filtrado.setColumns(10);
+		final TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(tableloc.getModel());
+		tableloc.setRowSorter(rowSorter);
+		filtrado.getDocument().addDocumentListener(new DocumentListener() {
+			
+			private void filtrar(){
+				String texto = filtrado.getText();
+				if(texto.trim().length()==0){
+					rowSorter.setRowFilter(null);
+				}
+				else{
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
+				}
+			}
+		
+			
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				filtrar();
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				filtrar();				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				filtrar();
+				
+			}
+		
+		});
 		}
+			
+			
+					
+		
+
+
+
+/////////////////////////////// BOTON SALIR  ////////////////////////////////////////////////////////////
+	private JButton getBtnNewButton() {
+
+		if (btnNewButton_1 == null) {
+			btnNewButton_1 = new JButton("");
+			UIManager.put("ToolTip.background", Color.WHITE);
+			UIManager.put("ToolTip.foreground", Color.BLACK);
+			UIManager.put("ToolTip.font", new Font("Segoe UI", Font.PLAIN, 16));
+
+			btnNewButton_1.setToolTipText("Cerrar");
+
+			btnNewButton_1.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(java.awt.event.MouseEvent arg0) {
+					btnNewButton_1.setBackground(new Color(220, 53, 69));
+					btnNewButton_1.setForeground(Color.WHITE);
+					btnNewButton_1.setText("");
+				}
+				@Override
+				public void mouseExited(java.awt.event.MouseEvent arg0) {
+					btnNewButton_1.setBackground(new Color(240, 240, 240));
+					btnNewButton_1.setForeground(Color.BLACK);
+					btnNewButton_1.setText("");
+				}
+			});
+			btnNewButton_1.setContentAreaFilled(false);
+			btnNewButton_1.setBounds(1187, 0, 47, 46);
+			btnNewButton_1.setOpaque(true);
+			btnNewButton_1.setBorder(null);
+			btnNewButton_1.setBackground(new Color(240, 240, 240));
+			btnNewButton_1.setForeground(Color.BLACK);
+			btnNewButton_1.setFocusPainted(false);
+			btnNewButton_1.setFont(new Font("Segoe UI", Font.PLAIN, 28));
+			btnNewButton_1.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+
+			btnNewButton_1.setIcon(new ImageIcon(TablaReporte1.class.getResource("/images/close.png")));
+			btnNewButton_1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					dispose();
+				}
+			});
+		}
+		return btnNewButton_1;
+	}
+
 	
 /////////////////////////////// MOSTRAR INFORMACION  ////////////////////////////////////////////////////////////
 
