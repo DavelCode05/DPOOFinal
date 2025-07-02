@@ -34,7 +34,7 @@ public class TablaRegistrosReporte1 extends DefaultTableModel{
 			String hora= registros.get(i).getHoraEntrada().format(DateTimeFormatter.ofPattern("HH:mm"));
 			String horaSal = registros.get(i).getHoraSalida()==null? "No ha salido": registros.get(i).getHoraSalida().format(DateTimeFormatter.ofPattern("HH:mm"));
 
-			Object [] newR = new Object[]{registros.get(i).getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) , registros.get(i).getLocal().getTipo(), hora,
+			Object [] newR = new Object[]{registros.get(i).getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) , registros.get(i).getLocal().toString(), hora,
 					horaSal
 			};
 			this.addRow(newR);

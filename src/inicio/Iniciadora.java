@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import controllerClass.Facultad;
 import locales.Local;
 import personas.Administrativo;
 import personas.Directivo;
@@ -13,14 +14,13 @@ import personas.Profesor;
 import personas.Tecnico;
 import personas.Visitante;
 import acceso.Registro;
-import controllerClass.Facultad;
 import enums.AreaDirectivo;
 import enums.CargoDirectivo;
 import enums.Plaza;
 import enums.TipoLocal;
 import enums.TipoContrato;
 import enums.TipoLocal;
-import controllerClass.Facultad;
+
 
 public class Iniciadora {
 	
@@ -217,7 +217,7 @@ public class Iniciadora {
 		// Día 12 de mayo
 		registros.add(new Registro(personal.get(0), locales.get(0))); //27
 		registros.get(27).setHoraEntrada(LocalTime.of(8, 0)); registros.get(27).setHoraSalida(LocalTime.of(10, 0));
-		registros.get(27).setFecha(LocalDate.of(2025, 5, 12));
+		registros.get(27).setFecha(LocalDate.now());
 
 		// Día 13 de mayo
 		registros.add(new Registro(personal.get(34), locales.get(0))); //28

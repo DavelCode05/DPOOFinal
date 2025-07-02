@@ -47,10 +47,10 @@ import controllerClass.Facultad;
 public class EleccionReporte3 extends JDialog {
 
 	private final JPanel contentPanel = new JPanel(){
-		public void paintComponent(Graphics g){
-			Image img= Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/fondoDesenfocado.png"));
-			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-		}
+//		public void paintComponent(Graphics g){
+//			Image img= Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/fondoDesenfocado.png"));
+//			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+//		}
 
 	};
 	JComboBox <Local> comboBoxLocal ;
@@ -105,13 +105,13 @@ public class EleccionReporte3 extends JDialog {
 
 		setBounds(100, 100, 888, 816);
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setBorder(new LineBorder(Colores.getAzulOScuro()));
+//		contentPanel.setBorder(new LineBorder(Colores.getAzulOScuro()));
 //		this.setUndecorated(true);
 		setLocationRelativeTo(null);
 		contentPanel.setLayout(null);
 
 		panelloc = new JPanel();
-		panelloc.setBackground(Colores.getAzulCielo());
+//		panelloc.setBackground(Colores.getAzulCielo());
 		panelloc.setBounds(373, 60, 446, 36);
 		contentPanel.add(panelloc);
 		panelloc.setLayout(null);
@@ -145,7 +145,7 @@ public class EleccionReporte3 extends JDialog {
 				
 			}
 		});
-		comboBoxLocal.setBackground(new Color(255, 255, 255));
+//		comboBoxLocal.setBackground(new Color(255, 255, 255));
 		comboBoxLocal.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBoxLocal.setModel(new DefaultComboBoxModel<>(fac.getLocales().toArray(new Local[0])));
 		comboBoxLocal.setSelectedItem(0);
@@ -156,16 +156,16 @@ public class EleccionReporte3 extends JDialog {
 				lblNewLabel.setBounds(12, 4, 175, 27);
 				panelloc.add(lblNewLabel);
 				lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 22));
-				lblNewLabel.setForeground(Color.WHITE);
+				lblNewLabel.setForeground(new Color(0, 0, 0));
 
 		lblFormaDeVisualizacin = new JLabel("Forma de visualizaci\u00F3n:");
-		lblFormaDeVisualizacin.setForeground(Color.WHITE);
+		lblFormaDeVisualizacin.setForeground(new Color(0, 0, 0));
 		lblFormaDeVisualizacin.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblFormaDeVisualizacin.setBounds(81, 693, 246, 27);
 		contentPanel.add(lblFormaDeVisualizacin);
 
 		rdbtnTabla = new JRadioButton("Tabla");
-		rdbtnTabla.setForeground(Color.WHITE);
+		rdbtnTabla.setForeground(new Color(0, 0, 0));
 //		rdbtnTabla.setForeground(Color.WHITE);
 		rdbtnTabla.setFont(new Font("Tahoma", Font.PLAIN, 21));
 
@@ -208,20 +208,20 @@ public class EleccionReporte3 extends JDialog {
 		contentPanel.add(dateChooser);
 
 		lblSeleccionarFecha = new JLabel("Seleccionar fecha:");
-		lblSeleccionarFecha.setForeground(Color.WHITE);
+		lblSeleccionarFecha.setForeground(new Color(0, 0, 0));
 		lblSeleccionarFecha.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblSeleccionarFecha.setBounds(81, 139, 183, 27);
 		contentPanel.add(lblSeleccionarFecha);
 
 		rdbtnGraficoDeBarras = new JRadioButton("Gr\u00E1fico de barras");
-		rdbtnGraficoDeBarras.setForeground(Color.WHITE);
+		rdbtnGraficoDeBarras.setForeground(new Color(0, 0, 0));
 		rdbtnGraficoDeBarras.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		rdbtnGraficoDeBarras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				representarReportePorDia();
 			}
 		});
-		rdbtnGraficoDeBarras.setBackground(Colores.getBlancuzo());
+//		rdbtnGraficoDeBarras.setBackground(Colores.getBlancuzo());
 
 
 		rdbtnGraficoDeBarras.setBounds(453, 689, 211, 36);
@@ -231,14 +231,14 @@ public class EleccionReporte3 extends JDialog {
 
 		comboBox = new JComboBox<String>();
 
-		comboBox.setBackground(new Color(255, 255, 255));
+//		comboBox.setBackground(new Color(255, 255, 255));
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Facultad", "Local"}));
 		comboBox.setBounds(220, 60, 128, 36);
 		contentPanel.add(comboBox);
 
 		JLabel lblMostrarPor = new JLabel("Mostrar Por:");
-		lblMostrarPor.setForeground(Color.WHITE);
+		lblMostrarPor.setForeground(new Color(0, 0, 0));
 		lblMostrarPor.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblMostrarPor.setBounds(81, 64, 137, 27);
 		contentPanel.add(lblMostrarPor);
@@ -401,10 +401,10 @@ public class EleccionReporte3 extends JDialog {
 				datos = fac.entradaALaFAcuPorHoras(fecha, loc);
 				locales= null;
 
-				lblSeleccionarFecha.setForeground(Color.WHITE);
+				lblSeleccionarFecha.setForeground(new Color(0,0,0));
 			}
 			else {
-				lblSeleccionarFecha.setForeground(Color.WHITE);
+				lblSeleccionarFecha.setForeground(new Color(0,0,0));
 
 			}
 		}
@@ -412,12 +412,12 @@ public class EleccionReporte3 extends JDialog {
 
 			if(dateChooser.getDate()!=null){
 				fecha = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				lblSeleccionarFecha.setForeground(Color.WHITE);
+				lblSeleccionarFecha.setForeground(new Color(0,0,0));
 				datos = fac.entradaALAFacuPorDia(fecha);
 				locales = fac.nombresLocales();
 			}
 			else {
-				lblSeleccionarFecha.setForeground(Color.WHITE);
+				lblSeleccionarFecha.setForeground(new Color(0,0,0));
 
 			}
 		}
@@ -427,7 +427,7 @@ public class EleccionReporte3 extends JDialog {
 
 
 		if(rdbtnGraficoDeBarras.isSelected()){
-			lblFormaDeVisualizacin.setForeground(Color.WHITE);
+			lblFormaDeVisualizacin.setForeground(new Color(0,0,0));
 
 			g = new GraficoBarrasDialog(datos,EleccionReporte3.this, locales, panelNuevo);
 			panelNuevo.add(g, "red");
@@ -435,7 +435,7 @@ public class EleccionReporte3 extends JDialog {
 		}
 		else if(rdbtnTabla.isSelected()){
 
-			lblFormaDeVisualizacin.setForeground(Color.WHITE);
+			lblFormaDeVisualizacin.setForeground(new Color(0,0,0));
 
 
 			if(comboBox.getSelectedItem().toString().equals("Local")){
@@ -449,7 +449,7 @@ public class EleccionReporte3 extends JDialog {
 			}
 		}
 		else{
-			lblFormaDeVisualizacin.setForeground(Color.WHITE);
+			lblFormaDeVisualizacin.setForeground(new Color(0,0,0));
 
 		}
 

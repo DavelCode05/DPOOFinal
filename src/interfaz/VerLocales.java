@@ -120,15 +120,16 @@ public class VerLocales extends JDialog {
     	super(p, true);
     	setFont(new Font("Tahoma", Font.PLAIN, 17));
     	setTitle("Locales");
+    	setLocationRelativeTo(null);
 		fac = Facultad.getFacultad();
 		setBounds(100, 100, 1392, 855);
 		editando = false;
 		agregar = false;
 		contentPanel = new JPanel(){
-			public void paintComponent(Graphics g){
-				Image img= Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/fondoDesenfocado.png"));
-				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-			}
+//			public void paintComponent(Graphics g){
+//				Image img= Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/fondoDesenfocado.png"));
+//				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+//			}
 		};
 			
 		try{
@@ -169,7 +170,7 @@ public class VerLocales extends JDialog {
 				new Font("Tahoma", Font.BOLD, 26),
 				Color.BLACK);
 		panel.setBorder(bordeConTitulo);
-		panel.setBackground(Colores.getBlancuzo());
+//		panel.setBackground(Colores.getBlancuzo());
 		contentPanel.add(panel);
 		
 
@@ -178,7 +179,7 @@ public class VerLocales extends JDialog {
 		contentPanel.add(scrollPane);
 
 //		scrollPane.setBackground(Color.WHITE);
-		scrollPane.getViewport().setBackground(Colores.getBlancuzo());
+//		scrollPane.getViewport().setBackground(Colores.getBlancuzo());
 		scrollPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 		scrollPane.setBounds(88, 108, 603, 631);
 //		scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
@@ -431,7 +432,7 @@ public class VerLocales extends JDialog {
 						new Font("Tahoma", Font.BOLD, 26),
 						Color.BLACK);
 				panel.setBorder(bordeConTitulo);
-				panel.setBackground(Colores.getBlancuzo());
+//				panel.setBackground(Colores.getBlancuzo());
 			}
 		});
 //		btneditar.addMouseListener(new MouseAdapter() {
@@ -519,6 +520,7 @@ public class VerLocales extends JDialog {
 					codigo.setEditable(false);
 					btneditar.setVisible(true);
 					btnEliminar.setVisible(true);
+					btnNewButton.setVisible(true);
 					btnCancelar.setVisible(false);
 					btnGuardarCambios.setVisible(false);
 					respons.setEnabled(false);
@@ -570,6 +572,7 @@ public class VerLocales extends JDialog {
 
 					lblCodigo.setForeground(Color.black);
 					errores.setVisible(false);
+					btnNewButton.setVisible(true);
 					btnCancelar.setVisible(false);
 					btnEliminar.setVisible(true);
 					btnEliminar.setEnabled(true);
@@ -586,7 +589,7 @@ public class VerLocales extends JDialog {
 							new Font("Tahoma", Font.BOLD, 26),
 							Color.BLACK);
 					panel.setBorder(bordeConTitulo);
-					panel.setBackground(Colores.getBlancuzo());
+//					panel.setBackground(Colores.getBlancuzo());
 				}
 			}
 		});
@@ -611,6 +614,7 @@ public class VerLocales extends JDialog {
 		btnAgregar = new JButton("Nuevo local");
 		btnAgregar.setFocusPainted(false);
 		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 21));
+//		btnAgregar.setBackground(new Color(240,240,240));
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				editando = true;
@@ -634,7 +638,8 @@ public class VerLocales extends JDialog {
 						new Font("Tahoma", Font.BOLD, 26),
 						Color.BLACK);
 				panel.setBorder(bordeConTitulo);
-				panel.setBackground(Colores.getBlancuzo());
+//				panel.setBackground(Colores.getBlancuzo());
+				btnNewButton.setVisible(false);
 
 			}
 		});
@@ -652,10 +657,9 @@ public class VerLocales extends JDialog {
 		contentPanel.add(btnAgregar);
 		contentPanel.add(getBtnGenerarPdf());
 
-		btnAgregar.setBackground(Color.WHITE);
 		
 		filtrado = new JTextField();
-		filtrado.setBounds(426, 39, 107, 20);
+		filtrado.setBounds(426, 28, 189, 36);
 		contentPanel.add(filtrado);
 		filtrado.setColumns(10);
 		final TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(tableloc.getModel());

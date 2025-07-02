@@ -117,12 +117,15 @@ public class TablaAutorizadoReporte4 extends JDialog {
 	    respons.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		respons.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				tablemodel.setRowCount(0);
 				tablemodel.llenarTabla(fac.personasAutorizada((Persona) respons.getSelectedItem()));
 			}
 		});
 		respons.setBounds(156, 28, 249, 31);
 		contentPanel.add(respons);
 		respons.setModel(new DefaultComboBoxModel<>(fac.obtenerResponsables().toArray(new Persona[0])));
+		
+		tablemodel.llenarTabla(fac.personasAutorizada((Persona) respons.getSelectedItem()));
 		
 	}
 }

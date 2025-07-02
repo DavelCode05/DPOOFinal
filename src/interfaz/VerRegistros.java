@@ -1,8 +1,13 @@
 package interfaz;
 
+import inicio.Iniciadora;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -43,7 +48,12 @@ import javax.swing.JTextField;
 
 public class VerRegistros extends JDialog {
 
-	private final JPanel contentPanel = new JPanel();
+	private final JPanel contentPanel = new JPanel(){
+//		public void paintComponent(Graphics g){
+//			Image img= Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/fondoDesenfocado.png"));
+//			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+//		}
+	};
 	private JTable table;
 	private ModeloTablaSalida modelo;
 	private Facultad fac;
@@ -78,15 +88,16 @@ public class VerRegistros extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	//		public static void main(String[] args) {
-	//			try {
-	//				VerRegistros dialog = new VerRegistros();
-	//				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	//				dialog.setVisible(true);
-	//			} catch (Exception e) {
-	//				e.printStackTrace();
-	//			}
-	//		}
+//			public static void main(String[] args) {
+//				try {
+//					Iniciadora.iniciar();
+//					VerRegistros dialog = new VerRegistros();
+//					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//					dialog.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
 
 	/**
 	 * Create the dialog.
@@ -97,7 +108,7 @@ public class VerRegistros extends JDialog {
 		super(p, "", true);
 		setTitle("Registros");
 		fac = Facultad.getFacultad();
-		setBounds(100, 100, 1193, 645);
+		setBounds(100, 100, 1350, 855);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -125,7 +136,7 @@ public class VerRegistros extends JDialog {
 
 
 		JPanel panel = new JPanel();
-		panel.setBounds(748, 50, 415, 535);
+		panel.setBounds(809, 126, 415, 617);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 
@@ -134,42 +145,42 @@ public class VerRegistros extends JDialog {
 
 		JLabel nomb = new JLabel("Nombre :");
 		nomb.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		nomb.setBounds(12, 60, 96, 38);
+		nomb.setBounds(12, 125, 96, 38);
 		panel.add(nomb);
 
 		setNomb = new JLabel("New label");
 		setNomb.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		setNomb.setBounds(120, 60, 260, 38);
+		setNomb.setBounds(120, 125, 260, 38);
 		panel.add(setNomb);
 
 		JLabel carnet = new JLabel("Carnet:");
 		carnet.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		carnet.setBounds(12, 121, 96, 38);
+		carnet.setBounds(12, 186, 96, 38);
 		panel.add(carnet);
 
 		setcarn = new JLabel("New label");
 		setcarn.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		setcarn.setBounds(120, 121, 260, 38);
+		setcarn.setBounds(120, 186, 260, 38);
 		panel.add(setcarn);
 
 		JLabel local = new JLabel("Local:");
 		local.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		local.setBounds(12, 184, 96, 38);
+		local.setBounds(12, 249, 96, 38);
 		panel.add(local);
 
 		setloc = new JLabel("New label");
 		setloc.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		setloc.setBounds(120, 184, 283, 38);
+		setloc.setBounds(120, 249, 283, 38);
 		panel.add(setloc);
 
 		JLabel entrada = new JLabel("Hora de Entrada:");
 		entrada.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		entrada.setBounds(12, 321, 183, 38);
+		entrada.setBounds(12, 386, 183, 38);
 		panel.add(entrada);
 
 		salida = new JLabel("Hora de Salida: ");
 		salida.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		salida.setBounds(12, 361, 183, 38);
+		salida.setBounds(12, 426, 183, 38);
 		panel.add(salida);
 
 		fecha = new JLabel("Fecha:");
@@ -180,12 +191,12 @@ public class VerRegistros extends JDialog {
 
 		setentrada = new JLabel("New label");
 		setentrada.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		setentrada.setBounds(207, 321, 168, 38);
+		setentrada.setBounds(207, 386, 168, 38);
 		panel.add(setentrada);
 
 		setsalida = new JLabel("New label");
 		setsalida.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		setsalida.setBounds(207, 361, 196, 38);
+		setsalida.setBounds(207, 426, 196, 38);
 		panel.add(setsalida);
 
 		setfecha = new JLabel("New label");
@@ -196,7 +207,7 @@ public class VerRegistros extends JDialog {
 
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(12, 13, 735, 572);
+		tabbedPane.setBounds(73, 89, 735, 654);
 		contentPanel.add(tabbedPane);
 
 		panel_1 = new JPanel();
@@ -207,7 +218,7 @@ public class VerRegistros extends JDialog {
 		/////////////////////////// PANEL Y TABLA DE TODOS//////////////////////
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 30, 708, 493);
+		scrollPane.setBounds(10, 30, 708, 572);
 		panel_1.add(scrollPane);
 
 		table = new JTable();
@@ -266,7 +277,7 @@ public class VerRegistros extends JDialog {
 
 		////////////////PANEL Y TABLA SIN SALIDAS REGISTRADAS //////////////////////		
 		sinsal = new JScrollPane();
-		sinsal.setBounds(10, 36, 708, 458);
+		sinsal.setBounds(10, 36, 708, 531);
 		panel_2.add(sinsal);
 
 		table_1 = new JTable();
@@ -319,7 +330,7 @@ public class VerRegistros extends JDialog {
 
 		guardar = new JButton("Guardar registro");
 		guardar.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		guardar.setBounds(10, 496, 193, 36);
+		guardar.setBounds(10, 566, 193, 36);
 		panel_2.add(guardar);
 		guardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -367,7 +378,7 @@ public class VerRegistros extends JDialog {
 
 			}
 		});
-		cancelar.setBounds(203, 496, 113, 36);
+		cancelar.setBounds(203, 566, 113, 36);
 		panel_2.add(cancelar);
 		cancelar.setVisible(false);
 
@@ -429,11 +440,11 @@ public class VerRegistros extends JDialog {
 
 			}
 		});
-		btnRegistarSalida.setBounds(205, 486, 198, 44);
+		btnRegistarSalida.setBounds(207, 560, 198, 44);
 		panel.add(btnRegistarSalida);
 
 		filtrado = new JTextField();
-		filtrado.setBounds(773, 25, 86, 20);
+		filtrado.setBounds(258, 40, 179, 36);
 		contentPanel.add(filtrado);
 		filtrado.setColumns(10);
 		btnRegistarSalida.setVisible(false);

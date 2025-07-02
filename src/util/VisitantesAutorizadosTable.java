@@ -23,7 +23,7 @@ public class VisitantesAutorizadosTable extends DefaultTableModel{
 		for(int i=0; i < vv.size();i++){
 			p = vv.get(i).getPersona();
 
-			Object [] newR = new Object[]{ p.getNombre(),p.getNumeroIdentidad(),vv.get(i).getLocal().getTipo().name()}; 
+			Object [] newR = new Object[]{ p.getNombre(),p.getNumeroIdentidad(),vv.get(i).getLocal().toString()}; 
 			this.addRow(newR);
 		}
 

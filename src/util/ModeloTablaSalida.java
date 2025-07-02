@@ -23,7 +23,7 @@ public class ModeloTablaSalida extends DefaultTableModel{
 		for(int i=0; i < r.size(); i++){
 			String hora = r.get(i).getHoraEntrada().format(DateTimeFormatter.ofPattern("HH:mm"));
                 
-			 newR = new Object[]{ro,r.get(i).getPersona().getNombre(), r.get(i).getLocal().getCodigo(),
+			 newR = new Object[]{ro,r.get(i).getPersona().getNombre(), r.get(i).getLocal().toString(),
 					hora , r.get(i).getHoraSalida()==null? "No ha salido": r.get(i).getHoraSalida().format(DateTimeFormatter.ofPattern("HH:mm"))
 					
 			};

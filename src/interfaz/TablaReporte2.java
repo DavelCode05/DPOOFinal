@@ -67,10 +67,10 @@ import javax.swing.JTextField;
 public class TablaReporte2 extends JDialog {
 
 	private final JPanel contentPanel = new JPanel(){
-		public void paintComponent(Graphics g){
-			Image img= Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/fondoDesenfocado.png"));
-			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-		}
+//		public void paintComponent(Graphics g){
+//			Image img= Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/fondoDesenfocado.png"));
+//			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+//		}
 	};
 	private JLabel lblNewLabel;
 	private JScrollPane scrollPane;
@@ -169,7 +169,7 @@ public class TablaReporte2 extends JDialog {
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("Local:");
-			lblNewLabel.setForeground(Color.WHITE);
+			lblNewLabel.setForeground(new Color(0, 0, 0));
 			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
 			lblNewLabel.setBounds(90, 90, 260, 26);
 		}
@@ -178,10 +178,10 @@ public class TablaReporte2 extends JDialog {
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane(){
-				public void paintComponent(Graphics g){
-					Image img = Toolkit.getDefaultToolkit().getImage(TablaReporte1.class.getResource("/images/fondosTablas.png"));
-					g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-				}
+//				public void paintComponent(Graphics g){
+//					Image img = Toolkit.getDefaultToolkit().getImage(TablaReporte1.class.getResource("/images/fondosTablas.png"));
+//					g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+//				}
 			};
 			scrollPane.setEnabled(false);
 //			scrollPane.setBackground(Colores.getAzulCielo());
@@ -303,7 +303,7 @@ public class TablaReporte2 extends JDialog {
 	private JLabel getLblNewLabel_2() {
 		if (lblNewLabel_2 == null) {
 			lblNewLabel_2 = new JLabel("Desde:");
-			lblNewLabel_2.setForeground(Color.WHITE);
+			lblNewLabel_2.setForeground(new Color(0, 0, 0));
 			lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 22));
 			lblNewLabel_2.setBounds(470, 90, 132, 26);
 		}
@@ -312,7 +312,7 @@ public class TablaReporte2 extends JDialog {
 	private JLabel getLblNewLabel_3() {
 		if (lblNewLabel_3 == null) {
 			lblNewLabel_3 = new JLabel("Hasta:");
-			lblNewLabel_3.setForeground(Color.WHITE);
+			lblNewLabel_3.setForeground(new Color(0, 0, 0));
 			lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 22));
 			lblNewLabel_3.setBounds(739, 90, 132, 26);
 		}
@@ -447,7 +447,7 @@ public class TablaReporte2 extends JDialog {
 	private JTextField getFiltrado() {
 		if (filtrado == null) {
 			filtrado = new JTextField();
-			filtrado.setBounds(891, 133, 86, 20);
+			filtrado.setBounds(668, 42, 86, 20);
 			filtrado.setColumns(10);
 			
 			final TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(table.getModel());

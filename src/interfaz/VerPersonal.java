@@ -155,7 +155,6 @@ private int fila;
 
 	private JComboBox filtro;
 	private JComboBox comboBox;
-	private JLabel lblFiltrarPor;
 	private JPopupMenu menuContextual;
 	private JScrollBar verticalBar;
 	Color verdePrincipal = new Color(46, 204, 113);
@@ -193,10 +192,10 @@ public VerPersonal(JFrame p) {
 		fac = Facultad.getFacultad();
 		personas = fac.getPersonal();
 		contentPanel = new JPanel(){
-			public void paintComponent(Graphics g){
-				Image img= Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/fondoDesenfocado.png"));
-				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-			}
+//			public void paintComponent(Graphics g){
+//				Image img= Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/images/fondoDesenfocado.png"));
+//				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+//			}
 		};
 
 		//		UIManager.put("Table.showGrid", false);
@@ -240,7 +239,7 @@ public VerPersonal(JFrame p) {
 		UIManager.put("ComboBox.foreground", Color.BLACK);
 
 //		scrollPane.setBackground(Color.WHITE);
-		scrollPane.getViewport().setBackground(Colores.getBlancuzo());
+//		scrollPane.getViewport().setBackground(Colores.getBlancuzo());
 		scrollPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 		scrollPane.setBounds(88, 108, 603, 631);
 //		scrollPane.getVerticalScrollBar().setUI(new ScrollMinimalista());
@@ -366,47 +365,6 @@ public VerPersonal(JFrame p) {
 		//		});
 		tablemodel.cargarInfo(fac.getPersonal());
 		tablemodel2.cargarInfo(fac.getPersonal());
-//		comboBox.setBounds(428, 33, 197, 36);
-//		comboBox.setOpaque(true);
-//		contentPanel.add(comboBox);
-
-
-
-		//		contentPanel.add();
-
-
-
-//		comboBox = new JComboBox();
-//		comboBox.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
-//		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Estudiante", "Directivo", "Administrativo", "Especialista", "T\u00E9cnico", "Profesor"}));
-//				comboBox.addItemListener(new ItemListener() {
-//					public void itemStateChanged(ItemEvent e) {
-//						if (e.getStateChange() == ItemEvent.SELECTED) {
-//							String rolSeleccionado = (String) e.getItem();
-//		
-//							if (rolSeleccionado.equals("Todos")) {
-//								personas = fac.getPersonal();
-//							} else {
-//								personas = fac.filtrar(rolSeleccionado);
-//								
-//							}
-//		
-//							tablemodel.cargarInfo(personas);
-//						}
-//					}
-//				});
-//				
-//		tablemodel.cargarInfo(personas);
-//		tablemodel2.cargarInfo(personas);
-////		comboBox.setBounds(428, 33, 197, 36);
-////		comboBox.setOpaque(true);
-////		contentPanel.add(comboBox);
-
-		lblFiltrarPor = new JLabel("Mostrar:");
-		lblFiltrarPor.setForeground(Color.WHITE);
-		lblFiltrarPor.setFont(new Font("Modern No. 20", Font.PLAIN, 20));
-		lblFiltrarPor.setBounds(329, 33, 87, 36);
-		contentPanel.add(lblFiltrarPor);
 
 //		lblFiltrarPor = new JLabel("Mostrar:");
 //		lblFiltrarPor.setForeground(new Color(0, 0, 0));
@@ -420,17 +378,17 @@ public VerPersonal(JFrame p) {
 
 		//////////////////////////////// BOTON AGREGAR ////////////////////////////////////////////////////////////
 
-		btnagregar = new JButton("");
+		btnagregar = new JButton("Nueva persona");
+		btnagregar.setFont(new Font("Tahoma", Font.BOLD, 21));
 		btnagregar.setFocusPainted(false);
-		btnagregar.setBounds(32, 22, 58, 59);
+		btnagregar.setBounds(32, 33, 206, 36);
 		contentPanel.add(btnagregar);
-//		btnagregar.setBackground(Color.WHITE);
-		btnagregar.setIcon(new ImageIcon(VerPersonal.class.getResource("/images/icons8-add-user-male-50.png")));
 		
 		
 		
 		filtrado = new JTextField();
-		filtrado.setBounds(703, 43, 133, 20);
+		filtrado.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		filtrado.setBounds(491, 33, 166, 36);
 		contentPanel.add(filtrado);
 		final TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(tablepers.getModel());
 		tablepers.setRowSorter(rowSorter);
@@ -523,10 +481,12 @@ public VerPersonal(JFrame p) {
 						"Agregar Personal",
 						TitledBorder.CENTER,
 						TitledBorder.TOP,
-						new Font("Modern No. 20", Font.BOLD, 26),
+						new Font("Tahoma", Font.BOLD, 26),
 						Color.BLACK);
 				panel.setBorder(bordeConTitulo);
-				panel.setBackground(Colores.getBlancuzo());
+//				panel.setBackground(Colores.getBlancuzo());
+				btnNewButton.setVisible(false);
+				
 
 				tablemodel.cargarInfo(fac.getPersonal());	
 
@@ -747,10 +707,10 @@ public VerPersonal(JFrame p) {
 					new Font("Tahoma", Font.BOLD, 26),
 					Color.BLACK);
 			panel.setBorder(bordeConTitulo);
-			panel.setBackground(Colores.getBlancuzo());
+//			panel.setBackground(Colores.getBlancuzo());
 
 			panelGeneral = new JPanel();
-			panelGeneral.setBackground(Colores.getAzulCielo());
+//			panelGeneral.setBackground(Colores.getAzulCielo());
 			panelGeneral.setBounds(39, 195, 503, 333);
 
 			panel.add(panelGeneral);
@@ -758,9 +718,9 @@ public VerPersonal(JFrame p) {
 
 			panelAdmin = new JPanel();
 
-			panelAdmin.setBackground(Colores.getAzulCielo());
+//			panelAdmin.setBackground(Colores.getAzulCielo());
 
-			panelAdmin.setBackground(Colores.getBlancuzo());
+//			panelAdmin.setBackground(Colores.getBlancuzo());
 
 			panelGeneral.add(panelAdmin, "Administrativo");
 			panelAdmin.setLayout(null);
@@ -772,7 +732,7 @@ public VerPersonal(JFrame p) {
 			//////////////PANEL DIRECTIVO  ///////////////////////
 
 			panelDirectivo = new JPanel();
-			panelDirectivo.setBackground(Colores.getBlancuzo());
+//			panelDirectivo.setBackground(Colores.getBlancuzo());
 			panelDirectivo.setLayout(null);
 			panelDirectivo.add(getLblDepartamento());
 			panelDirectivo.add(getDepaDirect());
@@ -814,7 +774,7 @@ public VerPersonal(JFrame p) {
 	private JPanel getPanelProfesor() {
 		if (panelProfesor == null) {
 			panelProfesor = new JPanel();
-			panelProfesor.setBackground(Colores.getBlancuzo());
+//			panelProfesor.setBackground(Colores.getBlancuzo());
 			panelProfesor.setLayout(null);
 			panelProfesor.add(getDepap());
 			panelProfesor.add(getDepaProfesor());
@@ -832,7 +792,7 @@ public VerPersonal(JFrame p) {
 	private JPanel getPanelEspecialista() {
 		if (panelEspecialista == null) {
 			panelEspecialista = new JPanel();
-			panelEspecialista.setBackground(Colores.getBlancuzo());
+//			panelEspecialista.setBackground(Colores.getBlancuzo());
 			panelEspecialista.setLayout(null);
 			panelEspecialista.add(getTFproyectoEsp());
 			panelEspecialista.add(getLblProyecto());
@@ -845,7 +805,7 @@ public VerPersonal(JFrame p) {
 	private JPanel getPanelEstudiante() {
 		if (panelEstudiante == null) {
 			panelEstudiante = new JPanel();
-			panelEstudiante.setBackground(Colores.getBlancuzo());
+//			panelEstudiante.setBackground(Colores.getBlancuzo());
 			panelEstudiante.setLayout(null);
 			panelEstudiante.add(getAnnoEst());
 			panelEstudiante.add(getLblAo());
@@ -861,7 +821,7 @@ public VerPersonal(JFrame p) {
 	private JPanel getPanelTecnico() {
 		if (panelTecnico == null) {
 			panelTecnico = new JPanel();
-			panelTecnico.setBackground(Colores.getBlancuzo());
+//			panelTecnico.setBackground(Colores.getBlancuzo());
 			panelTecnico.setLayout(null);
 			panelTecnico.add(getPalazatec());
 			panelTecnico.add(getLblPlaza_1());
@@ -1331,7 +1291,7 @@ public VerPersonal(JFrame p) {
 							new Font("Tahoma", Font.BOLD, 26),
 							Color.BLACK);
 					panel.setBorder(bordeConTitulo);
-					panel.setBackground(Colores.getBlancuzo());
+//					panel.setBackground(Colores.getBlancuzo());
 
 
 				}
@@ -1462,6 +1422,7 @@ public VerPersonal(JFrame p) {
 						btnEliminar.setVisible(true);
 						btnEliminar.setEnabled(true);
 						btnEditar.setVisible(true);
+						btnNewButton.setVisible(true);
 
 						tablemodel.setRowCount(0);
 						tablemodel.cargarInfo(personas);
@@ -1534,6 +1495,7 @@ public VerPersonal(JFrame p) {
 						lblPlaza_1.setForeground(Color.BLACK);
 						lblreaDeTrabajo.setForeground(Color.BLACK);
 						lblTipoDeContrato.setForeground(Color.BLACK);
+						btnNewButton.setVisible(true);
 						
 						TitledBorder bordeConTitulo = BorderFactory.createTitledBorder(
 								BorderFactory.createLineBorder(Colores.getBlancuzo(), 2, false),
@@ -1543,7 +1505,7 @@ public VerPersonal(JFrame p) {
 								new Font("Tahoma", Font.BOLD, 26),
 								Color.BLACK);
 						panel.setBorder(bordeConTitulo);
-						panel.setBackground(Colores.getBlancuzo());
+//						panel.setBackground(Colores.getBlancuzo());
 
 					}
 				}
@@ -2240,7 +2202,7 @@ public VerPersonal(JFrame p) {
 //					btnNewButton.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 //				}
 //			});
-			btnNewButton.setBounds(102, 33, 166, 36);
+			btnNewButton.setBounds(250, 33, 166, 36);
 		}
 		return btnNewButton;
 	}
@@ -2263,24 +2225,6 @@ public VerPersonal(JFrame p) {
 			return new Dimension(300, 100);
 		}
 	}
-	
-//	public void filtrar (String texto){
-////		ArrayList<Persona> per = new ArrayList<Persona>();
-////		for(Persona p : personas){
-////			if(p.getNombre().toLowerCase().contains(texto)){
-////				per.add(p);
-////			}
-////		}
-////		tablemodel.setRowCount(0);
-////		tablemodel.cargarInfo(per);	
-//		
-//		
-//		if(texto.trim().length()==0){
-//			rowSorter.setRowFilter
-//		}
-//		
-//	}
-	
 }
 
 

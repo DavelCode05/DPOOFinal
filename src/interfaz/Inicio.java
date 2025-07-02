@@ -53,21 +53,21 @@ public class Inicio extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-//		public static void main(String[] args) {
-//			EventQueue.invokeLater(new Runnable() {
-//				public void run() {
-//					try {
-//	//					Inicializadora.iniciar();
-//						System.out.println(1111);
-//						Inicio frame = new Inicio();
-//						frame.setVisible(true);
-//						frame.setLocationRelativeTo(null);
-//					} catch (Exception e) {
-//						e.printStackTrace();
-//					}
-//				}
-//			});
-//		}
+		public static void main(String[] args) {
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+	//					Inicializadora.iniciar();
+						System.out.println(1111);
+						Inicio frame = new Inicio();
+						frame.setVisible(true);
+						frame.setLocationRelativeTo(null);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+		}
 
 	/**
 	 * Create the frame.
@@ -110,15 +110,19 @@ public class Inicio extends JFrame {
 		
 		 modeloNotificaciones = new DefaultListModel<>();
         JList<String> listaNotificaciones = new JList<>(modeloNotificaciones);
+        listaNotificaciones.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        listaNotificaciones.setBorder(null);
+        listaNotificaciones.setBackground(Color.WHITE);
         
         panelNotificaciones = new JPanel();
         panelNotificaciones.setLayout(new BorderLayout());
         panelNotificaciones.setVisible(false);
-        panelNotificaciones.setBounds(1135, 91, 186, 297);
+        panelNotificaciones.setBounds(1560, 76, 355, 680);
        // panelNotificaciones.setPreferredSize(new Dimension(50, 50)); // Ancho 0 = oculto
         panelNotificaciones.add(new JScrollPane(listaNotificaciones), BorderLayout.CENTER);
         
         JButton btnCerrarNotif = new JButton("Cerrar");
+        btnCerrarNotif.setFont(new Font("Tahoma", Font.PLAIN, 21));
         btnCerrarNotif.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -134,7 +138,7 @@ public class Inicio extends JFrame {
         // --- Botón para mostrar/ocultar notificaciones ---
         btnMostrarNotificaciones = new JButton("Notificaciones (0)");
         btnMostrarNotificaciones.setIcon(new ImageIcon(Inicio.class.getResource("/images/aceptar.png")));
-        btnMostrarNotificaciones.setBounds(968, 91, 53, 52);
+        btnMostrarNotificaciones.setBounds(1, 191, 53, 52);
         btnMostrarNotificaciones.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -315,7 +319,7 @@ public class Inicio extends JFrame {
 		if (mntmNewMenuItem == null) {
 			mntmNewMenuItem = new JMenuItem("Acerca de");
 			mntmNewMenuItem.setBackground(Color.WHITE);
-			mntmNewMenuItem.setForeground(Color.BLACK);
+			mntmNewMenuItem.setForeground(new Color(0, 0, 0));
 			mntmNewMenuItem.setFont(new Font("Modern No. 20", Font.BOLD, 25));
 			mntmNewMenuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

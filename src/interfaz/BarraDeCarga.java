@@ -1,5 +1,7 @@
 package interfaz;
 
+
+
 import inicio.Iniciadora;
 
 import java.awt.BorderLayout;
