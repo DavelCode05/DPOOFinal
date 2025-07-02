@@ -1,5 +1,7 @@
 package interfaz;
 
+import inicio.Iniciadora;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -68,7 +70,6 @@ public class TablaReporte2 extends JDialog {
 	private TablaRegistrosReporte2 tablaModel;
 	private Facultad fac;
 	private JLabel lblNewLabel_1;
-	private JButton btnNewButton_1;
 	private JDateChooser dateinicio;
 	private JDateChooser datefinal;
 	private JLabel lblNewLabel_2;
@@ -81,6 +82,7 @@ public class TablaReporte2 extends JDialog {
 	 */
 //	public static void main(String[] args) {
 //		try {
+//			Iniciadora.iniciar();
 //			TablaReporte2 dialog = new TablaReporte2();
 //			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 //			dialog.setVisible(true);
@@ -95,15 +97,15 @@ public class TablaReporte2 extends JDialog {
 
 
 	public TablaReporte2(JFrame padre) {
-	super(padre, "Reporte 2", true);
+		super(padre, "Reporte 2", true);
 		setTitle("Chequeo de Registros Locales");
 		fac = Facultad.getFacultad();
-		setBounds(100, 100, 1086, 795);
+		setBounds(100, 100, 1392, 855);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setBorder(new LineBorder(Colores.getAzulOScuro()));
-		this.setUndecorated(true);
+//		this.setUndecorated(true);
 		setLocationRelativeTo(null);
 		contentPanel.setLayout(null);
 		
@@ -128,12 +130,11 @@ public class TablaReporte2 extends JDialog {
 		
 		comboBox = new JComboBox<>();
 		comboBox.setToolTipText("");
-		comboBox.setFont(new Font("Tahoma", Font.BOLD, 21));
+		comboBox.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
 		contentPanel.add(getLblNewLabel());
 		contentPanel.add(getScrollPane());
 		contentPanel.add(getLblNewLabel_1());
-		contentPanel.add(getBtnNewButton_1());
 		contentPanel.add(getDateinicio());
 		contentPanel.add(getDatefinal());
 		contentPanel.add(getLblNewLabel_2());
@@ -147,7 +148,7 @@ public class TablaReporte2 extends JDialog {
 			}
 		});
 
-		comboBox.setBounds(33, 113, 241, 53);
+		comboBox.setBounds(90, 119, 241, 53);
 		contentPanel.add(comboBox);
 		comboBox.setModel(new DefaultComboBoxModel<>(TipoLocal.values()));
 		contentPanel.add(getBtnNewButton());
@@ -159,8 +160,8 @@ public class TablaReporte2 extends JDialog {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("Local:");
 			lblNewLabel.setForeground(Color.WHITE);
-			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
-			lblNewLabel.setBounds(33, 84, 260, 26);
+			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
+			lblNewLabel.setBounds(90, 90, 260, 26);
 		}
 		return lblNewLabel;
 	}
@@ -174,7 +175,7 @@ public class TablaReporte2 extends JDialog {
 			};
 			scrollPane.setEnabled(false);
 //			scrollPane.setBackground(Colores.getAzulCielo());
-			scrollPane.setBounds(33, 246, 1018, 525);
+			scrollPane.setBounds(90, 225, 1189, 528);
 			scrollPane.setViewportView(getTable());
 			
 //			scrollPane.setBackground(Color.WHITE);
@@ -193,9 +194,9 @@ public class TablaReporte2 extends JDialog {
 		
 //		table.setShowHorizontalLines(false);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		table.setRowHeight(29);
+		table.setRowHeight(35);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.getTableHeader().setFont(new Font("Modern No. 20", Font.BOLD, 19));
+		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 17));
 //		table.setForeground(Color.BLACK);
 //		table.setBackground(Colores.getBlancuzo());
 //		table.setGridColor(Color.lightGray);
@@ -241,52 +242,10 @@ public class TablaReporte2 extends JDialog {
 			lblNewLabel_1.setBackground(Color.WHITE);
 			lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 19));
 			lblNewLabel_1.setForeground(new Color(255, 0, 51));
-			lblNewLabel_1.setBounds(33, 185, 352, 48);
+			lblNewLabel_1.setBounds(90, 178, 352, 45);
 			lblNewLabel_1.setVisible(false);;
 		}
 		return lblNewLabel_1;
-	}
-	private JButton getBtnNewButton_1() {
-		if (btnNewButton_1 == null) {
-			btnNewButton_1 = new JButton("");
-			UIManager.put("ToolTip.background", Color.WHITE);
-			UIManager.put("ToolTip.foreground", Color.BLACK);
-			UIManager.put("ToolTip.font", new Font("Segoe UI", Font.PLAIN, 16));
-			
-			btnNewButton_1.setToolTipText("Cerrar");
-			
-			btnNewButton_1.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseEntered(java.awt.event.MouseEvent arg0) {
-					btnNewButton_1.setBackground(new Color(220, 53, 69));
-					btnNewButton_1.setForeground(Color.WHITE);
-					btnNewButton_1.setText("");
-				}
-				@Override
-				public void mouseExited(java.awt.event.MouseEvent arg0) {
-					btnNewButton_1.setBackground(new Color(240, 240, 240));
-					btnNewButton_1.setForeground(Color.BLACK);
-					btnNewButton_1.setText("");
-				}
-			});
-			btnNewButton_1.setContentAreaFilled(false);
-			btnNewButton_1.setBounds(1039, 0, 47, 46);
-			btnNewButton_1.setOpaque(true);
-			btnNewButton_1.setBorder(null);
-			btnNewButton_1.setBackground(new Color(240, 240, 240));
-			btnNewButton_1.setForeground(Color.BLACK);
-			btnNewButton_1.setFocusPainted(false);
-			btnNewButton_1.setFont(new Font("Segoe UI", Font.PLAIN, 28));
-			btnNewButton_1.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
-			
-			btnNewButton_1.setIcon(new ImageIcon(TablaReporte1.class.getResource("/images/close.png")));
-			btnNewButton_1.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					dispose();
-				}
-			});
-		}
-		return btnNewButton_1;
 	}
 	private JDateChooser getDateinicio() {
 		if (dateinicio == null) {
@@ -299,13 +258,13 @@ public class TablaReporte2 extends JDialog {
 					entradaLocal();
 				}
 			});
-			dateinicio.setFont(new Font("Tahoma", Font.BOLD, 16));
+			dateinicio.setFont(new Font("Tahoma", Font.BOLD, 20));
 			dateinicio.setDateFormatString("dd/MM/yyyy");
 			dateinicio.setForeground(Color.BLACK);
 			
 			//			JTextField dateField = (JTextField)dateChooser.getDateEditor().getUiComponent();
 			//			dateField.setForeground(Color.WHITE);
-			dateinicio.setBounds(413, 113, 176, 53);
+			dateinicio.setBounds(470, 119, 208, 53);
 			//			dateField.setBackground(Colores.getAzulCielo());
 		}
 		return dateinicio;
@@ -321,12 +280,12 @@ public class TablaReporte2 extends JDialog {
 					entradaLocal();
 				}
 			});
-			datefinal.setFont(new Font("Tahoma", Font.BOLD, 16));
+			datefinal.setFont(new Font("Tahoma", Font.BOLD, 20));
 			
 			//			JTextField dateField1 = (JTextField)dateChooser_1.getDateEditor().getUiComponent();
 			//			dateField1.setForeground(Color.WHITE);
 			datefinal.setForeground(Color.BLACK);
-			datefinal.setBounds(682, 113, 176, 53);
+			datefinal.setBounds(739, 119, 208, 53);
 			//			dateField1.setBackground(Colores.getAzulCielo());
 		}
 		return datefinal;
@@ -335,8 +294,8 @@ public class TablaReporte2 extends JDialog {
 		if (lblNewLabel_2 == null) {
 			lblNewLabel_2 = new JLabel("Desde:");
 			lblNewLabel_2.setForeground(Color.WHITE);
-			lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 25));
-			lblNewLabel_2.setBounds(413, 84, 132, 26);
+			lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 22));
+			lblNewLabel_2.setBounds(470, 90, 132, 26);
 		}
 		return lblNewLabel_2;
 	}
@@ -344,8 +303,8 @@ public class TablaReporte2 extends JDialog {
 		if (lblNewLabel_3 == null) {
 			lblNewLabel_3 = new JLabel("Hasta:");
 			lblNewLabel_3.setForeground(Color.WHITE);
-			lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 25));
-			lblNewLabel_3.setBounds(682, 84, 132, 26);
+			lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 22));
+			lblNewLabel_3.setBounds(739, 90, 132, 26);
 		}
 		return lblNewLabel_3;
 	}
@@ -398,7 +357,9 @@ public class TablaReporte2 extends JDialog {
 	                table.addCell(celda);
 	            }
 	        }
-
+	        Paragraph subtitulo = new Paragraph("Datos del reporte 2: ");
+	        subtitulo.setSpacingAfter(10f);
+	        document.add(subtitulo);
 	        document.add(table);
 	        mostrarMensajePerzonalizado("Éxito", "PDF creado exitosamente en: " + rutaArchivo);
 
@@ -428,12 +389,14 @@ public class TablaReporte2 extends JDialog {
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("Generar PDF");
-			btnNewButton.setFont(new Font("SansSerif", Font.BOLD, 21));
+			btnNewButton.setFocusPainted(false);
+			btnNewButton.setBorderPainted(false);
+			btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 21));
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					JFileChooser fileChooser = new JFileChooser();
 					fileChooser.setDialogTitle("Guardar PDF");
-					fileChooser.setSelectedFile(new File("tabla.pdf"));
+					fileChooser.setSelectedFile(new File("tablaReporte2.pdf"));
 					fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter(){
 						@Override
 						public boolean accept(File f){
@@ -467,7 +430,7 @@ public class TablaReporte2 extends JDialog {
 					btnNewButton.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 				}
 			});
-			btnNewButton.setBounds(33, 31, 166, 36);
+			btnNewButton.setBounds(22, 31, 166, 36);
 		}
 		return btnNewButton;
 	}

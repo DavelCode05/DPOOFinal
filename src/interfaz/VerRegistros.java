@@ -85,6 +85,7 @@ public class VerRegistros extends JDialog {
 
 	public VerRegistros(JFrame p) {
 		super(p, "", true);
+		setTitle("Registros");
 		fac = Facultad.getFacultad();
 		setBounds(100, 100, 1193, 645);
 		getContentPane().setLayout(new BorderLayout());
@@ -122,64 +123,64 @@ public class VerRegistros extends JDialog {
 		//////////////////////////////// LABELS ////////////////////////////////////////////////		
 
 		JLabel nomb = new JLabel("Nombre :");
-		nomb.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		nomb.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		nomb.setBounds(12, 60, 96, 38);
 		panel.add(nomb);
 
 		setNomb = new JLabel("New label");
-		setNomb.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		setNomb.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		setNomb.setBounds(120, 60, 260, 38);
 		panel.add(setNomb);
 
 		JLabel carnet = new JLabel("Carnet:");
-		carnet.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		carnet.setBounds(12, 121, 70, 38);
+		carnet.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		carnet.setBounds(12, 121, 96, 38);
 		panel.add(carnet);
 
 		setcarn = new JLabel("New label");
-		setcarn.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		setcarn.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		setcarn.setBounds(120, 121, 260, 38);
 		panel.add(setcarn);
 
 		JLabel local = new JLabel("Local:");
-		local.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		local.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		local.setBounds(12, 184, 96, 38);
 		panel.add(local);
 
 		setloc = new JLabel("New label");
-		setloc.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		setloc.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		setloc.setBounds(120, 184, 283, 38);
 		panel.add(setloc);
 
 		JLabel entrada = new JLabel("Hora de Entrada:");
-		entrada.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		entrada.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		entrada.setBounds(12, 321, 183, 38);
 		panel.add(entrada);
 
 		salida = new JLabel("Hora de Salida: ");
-		salida.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		salida.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		salida.setBounds(12, 361, 183, 38);
 		panel.add(salida);
 
 		fecha = new JLabel("Fecha:");
-		fecha.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		fecha.setBounds(238, 11, 61, 14);
+		fecha.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		fecha.setBounds(207, 13, 92, 21);
 		panel.add(fecha);
 
 
 		setentrada = new JLabel("New label");
-		setentrada.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		setentrada.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		setentrada.setBounds(207, 321, 168, 38);
 		panel.add(setentrada);
 
 		setsalida = new JLabel("New label");
-		setsalida.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		setsalida.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		setsalida.setBounds(207, 361, 196, 38);
 		panel.add(setsalida);
 
 		setfecha = new JLabel("New label");
-		setfecha.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		setfecha.setBounds(292, 11, 111, 14);
+		setfecha.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		setfecha.setBounds(275, 13, 111, 21);
 		panel.add(setfecha);
 
 
@@ -311,8 +312,8 @@ public class VerRegistros extends JDialog {
 		/////////////// BOTON GUARDAR////////////////////////////
 
 		guardar = new JButton("Guardar registro");
-		guardar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		guardar.setBounds(10, 496, 155, 36);
+		guardar.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		guardar.setBounds(10, 496, 193, 36);
 		panel_2.add(guardar);
 		guardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -348,7 +349,7 @@ public class VerRegistros extends JDialog {
 		////////////////////////// BOTON CANCELAR ////////////////////////
 
 		cancelar = new JButton("Cancelar");
-		cancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		cancelar.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		cancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -359,15 +360,15 @@ public class VerRegistros extends JDialog {
 
 			}
 		});
-		cancelar.setBounds(165, 496, 89, 36);
+		cancelar.setBounds(203, 496, 113, 36);
 		panel_2.add(cancelar);
 		cancelar.setVisible(false);
 
 		///////////////////////////// BOTON SELECCION MULTIPLE /////////////////////
 
 		btnSeleccionarVarios = new JButton("Seleccionar varios");
-		btnSeleccionarVarios.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnSeleccionarVarios.setBounds(528, 0, 190, 36);
+		btnSeleccionarVarios.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		btnSeleccionarVarios.setBounds(500, 0, 218, 36);
 		panel_2.add(btnSeleccionarVarios);
 		btnSeleccionarVarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

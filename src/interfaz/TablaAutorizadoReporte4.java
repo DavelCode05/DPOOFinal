@@ -49,7 +49,7 @@ public class TablaAutorizadoReporte4 extends JDialog {
 	 */
 	public TablaAutorizadoReporte4(JFrame p) {
         super(p,"", true);
-
+        setTitle("Registro de autorizados: ");
 		fac= Facultad.getFacultad();
 	
 		
@@ -99,9 +99,9 @@ public class TablaAutorizadoReporte4 extends JDialog {
 		table.setModel(tablemodel);
 //		table.setShowHorizontalLines(false);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		table.setRowHeight(29);
+		table.setRowHeight(35);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.getTableHeader().setFont(new Font("Modern No. 20", Font.BOLD, 17));
+		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 17));
 //		table.setForeground(Color.BLACK);
 //		table.setBackground(Colores.getBlancuzo());
 //		table.setGridColor(Color.LIGHT_GRAY);
@@ -109,12 +109,12 @@ public class TablaAutorizadoReporte4 extends JDialog {
 //		table.setBorder(null);
 		
 		JLabel lblResponsable = new JLabel("Responsable:");
-		lblResponsable.setFont(new Font("Modern No. 20", Font.PLAIN, 25));
+		lblResponsable.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblResponsable.setBounds(10, 23, 170, 41);
 		contentPanel.add(lblResponsable);
 		
 	    respons = new JComboBox<Persona>();
-	    respons.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
+	    respons.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		respons.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				tablemodel.llenarTabla(fac.personasAutorizada((Persona) respons.getSelectedItem()));

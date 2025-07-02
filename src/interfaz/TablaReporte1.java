@@ -1,5 +1,7 @@
 package interfaz;
 
+import inicio.Iniciadora;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -12,8 +14,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
@@ -22,6 +28,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -32,11 +39,20 @@ import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 import personas.Persona;
 //import util.ScrollMinimalista;
 import util.TablaRegistrosReporte1;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PRAcroForm;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.sun.glass.events.MouseEvent;
 import com.toedter.calendar.JDateChooser;
 
 import controllerClass.Facultad;
@@ -55,18 +71,19 @@ public class TablaReporte1 extends JDialog {
 	private TablaRegistrosReporte1 tablaModel;
 	private Facultad fac;
 	private JLabel errores;
-	private JButton btnNewButton_1;
 	private JDateChooser dateinicio;
 	private JDateChooser datefinal;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
 	JComboBox<Persona> comboBox;
+	private JButton btnNewButton;
 
 //	/**
 //	 * Launch the application.
 //	 */
 //	public static void main(String[] args) {
 //		try {
+//			Iniciadora.iniciar();
 //			TablaReporte1 dialog = new TablaReporte1();
 //			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 //			dialog.setVisible(true);
@@ -86,12 +103,12 @@ public class TablaReporte1 extends JDialog {
 		setTitle("Chequeo de Registros Personal");
 
 		fac = Facultad.getFacultad();
-		setBounds(100, 100, 1086, 760);
+		setBounds(100, 100, 1392, 855);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setBorder(new LineBorder(Colores.getAzulOScuro()));
-		this.setUndecorated(true);
+//		this.setUndecorated(true);
 		setLocationRelativeTo(null);
 		try{
 			boolean found = false;
@@ -116,10 +133,10 @@ public class TablaReporte1 extends JDialog {
 		comboBox = new JComboBox<>();
 		comboBox.setToolTipText("");
 		comboBox.setSelectedItem(fac.getPersonal().get(0));
-		comboBox.setFont(new Font("Tahoma", Font.BOLD, 18));
+		comboBox.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
 
-		comboBox.setBounds(33, 75, 275, 53);
+		comboBox.setBounds(90, 122, 329, 53);
 		
 		comboBox.setModel(new DefaultComboBoxModel<>(fac.getPersonal().toArray(new Persona[0])));
 		
@@ -127,12 +144,12 @@ public class TablaReporte1 extends JDialog {
 		contentPanel.add(getLblNewLabel());
 		contentPanel.add(getScrollPane());
 		contentPanel.add(getErrores());
-		contentPanel.add(getBtnNewButton_1());
 		contentPanel.add(comboBox);
 		contentPanel.add(getDatefinal());
 		contentPanel.add(getDateinicio());	
 		contentPanel.add(getLblNewLabel_2());
 		contentPanel.add(getLblNewLabel_3());
+		contentPanel.add(getBtnNewButton());
 	
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -149,8 +166,8 @@ public class TablaReporte1 extends JDialog {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("Nombre y apellidos:");
 			lblNewLabel.setForeground(Color.WHITE);
-			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
-			lblNewLabel.setBounds(33, 46, 261, 26);
+			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
+			lblNewLabel.setBounds(90, 93, 261, 26);
 		}
 		return lblNewLabel;
 	}
@@ -164,7 +181,7 @@ public class TablaReporte1 extends JDialog {
 			};
 			scrollPane.setEnabled(false);
 //			scrollPane.setBackground(Colores.getAzulCielo());
-			scrollPane.setBounds(33, 202, 1018, 525);
+			scrollPane.setBounds(90, 225, 1189, 528);
 			scrollPane.setViewportView(getTable());
 			
 			scrollPane.setBackground(Color.WHITE);
@@ -182,9 +199,9 @@ public class TablaReporte1 extends JDialog {
 		
 //		table.setShowHorizontalLines(false);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		table.setRowHeight(29);
+		table.setRowHeight(35);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 18));
+		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 17));
 //		table.setForeground(Color.BLACK);
 //		table.setBackground(Colores.getBlancuzo());
 //		table.setGridColor(Color.lightGray);
@@ -230,52 +247,10 @@ public class TablaReporte1 extends JDialog {
 			errores.setBackground(Color.WHITE);
 			errores.setFont(new Font("Tahoma", Font.PLAIN, 19));
 			errores.setForeground(new Color(255, 0, 51));
-			errores.setBounds(33, 136, 646, 48);
+			errores.setBounds(90, 175, 646, 48);
 			errores.setVisible(false);;
 		}
 		return errores;
-	}
-	private JButton getBtnNewButton_1() {
-		if (btnNewButton_1 == null) {
-			btnNewButton_1 = new JButton("");
-			UIManager.put("ToolTip.background", Color.WHITE);
-			UIManager.put("ToolTip.foreground", Color.BLACK);
-			UIManager.put("ToolTip.font", new Font("Segoe UI", Font.PLAIN, 16));
-			
-			btnNewButton_1.setToolTipText("Cerrar");
-			
-			btnNewButton_1.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseEntered(java.awt.event.MouseEvent arg0) {
-					btnNewButton_1.setBackground(new Color(220, 53, 69));
-					btnNewButton_1.setForeground(Color.WHITE);
-					btnNewButton_1.setText("");
-				}
-				@Override
-				public void mouseExited(java.awt.event.MouseEvent arg0) {
-					btnNewButton_1.setBackground(new Color(240, 240, 240));
-					btnNewButton_1.setForeground(Color.BLACK);
-					btnNewButton_1.setText("");
-				}
-			});
-			btnNewButton_1.setContentAreaFilled(false);
-			btnNewButton_1.setBounds(1039, 0, 47, 46);
-			btnNewButton_1.setOpaque(true);
-			btnNewButton_1.setBorder(null);
-			btnNewButton_1.setBackground(new Color(240, 240, 240));
-			btnNewButton_1.setForeground(Color.BLACK);
-			btnNewButton_1.setFocusPainted(false);
-			btnNewButton_1.setFont(new Font("Segoe UI", Font.PLAIN, 28));
-			btnNewButton_1.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
-			
-			btnNewButton_1.setIcon(new ImageIcon(TablaReporte1.class.getResource("/images/close.png")));
-			btnNewButton_1.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					dispose();
-				}
-			});
-		}
-		return btnNewButton_1;
 	}
 	private JDateChooser getDateinicio() {
 		if (dateinicio == null) {
@@ -289,13 +264,13 @@ public class TablaReporte1 extends JDialog {
 				}
 			});
 			
-			dateinicio.setFont(new Font("Tahoma", Font.BOLD, 16));
+			dateinicio.setFont(new Font("Tahoma", Font.BOLD, 20));
 			dateinicio.setDateFormatString("dd/MM/yyyy");
 			dateinicio.setForeground(Color.BLACK);
 		
 			//			JTextField dateField = (JTextField)dateChooser.getDateEditor().getUiComponent();
 			//			dateField.setForeground(Color.WHITE);
-			dateinicio.setBounds(413, 75, 168, 53);
+			dateinicio.setBounds(540, 122, 209, 53);
 			//			dateField.setBackground(Colores.getAzulCielo());
 		}
 		return dateinicio;
@@ -313,31 +288,31 @@ public class TablaReporte1 extends JDialog {
 				}
 			});
 			
-			datefinal.setFont(new Font("Tahoma", Font.BOLD, 16));
+			datefinal.setFont(new Font("Tahoma", Font.BOLD, 20));
 			
 			//			JTextField dateField1 = (JTextField)dateChooser_1.getDateEditor().getUiComponent();
 			//			dateField1.setForeground(Color.WHITE);
 			datefinal.setForeground(Color.BLACK);
-			datefinal.setBounds(652, 75, 168, 53);
+			datefinal.setBounds(779, 122, 196, 53);
 			//			dateField1.setBackground(Colores.getAzulCielo());
 		}
 		return datefinal;
 	}
 	private JLabel getLblNewLabel_2() {
 		if (lblNewLabel_2 == null) {
-			lblNewLabel_2 = new JLabel("Desde");
+			lblNewLabel_2 = new JLabel("Desde:");
 			lblNewLabel_2.setForeground(Color.WHITE);
-			lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 25));
-			lblNewLabel_2.setBounds(413, 46, 350, 26);
+			lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 22));
+			lblNewLabel_2.setBounds(540, 93, 196, 26);
 		}
 		return lblNewLabel_2;
 	}
 	private JLabel getLblNewLabel_3() {
 		if (lblNewLabel_3 == null) {
-			lblNewLabel_3 = new JLabel("Hasta");
+			lblNewLabel_3 = new JLabel("Hasta:");
 			lblNewLabel_3.setForeground(Color.WHITE);
-			lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 25));
-			lblNewLabel_3.setBounds(652, 46, 111, 26);
+			lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 22));
+			lblNewLabel_3.setBounds(779, 93, 111, 26);
 		}
 		return lblNewLabel_3;
 	}
@@ -361,7 +336,113 @@ public class TablaReporte1 extends JDialog {
 			
 			
 		}
-		
+	}
+	public static void generarPdf(DefaultTableModel modeloTabla, String rutaArchivo){
+	    Document document = new Document();
 
+	    try {
+	        PdfWriter.getInstance(document, new FileOutputStream(rutaArchivo));
+	        document.open();
+
+	        int numColumnas = modeloTabla.getColumnCount();
+	        PdfPTable table = new PdfPTable(numColumnas);
+	        table.setWidthPercentage(100); // Ocupa todo el ancho disponible
+
+	        // Configurar anchos proporcionales de las columnas (aquí todos iguales)
+	        float[] anchos = new float[numColumnas];
+	        Arrays.fill(anchos, 1f); // Puedes personalizar los valores, por ejemplo: {2f, 3f, 1f}
+	        table.setWidths(anchos);
+
+	        for (int i = 0; i < numColumnas; i++) {
+	            PdfPCell celda = new PdfPCell(new Paragraph(modeloTabla.getColumnName(i)));
+	            celda.setFixedHeight(25f);
+	            table.addCell(celda);
+	        }
+
+	        for (int fila = 0; fila < modeloTabla.getRowCount(); fila++) {
+	            for (int columna = 0; columna < numColumnas; columna++) {
+	                Object valor = modeloTabla.getValueAt(fila, columna);
+	                PdfPCell celda = new PdfPCell(new Paragraph(valor != null ? valor.toString() : ""));
+	                celda.setFixedHeight(25f);
+	                table.addCell(celda);
+	            }
+	        }
+
+	        Paragraph subtitulo = new Paragraph("Datos del reporte 1: ");
+	        subtitulo.setSpacingAfter(10f);
+	        document.add(subtitulo);
+	        document.add(table);
+	        mostrarMensajePerzonalizado("Éxito", "PDF creado exitosamente en: " + rutaArchivo);
+
+	    } catch (DocumentException | IOException e) {
+	        mostrarMensajePerzonalizado("Error", "Error al crear el PDF: " + e.getMessage());
+	        e.printStackTrace();
+	    } finally {
+	        document.close();
+	    }
+	}
+	
+	private static void mostrarMensajePerzonalizado(String titulo, String mensaje){
+		
+		JPanel panel2 = new JPanel(new BorderLayout(10, 10));
+		panel2.setBorder(new EmptyBorder(15, 15, 15, 15));
+		panel2.setBackground(new Color(240, 248, 255));
+		
+		JLabel messageLabel = new JLabel("<html><b>"+mensaje+"<b><html>");
+		messageLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		messageLabel.setForeground(new Color(0,102,204));
+		panel2.add(messageLabel, BorderLayout.CENTER);
+		
+		JOptionPane.showOptionDialog(null, panel2, titulo, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
+		
+		
+	}
+	private JButton getBtnNewButton() {
+		if (btnNewButton == null) {
+			btnNewButton = new JButton("Generar PDF");
+			btnNewButton.setFocusPainted(false);
+			btnNewButton.setBorderPainted(false);
+			btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 21));
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JFileChooser fileChooser = new JFileChooser();
+					fileChooser.setDialogTitle("Guardar PDF");
+					fileChooser.setSelectedFile(new File("tablaReporte1.pdf"));
+					fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter(){
+						@Override
+						public boolean accept(File f){
+							return f.isDirectory()||f.getName().toLowerCase().endsWith(".pdf");
+						}
+						
+						@Override
+						public String getDescription(){
+							return "Archivos PDF (*.pdf)";						}
+					});
+					
+					int userSelection = fileChooser.showSaveDialog(contentPanel);
+					if(userSelection == JFileChooser.APPROVE_OPTION){
+						File fileToSave = fileChooser.getSelectedFile();
+						String rutaArchivo = fileToSave.getAbsolutePath();
+						if(!rutaArchivo.toLowerCase().endsWith(".pdf")){
+							rutaArchivo += ".pdf";
+						}
+						generarPdf(tablaModel, rutaArchivo);
+					}
+					
+				}
+			});
+			btnNewButton.addMouseListener(new MouseAdapter() {
+				public void mouseEntered(MouseEvent e) {
+
+					btnNewButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+				}
+				public void mouseExited(MouseEvent e) {
+
+					btnNewButton.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+				}
+			});
+			btnNewButton.setBounds(22, 31, 166, 36);
+		}
+		return btnNewButton;
 	}
 }

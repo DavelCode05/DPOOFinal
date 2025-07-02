@@ -1,5 +1,7 @@
 package interfaz;
 
+import inicio.Iniciadora;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -34,6 +36,7 @@ import personas.Visitante;
 import util.JTextFieldCarnet;
 import util.JTextFieldString;
 import controllerClass.Facultad;
+
 
 //import javax.swing.JRadioButton;
 //
@@ -91,6 +94,7 @@ public class IniciarSesion extends JDialog {
 //		public static void main(String[] args) {
 //			
 //			try {
+//				Iniciadora.iniciar();
 //				IniciarSesion dialog = new IniciarSesion();
 //				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 //				dialog.setLocationRelativeTo(null);
@@ -139,47 +143,46 @@ public class IniciarSesion extends JDialog {
 		}
 
 		btnIniciar = new JButton("Registrarse");
-		btnIniciar.setFont(new Font("Modern No. 20", Font.PLAIN, 27));
+		btnIniciar.setFont(new Font("Tahoma", Font.PLAIN, 27));
 		btnIniciar.setBorder(null);
-		btnIniciar.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-              
-                btnIniciar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-               btnIniciar.setBorder(null);
-//            	btnIniciar.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-            }
-        });
+//		btnIniciar.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseEntered(MouseEvent e) {
+//              
+//                btnIniciar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+//            }
+//
+//            @Override
+//            public void mouseExited(MouseEvent e) {
+//               btnIniciar.setBorder(null);
+////            	btnIniciar.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+//            }
+//        });
 		
-		btnIniciar.setBorder(null);
-		btnIniciar.setBackground(Color.WHITE);
+//		btnIniciar.setBackground(Color.WHITE);
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				crearRegistro();
 			}
 		});
-		btnIniciar.setBounds(632, 536, 178, 34);
+		btnIniciar.setBounds(613, 530, 209, 40);
 		contentPanel.add(btnIniciar);
 
 		JLabel lblLocal = new JLabel("Local:");
-		lblLocal.setFont(new Font("Modern No. 20", Font.PLAIN, 24));
+		lblLocal.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblLocal.setBounds(548, 141, 65, 34);
 		contentPanel.add(lblLocal);
 
 		comboBoxLocal = new JComboBox<>();
 		comboBoxLocal.setBackground(Color.WHITE);
 
-		comboBoxLocal.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
+		comboBoxLocal.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBoxLocal.setModel(new DefaultComboBoxModel<>(fac.getLocales().toArray(new Local[0])));
 
 
 		comboBoxLocal.setBorder(null);
 
-		comboBoxLocal.setBounds(613, 141, 260, 34);
+		comboBoxLocal.setBounds(613, 138, 260, 40);
 		contentPanel.add(comboBoxLocal);
 
 
@@ -210,7 +213,7 @@ public class IniciarSesion extends JDialog {
 		});
 
 		carnet.setForeground(Color.GRAY);
-		carnet.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
+		carnet.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		carnet.setBorder(null);
 		carnet.setBackground(Color.WHITE);
 		carnet.setColumns(10);
@@ -249,7 +252,7 @@ public class IniciarSesion extends JDialog {
 
 			}
 		});
-		responsable.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
+		responsable.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		responsable.setBorder(null);
 		responsable.setBackground(Color.WHITE);
 		responsable.setBounds(0, 53, 325, 40);
@@ -257,13 +260,13 @@ public class IniciarSesion extends JDialog {
 		responsable.setColumns(10);
 
 	    textAreaMot = new TextArea();
-		textAreaMot.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textAreaMot.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		textAreaMot.setBackground(Color.WHITE);
 		textAreaMot.setBounds(139, 105, 186, 77);	
 		panelVisitante.add(textAreaMot);
 
 		JLabel lblMotivoVisita = new JLabel("Motivo visita:");
-		lblMotivoVisita.setFont(new Font("Modern No. 20", Font.PLAIN, 24));
+		lblMotivoVisita.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblMotivoVisita.setBounds(0, 113, 133, 25);
 		panelVisitante.add(lblMotivoVisita);
 
@@ -295,7 +298,7 @@ public class IniciarSesion extends JDialog {
 		
 		//nombreUser.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
-		nombreUser.setFont(new Font("Modern No. 20", Font.PLAIN, 22));
+		nombreUser.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		nombreUser.setBorder(null);
 		nombreUser.setBackground(Color.WHITE);
@@ -307,8 +310,8 @@ public class IniciarSesion extends JDialog {
 		tglbtnUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelVisitante.setVisible(false);
-				tglbtnUsuario.setBorder(BorderFactory.createMatteBorder(1,1,0,1,Colores.getLogin()));
-				tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(0,1,1,1,Colores.getLogin()));
+				tglbtnUsuario.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Colores.getLogin()));
+				tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Colores.getLogin()));
 				usuario = true;
 				if(carnet.getForeground().equals(Color.RED) && carnet.equals("Carnet de Identidad")){
 					carnet.setForeground(Color.GRAY);
@@ -339,9 +342,9 @@ public class IniciarSesion extends JDialog {
 //			}
 //		});
 		
-		tglbtnUsuario.setBorder(BorderFactory.createMatteBorder(1,1,0,1,Colores.getLogin()));
-		tglbtnUsuario.setBackground(Color.WHITE);
-		tglbtnUsuario.setFont(new Font("Modern No. 20", Font.PLAIN, 27));
+//		tglbtnUsuario.setBorder(BorderFactory.createMatteBorder(1,1,0,1,Colores.getLogin()));
+//		tglbtnUsuario.setBackground(Color.WHITE);
+		tglbtnUsuario.setFont(new Font("Tahoma", Font.PLAIN, 27));
 		tglbtnUsuario.setBounds(516, 75, 190, 43);
 		contentPanel.add(tglbtnUsuario);
 
@@ -357,14 +360,14 @@ public class IniciarSesion extends JDialog {
 					
 				panelVisitante.setVisible(true);
 				usuario = false;
-				tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(1,1,0,1,Colores.getLogin()));
-				tglbtnUsuario.setBorder(BorderFactory.createMatteBorder(0,1,1,1,Colores.getLogin()));
+				tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Colores.getLogin()));
+				tglbtnUsuario.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Colores.getLogin()));
 				lblDatosErroneos.setVisible(false);
 				
 			}
 		});
 		
-		tglbtnNewToggleButton.setBackground(Color.WHITE);
+//		tglbtnNewToggleButton.setBackground(Color.WHITE);
 		tglbtnNewToggleButton.setForeground(new Color(0,0,0));
 		tglbtnNewToggleButton.setBorder(null);
 
@@ -401,11 +404,11 @@ public class IniciarSesion extends JDialog {
 //			}
 //		});
 		
-		tglbtnNewToggleButton.setFont(new Font("Modern No. 20", Font.PLAIN, 27));
+		tglbtnNewToggleButton.setFont(new Font("Tahoma", Font.PLAIN, 27));
 
-		tglbtnNewToggleButton.setBounds(704, 76, 190, 43);
+		tglbtnNewToggleButton.setBounds(704, 75, 182, 43);
 		contentPanel.add(tglbtnNewToggleButton);
-		tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(0,1,1,1,Colores.getLogin()));
+//		tglbtnNewToggleButton.setBorder(BorderFactory.createMatteBorder(0,1,1,1,Colores.getLogin()));
 
 		buttonGroup = new ButtonGroup();
 		buttonGroup.add(tglbtnUsuario);
@@ -418,9 +421,9 @@ public class IniciarSesion extends JDialog {
 			}
 		});
 		btnNewButton.setIcon(new ImageIcon(AcercaDe.class.getResource("/images/close.png")));
-		btnNewButton.setBounds(847, 13, 50, 50);
+		btnNewButton.setBounds(859, 0, 50, 50);
 		btnNewButton.setBorder(null);
-		btnNewButton.setBackground(Colores.getBlancuzo());
+//		btnNewButton.setBackground(Colores.getBlancuzo());
 		contentPanel.add(btnNewButton);
 		contentPanel.add(getPanel());
 
@@ -554,9 +557,9 @@ public class IniciarSesion extends JDialog {
 			panel.setLayout(null);
 
 			btnNewButton_1 = new JButton("");
-			btnNewButton_1.setBackground(Colores.getLogin());
+//			btnNewButton_1.setBackground(Colores.getLogin());
 			btnNewButton_1.setBorder(null);
-			btnNewButton_1.setBounds(12, 13, 50, 50);
+			btnNewButton_1.setBounds(0, 0, 50, 50);
 			panel.add(btnNewButton_1);
 
 			lblNewLabel = new JLabel("Bienvenido");

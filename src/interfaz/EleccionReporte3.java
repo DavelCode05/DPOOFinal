@@ -1,4 +1,6 @@
 package interfaz;
+import inicio.Iniciadora;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -76,11 +78,11 @@ public class EleccionReporte3 extends JDialog {
 	private JTable table;
 	EntradasTable tableModelHora ;
 	LocalesRep3TableModel tableModelLocal;
-	private JButton btnNewButton;
 
 //
 //	public static void main(String[] args) {
 //		try {
+////			Iniciadora.iniciar();
 //			EleccionReporte3 dialog = new EleccionReporte3();
 //			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 //			dialog.setVisible(true);
@@ -97,20 +99,20 @@ public class EleccionReporte3 extends JDialog {
 
 	public EleccionReporte3(JFrame padre) {
 		super(padre, "", true);
-
+		setTitle("Reporte 3");
 
 		fac = Facultad.getFacultad();
 
-		setBounds(100, 100, 1086, 721);
+		setBounds(100, 100, 888, 816);
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setBorder(new LineBorder(Colores.getAzulOScuro()));
-		this.setUndecorated(true);
+//		this.setUndecorated(true);
 		setLocationRelativeTo(null);
 		contentPanel.setLayout(null);
 
 		panelloc = new JPanel();
 		panelloc.setBackground(Colores.getAzulCielo());
-		panelloc.setBounds(156, 104, 247, 92);
+		panelloc.setBounds(373, 60, 446, 36);
 		contentPanel.add(panelloc);
 		panelloc.setLayout(null);
 		panelloc.setVisible(false);
@@ -143,25 +145,26 @@ public class EleccionReporte3 extends JDialog {
 			}
 		});
 		comboBoxLocal.setBackground(new Color(255, 255, 255));
-		comboBoxLocal.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		comboBoxLocal.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBoxLocal.setModel(new DefaultComboBoxModel<>(fac.getLocales().toArray(new Local[0])));
 		comboBoxLocal.setSelectedItem(0);
-		comboBoxLocal.setBounds(0, 40, 247, 36);
+		comboBoxLocal.setBounds(199, 0, 247, 36);
 		panelloc.add(comboBoxLocal);
-
-		JLabel lblNewLabel = new JLabel("Seleccionar Local:");
-		lblNewLabel.setBounds(0, 0, 175, 27);
-		panelloc.add(lblNewLabel);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblNewLabel.setForeground(Color.WHITE);
+		
+				JLabel lblNewLabel = new JLabel("Seleccionar Local:");
+				lblNewLabel.setBounds(12, 4, 175, 27);
+				panelloc.add(lblNewLabel);
+				lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 22));
+				lblNewLabel.setForeground(Color.WHITE);
 
 		lblFormaDeVisualizacin = new JLabel("Forma de visualizaci\u00F3n:");
 		lblFormaDeVisualizacin.setForeground(Color.WHITE);
 		lblFormaDeVisualizacin.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblFormaDeVisualizacin.setBounds(18, 286, 246, 27);
+		lblFormaDeVisualizacin.setBounds(81, 693, 246, 27);
 		contentPanel.add(lblFormaDeVisualizacin);
 
 		rdbtnTabla = new JRadioButton("Tabla");
+		rdbtnTabla.setForeground(Color.WHITE);
 //		rdbtnTabla.setForeground(Color.WHITE);
 		rdbtnTabla.setFont(new Font("Tahoma", Font.PLAIN, 21));
 
@@ -183,13 +186,13 @@ public class EleccionReporte3 extends JDialog {
 		//				}
 		//			}
 		//		});
-		rdbtnTabla.setBounds(18, 334, 109, 36);
+		rdbtnTabla.setBounds(337, 689, 102, 36);
 		contentPanel.add(rdbtnTabla);
 
 		dateChooser = new JDateChooser("dd/MM/yyyy", "##/##/####",'_');
 		dateChooser.setDate(Date.from((LocalDate.now()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
 		
-		dateChooser.setFont(new Font("Tahoma", Font.PLAIN, 17) );
+		dateChooser.setFont(new Font("Tahoma", Font.BOLD, 20) );
 
 		dateChooser.getCalendarButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -200,13 +203,13 @@ public class EleccionReporte3 extends JDialog {
 		
 
 		//		dateChooser.setDate(LocalDate.now().toInstant().);
-		dateChooser.setBounds(205, 214, 157, 36);
+		dateChooser.setBounds(291, 128, 211, 49);
 		contentPanel.add(dateChooser);
 
 		lblSeleccionarFecha = new JLabel("Seleccionar fecha:");
 		lblSeleccionarFecha.setForeground(Color.WHITE);
 		lblSeleccionarFecha.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblSeleccionarFecha.setBounds(18, 219, 183, 27);
+		lblSeleccionarFecha.setBounds(81, 139, 183, 27);
 		contentPanel.add(lblSeleccionarFecha);
 
 		rdbtnGraficoDeBarras = new JRadioButton("Gr\u00E1fico de barras");
@@ -220,7 +223,7 @@ public class EleccionReporte3 extends JDialog {
 		rdbtnGraficoDeBarras.setBackground(Colores.getBlancuzo());
 
 
-		rdbtnGraficoDeBarras.setBounds(156, 334, 211, 36);
+		rdbtnGraficoDeBarras.setBounds(453, 689, 211, 36);
 		contentPanel.add(rdbtnGraficoDeBarras);
 		buttonGroupFormas.add(rdbtnGraficoDeBarras);
 		buttonGroupFormas.add(rdbtnTabla);
@@ -228,15 +231,15 @@ public class EleccionReporte3 extends JDialog {
 		comboBox = new JComboBox<String>();
 
 		comboBox.setBackground(new Color(255, 255, 255));
-		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Facultad", "Local"}));
-		comboBox.setBounds(18, 144, 128, 36);
+		comboBox.setBounds(220, 60, 128, 36);
 		contentPanel.add(comboBox);
 
 		JLabel lblMostrarPor = new JLabel("Mostrar Por:");
 		lblMostrarPor.setForeground(Color.WHITE);
 		lblMostrarPor.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblMostrarPor.setBounds(18, 64, 137, 27);
+		lblMostrarPor.setBounds(81, 64, 137, 27);
 		contentPanel.add(lblMostrarPor);
 
 
@@ -245,7 +248,7 @@ public class EleccionReporte3 extends JDialog {
 		contentPanel.add(label);
 
 		panelNuevo = new JPanel();
-		panelNuevo.setBounds(415, 260, 646, 433);
+		panelNuevo.setBounds(81, 219, 646, 433);
 		contentPanel.add(panelNuevo);
 		card = new CardLayout(0, 0);
 		panelNuevo.setLayout(card);
@@ -288,9 +291,9 @@ public class EleccionReporte3 extends JDialog {
 		table.setModel(tableModelLocal);
 //		table.setShowHorizontalLines(false);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		table.setRowHeight(29);
+		table.setRowHeight(35);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.getTableHeader().setFont(new Font("Modern No. 20", Font.BOLD, 19));
+		table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 17));
 //		table.setForeground(Color.BLACK);
 //		table.setBackground(Colores.getBlancuzo());
 //		table.setGridColor(Color.LIGHT_GRAY);
@@ -331,7 +334,6 @@ public class EleccionReporte3 extends JDialog {
 
 		panelGrafico2 = new JPanel();
 		panelNuevo.add(panelGrafico2, "name_1117880551873901");
-		contentPanel.add(getBtnNewButton());
 
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -452,24 +454,5 @@ public class EleccionReporte3 extends JDialog {
 
 
 
-	}
-	private JButton getBtnNewButton() {
-		if (btnNewButton == null) {
-			btnNewButton = new JButton("");
-			btnNewButton.setBounds(1016, 13, 58, 48);
-			btnNewButton.setContentAreaFilled(false);
-			btnNewButton.setOpaque(true);
-			btnNewButton.setBorder(null);
-			btnNewButton.setBackground(Color.LIGHT_GRAY);
-			btnNewButton.setForeground(new Color(6, 43, 63));
-			btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 29));
-			btnNewButton.setIcon(new ImageIcon(TablaReporte1.class.getResource("/images/close.png")));
-			btnNewButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					dispose();
-				}
-			});
-		}
-		return btnNewButton;
 	}
 }
