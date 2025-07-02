@@ -328,6 +328,7 @@ public class IniciarSesion extends JDialog {
 		panelVisitante.add(nombreUser);
 		nombreUser.setColumns(10);
 
+		
 		tglbtnUsuario = new JToggleButton("Personal");
 		tglbtnUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

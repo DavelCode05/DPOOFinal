@@ -215,6 +215,16 @@ public class Inicio extends JFrame {
 				}
 			});
 			mnAccesos.add(mntmInformeDeRegistros);
+			
+			JMenuItem mntmNewMenuItem_2 = new JMenuItem("Edicion de acceso(editar nombre)");
+			mntmNewMenuItem_2.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					CambioHoras h = new CambioHoras(Inicio.this);
+					h.setVisible(true);
+					
+				}
+			});
+			mnAccesos.add(mntmNewMenuItem_2);
 		}
 		return mnAccesos;
 	}

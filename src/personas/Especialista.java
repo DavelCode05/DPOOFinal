@@ -72,4 +72,8 @@ public class Especialista extends Persona{
 		return horaSalidaEsp;
 	}
 
+	public static LocalTime getHoraSalidaEsp() {
+		return horaSalidaEsp;
+	}
+
 }

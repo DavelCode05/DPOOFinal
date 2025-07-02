@@ -537,7 +537,7 @@ public class Iniciadora {
 
 		registros.add(new Registro(personal.get(0), locales.get(3))); //102
 		registros.get(101).setHoraEntrada(LocalTime.of(8, 0)); registros.get(101).setHoraSalida(LocalTime.of(10, 0));
-		registros.get(101).setFecha(LocalDate.of(2025, 6, 2));
+		registros.get(101).setFecha(LocalDate.now());
 
 		registros.add(new Registro(personal.get(0), locales.get(5))); //103
 		registros.get(102).setHoraEntrada(LocalTime.of(10, 30)); registros.get(102).setHoraSalida(LocalTime.of(12, 30));
@@ -593,7 +593,7 @@ public class Iniciadora {
 
 		registros.add(new Registro(personal.get(0), locales.get(4))); //115
 		registros.get(115).setHoraEntrada(LocalTime.of(10, 15)); registros.get(115).setHoraSalida(LocalTime.of(12, 15));
-		registros.get(115).setFecha(LocalDate.of(2025, 6, 12));
+		registros.get(115).setFecha(LocalDate.now());
 
 		registros.add(new Registro(personal.get(13), locales.get(5))); //116
 		registros.get(116).setHoraEntrada(LocalTime.of(13, 0)); registros.get(116).setHoraSalida(LocalTime.of(15, 0));
@@ -1075,9 +1075,25 @@ public class Iniciadora {
 		
 		registros.add(new Registro(new Visitante("Ernesto Ramon Perez", "00103164380"," Laboratorio", "Revisar conexiones",personal.get(2)), locales.get(2))); //225
 		registros.get(225).setHoraEntrada(LocalTime.of(8, 0)); registros.get(225).setHoraSalida(LocalTime.of(10, 0));
-		registros.get(225).setFecha(LocalDate.of(2025, 6, 17));
+		registros.get(225).setFecha(LocalDate.now());
 		
 		
+		registros.add(new Registro(new Visitante("Javier Rios", "01102464390"," Decanato", "Revisar conexiones",personal.get(2)), locales.get(1))); //225
+		registros.get(225).setHoraEntrada(LocalTime.of(8, 0)); registros.get(225).setHoraSalida(LocalTime.of(10, 0));
+		registros.get(225).setFecha(LocalDate.now());
+		
+		registros.add(new Registro(new Visitante("Caridad Bacallao", "88102444390"," Decanato", "Revisar conexiones",personal.get(2)), locales.get(1))); //225
+		registros.get(225).setHoraEntrada(LocalTime.of(8, 0)); registros.get(225).setHoraSalida(LocalTime.of(10, 0));
+		registros.get(225).setFecha(LocalDate.of(2025,5,28));
+		
+		
+		registros.add(new Registro(new Visitante("Stefannie Berdut", "06061964390"," Decanato", "Revisar conexiones",personal.get(2)), locales.get(1))); //225
+		registros.get(225).setHoraEntrada(LocalTime.of(8, 0)); registros.get(225).setHoraSalida(LocalTime.of(10, 0));
+		registros.get(225).setFecha(LocalDate.now());
+		
+		registros.add(new Registro(new Visitante("Fabiola Luis", "06042864390"," Decanato", "Revisar conexiones",personal.get(2)), locales.get(4))); //225
+		registros.get(225).setHoraEntrada(LocalTime.of(8, 0)); registros.get(225).setHoraSalida(LocalTime.of(10, 0));
+		registros.get(225).setFecha(LocalDate.of(2025,6,17));
 		
 		
 		
